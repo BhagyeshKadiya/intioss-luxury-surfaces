@@ -182,10 +182,13 @@ export function HeroSection() {
         {images.length > 0 && (
           <motion.img
             key={images[imageIndex]}
-            initial={{ opacity: 0, scale: 1.04 }}
+            initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ 
+              opacity: { duration: 1.5, ease: "easeInOut" },
+              scale: { duration: 7.5, ease: "easeOut" }
+            }}
             src={images[imageIndex]}
             alt="Intioss Luxury Surfaces"
             className="absolute inset-0 w-full h-full object-cover z-0"
