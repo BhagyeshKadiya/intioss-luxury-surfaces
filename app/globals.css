@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --maroon: #541B2A;
+  --maroon-deep: #300C16;
+  --gold: #DDB62B;
+  --grey: #5B5B5B;
+  --ivory: #FAF7F2;
+  --white: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--ivory);
+  color: var(--maroon);
+  scroll-behavior: auto; /* Handled smoothly by Lenis */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: var(--ivory);
+  color: var(--maroon);
+  font-family: var(--font-poppins), sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Luxury selection color */
+::selection {
+  background-color: var(--maroon);
+  color: var(--gold);
+}
+
+/* Hairline border utility */
+.hairline-b {
+  border-bottom: 1px solid rgba(221, 182, 43, 0.25);
+}
+
+.hairline-t {
+  border-top: 1px solid rgba(221, 182, 43, 0.25);
+}
+
+.hairline-border {
+  border: 1px solid rgba(221, 182, 43, 0.25);
+}
+
+.hairline-gold {
+  border-color: rgba(221, 182, 43, 0.4);
+}
+
+/* Gold animated underline link utility */
+.nav-link-gold {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.nav-link-gold::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--gold);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link-gold:hover::after {
+  width: 100%;
+}
+
+/* Focus styles: Accessible gold ring */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 1.5px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
