@@ -8,6 +8,7 @@ import { Menu } from "lucide-react";
 import { IntiossLogo } from "@/components/brand/IntiossLogo";
 
 import { HoverMenu } from "./HoverMenu";
+import { MobileAppDock } from "./MobileAppDock";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -110,7 +111,7 @@ export function Navbar() {
             : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b border-gold/30"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Left: Brand Logo / Icon */}
           <div className="flex items-center">
             <motion.div
@@ -127,9 +128,9 @@ export function Navbar() {
             </motion.div>
           </div>
 
-          {/* Right: Only TWO Visible Links ("Products", "Services") + 3-line hamburger */}
-          <div className="flex items-center gap-6 sm:gap-10">
-            <nav className="flex items-center gap-6 sm:gap-10">
+          {/* Right: Visible Links ("Products", "Services") + 3-line hamburger */}
+          <div className="flex items-center gap-4 sm:gap-10">
+            <nav className="flex items-center gap-4 sm:gap-10">
               <Link
                 href="/products"
                 className={`font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
@@ -159,7 +160,7 @@ export function Navbar() {
                 onClick={() => setIsMenuOpen((prev) => !prev)}
                 aria-label="Toggle navigation menu"
                 aria-expanded={isMenuOpen}
-                className={`p-2 transition-colors flex items-center justify-center rounded-sm ${
+                className={`p-2 transition-colors flex items-center justify-center rounded-sm active:scale-90 ${
                   isOverHero
                     ? "text-ivory hover:text-gold"
                     : "text-maroon hover:text-gold"
@@ -171,6 +172,9 @@ export function Navbar() {
           </div>
         </div>
       </motion.header>
+
+      {/* Mobile App Bottom Navigation Dock */}
+      <MobileAppDock onOpenMenu={() => setIsMenuOpen(true)} />
 
       {/* Hover Expand Menu Drawer */}
       <HoverMenu

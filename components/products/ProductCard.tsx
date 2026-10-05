@@ -76,10 +76,12 @@ export function ProductCard({
           </span>
         </div>
 
-        {/* Quick Action Floating Bar (Slide up on hover) */}
+        {/* Quick Action Floating Bar: always accessible on mobile, slide up on desktop hover */}
         <div
-          className={`absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 z-20 transition-all duration-300 ${
-            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3 pointer-events-none"
+          className={`absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-20 transition-all duration-300 ${
+            isHovered
+              ? "opacity-100 translate-y-0"
+              : "opacity-90 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
           }`}
         >
           {/* Save to Moodboard (Heart) */}
@@ -90,7 +92,7 @@ export function ProductCard({
               onToggleMoodboard(product);
             }}
             aria-label="Save to Moodboard"
-            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-colors ${
+            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 ${
               isSavedToMoodboard
                 ? "bg-maroon text-gold border-gold"
                 : "bg-white/95 text-maroon border-gold/40 hover:bg-white hover:text-gold"
@@ -110,7 +112,7 @@ export function ProductCard({
               onToggleCompare(product);
             }}
             aria-label="Compare Stone"
-            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-colors ${
+            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 ${
               isSelectedForCompare
                 ? "bg-gold text-maroon border-maroon font-semibold"
                 : "bg-white/95 text-maroon border-gold/40 hover:bg-white hover:text-gold"
@@ -128,7 +130,7 @@ export function ProductCard({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Enquire on WhatsApp"
-            className="p-2 bg-maroon text-white hover:bg-maroon-deep border border-gold flex items-center gap-1 text-[10px] font-montserrat uppercase tracking-wider transition-colors shadow"
+            className="p-2 bg-maroon text-white hover:bg-maroon-deep border border-gold flex items-center gap-1 text-[10px] font-montserrat uppercase tracking-wider transition-all active:scale-90 shadow"
           >
             <MessageSquare className="w-3.5 h-3.5 text-gold" />
             <span className="hidden sm:inline">Enquire</span>
@@ -137,7 +139,7 @@ export function ProductCard({
       </div>
 
       {/* Card Body */}
-      <div className="p-5 flex-1 flex flex-col justify-between">
+      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between text-[11px] font-raleway uppercase tracking-wider text-grey mb-1">
             <span>{product.category}</span>

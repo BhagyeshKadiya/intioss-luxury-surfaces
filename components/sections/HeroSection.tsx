@@ -36,6 +36,12 @@ export function HeroSection() {
   const taglineOpacity = useTransform(scrollY, [0, 180], [1, 0]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
+  const handlePrevImage = useCallback(() => {
+    if (images.length > 0) {
+      setImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    }
+  }, [images.length]);
+
   const handleNextImage = useCallback(() => {
     if (images.length > 0) {
       setImageIndex((prev) => (prev + 1) % images.length);
@@ -167,7 +173,7 @@ export function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden bg-maroon-deep select-none"
+      className="relative w-full h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden bg-maroon-deep select-none touch-pan-y"
     >
       {/* Background Classical Violin Audio (stops automatically on scroll or route change) */}
       <audio
@@ -177,11 +183,47 @@ export function HeroSection() {
         preload="auto"
       />
 
-      {/* Background Cinematic Image Sequence */}
+      {/* Top App Story Progress Indicators (Instagram / Luxury App Style) */}
+      <div className="absolute top-20 sm:top-24 left-4 right-4 z-30 flex items-center gap-1.5 max-w-md mx-auto pointer-events-auto">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => setImageIndex(idx)}
+            aria-label={`Jump to slide ${idx + 1}`}
+            className="flex-1 h-1 rounded-full bg-white/25 overflow-hidden transition-all duration-300 relative focus:outline-none"
+          >
+            {idx === imageIndex ? (
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 5.5, ease: "linear" }}
+                className="h-full bg-gold shadow-[0_0_8px_#DDB62B]"
+              />
+            ) : idx < imageIndex ? (
+              <div className="h-full w-full bg-gold/70" />
+            ) : (
+              <div className="h-full w-0 bg-transparent" />
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Background Cinematic Image Sequence with Swipe Gesture */}
       <AnimatePresence mode="popLayout">
         {images.length > 0 && (
           <motion.img
             key={images[imageIndex]}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -40) {
+                handleNextImage();
+              } else if (info.offset.x > 40) {
+                handlePrevImage();
+              }
+            }}
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
@@ -191,17 +233,17 @@ export function HeroSection() {
             }}
             src={images[imageIndex]}
             alt="Intioss Luxury Surfaces"
-            className="absolute inset-0 w-full h-full object-cover z-0"
+            className="absolute inset-0 w-full h-full object-cover z-0 cursor-grab active:cursor-grabbing"
           />
         )}
       </AnimatePresence>
 
-      {/* Scrim Overlay: Maroon-deep to transparent scrim at ~35% */}
+      {/* Scrim Overlay: Maroon-deep to transparent scrim */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(48, 12, 22, 0.45) 0%, rgba(48, 12, 22, 0.35) 45%, rgba(48, 12, 22, 0.75) 100%)",
+            "linear-gradient(180deg, rgba(48, 12, 22, 0.5) 0%, rgba(48, 12, 22, 0.35) 45%, rgba(48, 12, 22, 0.8) 100%)",
         }}
       />
 
@@ -223,22 +265,33 @@ export function HeroSection() {
         {/* Beneath Logo: One line in Raleway, tracked: "Sourcing · Processing · Fitting" */}
         <motion.div
           style={{ opacity: taglineOpacity }}
-          className="mt-6 md:mt-8 font-raleway font-light uppercase tracking-[0.3em] text-gold/90 text-xs sm:text-sm"
+          className="mt-5 md:mt-8 font-raleway font-light uppercase tracking-[0.25em] sm:tracking-[0.3em] text-gold/90 text-xs sm:text-sm"
         >
           Sourcing &nbsp;·&nbsp; Processing &nbsp;·&nbsp; Fitting
         </motion.div>
+
+        {/* Mobile Swipe Hint Pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6 }}
+          className="sm:hidden mt-4 inline-flex items-center gap-2 px-3 py-1 bg-maroon-deep/60 backdrop-blur-md rounded-full border border-gold/30 text-[10px] font-montserrat uppercase tracking-wider text-ivory/80"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <span>Slide {imageIndex + 1} / {images.length} · Swipe to explore</span>
+        </motion.div>
       </div>
 
-      {/* Luxury Sound Controller (bottom-left, fades with scroll) */}
+      {/* Luxury Sound Controller (bottom-left / top-right adaptive) */}
       <motion.div
         style={{ opacity: scrollCueOpacity }}
-        className="absolute bottom-8 left-6 sm:left-10 z-20 flex items-center gap-2"
+        className="absolute bottom-20 sm:bottom-8 left-4 sm:left-10 z-20 flex items-center gap-2"
       >
         <button
           type="button"
           onClick={toggleSound}
           aria-label={isPlaying ? "Mute ambient music" : "Play ambient music"}
-          className="group flex items-center gap-2.5 px-3 sm:px-3.5 py-1.5 sm:py-2 bg-maroon-deep/60 hover:bg-maroon-deep/85 border border-gold/40 hover:border-gold text-ivory/90 hover:text-gold transition-all duration-300 backdrop-blur-md shadow-md rounded-none cursor-pointer"
+          className="group flex items-center gap-2 px-3 py-1.5 bg-maroon-deep/80 hover:bg-maroon-deep/95 border border-gold/40 hover:border-gold text-ivory/90 hover:text-gold transition-all duration-300 backdrop-blur-xl shadow-lg rounded-full cursor-pointer active:scale-90"
         >
           {isPlaying ? (
             <Volume2 className="w-3.5 h-3.5 text-gold animate-pulse" />
@@ -265,21 +318,21 @@ export function HeroSection() {
             />
           </div>
 
-          <span className="font-raleway text-[9px] uppercase tracking-[0.25em] font-medium text-ivory/80 group-hover:text-gold transition-colors">
-            {isPlaying ? "Music On" : "Music Off"}
+          <span className="font-raleway text-[9px] uppercase tracking-[0.2em] font-medium text-ivory/80 group-hover:text-gold transition-colors">
+            {isPlaying ? "Sound On" : "Sound"}
           </span>
         </button>
       </motion.div>
 
-      {/* Minimal Scroll Cue: Thin Gold Line Pulsing Downward */}
+      {/* Minimal Scroll Cue: Pulsing Gold Indicator (hidden on small mobile to avoid dock collision) */}
       <motion.div
         style={{ opacity: scrollCueOpacity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none"
+        className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-2 pointer-events-none"
       >
         <span className="font-raleway text-[9px] uppercase tracking-[0.3em] text-ivory/60">
           Scroll
         </span>
-        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+        <div className="w-[1px] h-10 bg-white/20 relative overflow-hidden">
           <motion.div
             animate={{
               y: ["-100%", "100%"],

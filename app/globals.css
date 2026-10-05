@@ -13,6 +13,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -23,6 +24,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  touch-action: manipulation;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera by default */
