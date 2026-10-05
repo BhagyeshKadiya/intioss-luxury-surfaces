@@ -22,7 +22,7 @@ export default function ServicesPage() {
             End-To-End Architectural Discipline
           </span>
           <h1 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon tracking-wide">
-            Sourcing. Processing. Fitting. Care.
+            Turnkey Stone Execution & Craft
           </h1>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
             Unlike surface retailers who subcontract execution to unvetted labor, INTIOSS controls the entire lifecycle under one roof. Backed by the Gandhi Civil Decor Group&apos;s 55-year contracting lineage, we guarantee millimeter tolerance from mountain bench to final diamond crystallisation.

@@ -32,8 +32,6 @@ export function HeroSection() {
   // Scroll morph: as user scrolls 0 to 60vh (approx 0 to 500px), logo shrinks and travels up into navbar position
   const logoScale = useTransform(scrollY, [0, 400], [1, 0.4]);
   const logoY = useTransform(scrollY, [0, 400], [0, -180]);
-  const wordmarkOpacity = useTransform(scrollY, [0, 250], [1, 0]);
-  const taglineOpacity = useTransform(scrollY, [0, 180], [1, 0]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
   const handlePrevImage = useCallback(() => {
@@ -260,14 +258,6 @@ export function HeroSection() {
           <div className="flex flex-col items-center">
             <IntiossLogo size="hero" asLink={false} />
           </div>
-        </motion.div>
-
-        {/* Beneath Logo: One line in Raleway, tracked: "Sourcing · Processing · Fitting" */}
-        <motion.div
-          style={{ opacity: taglineOpacity }}
-          className="mt-5 md:mt-8 font-raleway font-light uppercase tracking-[0.25em] sm:tracking-[0.3em] text-gold/90 text-xs sm:text-sm"
-        >
-          Sourcing &nbsp;·&nbsp; Processing &nbsp;·&nbsp; Fitting
         </motion.div>
 
         {/* Mobile Swipe Hint Pill */}

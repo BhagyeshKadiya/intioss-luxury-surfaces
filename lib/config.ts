@@ -3,7 +3,6 @@ export const WHATSAPP_NUMBER = "919930171094";
 export const SITE_CONFIG = {
   name: "INTIOSS",
   tagline: "Luxury Surfaces",
-  subTagline: "Sourcing · Processing · Fitting",
   description:
     "The luxury stone brand of the Gandhi Civil Decor Group. Direct quarrier, bespoke processor, and turnkey installer of rare marble, precious gemstones, onyx, and architectural surfaces.",
   whatsappNumber: WHATSAPP_NUMBER,

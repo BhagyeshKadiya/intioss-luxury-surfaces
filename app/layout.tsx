@@ -12,7 +12,7 @@ import { SITE_CONFIG } from "@/lib/config";
 export const metadata: Metadata = {
   metadataBase: new URL("https://intioss.com"),
   title: {
-    default: "INTIOSS – Luxury Surfaces | Sourcing · Processing · Fitting",
+    default: "INTIOSS – Luxury Surfaces",
     template: "%s | INTIOSS – Luxury Surfaces",
   },
   description:
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "INTIOSS – Luxury Surfaces",
     description:
-      "Sourcing · Processing · Fitting. Rare marble and architectural stone for discerning estates in South Mumbai and Gujarat.",
+      "Rare marble and architectural stone for discerning estates in South Mumbai and Gujarat.",
     url: "https://intioss.com",
     siteName: "INTIOSS Luxury Surfaces",
     locale: "en_IN",
