@@ -76,7 +76,7 @@ export const APPLICATION_SPACES: ApplicationSpace[] = [
   {
     id: "app-facade",
     slug: "facade",
-    title: "Façade",
+    title: "Facade",
     tagline: "Dry-hung ventilated architectural envelopes engineered for generational resilience.",
     image: "/images/services/stone-facades.jpg",
     recommendedStones: [

@@ -16,15 +16,15 @@ export const metadata: Metadata = {
     template: "%s | INTIOSS – Luxury Surfaces",
   },
   description:
-    "The luxury stone brand of the Gandhi Civil Décor Group and Quality Marble. Curating rare Italian marble, semi-precious gemstones, onyx, and architectural surfaces across South Mumbai and Gujarat.",
+    "The luxury stone brand of the Gandhi Civil Decor Group and Quality Marble. Curating rare Italian marble, semi-precious gemstones, onyx, and architectural surfaces across South Mumbai and Gujarat.",
   keywords: [
     "Italian Marble Mumbai",
     "Luxury Surfaces Gujarat",
     "Statuario Marble South Mumbai",
     "Precious Stone Slabs",
-    "Architectural Stone Façades",
+    "Architectural Stone Facades",
     "Bookmatch Marble",
-    "Gandhi Civil Décor",
+    "Gandhi Civil Decor",
     "Quality Marble",
   ],
   authors: [{ name: "INTIOSS Luxury Surfaces" }],
@@ -56,7 +56,7 @@ const jsonLd = {
   email: SITE_CONFIG.email,
   parentOrganization: {
     "@type": "Organization",
-    name: "Gandhi Civil Décor Group",
+    name: "Gandhi Civil Decor Group",
     subOrganization: {
       "@type": "Organization",
       name: "Quality Marble",

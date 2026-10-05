@@ -59,7 +59,7 @@ html {
 body {
   background-color: var(--ivory);
   color: var(--maroon);
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-forum), serif;
   overflow-x: hidden;
   margin: 0;
   padding: 0;

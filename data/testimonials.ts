@@ -25,7 +25,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t3",
     quote:
-      "Working with heritage properties in South Mumbai requires contractors who understand both structural restraint and delicate stone restoration. INTIOSS is backed by Gandhi Civil Décor's 55 years of experience; their team is leagues ahead of standard stone dealers.",
+      "Working with heritage properties in South Mumbai requires contractors who understand both structural restraint and delicate stone restoration. INTIOSS is backed by Gandhi Civil Decor's 55 years of experience; their team is leagues ahead of standard stone dealers.",
     clientName: "Zubin Shroff",
     clientRole: "Senior Interior Architect",
     city: "Colaba, Mumbai",
@@ -35,7 +35,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t4",
     quote:
-      "For our boutique coastal resort near Alibaug, INTIOSS engineered dry-hung Silver Travertine ventilated façades that withstand heavy monsoon salt spray while keeping the interiors naturally cool. Their technical documentation for engineers is meticulous.",
+      "For our boutique coastal resort near Alibaug, INTIOSS engineered dry-hung Silver Travertine ventilated facades that withstand heavy monsoon salt spray while keeping the interiors naturally cool. Their technical documentation for engineers is meticulous.",
     clientName: "S. K. Singhania",
     clientRole: "Hospitality Developer",
     city: "Mumbai & Alibaug",

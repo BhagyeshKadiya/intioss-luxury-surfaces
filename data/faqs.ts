@@ -5,7 +5,7 @@ export const FAQS: FAQItem[] = [
     id: "faq-1",
     question: "How does INTIOSS direct quarry sourcing work?",
     answer:
-      "Backed by Quality Marble and Gandhi Civil Décor's 55+ years of European quarry relationships, we reserve whole blocks at active quarry benches in Carrara, Verona, Denizli, and Brazil. Clients and architects can inspect high-resolution video audits, select specific slab vein runs, or commission our directors to source bespoke mountain veins directly.",
+      "Backed by Quality Marble and Gandhi Civil Decor's 55+ years of European quarry relationships, we reserve whole blocks at active quarry benches in Carrara, Verona, Denizli, and Brazil. Clients and architects can inspect high-resolution video audits, select specific slab vein runs, or commission our directors to source bespoke mountain veins directly.",
     category: "Sourcing",
   },
   {
@@ -61,7 +61,7 @@ export const FAQS: FAQItem[] = [
     id: "faq-9",
     question: "How do you collaborate with architects and interior design studios?",
     answer:
-      "We act as an integrated technical partner: providing CAD shop drawings, vein-matching digital renderings, structural sub-frame calculations for façades, and dedicated site supervisors to ensure your design intent is realized with zero compromise.",
+      "We act as an integrated technical partner: providing CAD shop drawings, vein-matching digital renderings, structural sub-frame calculations for facades, and dedicated site supervisors to ensure your design intent is realized with zero compromise.",
     category: "Partnership",
   },
   {

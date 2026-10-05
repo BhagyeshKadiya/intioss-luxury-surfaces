@@ -39,7 +39,7 @@ export function Footer() {
 
             <div className="pt-2">
               <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold/80 block mb-2">
-                A Gandhi Civil Décor Group Enterprise
+                A Gandhi Civil Decor Group Enterprise
               </span>
               <a
                 href={SITE_CONFIG.parentBrand.url}
@@ -141,7 +141,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services#stone-facades" className="hover:text-gold transition-colors">
-                  Ventilated Stone Façades
+                  Ventilated Stone Facades
                 </Link>
               </li>
               <li>
@@ -219,7 +219,7 @@ export function Footer() {
         {/* Bottom Bar without Back to Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-raleway text-ivory/60">
           <div>
-            © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved. Gandhi Civil Décor Group.
+            © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved. Gandhi Civil Decor Group.
           </div>
         </div>
       </div>

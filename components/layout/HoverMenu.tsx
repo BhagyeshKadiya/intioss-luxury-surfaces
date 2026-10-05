@@ -16,7 +16,7 @@ interface HoverMenuProps {
 }
 
 const MENU_ITEMS = [
-  { title: "About Us", href: "/about", description: "55+ years heritage · Gandhi Civil Décor Group" },
+  { title: "About Us", href: "/about", description: "55+ years heritage · Gandhi Civil Decor Group" },
   { title: "Book Match", href: "/book-match", description: "Interactive mirror simulation tool" },
   { title: "Gallery (Marble Use Cases)", href: "/gallery", description: "Curated architectural installations" },
   { title: "Blogs", href: "/blogs", description: "Editorial stone guides & material science" },

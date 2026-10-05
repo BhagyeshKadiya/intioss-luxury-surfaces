@@ -8,7 +8,7 @@ import { getWhatsAppUrl } from "@/lib/config";
 
 interface GalleryItem {
   id: string;
-  category: "Living" | "Kitchen" | "Bath" | "Façade" | "Hospitality" | "Commercial";
+  category: "Living" | "Kitchen" | "Bath" | "Facade" | "Hospitality" | "Commercial";
   title: string;
   stoneUsed: string;
   location: string;
@@ -55,7 +55,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: "g5",
-    category: "Façade",
+    category: "Facade",
     title: "Ventilated Engineered Stone Cladding",
     stoneUsed: "Navona Travertine & Titanium 30mm",
     location: "Alibaug Coastline",
@@ -109,7 +109,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
 ];
 
-const CATEGORIES = ["All", "Living", "Kitchen", "Bath", "Façade", "Hospitality", "Commercial"] as const;
+const CATEGORIES = ["All", "Living", "Kitchen", "Bath", "Facade", "Hospitality", "Commercial"] as const;
 
 export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");

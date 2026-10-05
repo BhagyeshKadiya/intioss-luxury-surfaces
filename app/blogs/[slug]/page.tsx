@@ -107,7 +107,7 @@ export default function BlogPostDetailPage({
               INTIOSS Architectural Advisory
             </h4>
             <p className="font-poppins text-xs text-grey mt-1 leading-relaxed">
-              Curated by the engineering and material sourcing teams of Gandhi Civil Décor Group and Quality Marble. For consultations regarding slab testing and humidity engineering, speak with our private concierge.
+              Curated by the engineering and material sourcing teams of Gandhi Civil Decor Group and Quality Marble. For consultations regarding slab testing and humidity engineering, speak with our private concierge.
             </p>
             <div className="mt-4">
               <Link

@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   tagline: "Luxury Surfaces",
   subTagline: "Sourcing · Processing · Fitting",
   description:
-    "The luxury stone brand of the Gandhi Civil Décor Group. Direct quarrier, bespoke processor, and turnkey installer of rare marble, precious gemstones, onyx, and architectural surfaces.",
+    "The luxury stone brand of the Gandhi Civil Decor Group. Direct quarrier, bespoke processor, and turnkey installer of rare marble, precious gemstones, onyx, and architectural surfaces.",
   whatsappNumber: WHATSAPP_NUMBER,
   phoneDisplay: "+91 99301 71094",
   email: "concierge@intioss.com",
@@ -13,7 +13,7 @@ export const SITE_CONFIG = {
     name: "Quality Marble",
     url: "https://www.qualitymarble.co.in/",
   },
-  group: "Gandhi Civil Décor Group",
+  group: "Gandhi Civil Decor Group",
   stats: [
     { value: 55, suffix: "+", label: "Years of Legacy" },
     { value: 1250, suffix: "+", label: "Projects Delivered" },

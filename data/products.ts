@@ -82,7 +82,7 @@ export const PRODUCTS: StoneProduct[] = [
     colorFamily: "Beige",
     origin: "Tivoli, Italy",
     finishes: ["Honed", "Brushed", "Antique", "Polished"],
-    applications: ["Façade", "Wall Cladding", "Flooring", "Bathroom", "Outdoor"],
+    applications: ["Facade", "Wall Cladding", "Flooring", "Bathroom", "Outdoor"],
     thicknesses: ["18mm", "20mm", "30mm"],
     veining: "Uniform",
     priceTier: "tier_2",
@@ -96,7 +96,7 @@ export const PRODUCTS: StoneProduct[] = [
     description:
       "The classic stone of Roman architecture. Sawn cross-cut or vein-cut with delicate creamy striations and gentle thermal comfort underfoot. Available with transparent epoxy resin filling or raw tactile pores for acoustic luxury.",
     bestSuitedFor: [
-      "Exterior Ventilated Façades",
+      "Exterior Ventilated Facades",
       "Spa Wellness Wet Rooms",
       "Courtyard & Poolside Decks",
     ],
@@ -106,7 +106,7 @@ export const PRODUCTS: StoneProduct[] = [
       density: "2.48 g/cm³",
       quarryLocation: "Tivoli, Lazio, Italy",
       recommendedCare:
-        "Breathable siloxane sealer for façades; periodic mild wash.",
+        "Breathable siloxane sealer for facades; periodic mild wash.",
     },
     pairsWithSlugs: ["golden-statuario", "petrified-wood"],
   },
@@ -331,7 +331,7 @@ export const PRODUCTS: StoneProduct[] = [
     colorFamily: "Grey",
     origin: "Tivoli, Italy / Denizli, Turkey",
     finishes: ["Honed", "Leathered", "Brushed"],
-    applications: ["Façade", "Flooring", "Wall Cladding", "Staircase", "Outdoor"],
+    applications: ["Facade", "Flooring", "Wall Cladding", "Staircase", "Outdoor"],
     thicknesses: ["18mm", "20mm", "30mm"],
     veining: "Uniform",
     priceTier: "tier_2",

@@ -13,7 +13,7 @@ const SURFACE_OPTIONS = [
   "Mosaics",
   "Stone Veneers",
   "Artefacts",
-  "Stone Façade",
+  "Stone Facade",
   "Civil Contracting",
 ];
 

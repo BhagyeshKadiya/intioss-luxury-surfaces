@@ -1,13 +1,13 @@
 import {
-  Montserrat,
+  Forum,
   Marcellus,
-  Raleway,
+  Castoro_Titling,
 } from "next/font/google";
 
-export const fontMontserrat = Montserrat({
+export const fontForum = Forum({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-montserrat",
+  weight: ["400"],
+  variable: "--font-forum",
   display: "swap",
 });
 
@@ -18,11 +18,11 @@ export const fontMarcellus = Marcellus({
   display: "swap",
 });
 
-export const fontRaleway = Raleway({
+export const fontCastoro = Castoro_Titling({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-raleway",
+  weight: ["400"],
+  variable: "--font-castoro",
   display: "swap",
 });
 
-export const fontVariables = `${fontMontserrat.variable} ${fontMarcellus.variable} ${fontRaleway.variable}`;
+export const fontVariables = `${fontForum.variable} ${fontMarcellus.variable} ${fontCastoro.variable}`;

@@ -33,7 +33,7 @@ export type ApplicationArea =
   | "Flooring"
   | "Wall Cladding"
   | "Countertop"
-  | "Façade"
+  | "Facade"
   | "Staircase"
   | "Bathroom"
   | "Pooja Room"

@@ -6,9 +6,9 @@ import { ExternalLink, Check, Award, Compass, Hammer, Sparkles } from "lucide-re
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About INTIOSS | Gandhi Civil Décor Group & Quality Marble",
+  title: "About INTIOSS | Gandhi Civil Decor Group & Quality Marble",
   description:
-    "Established 1997. The generational story of Gandhi Civil Décor Group and Quality Marble, bridging European quarry benches and India's finest private residences.",
+    "Established 1997. The generational story of Gandhi Civil Decor Group and Quality Marble, bridging European quarry benches and India's finest private residences.",
 };
 
 export default function AboutPage() {
@@ -66,7 +66,7 @@ export default function AboutPage() {
               Founding Heritage
             </span>
             <h2 className="font-marcellus text-2xl sm:text-3xl text-maroon">
-              The Gandhi Civil Décor Group
+              The Gandhi Civil Decor Group
             </h2>
             <div className="mt-4 pt-4 border-t border-gold/20">
               <a
@@ -83,10 +83,10 @@ export default function AboutPage() {
 
           <div className="md:col-span-8 space-y-4 font-poppins text-xs sm:text-sm text-grey leading-relaxed">
             <p>
-              In 1971, the foundations of what would become the Gandhi Civil Décor Group were laid across Western India. Initially pioneering heavy industrial civil contracting and monumental stonework, the group developed an instinctive understanding of how natural stone reacts to climate, foundation settling, and architectural loads.
+              In 1971, the foundations of what would become the Gandhi Civil Decor Group were laid across Western India. Initially pioneering heavy industrial civil contracting and monumental stonework, the group developed an instinctive understanding of how natural stone reacts to climate, foundation settling, and architectural loads.
             </p>
             <p>
-              Formalised in 1997, Gandhi Civil Décor expanded into luxury residential fitouts across South Mumbai—from the colonial bungalows of Malabar Hill to the high-rise penthouses of Worli. Recognizing that commercial marble vendors lacked the structural rigor required for zero-tolerance dry-laying, the group partnered with{" "}
+              Formalised in 1997, Gandhi Civil Decor expanded into luxury residential fitouts across South Mumbai—from the colonial bungalows of Malabar Hill to the high-rise penthouses of Worli. Recognizing that commercial marble vendors lacked the structural rigor required for zero-tolerance dry-laying, the group partnered with{" "}
               <strong className="text-maroon font-montserrat">Quality Marble</strong> to establish direct overseas sourcing operations in Carrara, Verona, and Turkey.
             </p>
             <p>

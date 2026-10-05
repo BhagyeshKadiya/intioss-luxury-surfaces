@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Turnkey Stone Services & Civil Contracting | INTIOSS",
   description:
-    "End-to-end architectural stone execution: Luxury civil contracting, block processing, ventilated façades, 5-axis CNC & waterjet carving, international sourcing, and AMC care.",
+    "End-to-end architectural stone execution: Luxury civil contracting, block processing, ventilated facades, 5-axis CNC & waterjet carving, international sourcing, and AMC care.",
 };
 
 export default function ServicesPage() {
@@ -25,7 +25,7 @@ export default function ServicesPage() {
             Sourcing. Processing. Fitting. Care.
           </h1>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
-            Unlike surface retailers who subcontract execution to unvetted labor, INTIOSS controls the entire lifecycle under one roof. Backed by the Gandhi Civil Décor Group&apos;s 55-year contracting lineage, we guarantee millimeter tolerance from mountain bench to final diamond crystallisation.
+            Unlike surface retailers who subcontract execution to unvetted labor, INTIOSS controls the entire lifecycle under one roof. Backed by the Gandhi Civil Decor Group&apos;s 55-year contracting lineage, we guarantee millimeter tolerance from mountain bench to final diamond crystallisation.
           </p>
         </div>
       </div>

@@ -1,6 +1,6 @@
 # INTIOSS – Luxury Surfaces Web App
 
-Production-grade website for **INTIOSS – Luxury Surfaces**, the premium stone brand of the Gandhi Civil Décor Group and subsidiary of Quality Marble ([qualitymarble.co.in](https://www.qualitymarble.co.in/)).
+Production-grade website for **INTIOSS – Luxury Surfaces**, the premium stone brand of the Gandhi Civil Decor Group and subsidiary of Quality Marble ([qualitymarble.co.in](https://www.qualitymarble.co.in/)).
 
 ---
 
@@ -9,7 +9,7 @@ Production-grade website for **INTIOSS – Luxury Surfaces**, the premium stone 
 - **Motion (`motion/react`)** – smooth luxury easing, scroll transforms, and animations
 - **Tailwind CSS** – strict luxury brand tokens (`--maroon`, `--maroon-deep`, `--gold`, `--grey`, `--ivory`, `--white`)
 - **Lenis** – silky smooth scrolling
-- **7 Google Fonts** loaded via `next/font`: Montserrat, Poppins, Marcellus, Raleway, EB Garamond, Bebas Neue, Jost
+- **3 Curated Google Fonts**: Forum, Marcellus, Castoro Titling
 - **Embla Carousel** – hardware-accelerated editorial sliders
 - **Fuse.js** – typo-tolerant stone search
 - **Zod & React Hook Form** – consultation validation and security honeypot

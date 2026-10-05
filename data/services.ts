@@ -90,17 +90,17 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "s3",
     slug: "stone-facades",
-    title: "Stone Façades",
+    title: "Stone Facades",
     shortDesc:
-      "Engineered ventilated façades, undercut anchor systems, and monumental dry-clad exterior architecture.",
+      "Engineered ventilated facades, undercut anchor systems, and monumental dry-clad exterior architecture.",
     fullDesc:
-      "We design and engineer bespoke ventilated stone façades engineered to resist coastal wind loads of South Mumbai and the thermal extremes of Gujarat. Utilizing German Fischer undercut anchors and marine-grade SS316 substructures, our façades provide lifetime durability, thermal insulation, and timeless grandeur.",
+      "We design and engineer bespoke ventilated stone facades engineered to resist coastal wind loads of South Mumbai and the thermal extremes of Gujarat. Utilizing German Fischer undercut anchors and marine-grade SS316 substructures, our facades provide lifetime durability, thermal insulation, and timeless grandeur.",
     image: "/images/services/stone-facades.jpg",
     capabilities: [
       "Ventilated curtain-wall stone engineering",
       "Fischer undercut anchor mechanical dry-cladding",
       "Seismic and coastal wind-load finite element analysis",
-      "Integrated façade thermal and acoustic insulation",
+      "Integrated facade thermal and acoustic insulation",
     ],
     process: [
       {

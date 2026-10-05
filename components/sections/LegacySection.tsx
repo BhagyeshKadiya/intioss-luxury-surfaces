@@ -18,7 +18,7 @@ const TIMELINE_MILESTONES = [
   {
     year: "1997",
     period: "Corporate Inception",
-    title: "Gandhi Civil Décor Incorporation",
+    title: "Gandhi Civil Decor Incorporation",
     desc: "Formal corporate incorporation delivering turnkey luxury residential interiors and architectural stonework for South Mumbai's most prestigious estates.",
     stat: "500+ Luxury Estates",
     location: "Mumbai & Gujarat",
@@ -109,7 +109,7 @@ export function LegacySection() {
               >
                 <Image
                   src="/images/legacy-founder.jpg"
-                  alt="Gandhi Civil Décor & Quality Marble Heritage — 55+ Years of Provenance"
+                  alt="Gandhi Civil Decor & Quality Marble Heritage — 55+ Years of Provenance"
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover object-center"
@@ -147,7 +147,7 @@ export function LegacySection() {
               </p>
               <p>
                 As the dedicated luxury surfaces arm of the{" "}
-                <strong className="text-maroon font-montserrat font-medium">Gandhi Civil Décor Group</strong> and a direct subsidiary of{" "}
+                <strong className="text-maroon font-montserrat font-medium">Gandhi Civil Decor Group</strong> and a direct subsidiary of{" "}
                 <strong className="text-maroon font-montserrat font-medium">Quality Marble</strong>, INTIOSS bridges the gap between mountain quarry benches in Italy and the most prestigious penthouses and estates of South Mumbai and Gujarat.
               </p>
             </div>

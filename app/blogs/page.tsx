@@ -27,7 +27,7 @@ export default function BlogsPage() {
             Essays in Stone, Geology & Architecture
           </h1>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
-            Written by senior stone consultants and civil engineers from Gandhi Civil Décor Group and Quality Marble. Technical material science meets high-end spatial aesthetics.
+            Written by senior stone consultants and civil engineers from Gandhi Civil Decor Group and Quality Marble. Technical material science meets high-end spatial aesthetics.
           </p>
         </div>
 

@@ -10,7 +10,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "Architectural Guide",
     readTime: "6 min read",
     publishDate: "September 28, 2026",
-    author: "Gandhi Civil Décor Editorial",
+    author: "Gandhi Civil Decor Editorial",
     coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
     contentHtml: `
       <p>Specifying natural stone for high-rise residences along Worli Sea Face, Malabar Hill, or Bandra Bandstand requires balancing aesthetics with environmental physics. Coastal air carries microscopic salinity and relative humidity often exceeding 85%, which can impact porous stones if not specified and sealed correctly.</p>
@@ -37,7 +37,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "INTIOSS Sourcing Desk",
     coverImage: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1200&auto=format&fit=crop",
     contentHtml: `
-      <p>For more than half a century, the Gandhi Civil Décor Group and Quality Marble have processed both rare imported European blocks and India's finest historical stone deposits. The decision between Italian and Indian marble is rarely binary—it is an interplay of space, light, and architectural purpose.</p>
+      <p>For more than half a century, the Gandhi Civil Decor Group and Quality Marble have processed both rare imported European blocks and India's finest historical stone deposits. The decision between Italian and Indian marble is rarely binary—it is an interplay of space, light, and architectural purpose.</p>
 
       <h3>Geological Genesis and Crystalline Structure</h3>
       <p>Carrara marble, quarried in Tuscany's Apuan Alps, originated from ancient sedimentary limestone subjected to immense tectonic heat and pressure during the Alpine orogeny. The result is pure calcite recrystallised into interlocking saccharoidal crystals, providing its hallmark translucent 'glow'.</p>
