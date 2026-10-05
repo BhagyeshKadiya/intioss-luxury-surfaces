@@ -39,3 +39,5 @@ public/hero/clip*.mp4
 public/hero/clip*.MOV
 !public/hero/website_clip_*.mp4
 !public/hero/website_clip_*.MOV
+
+.vercel

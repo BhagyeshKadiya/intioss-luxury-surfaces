@@ -1,0 +1,7 @@
+.next
+node_modules
+public/hero/clip-*.mp4
+public/hero/clip-*.MOV
+public/hero/clip*.mp4
+public/hero/clip*.MOV
+!public/hero/website_clip_*.mp4
