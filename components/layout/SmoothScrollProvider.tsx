@@ -18,6 +18,10 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       wheelMultiplier: 0.9,
     });
 
+    if (typeof window !== "undefined") {
+      (window as any).__lenis = lenis;
+    }
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -26,6 +30,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     requestAnimationFrame(raf);
 
     return () => {
+      if (typeof window !== "undefined") {
+        delete (window as any).__lenis;
+      }
       lenis.destroy();
     };
   }, []);

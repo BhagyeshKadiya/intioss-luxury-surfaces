@@ -23,6 +23,29 @@ export function CompareDrawer({
   isOpen,
   onToggleOpen,
 }: CompareDrawerProps) {
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.stop();
+      }
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
+    };
+  }, [isOpen]);
+
   if (compareList.length === 0) return null;
 
   return (
@@ -48,7 +71,10 @@ export function CompareDrawer({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-x-0 bottom-0 z-[95] max-h-[85vh] overflow-y-auto bg-ivory text-maroon border-t-2 border-gold shadow-2xl p-6 sm:p-8"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed inset-x-0 bottom-0 z-[95] max-h-[85vh] overflow-y-auto bg-ivory text-maroon border-t-2 border-gold shadow-2xl p-6 sm:p-8 overscroll-contain luxury-scrollbar"
+            style={{ overscrollBehavior: "contain", WebkitOverflowScrolling: "touch" }}
           >
             <div className="max-w-7xl mx-auto">
               {/* Header */}

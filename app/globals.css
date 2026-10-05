@@ -25,9 +25,33 @@ html {
   scrollbar-width: none; /* Firefox */
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar for Chrome, Safari and Opera by default */
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* Luxury visible scrollbar for modals & drawers */
+.luxury-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(221, 182, 43, 0.5) transparent;
+}
+
+.luxury-scrollbar::-webkit-scrollbar {
+  display: block;
+  width: 5px;
+}
+
+.luxury-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.luxury-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 182, 43, 0.5);
+  border-radius: 9999px;
+}
+
+.luxury-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(221, 182, 43, 0.8);
 }
 
 body {

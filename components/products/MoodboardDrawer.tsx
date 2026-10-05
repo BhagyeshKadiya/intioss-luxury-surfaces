@@ -23,6 +23,29 @@ export function MoodboardDrawer({
   isOpen,
   onClose,
 }: MoodboardDrawerProps) {
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.stop();
+      }
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
+    };
+  }, [isOpen]);
+
   const shareOnWhatsApp = () => {
     if (moodboard.length === 0) return;
     const stoneNames = moodboard.map((s) => s.name).join(", ");
@@ -43,7 +66,9 @@ export function MoodboardDrawer({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[98]"
+            onWheel={(e) => e.preventDefault()}
+            onTouchMove={(e) => e.preventDefault()}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[98] touch-none"
           />
 
           {/* Drawer Right */}
@@ -52,10 +77,12 @@ export function MoodboardDrawer({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed top-0 right-0 bottom-0 w-full sm:w-[460px] bg-ivory text-maroon z-[99] shadow-2xl flex flex-col justify-between border-l border-gold/40"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            className="fixed top-0 right-0 bottom-0 w-full sm:w-[460px] bg-ivory text-maroon z-[99] shadow-2xl flex flex-col justify-between border-l border-gold/40 overscroll-contain"
           >
             {/* Header */}
-            <div className="p-6 border-b border-gold/30 flex items-center justify-between bg-white">
+            <div className="p-6 border-b border-gold/30 flex items-center justify-between bg-white flex-shrink-0">
               <div className="flex items-center gap-2">
                 <Heart className="w-5 h-5 text-gold fill-gold" />
                 <h3 className="font-marcellus text-xl text-maroon">
@@ -72,7 +99,12 @@ export function MoodboardDrawer({
             </div>
 
             {/* List */}
-            <div className="p-6 flex-1 overflow-y-auto space-y-4">
+            <div
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              className="p-6 flex-1 overflow-y-auto space-y-4 overscroll-contain luxury-scrollbar"
+              style={{ overscrollBehavior: "contain", WebkitOverflowScrolling: "touch" }}
+            >
               {moodboard.length === 0 ? (
                 <div className="py-16 text-center text-grey">
                   <Heart className="w-10 h-10 text-gold/40 mx-auto mb-3" />

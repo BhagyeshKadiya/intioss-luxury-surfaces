@@ -29,15 +29,27 @@ export function ProductHoldModal({ productName, productOrigin, applications }: P
     setMounted(true);
   }, []);
 
-  // Prevent background scrolling when modal is open
+  // Prevent background scrolling and lock Lenis when modal is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.stop();
+      }
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+      if (typeof window !== "undefined" && (window as any).__lenis) {
+        (window as any).__lenis.start();
+      }
     };
   }, [isOpen]);
 
@@ -82,27 +94,35 @@ Please confirm availability and hold status.`;
       {mounted && createPortal(
         <AnimatePresence>
           {isOpen && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6">
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+              {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={handleClose}
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                onWheel={(e) => e.preventDefault()}
+                onTouchMove={(e) => e.preventDefault()}
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm touch-none"
               />
 
+              {/* Modal Container */}
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.95 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-full max-w-lg bg-ivory border border-gold/40 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+                className="relative w-full max-w-lg bg-ivory border border-gold/40 shadow-2xl overflow-hidden flex flex-col max-h-[85vh] sm:max-h-[90vh] z-10"
+                style={{ overscrollBehavior: "contain" }}
               >
                 {/* Header */}
                 <div className="bg-maroon-deep p-6 text-center relative border-b border-gold/30 flex-shrink-0">
                   <button
                     onClick={handleClose}
-                    className="absolute top-4 right-4 text-ivory/60 hover:text-gold transition-colors"
+                    className="absolute top-4 right-4 text-ivory/60 hover:text-gold transition-colors p-1"
                     aria-label="Close modal"
                   >
                     <X className="w-5 h-5" />
@@ -115,8 +135,17 @@ Please confirm availability and hold status.`;
                   </h3>
                 </div>
 
-                {/* Form Content */}
-                <div className="p-6 overflow-y-auto flex-1 min-h-0">
+                {/* Form Content - Fully scrollable with isolated scroll chain */}
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
+                  className="p-6 overflow-y-auto flex-1 min-h-0 luxury-scrollbar"
+                  style={{
+                    overscrollBehavior: "contain",
+                    WebkitOverflowScrolling: "touch",
+                  }}
+                >
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                       <label className="block font-montserrat text-xs font-semibold text-maroon mb-1.5 uppercase tracking-wider">
