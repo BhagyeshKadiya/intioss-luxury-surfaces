@@ -9,26 +9,21 @@ import { IntiossLogo } from "@/components/brand/IntiossLogo";
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [mediaIndex, setMediaIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const userManuallyPaused = useRef(false);
   const isOutOfHero = useRef(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const media = [
-    { type: "video", src: "/hero/website_clip_1.mp4" },
-    { type: "video", src: "/hero/website_clip_2.mp4" },
-    { type: "video", src: "/hero/website_clip_3.mp4" },
-    { type: "video", src: "/hero/website_clip_4.mp4" },
-    { type: "video", src: "/hero/website_clip_5.mp4" },
-    { type: "image", src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png" },
-    { type: "image", src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.png" },
-    { type: "image", src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png" },
-    { type: "image", src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png" },
-    { type: "image", src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png" },
-    { type: "image", src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png" },
-    { type: "image", src: "/hero/intioss_use_case.png" },
-    { type: "image", src: "/hero/Intioss_White-Travertine_Dining-Table-Top_05.png" }
+  const images = [
+    "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png",
+    "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.png",
+    "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png",
+    "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png",
+    "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png",
+    "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png",
+    "/hero/intioss_use_case.png",
+    "/hero/Intioss_White-Travertine_Dining-Table-Top_05.png"
   ];
 
   const pathname = usePathname();
@@ -41,36 +36,25 @@ export function HeroSection() {
   const taglineOpacity = useTransform(scrollY, [0, 180], [1, 0]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
-  const handleMediaEnd = useCallback(() => {
-    if (media.length > 0) {
-      setMediaIndex((prev) => (prev + 1) % media.length);
+  const handleNextImage = useCallback(() => {
+    if (images.length > 0) {
+      setImageIndex((prev) => (prev + 1) % images.length);
     }
-  }, [media.length]);
+  }, [images.length]);
 
   useEffect(() => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-    
-    if (media.length === 0) return;
+    if (images.length <= 1) return;
 
-    if (media[mediaIndex].type === "image") {
-      timerRef.current = setTimeout(() => {
-        handleMediaEnd();
-      }, 5000); // 5 seconds per image
-    } else {
-      // Safety timeout for video in case codec/playback stalls or unsupported MOV
-      timerRef.current = setTimeout(() => {
-        handleMediaEnd();
-      }, 14000); // Max 14 seconds per video clip
-    }
+    timerRef.current = setTimeout(() => {
+      handleNextImage();
+    }, 5500); // 5.5 seconds per image
 
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [mediaIndex, handleMediaEnd, media]);
+  }, [imageIndex, handleNextImage, images.length]);
 
   // Stop ambient music
   const stopAudio = useCallback(() => {
@@ -193,35 +177,20 @@ export function HeroSection() {
         preload="auto"
       />
 
-      {/* Background Cinematic Media Sequence */}
+      {/* Background Cinematic Image Sequence */}
       <AnimatePresence mode="popLayout">
-        {media.length > 0 && (media[mediaIndex].type === "video" ? (
-          <motion.video
-            key={media[mediaIndex].src}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            src={media[mediaIndex].src}
-            autoPlay
-            muted
-            playsInline
-            onEnded={handleMediaEnd}
-            onError={handleMediaEnd}
-            className="absolute inset-0 w-full h-full object-cover z-0"
-          />
-        ) : (
+        {images.length > 0 && (
           <motion.img
-            key={media[mediaIndex].src}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            key={images[imageIndex]}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            src={media[mediaIndex].src}
-            alt="Hero Background"
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            src={images[imageIndex]}
+            alt="Intioss Luxury Surfaces"
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
-        ))}
+        )}
       </AnimatePresence>
 
       {/* Scrim Overlay: Maroon-deep to transparent scrim at ~35% */}
