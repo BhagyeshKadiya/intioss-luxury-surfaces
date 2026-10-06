@@ -170,24 +170,30 @@ export function Footer() {
           {/* Col 4: Locations & Newsletter (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-marcellus text-base uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
-              Private Concierge
+              Locations
             </h4>
-            <div className="text-xs text-ivory/70 space-y-2">
-              <p>
-                <strong className="text-ivory font-montserrat font-medium">South Mumbai Studio:</strong>
-                <br />
-                {SITE_CONFIG.locations[0].address}
-              </p>
-              <p>
-                <strong className="text-ivory font-montserrat font-medium">Gujarat Atelier:</strong>
-                <br />
-                {SITE_CONFIG.locations[1].address}
-              </p>
-              <p className="pt-1">
-                <span className="text-gold font-montserrat">{SITE_CONFIG.phoneDisplay}</span>
-                <br />
-                <span className="text-ivory/50">{SITE_CONFIG.email}</span>
-              </p>
+            <ul className="flex flex-col gap-2 font-poppins text-xs text-ivory/80 pt-1">
+              <li className="flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span>Mumbai</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span>Silvassa</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span>Kishangarh</span>
+              </li>
+            </ul>
+            <div className="pt-2 border-t border-gold/15">
+              <a
+                href="tel:+919930171094"
+                className="text-gold font-montserrat text-sm hover:underline block font-medium"
+              >
+                +91 99301 71094
+              </a>
+              <span className="text-ivory/50 text-xs">{SITE_CONFIG.email}</span>
             </div>
 
             {/* Newsletter input */}
