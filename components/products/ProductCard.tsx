@@ -142,7 +142,7 @@ export function ProductCard({
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between text-[11px] font-raleway uppercase tracking-wider text-grey mb-1">
-            <span>{product.category}</span>
+            <span className="truncate max-w-[65%] font-medium text-gold/90">{product.subCategory || product.category}</span>
             <span>{product.colorFamily}</span>
           </div>
 

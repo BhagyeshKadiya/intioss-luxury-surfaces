@@ -1,4 +1,11 @@
 export type StoneCategory =
+  | "Natural Stones"
+  | "Semi-Precious Stones"
+  | "Exclusive Table Tops — Stone"
+  | "Mosaics"
+  | "Stone Veneers"
+  | "Artefacts"
+  // Legacy & specific sub-type aliases for flexible filtering:
   | "Marble"
   | "Granite"
   | "Onyx"
@@ -27,7 +34,10 @@ export type FinishType =
   | "Leathered"
   | "Brushed"
   | "Antique"
-  | "Flamed";
+  | "Flamed"
+  | "Hand-Carved"
+  | "Translucent Backlit"
+  | "Waterjet Precision";
 
 export type ApplicationArea =
   | "Flooring"
@@ -37,26 +47,41 @@ export type ApplicationArea =
   | "Staircase"
   | "Bathroom"
   | "Pooja Room"
+  | "Dining & Living"
+  | "Furniture"
+  | "Feature Wall"
   | "Outdoor";
 
-export type ThicknessOption = "12mm" | "15mm" | "18mm" | "20mm" | "30mm";
+export type ThicknessOption =
+  | "1mm - 2mm (Flexible)"
+  | "12mm"
+  | "15mm"
+  | "18mm"
+  | "20mm"
+  | "30mm"
+  | "Solid Monolithic Block"
+  | "Custom Precision Calibrated";
 
 export type VeiningPattern =
   | "Veined"
   | "Cloudy"
   | "Uniform"
   | "Dramatic"
-  | "Bookmatch-ready";
+  | "Bookmatch-ready"
+  | "Intricate Inlay"
+  | "Artisanal Mosaic"
+  | "Hand-Sculpted";
 
 export type PriceTier = "tier_1" | "tier_2" | "tier_3" | "on_request";
 
-export type AvailabilityStatus = "In stock" | "Import on request";
+export type AvailabilityStatus = "In stock" | "Import on request" | "Bespoke Made to Order";
 
 export interface StoneProduct {
   id: string;
   slug: string;
   name: string;
   category: StoneCategory;
+  subCategory?: string;
   colorFamily: ColorFamily;
   origin: string;
   finishes: FinishType[];
@@ -74,6 +99,7 @@ export interface StoneProduct {
     compressiveStrength?: string;
     waterAbsorption?: string;
     density?: string;
+    dimensions?: string;
     quarryLocation: string;
     recommendedCare: string;
   };

@@ -76,7 +76,7 @@ export default function ProductDetailPage({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link & Breadcrumb */}
-        <div className="flex items-center gap-3 text-xs font-raleway uppercase tracking-[0.25em] text-grey mb-8">
+        <div className="flex items-center gap-3 text-xs font-raleway uppercase tracking-[0.25em] text-grey mb-8 flex-wrap">
           <Link
             href="/products"
             className="inline-flex items-center gap-1.5 text-maroon hover:text-gold transition-colors"
@@ -85,7 +85,18 @@ export default function ProductDetailPage({
             <span>Catalog</span>
           </Link>
           <span>/</span>
-          <span>{product.category}</span>
+          <Link
+            href={`/products?category=${encodeURIComponent(product.category)}`}
+            className="hover:text-gold transition-colors"
+          >
+            {product.category}
+          </Link>
+          {product.subCategory && (
+            <>
+              <span>/</span>
+              <span>{product.subCategory}</span>
+            </>
+          )}
           <span>/</span>
           <span className="text-gold font-medium">{product.name}</span>
         </div>
@@ -112,7 +123,7 @@ export default function ProductDetailPage({
                 />
                 {idx === 0 && (
                   <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
-                    Slab View
+                    Primary Curation View
                   </div>
                 )}
                 {idx === 1 && (
@@ -134,7 +145,7 @@ export default function ProductDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-8">
             <span className="font-raleway font-light text-xs uppercase tracking-[0.3em] text-grey">
-              {product.category} · {product.origin}
+              {product.category} {product.subCategory ? `· ${product.subCategory}` : ""} · {product.origin}
             </span>
             <h1 className="font-marcellus text-4xl sm:text-5xl lg:text-6xl text-maroon mt-1">
               {product.name}
@@ -147,7 +158,7 @@ export default function ProductDetailPage({
                   {formatPriceTier(product.priceTier)}
                 </strong>
               </span>
-              <span className="text-xs font-montserrat text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200">
+              <span className="text-xs font-montserrat text-emerald-800 bg-emerald-50 px-2.5 py-0.5 border border-emerald-200">
                 {product.availability}
               </span>
             </div>
@@ -156,12 +167,12 @@ export default function ProductDetailPage({
               {product.description}
             </p>
             <p className="font-poppins text-xs text-grey mt-4">
-              Each slab is bookmatch-calibrated at our Silvassa facility prior to crating. Pattern Classification: <span className="font-medium text-maroon">{product.veining}</span>.
+              Calibrated and curated at our Silvassa master facility prior to crating. Pattern Classification: <span className="font-medium text-maroon">{product.veining}</span>.
             </p>
 
             <div className="mt-8">
               <h3 className="font-marcellus text-sm uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
-                Where It Looks Best
+                Recommended Applications
               </h3>
               <ul className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {product.bestSuitedFor.map((item, idx) => (
@@ -182,23 +193,33 @@ export default function ProductDetailPage({
               </h3>
               <div className="divide-y divide-gold/15 text-xs font-poppins">
                 <div className="py-2.5 flex justify-between">
-                  <span className="text-grey font-raleway uppercase">Quarry Origin</span>
+                  <span className="text-grey font-raleway uppercase">Origin Source</span>
                   <span className="font-montserrat font-medium text-maroon text-right">{product.specs.quarryLocation}</span>
                 </div>
+                {product.specs.dimensions && (
+                  <div className="py-2.5 flex justify-between">
+                    <span className="text-grey font-raleway uppercase">Dimensions</span>
+                    <span className="font-montserrat font-medium text-maroon text-right">{product.specs.dimensions}</span>
+                  </div>
+                )}
+                {product.specs.compressiveStrength && (
+                  <div className="py-2.5 flex justify-between">
+                    <span className="text-grey font-raleway uppercase">Compressive Strength</span>
+                    <span className="font-montserrat font-medium text-maroon text-right">{product.specs.compressiveStrength}</span>
+                  </div>
+                )}
+                {product.specs.waterAbsorption && (
+                  <div className="py-2.5 flex justify-between">
+                    <span className="text-grey font-raleway uppercase">Water Absorption</span>
+                    <span className="font-montserrat font-medium text-maroon text-right">{product.specs.waterAbsorption}</span>
+                  </div>
+                )}
                 <div className="py-2.5 flex justify-between">
-                  <span className="text-grey font-raleway uppercase">Compressive Strength</span>
-                  <span className="font-montserrat font-medium text-maroon text-right">{product.specs.compressiveStrength || "135 MPa"}</span>
-                </div>
-                <div className="py-2.5 flex justify-between">
-                  <span className="text-grey font-raleway uppercase">Water Absorption</span>
-                  <span className="font-montserrat font-medium text-maroon text-right">{product.specs.waterAbsorption || "0.14%"}</span>
-                </div>
-                <div className="py-2.5 flex justify-between">
-                  <span className="text-grey font-raleway uppercase">Thicknesses</span>
+                  <span className="text-grey font-raleway uppercase">Thicknesses / Profile</span>
                   <span className="font-montserrat font-medium text-maroon text-right">{product.thicknesses.join(", ")}</span>
                 </div>
                 <div className="py-2.5 flex justify-between">
-                  <span className="text-grey font-raleway uppercase">Finishes</span>
+                  <span className="text-grey font-raleway uppercase">Available Finishes</span>
                   <span className="font-montserrat font-medium text-maroon text-right">{product.finishes.join(", ")}</span>
                 </div>
               </div>

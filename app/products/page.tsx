@@ -93,7 +93,7 @@ function ProductsContent() {
   // Fuse.js search index
   const fuse = useMemo(() => {
     return new Fuse(PRODUCTS, {
-      keys: ["name", "origin", "category", "colorFamily", "description", "veining"],
+      keys: ["name", "origin", "category", "subCategory", "colorFamily", "description", "veining"],
       threshold: 0.35,
     });
   }, []);
@@ -109,7 +109,10 @@ function ProductsContent() {
 
     // Filter by category
     if (filterState.category.length > 0) {
-      list = list.filter((p) => filterState.category.includes(p.category));
+      list = list.filter((p) =>
+        filterState.category.includes(p.category) ||
+        (p.subCategory && filterState.category.includes(p.subCategory))
+      );
     }
 
     // Filter by color family
@@ -170,6 +173,30 @@ function ProductsContent() {
     setSearchQuery("");
   };
 
+  const handleCategoryPillClick = (cat: string) => {
+    if (cat === "ALL") {
+      setFilterState((prev) => ({ ...prev, category: [] }));
+    } else {
+      setFilterState((prev) => {
+        const isSelected = prev.category.length === 1 && prev.category[0] === cat;
+        return {
+          ...prev,
+          category: isSelected ? [] : [cat],
+        };
+      });
+    }
+  };
+
+  const CATEGORY_PILLS = [
+    { id: "ALL", label: "All Collections", count: PRODUCTS.length },
+    { id: "Natural Stones", label: "Natural Stones", count: PRODUCTS.filter((p) => p.category === "Natural Stones").length },
+    { id: "Semi-Precious Stones", label: "Semi-Precious Stones", count: PRODUCTS.filter((p) => p.category === "Semi-Precious Stones").length },
+    { id: "Exclusive Table Tops — Stone", label: "Exclusive Table Tops", count: PRODUCTS.filter((p) => p.category === "Exclusive Table Tops — Stone").length },
+    { id: "Mosaics", label: "Mosaics", count: PRODUCTS.filter((p) => p.category === "Mosaics").length },
+    { id: "Stone Veneers", label: "Stone Veneers", count: PRODUCTS.filter((p) => p.category === "Stone Veneers").length },
+    { id: "Artefacts", label: "Artefacts", count: PRODUCTS.filter((p) => p.category === "Artefacts").length },
+  ];
+
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
       {/* Editorial Header */}
@@ -182,8 +209,11 @@ function ProductsContent() {
               <span className="text-gold">Surface Catalog</span>
             </div>
             <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
-              Natural Stones & Rare Slabs
+              Luxury Surfaces & Bespoke Stones
             </h1>
+            <p className="font-poppins text-xs sm:text-sm text-grey mt-2 max-w-2xl">
+              From rare Italian marble and Brazilian quartzites to luminescent semi-precious slabs, artisan mosaics, flexible stone veneers, and monumental hand-carved artefacts.
+            </p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -207,6 +237,35 @@ function ProductsContent() {
           </div>
         </div>
 
+        {/* Top Horizontal Category Pills Carousel */}
+        <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center gap-2 sm:gap-3">
+          {CATEGORY_PILLS.map((pill) => {
+            const isActive =
+              (pill.id === "ALL" && filterState.category.length === 0) ||
+              (filterState.category.length === 1 && filterState.category[0] === pill.id);
+            return (
+              <button
+                key={pill.id}
+                onClick={() => handleCategoryPillClick(pill.id)}
+                className={`flex-none inline-flex items-center gap-2 px-4 py-2.5 text-xs font-montserrat uppercase tracking-wider transition-all border ${
+                  isActive
+                    ? "bg-maroon-deep text-ivory border-gold shadow-md font-semibold"
+                    : "bg-white text-maroon/80 border-gold/30 hover:border-gold hover:text-maroon"
+                }`}
+              >
+                <span>{pill.label}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.2 rounded-none ${
+                    isActive ? "bg-gold text-maroon font-bold" : "bg-ivory text-grey border border-gold/20"
+                  }`}
+                >
+                  {pill.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         {/* Toolbar: Result count, Search, Sort & Density */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
           <div className="w-full sm:w-80 relative">
@@ -215,7 +274,7 @@ function ProductsContent() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search stone, origin or vein..."
+              placeholder="Search stone, origin, type, or vein..."
               className="w-full bg-white border border-gold/30 pl-9 pr-3 py-2 text-xs text-maroon placeholder:text-grey/50 rounded-none focus:outline-none focus:border-gold"
             />
             {searchQuery && (
@@ -230,7 +289,7 @@ function ProductsContent() {
 
           <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4">
             <span className="text-xs font-montserrat text-grey">
-              Showing <strong className="text-maroon">{filteredProducts.length}</strong> of {PRODUCTS.length} stones
+              Showing <strong className="text-maroon">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
             </span>
 
             {/* Sort Select */}

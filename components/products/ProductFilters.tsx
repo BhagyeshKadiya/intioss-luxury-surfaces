@@ -128,7 +128,7 @@ export function ProductFilters({
           className="w-full flex items-center justify-between py-1 text-left"
         >
           <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Stone Category
+            Product Category
           </span>
           {collapsedGroups["category"] ? (
             <ChevronDown className="w-4 h-4 text-gold" />
@@ -140,15 +140,12 @@ export function ProductFilters({
         {!collapsedGroups["category"] && (
           <div className="mt-3 space-y-1.5">
             {[
-              "Marble",
-              "Granite",
-              "Onyx",
-              "Quartzite",
-              "Travertine",
-              "Limestone",
-              "Sandstone",
-              "Slate",
-              "Semi-Precious",
+              "Natural Stones",
+              "Semi-Precious Stones",
+              "Exclusive Table Tops — Stone",
+              "Mosaics",
+              "Stone Veneers",
+              "Artefacts",
             ].map((cat) => {
               const count = getCount("category", cat);
               const checked = filterState.category.includes(cat);
@@ -156,8 +153,10 @@ export function ProductFilters({
               return (
                 <label
                   key={cat}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-0.5 ${
-                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon"
+                  className={`flex items-center justify-between text-xs cursor-pointer py-1 px-1 rounded-sm transition-colors ${
+                    checked ? "bg-gold/10 font-semibold" : ""
+                  } ${
+                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon hover:bg-ivory"
                   }`}
                 >
                   <div className="flex items-center gap-2">
