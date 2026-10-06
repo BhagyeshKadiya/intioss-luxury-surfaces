@@ -3,8 +3,8 @@ import { ServiceItem } from "@/lib/types";
 export const SERVICES: ServiceItem[] = [
   {
     id: "s1",
-    slug: "luxury-civil-contracting",
-    title: "Luxury Civil Contracting (Interior-only)",
+    slug: "luxury-civil-interior-contracting",
+    title: "Luxury Civil Interior Contracting",
     shortDesc:
       "Precision structural retrofitting, high-tolerance subfloor casting, and turnkey stone execution for elite residences.",
     fullDesc:
@@ -133,7 +133,7 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "s4",
     slug: "cnc-waterjet",
-    title: "CNC & Waterjet Customisation",
+    title: "CNC & Waterjet",
     shortDesc:
       "5-axis CNC 3D stone carving, zero-kerf abrasive waterjet inlays, fluting, and bespoke architectural elements.",
     fullDesc:
@@ -218,12 +218,12 @@ export const SERVICES: ServiceItem[] = [
   },
   {
     id: "s6",
-    slug: "amc-services",
-    title: "Annual Maintenance & Stone Care (AMC)",
+    slug: "stone-maintenance-services",
+    title: "Stone Maintenance Services",
     shortDesc:
       "Specialist diamond re-crystallisation, stain extraction, grout refurbishment, and scheduled surface rejuvenation.",
     fullDesc:
-      "Fine marble is a living natural medium that deserves ongoing curatorial care. Our dedicated AMC division ensures your surfaces maintain showroom brilliance for decades. From annual diamond micro-honing and stain extraction to re-sealing high-traffic kitchen and bathroom zones, we preserve your architectural investment.",
+      "Fine marble is a living natural medium that deserves ongoing curatorial care. Our dedicated maintenance division ensures your surfaces maintain showroom brilliance for decades. From annual diamond micro-honing and stain extraction to re-sealing high-traffic kitchen and bathroom zones, we preserve your architectural investment.",
     image: "/images/services/amc-services.jpg",
     capabilities: [
       "Dust-free diamond pad micro-crystallisation",

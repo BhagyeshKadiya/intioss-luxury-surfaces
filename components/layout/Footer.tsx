@@ -92,27 +92,32 @@ export function Footer() {
             <ul className="space-y-2.5 font-montserrat text-xs text-ivory/70">
               <li>
                 <Link href="/products?category=Marble" className="hover:text-gold transition-colors">
-                  Natural Italian Marble
+                  Natural Stones
                 </Link>
               </li>
               <li>
                 <Link href="/products?category=Semi-Precious" className="hover:text-gold transition-colors">
-                  Semi-Precious Gemstones
+                  Semi-Precious Stones
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Quartzite" className="hover:text-gold transition-colors">
-                  Exotic Quartzites
+                <Link href="/products?category=Countertop" className="hover:text-gold transition-colors">
+                  Exclusive Table Tops — Stone
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Travertine" className="hover:text-gold transition-colors">
-                  Architectural Travertine
+                <Link href="/products?category=Mosaics" className="hover:text-gold transition-colors">
+                  Mosaics
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Onyx" className="hover:text-gold transition-colors">
-                  Translucent Backlit Onyx
+                <Link href="/products?category=Veneers" className="hover:text-gold transition-colors">
+                  Stone Veneers
+                </Link>
+              </li>
+              <li>
+                <Link href="/products?category=Artefacts" className="hover:text-gold transition-colors">
+                  Artefacts
                 </Link>
               </li>
               <li>
@@ -126,42 +131,37 @@ export function Footer() {
           {/* Col 3: Services & Company (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-marcellus text-base uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
-              Capabilities & Studio
+              Services
             </h4>
             <ul className="space-y-2.5 font-montserrat text-xs text-ivory/70">
               <li>
-                <Link href="/services#luxury-civil-contracting" className="hover:text-gold transition-colors">
-                  Luxury Civil Contracting
+                <Link href="/services#luxury-civil-interior-contracting" className="hover:text-gold transition-colors">
+                  Luxury Civil Interior Contracting
                 </Link>
               </li>
               <li>
                 <Link href="/services#marble-block-processing" className="hover:text-gold transition-colors">
-                  Gang-Saw Block Processing
+                  Marble Block Processing
                 </Link>
               </li>
               <li>
                 <Link href="/services#stone-facades" className="hover:text-gold transition-colors">
-                  Ventilated Stone Facades
+                  Stone Facades
                 </Link>
               </li>
               <li>
                 <Link href="/services#cnc-waterjet" className="hover:text-gold transition-colors">
-                  5-Axis CNC & Waterjet Carving
+                  CNC & Waterjet
                 </Link>
               </li>
               <li>
-                <Link href="/book-match" className="hover:text-gold transition-colors">
-                  Interactive Book Match Tool
+                <Link href="/services#international-stone-sourcing" className="hover:text-gold transition-colors">
+                  International Stone Sourcing
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="hover:text-gold transition-colors">
-                  Marble Use Cases Gallery
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-gold transition-colors">
-                  Our 55-Year Heritage
+                <Link href="/services#stone-maintenance-services" className="hover:text-gold transition-colors">
+                  Stone Maintenance Services
                 </Link>
               </li>
             </ul>
