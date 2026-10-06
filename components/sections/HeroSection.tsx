@@ -7,75 +7,28 @@ import { Volume2, VolumeX } from "lucide-react";
 import { IntiossLogo } from "@/components/brand/IntiossLogo";
 
 interface HeroMediaItem {
-  type: "video" | "image";
+  type: "video";
   src: string;
-  poster?: string;
+  poster: string;
   alt: string;
-  duration: number; // in milliseconds
+  duration: number; // in milliseconds fallback
 }
 
+// Exactly and ONLY the two website hero videos
 const HERO_MEDIA: HeroMediaItem[] = [
   {
     type: "video",
     src: "/hero/website_hero_1.mp4",
     poster: "/hero/website_hero_1_poster.webp",
     alt: "Intioss Architectural Experience - Drone Film 1",
-    duration: 8000,
+    duration: 12000,
   },
   {
     type: "video",
     src: "/hero/website_hero_2.mp4",
     poster: "/hero/website_hero_2_poster.webp",
     alt: "Intioss Luxury Surfaces - Cinematic Showcase 2",
-    duration: 8000,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.webp",
-    alt: "Intioss Golden Statuario Bathroom Cladding",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.webp",
-    alt: "Intioss Golden Statuario Living Room Flooring",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.webp",
-    alt: "Intioss Ice Berg Kitchen Countertop",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.webp",
-    alt: "Intioss Michael Angelo Wall Cladding",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.webp",
-    alt: "Intioss Petrified Wood Mosaic Dining Table",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.webp",
-    alt: "Intioss Tiger Eye Feature Wall",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/intioss_use_case.webp",
-    alt: "Intioss Architectural Use Case",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_White-Travertine_Dining-Table-Top_05.webp",
-    alt: "Intioss White Travertine Dining Table Top",
-    duration: 5500,
+    duration: 10000,
   },
 ];
 
@@ -92,20 +45,16 @@ export function HeroSection() {
   const pathname = usePathname();
   const { scrollY } = useScroll();
 
-  // Preload upcoming slides into memory for instantaneous transitions
+  // Preload upcoming video posters into memory
   useEffect(() => {
     if (typeof window === "undefined") return;
-    for (let i = 1; i <= 3; i++) {
-      const nextItem = HERO_MEDIA[(currentIndex + i) % HERO_MEDIA.length];
-      if (nextItem.type === "image") {
+    HERO_MEDIA.forEach((item) => {
+      if (item.poster) {
         const img = new Image();
-        img.src = nextItem.src;
-      } else if (nextItem.poster) {
-        const img = new Image();
-        img.src = nextItem.poster;
+        img.src = item.poster;
       }
-    }
-  }, [currentIndex]);
+    });
+  }, []);
 
   // Scroll morph: as user scrolls 0 to 400px, logo shrinks and travels up into navbar position
   const logoScale = useTransform(scrollY, [0, 400], [1, 0.4]);
@@ -130,7 +79,7 @@ export function HeroSection() {
   useEffect(() => {
     if (HERO_MEDIA.length <= 1) return;
 
-    const duration = currentItem.duration || 6000;
+    const duration = currentItem.duration || 10000;
     timerRef.current = setTimeout(() => {
       handleNextSlide();
     }, duration);
@@ -144,11 +93,11 @@ export function HeroSection() {
 
   // Ensure active video is playing smoothly
   useEffect(() => {
-    if (currentItem.type === "video" && activeVideoRef.current) {
+    if (activeVideoRef.current) {
       activeVideoRef.current.currentTime = 0;
       activeVideoRef.current.play().catch(() => {});
     }
-  }, [currentIndex, currentItem.type]);
+  }, [currentIndex]);
 
   // Stop ambient music
   const stopAudio = useCallback(() => {
@@ -266,14 +215,14 @@ export function HeroSection() {
         preload="auto"
       />
 
-      {/* Top App Story Progress Indicators */}
-      <div className="absolute top-20 sm:top-24 left-4 right-4 z-30 flex items-center gap-1.5 max-w-md mx-auto pointer-events-auto">
+      {/* Top App Story Progress Indicators (2 Video Slides) */}
+      <div className="absolute top-20 sm:top-24 left-4 right-4 z-30 flex items-center gap-1.5 max-w-xs mx-auto pointer-events-auto">
         {HERO_MEDIA.map((item, idx) => (
           <button
             key={`${item.src}-${idx}`}
             type="button"
             onClick={() => setCurrentIndex(idx)}
-            aria-label={`Jump to slide ${idx + 1}`}
+            aria-label={`Jump to video ${idx + 1}`}
             className="flex-1 h-1 rounded-full bg-white/25 overflow-hidden transition-all duration-300 relative focus:outline-none"
           >
             {idx === currentIndex ? (
@@ -281,7 +230,7 @@ export function HeroSection() {
                 key={`progress-${idx}`}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: (item.duration || 6000) / 1000, ease: "linear" }}
+                transition={{ duration: (item.duration || 10000) / 1000, ease: "linear" }}
                 className="h-full bg-gold shadow-[0_0_8px_#DDB62B]"
               />
             ) : idx < currentIndex ? (
@@ -293,67 +242,42 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Background Cinematic Media (Video / WebP Image) with Ken Burns + Swipe Gesture */}
+      {/* Background Cinematic Hero Videos with Swipe Gesture */}
       <AnimatePresence mode="popLayout">
-        {currentItem.type === "video" ? (
-          <motion.div
-            key={currentItem.src}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -40) {
-                handleNextSlide();
-              } else if (info.offset.x > 40) {
-                handlePrevSlide();
-              }
-            }}
-            initial={{ opacity: 0, scale: 1.02 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.99 }}
-            transition={{
-              opacity: { duration: 1.0, ease: "easeInOut" },
-              scale: { duration: 7.5, ease: "easeOut" },
-            }}
-            className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing overflow-hidden will-change-[opacity,transform]"
-          >
-            <video
-              ref={activeVideoRef}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              poster={currentItem.poster}
-              src={currentItem.src}
-              className="w-full h-full object-cover pointer-events-none"
-            />
-          </motion.div>
-        ) : (
-          <motion.img
-            key={currentItem.src}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.2}
-            onDragEnd={(_, info) => {
-              if (info.offset.x < -40) {
-                handleNextSlide();
-              } else if (info.offset.x > 40) {
-                handlePrevSlide();
-              }
-            }}
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.99 }}
-            transition={{
-              opacity: { duration: 1.0, ease: "easeInOut" },
-              scale: { duration: 7.5, ease: "easeOut" },
-            }}
+        <motion.div
+          key={currentItem.src}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={(_, info) => {
+            if (info.offset.x < -40) {
+              handleNextSlide();
+            } else if (info.offset.x > 40) {
+              handlePrevSlide();
+            }
+          }}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.99 }}
+          transition={{
+            opacity: { duration: 1.0, ease: "easeInOut" },
+            scale: { duration: 8.0, ease: "easeOut" },
+          }}
+          className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing overflow-hidden will-change-[opacity,transform]"
+        >
+          <video
+            ref={activeVideoRef}
+            autoPlay
+            muted
+            loop={false}
+            playsInline
+            preload="auto"
+            poster={currentItem.poster}
             src={currentItem.src}
-            alt={currentItem.alt || "Intioss Luxury Surfaces"}
-            className="absolute inset-0 w-full h-full object-cover z-0 cursor-grab active:cursor-grabbing will-change-[opacity,transform]"
+            onEnded={handleNextSlide}
+            className="w-full h-full object-cover pointer-events-none"
           />
-        )}
+        </motion.div>
       </AnimatePresence>
 
       {/* Scrim Overlay: Maroon-deep to transparent scrim */}
@@ -387,7 +311,7 @@ export function HeroSection() {
           className="sm:hidden mt-4 inline-flex items-center gap-2 px-3 py-1 bg-maroon-deep/60 backdrop-blur-md rounded-full border border-gold/30 text-[10px] font-montserrat uppercase tracking-wider text-ivory/80"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span>Slide {currentIndex + 1} / {HERO_MEDIA.length} · Swipe to explore</span>
+          <span>Film {currentIndex + 1} / {HERO_MEDIA.length} · Swipe to switch</span>
         </motion.div>
       </div>
 
