@@ -6,25 +6,84 @@ import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence }
 import { Volume2, VolumeX } from "lucide-react";
 import { IntiossLogo } from "@/components/brand/IntiossLogo";
 
+interface HeroMediaItem {
+  type: "video" | "image";
+  src: string;
+  alt: string;
+  duration: number; // in milliseconds
+}
+
+const HERO_MEDIA: HeroMediaItem[] = [
+  {
+    type: "video",
+    src: "/hero/website_hero_1.mp4",
+    alt: "Intioss Architectural Experience - Hero Film 1",
+    duration: 8000,
+  },
+  {
+    type: "video",
+    src: "/hero/website_hero_2.mp4",
+    alt: "Intioss Luxury Surfaces - Hero Film 2",
+    duration: 8000,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png",
+    alt: "Intioss Golden Statuario Bathroom Cladding",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.png",
+    alt: "Intioss Golden Statuario Living Room Flooring",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png",
+    alt: "Intioss Ice Berg Kitchen Countertop",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png",
+    alt: "Intioss Michael Angelo Wall Cladding",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png",
+    alt: "Intioss Petrified Wood Mosaic Dining Table",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png",
+    alt: "Intioss Tiger Eye Feature Wall",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/intioss_use_case.png",
+    alt: "Intioss Architectural Use Case",
+    duration: 5500,
+  },
+  {
+    type: "image",
+    src: "/hero/Intioss_White-Travertine_Dining-Table-Top_05.png",
+    alt: "Intioss White Travertine Dining Table Top",
+    duration: 5500,
+  },
+];
+
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [imageIndex, setImageIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const userManuallyPaused = useRef(false);
   const isOutOfHero = useRef(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const images = [
-    "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png",
-    "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.png",
-    "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png",
-    "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png",
-    "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png",
-    "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png",
-    "/hero/intioss_use_case.png",
-    "/hero/Intioss_White-Travertine_Dining-Table-Top_05.png"
-  ];
 
   const pathname = usePathname();
   const { scrollY } = useScroll();
@@ -34,31 +93,34 @@ export function HeroSection() {
   const logoY = useTransform(scrollY, [0, 400], [0, -180]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
 
-  const handlePrevImage = useCallback(() => {
-    if (images.length > 0) {
-      setImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  const handlePrevSlide = useCallback(() => {
+    if (HERO_MEDIA.length > 0) {
+      setCurrentIndex((prev) => (prev - 1 + HERO_MEDIA.length) % HERO_MEDIA.length);
     }
-  }, [images.length]);
+  }, []);
 
-  const handleNextImage = useCallback(() => {
-    if (images.length > 0) {
-      setImageIndex((prev) => (prev + 1) % images.length);
+  const handleNextSlide = useCallback(() => {
+    if (HERO_MEDIA.length > 0) {
+      setCurrentIndex((prev) => (prev + 1) % HERO_MEDIA.length);
     }
-  }, [images.length]);
+  }, []);
+
+  const currentItem = HERO_MEDIA[currentIndex] || HERO_MEDIA[0];
 
   useEffect(() => {
-    if (images.length <= 1) return;
+    if (HERO_MEDIA.length <= 1) return;
 
+    const duration = currentItem.duration || 6000;
     timerRef.current = setTimeout(() => {
-      handleNextImage();
-    }, 5500); // 5.5 seconds per image
+      handleNextSlide();
+    }, duration);
 
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [imageIndex, handleNextImage, images.length]);
+  }, [currentIndex, handleNextSlide, currentItem.duration]);
 
   // Stop ambient music
   const stopAudio = useCallback(() => {
@@ -183,22 +245,23 @@ export function HeroSection() {
 
       {/* Top App Story Progress Indicators (Instagram / Luxury App Style) */}
       <div className="absolute top-20 sm:top-24 left-4 right-4 z-30 flex items-center gap-1.5 max-w-md mx-auto pointer-events-auto">
-        {images.map((_, idx) => (
+        {HERO_MEDIA.map((item, idx) => (
           <button
-            key={idx}
+            key={`${item.src}-${idx}`}
             type="button"
-            onClick={() => setImageIndex(idx)}
+            onClick={() => setCurrentIndex(idx)}
             aria-label={`Jump to slide ${idx + 1}`}
             className="flex-1 h-1 rounded-full bg-white/25 overflow-hidden transition-all duration-300 relative focus:outline-none"
           >
-            {idx === imageIndex ? (
+            {idx === currentIndex ? (
               <motion.div
+                key={`progress-${idx}`}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 5.5, ease: "linear" }}
+                transition={{ duration: (item.duration || 6000) / 1000, ease: "linear" }}
                 className="h-full bg-gold shadow-[0_0_8px_#DDB62B]"
               />
-            ) : idx < imageIndex ? (
+            ) : idx < currentIndex ? (
               <div className="h-full w-full bg-gold/70" />
             ) : (
               <div className="h-full w-0 bg-transparent" />
@@ -207,30 +270,62 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Background Cinematic Image Sequence with Swipe Gesture */}
+      {/* Background Cinematic Media (Video / Image) Sequence with Swipe Gesture */}
       <AnimatePresence mode="popLayout">
-        {images.length > 0 && (
-          <motion.img
-            key={images[imageIndex]}
+        {currentItem.type === "video" ? (
+          <motion.div
+            key={currentItem.src}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.2}
             onDragEnd={(_, info) => {
               if (info.offset.x < -40) {
-                handleNextImage();
+                handleNextSlide();
               } else if (info.offset.x > 40) {
-                handlePrevImage();
+                handlePrevSlide();
+              }
+            }}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{
+              opacity: { duration: 1.2, ease: "easeInOut" },
+              scale: { duration: 8, ease: "easeOut" },
+            }}
+            className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing overflow-hidden"
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              src={currentItem.src}
+              className="w-full h-full object-cover pointer-events-none"
+            />
+          </motion.div>
+        ) : (
+          <motion.img
+            key={currentItem.src}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -40) {
+                handleNextSlide();
+              } else if (info.offset.x > 40) {
+                handlePrevSlide();
               }
             }}
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ 
+            transition={{
               opacity: { duration: 1.5, ease: "easeInOut" },
-              scale: { duration: 7.5, ease: "easeOut" }
+              scale: { duration: 7.5, ease: "easeOut" },
             }}
-            src={images[imageIndex]}
-            alt="Intioss Luxury Surfaces"
+            src={currentItem.src}
+            alt={currentItem.alt || "Intioss Luxury Surfaces"}
             className="absolute inset-0 w-full h-full object-cover z-0 cursor-grab active:cursor-grabbing"
           />
         )}
@@ -268,7 +363,7 @@ export function HeroSection() {
           className="sm:hidden mt-4 inline-flex items-center gap-2 px-3 py-1 bg-maroon-deep/60 backdrop-blur-md rounded-full border border-gold/30 text-[10px] font-montserrat uppercase tracking-wider text-ivory/80"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-          <span>Slide {imageIndex + 1} / {images.length} · Swipe to explore</span>
+          <span>Slide {currentIndex + 1} / {HERO_MEDIA.length} · Swipe to explore</span>
         </motion.div>
       </div>
 
