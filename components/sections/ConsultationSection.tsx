@@ -92,7 +92,7 @@ export function ConsultationSection() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-gold/40 shadow-xl bg-maroon-deep">
               <Image
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
+                src="/images/private-consultation.jpg"
                 alt="INTIOSS Private Stone Consultation & Dry Lay"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
