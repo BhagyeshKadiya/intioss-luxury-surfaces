@@ -219,7 +219,7 @@ export function Footer() {
         {/* Bottom Bar without Back to Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-raleway text-ivory/60">
           <div>
-            © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved. Gandhi Civil Decor Group.
+            © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved.
           </div>
         </div>
       </div>
