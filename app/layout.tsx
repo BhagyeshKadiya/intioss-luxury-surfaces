@@ -71,7 +71,7 @@ const jsonLd = {
     postalCode: "400018",
     addressCountry: "IN",
   },
-  areaServed: ["Mumbai", "Ahmedabad", "Surat", "Vadodara", "Silvassa", "Goa"],
+  areaServed: ["Mumbai", "Silvassa", "Kishangarh", "Ahmedabad", "Surat", "Vadodara", "Goa"],
 };
 
 export default function RootLayout({

@@ -21,25 +21,25 @@ export const SITE_CONFIG = {
   ],
   locations: [
     {
+      city: "Silvassa",
+      area: "Processing Works & Slab Hub",
+      address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, Silvassa",
+      phone: "+91 99301 71094",
+      hours: "Mon – Sat: 9:00 AM – 7:00 PM (By Appointment)",
+    },
+    {
       city: "Mumbai",
-      area: "Mahalaxmi / Lower Parel",
-      address: "Gandhi House, Dr. E. Moses Road, Worli, Mumbai 400018",
+      area: "Studio & Experience Gallery",
+      address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, Mumbai",
       phone: "+91 99301 71094",
       hours: "Mon – Sat: 10:00 AM – 7:30 PM (By Appointment)",
     },
     {
-      city: "Gujarat Hub",
-      area: "Ahmedabad – SG Highway",
-      address: "Atelier INTIOSS, Near Iscon Cross Road, SG Highway, Ahmedabad 380015",
+      city: "Kishangarh",
+      area: "Architectural Stone Atelier",
+      address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, Kishangarh",
       phone: "+91 99301 71094",
-      hours: "Mon – Sat: 10:00 AM – 7:00 PM",
-    },
-    {
-      city: "Processing Works",
-      area: "Silvassa & Rajasthan Slabs Hub",
-      address: "Industrial Park, Silvassa, Dadra & Nagar Haveli 396230",
-      phone: "+91 99301 71094",
-      hours: "Industrial visits upon request",
+      hours: "Mon – Sat: 9:30 AM – 7:00 PM (By Appointment)",
     },
   ],
   socials: {

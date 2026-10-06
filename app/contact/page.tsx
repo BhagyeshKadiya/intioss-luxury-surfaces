@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Private Contact & Experience Studios | INTIOSS",
   description:
-    "Schedule a private viewing at our South Mumbai Studio, Gujarat Atelier, or Silvassa Processing Works. Inquire directly with our stone concierges.",
+    "Schedule a private viewing at our Silvassa, Mumbai, or Kishangarh locations. Inquire directly with our stone concierges.",
 };
 
 export default function ContactPage() {
@@ -80,10 +80,10 @@ export default function ContactPage() {
         <div className="mb-20 border border-gold/40 shadow-xl overflow-hidden bg-stone-200">
           <div className="p-4 bg-maroon-deep text-ivory flex items-center justify-between border-b border-gold/30">
             <span className="font-montserrat text-xs uppercase tracking-widest text-gold">
-              South Mumbai Studio Location Map
+              Experience Studios & Processing Hubs
             </span>
             <span className="font-raleway text-[11px] text-ivory/60">
-              Gandhi House, Worli, Mumbai
+              Silvassa · Mumbai · Kishangarh
             </span>
           </div>
           <iframe
