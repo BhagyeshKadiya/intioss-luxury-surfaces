@@ -9,6 +9,7 @@ import { IntiossLogo } from "@/components/brand/IntiossLogo";
 interface HeroMediaItem {
   type: "video" | "image";
   src: string;
+  poster?: string;
   alt: string;
   duration: number; // in milliseconds
 }
@@ -17,60 +18,62 @@ const HERO_MEDIA: HeroMediaItem[] = [
   {
     type: "video",
     src: "/hero/website_hero_1.mp4",
-    alt: "Intioss Architectural Experience - Hero Film 1",
+    poster: "/hero/website_hero_1_poster.webp",
+    alt: "Intioss Architectural Experience - Drone Film 1",
     duration: 8000,
   },
   {
     type: "video",
     src: "/hero/website_hero_2.mp4",
-    alt: "Intioss Luxury Surfaces - Hero Film 2",
+    poster: "/hero/website_hero_2_poster.webp",
+    alt: "Intioss Luxury Surfaces - Cinematic Showcase 2",
     duration: 8000,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png",
+    src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.webp",
     alt: "Intioss Golden Statuario Bathroom Cladding",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.png",
+    src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.webp",
     alt: "Intioss Golden Statuario Living Room Flooring",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png",
+    src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.webp",
     alt: "Intioss Ice Berg Kitchen Countertop",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png",
+    src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.webp",
     alt: "Intioss Michael Angelo Wall Cladding",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png",
+    src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.webp",
     alt: "Intioss Petrified Wood Mosaic Dining Table",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png",
+    src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.webp",
     alt: "Intioss Tiger Eye Feature Wall",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/intioss_use_case.png",
+    src: "/hero/intioss_use_case.webp",
     alt: "Intioss Architectural Use Case",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_White-Travertine_Dining-Table-Top_05.png",
+    src: "/hero/Intioss_White-Travertine_Dining-Table-Top_05.webp",
     alt: "Intioss White Travertine Dining Table Top",
     duration: 5500,
   },
@@ -79,6 +82,7 @@ const HERO_MEDIA: HeroMediaItem[] = [
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const activeVideoRef = useRef<HTMLVideoElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const userManuallyPaused = useRef(false);
@@ -88,7 +92,22 @@ export function HeroSection() {
   const pathname = usePathname();
   const { scrollY } = useScroll();
 
-  // Scroll morph: as user scrolls 0 to 60vh (approx 0 to 500px), logo shrinks and travels up into navbar position
+  // Preload upcoming slides into memory for instantaneous transitions
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    for (let i = 1; i <= 3; i++) {
+      const nextItem = HERO_MEDIA[(currentIndex + i) % HERO_MEDIA.length];
+      if (nextItem.type === "image") {
+        const img = new Image();
+        img.src = nextItem.src;
+      } else if (nextItem.poster) {
+        const img = new Image();
+        img.src = nextItem.poster;
+      }
+    }
+  }, [currentIndex]);
+
+  // Scroll morph: as user scrolls 0 to 400px, logo shrinks and travels up into navbar position
   const logoScale = useTransform(scrollY, [0, 400], [1, 0.4]);
   const logoY = useTransform(scrollY, [0, 400], [0, -180]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
@@ -107,6 +126,7 @@ export function HeroSection() {
 
   const currentItem = HERO_MEDIA[currentIndex] || HERO_MEDIA[0];
 
+  // Auto-advance timer
   useEffect(() => {
     if (HERO_MEDIA.length <= 1) return;
 
@@ -121,6 +141,14 @@ export function HeroSection() {
       }
     };
   }, [currentIndex, handleNextSlide, currentItem.duration]);
+
+  // Ensure active video is playing smoothly
+  useEffect(() => {
+    if (currentItem.type === "video" && activeVideoRef.current) {
+      activeVideoRef.current.currentTime = 0;
+      activeVideoRef.current.play().catch(() => {});
+    }
+  }, [currentIndex, currentItem.type]);
 
   // Stop ambient music
   const stopAudio = useCallback(() => {
@@ -147,10 +175,8 @@ export function HeroSection() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    // Attempt initial playback
     playAudio();
 
-    // Browser policy fallback: start music on first user gesture
     const handleFirstGesture = () => {
       if (!userManuallyPaused.current && !isOutOfHero.current) {
         playAudio();
@@ -164,7 +190,6 @@ export function HeroSection() {
     window.addEventListener("touchstart", handleFirstGesture, { passive: true });
     window.addEventListener("keydown", handleFirstGesture, { passive: true });
 
-    // Handle tab visibility changes (pause when switching tab)
     const handleVisibilityChange = () => {
       if (document.hidden) {
         stopAudio();
@@ -174,7 +199,6 @@ export function HeroSection() {
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    // On unmount (e.g. navigating to another page): STOP MUSIC IMMEDIATELY
     return () => {
       window.removeEventListener("click", handleFirstGesture);
       window.removeEventListener("touchstart", handleFirstGesture);
@@ -187,14 +211,14 @@ export function HeroSection() {
     };
   }, [playAudio, stopAudio]);
 
-  // Stop music when navigating to another route
+  // Stop music when navigating away from home
   useEffect(() => {
     if (pathname !== "/") {
       stopAudio();
     }
   }, [pathname, stopAudio]);
 
-  // Monitor scroll: stop audio when scrolled past Hero (> 400px), resume when back at top
+  // Monitor scroll: stop audio when scrolled past Hero
   useMotionValueEvent(scrollY, "change", (latest) => {
     if (latest > 400) {
       if (!isOutOfHero.current) {
@@ -211,7 +235,6 @@ export function HeroSection() {
     }
   });
 
-  // Manual Toggle button click handler
   const toggleSound = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!audioRef.current) return;
@@ -235,7 +258,7 @@ export function HeroSection() {
       ref={containerRef}
       className="relative w-full h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden bg-maroon-deep select-none touch-pan-y"
     >
-      {/* Background Classical Violin Audio (stops automatically on scroll or route change) */}
+      {/* Background Classical Violin Audio */}
       <audio
         ref={audioRef}
         src="/nastelbom-violin-299793.mp3"
@@ -243,7 +266,7 @@ export function HeroSection() {
         preload="auto"
       />
 
-      {/* Top App Story Progress Indicators (Instagram / Luxury App Style) */}
+      {/* Top App Story Progress Indicators */}
       <div className="absolute top-20 sm:top-24 left-4 right-4 z-30 flex items-center gap-1.5 max-w-md mx-auto pointer-events-auto">
         {HERO_MEDIA.map((item, idx) => (
           <button
@@ -270,7 +293,7 @@ export function HeroSection() {
         ))}
       </div>
 
-      {/* Background Cinematic Media (Video / Image) Sequence with Swipe Gesture */}
+      {/* Background Cinematic Media (Video / WebP Image) with Ken Burns + Swipe Gesture */}
       <AnimatePresence mode="popLayout">
         {currentItem.type === "video" ? (
           <motion.div
@@ -285,21 +308,23 @@ export function HeroSection() {
                 handlePrevSlide();
               }
             }}
-            initial={{ opacity: 0, scale: 1.05 }}
+            initial={{ opacity: 0, scale: 1.02 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
+            exit={{ opacity: 0, scale: 0.99 }}
             transition={{
-              opacity: { duration: 1.2, ease: "easeInOut" },
-              scale: { duration: 8, ease: "easeOut" },
+              opacity: { duration: 1.0, ease: "easeInOut" },
+              scale: { duration: 7.5, ease: "easeOut" },
             }}
-            className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing overflow-hidden"
+            className="absolute inset-0 w-full h-full z-0 cursor-grab active:cursor-grabbing overflow-hidden will-change-[opacity,transform]"
           >
             <video
+              ref={activeVideoRef}
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
+              poster={currentItem.poster}
               src={currentItem.src}
               className="w-full h-full object-cover pointer-events-none"
             />
@@ -317,16 +342,16 @@ export function HeroSection() {
                 handlePrevSlide();
               }
             }}
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
+            exit={{ opacity: 0, scale: 0.99 }}
             transition={{
-              opacity: { duration: 1.5, ease: "easeInOut" },
+              opacity: { duration: 1.0, ease: "easeInOut" },
               scale: { duration: 7.5, ease: "easeOut" },
             }}
             src={currentItem.src}
             alt={currentItem.alt || "Intioss Luxury Surfaces"}
-            className="absolute inset-0 w-full h-full object-cover z-0 cursor-grab active:cursor-grabbing"
+            className="absolute inset-0 w-full h-full object-cover z-0 cursor-grab active:cursor-grabbing will-change-[opacity,transform]"
           />
         )}
       </AnimatePresence>
@@ -349,7 +374,6 @@ export function HeroSection() {
           }}
           className="flex flex-col items-center"
         >
-          {/* Main Logo Container */}
           <div className="flex flex-col items-center">
             <IntiossLogo size="hero" asLink={false} />
           </div>
@@ -367,7 +391,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Luxury Sound Controller (bottom-left / top-right adaptive) */}
+      {/* Luxury Sound Controller */}
       <motion.div
         style={{ opacity: scrollCueOpacity }}
         className="absolute bottom-20 sm:bottom-8 left-4 sm:left-10 z-20 flex items-center gap-2"
@@ -384,7 +408,6 @@ export function HeroSection() {
             <VolumeX className="w-3.5 h-3.5 text-ivory/60 group-hover:text-gold transition-colors" />
           )}
 
-          {/* Equalizer animation bars when playing */}
           <div className="flex items-end gap-0.5 h-3 w-3">
             <span
               className={`w-0.5 bg-gold rounded-full transition-all duration-300 ${
@@ -409,7 +432,7 @@ export function HeroSection() {
         </button>
       </motion.div>
 
-      {/* Minimal Scroll Cue: Pulsing Gold Indicator (hidden on small mobile to avoid dock collision) */}
+      {/* Minimal Scroll Cue: Pulsing Gold Indicator */}
       <motion.div
         style={{ opacity: scrollCueOpacity }}
         className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-2 pointer-events-none"
@@ -434,4 +457,3 @@ export function HeroSection() {
     </section>
   );
 }
-
