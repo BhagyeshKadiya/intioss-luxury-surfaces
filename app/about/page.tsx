@@ -1,144 +1,93 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SITE_CONFIG } from "@/lib/config";
-import { ExternalLink, Check, Award, Compass, Hammer, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About INTIOSS | Gandhi Civil Decor Group & Quality Marble",
+  title: "Our Provenance | About INTIOSS — 55+ Years of Luxury Surfaces",
   description:
-    "Established 1997. The generational story of Gandhi Civil Decor Group and Quality Marble, bridging European quarry benches and India's finest private residences.",
+    "Over 55+ Years of Expertise, Experience, and Enduring Trust. INTIOSS is the culmination of more than five decades dedicated to realizing spaces of authentic class, sophistication, and timeless permanence.",
 };
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">
-      {/* Editorial Hero */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-        <div className="max-w-3xl">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
-            Our Provenance
-          </span>
-          <h1 className="font-marcellus text-4xl sm:text-6xl text-maroon tracking-wide leading-tight">
-            55 Years of Stone. Three Generations of Mastery.
-          </h1>
-          <p className="font-poppins text-xs sm:text-base text-grey mt-6 leading-relaxed">
-            INTIOSS is the culmination of more than five decades in monolithic masonry, direct European quarry exploration, and structural civil contracting. We do not view stone as decorative veneer, but as permanent geological architecture.
-          </p>
+    <div className="min-h-screen bg-ivory text-maroon pt-28 sm:pt-36 pb-24 sm:pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-grey mb-8">
+          <Link href="/" className="hover:text-maroon transition-colors">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-gold">Our Provenance</span>
         </div>
-      </div>
 
-      {/* Hero Visual Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-          <div className="md:col-span-8 relative aspect-[16/9] overflow-hidden border border-gold/40 shadow-xl bg-stone-200">
-            <Image
-              src="https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?q=80&w=1200&auto=format&fit=crop"
-              alt="INTIOSS Raw Quarry Bench Extraction in Italy"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute bottom-4 left-4 bg-maroon-deep/90 text-ivory text-[10px] font-montserrat uppercase px-3 py-1 border border-gold/40">
-              Quarry Bench Scouting · Carrara, Italy
+        {/* Main Editorial Presentation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column: Narrative Content */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8">
+            <div className="space-y-3">
+              <span className="inline-block font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.35em] text-gold">
+                Our Provenance
+              </span>
+              <h1 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon font-normal tracking-wide leading-[1.15]">
+                Over 55+ Years of Expertise, Experience, and Enduring Trust.
+              </h1>
             </div>
-          </div>
 
-          <div className="md:col-span-4 relative aspect-[4/5] md:aspect-auto overflow-hidden border border-gold/40 shadow-xl bg-stone-200">
-            <Image
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
-              alt="Finished Luxury Installation"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute bottom-4 left-4 bg-maroon-deep/90 text-ivory text-[10px] font-montserrat uppercase px-3 py-1 border border-gold/40">
-              South Mumbai Private Residence
+            <div className="w-20 h-px bg-gold/50" />
+
+            <p className="font-marcellus text-lg sm:text-xl text-maroon leading-relaxed">
+              INTIOSS is the culmination of more than five decades dedicated to realizing spaces of authentic class, sophistication, and timeless permanence.
+            </p>
+
+            <div className="font-poppins text-sm sm:text-base text-grey leading-relaxed space-y-4">
+              <p>
+                True luxury in natural stone cannot be manufactured; it is discovered, understood, and precisely finished. For over half a century, our lineage has been defined by an unwavering dedication to the earth’s most extraordinary geological creations. What began as a foundational mastery of stone masonry has evolved into INTIOSS—a house dedicated to sourcing and curating exquisite marble and rare semiprecious stones for discerning architects, designers, and homeowners.
+              </p>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* The Story & Lineage */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-          <div className="md:col-span-4">
-            <span className="font-raleway text-xs uppercase tracking-[0.25em] text-gold font-medium block mb-2">
-              Founding Heritage
-            </span>
-            <h2 className="font-marcellus text-2xl sm:text-3xl text-maroon">
-              The Gandhi Civil Decor Group
-            </h2>
-            <div className="mt-4 pt-4 border-t border-gold/20">
-              <a
-                href={SITE_CONFIG.parentBrand.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-montserrat text-gold hover:underline"
+            {/* Editorial CTAs */}
+            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Link
+                href="/products"
+                className="inline-flex items-center justify-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-medium border border-gold transition-all shadow-sm"
               >
-                <span>Parent Brand: Quality Marble</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+                <span>Explore Curated Surfaces</span>
+                <ArrowRight className="w-3.5 h-3.5 text-gold" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-ivory text-maroon px-6 py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-medium border border-gold/40 hover:border-gold transition-all shadow-sm"
+              >
+                <span>Private Consultation</span>
+              </Link>
             </div>
           </div>
 
-          <div className="md:col-span-8 space-y-4 font-poppins text-xs sm:text-sm text-grey leading-relaxed">
-            <p>
-              In 1971, the foundations of what would become the Gandhi Civil Decor Group were laid across Western India. Initially pioneering heavy industrial civil contracting and monumental stonework, the group developed an instinctive understanding of how natural stone reacts to climate, foundation settling, and architectural loads.
-            </p>
-            <p>
-              Formalised in 1997, Gandhi Civil Decor expanded into luxury residential fitouts across South Mumbai—from the colonial bungalows of Malabar Hill to the high-rise penthouses of Worli. Recognizing that commercial marble vendors lacked the structural rigor required for zero-tolerance dry-laying, the group partnered with{" "}
-              <strong className="text-maroon font-montserrat">Quality Marble</strong> to establish direct overseas sourcing operations in Carrara, Verona, and Turkey.
-            </p>
-            <p>
-              Today, <strong className="text-maroon font-montserrat">INTIOSS</strong> represents the pure expression of this half-century legacy: a dedicated atelier for high-net-worth clients, developers, and discerning architects who require total command over block yield, bookmatching, and lifetime maintenance.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Core Values / Pillars */}
-      <div className="bg-white py-20 border-y border-gold/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="font-raleway text-xs uppercase tracking-[0.3em] text-gold block mb-2">
-              Our Principles
-            </span>
-            <h3 className="font-marcellus text-3xl sm:text-4xl text-maroon">
-              The Four Tenets of INTIOSS
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="p-6 bg-ivory border border-gold/30">
-              <Compass className="w-6 h-6 text-gold mb-4 stroke-[1.5]" />
-              <h4 className="font-marcellus text-lg text-maroon mb-2">Zero-Intermediary Sourcing</h4>
-              <p className="font-poppins text-xs text-grey leading-relaxed">
-                We inspect raw quarry benches in person. No brokers, no auctions. You receive authentic block provenance with verified geological batch testing.
-              </p>
-            </div>
-
-            <div className="p-6 bg-ivory border border-gold/30">
-              <Hammer className="w-6 h-6 text-gold mb-4 stroke-[1.5]" />
-              <h4 className="font-marcellus text-lg text-maroon mb-2">Substrate Civil Mastery</h4>
-              <p className="font-poppins text-xs text-grey leading-relaxed">
-                A slab is only as flat as the concrete below it. We engineer self-leveling moisture-barrier screeds before laying a single tile.
-              </p>
-            </div>
-
-            <div className="p-6 bg-ivory border border-gold/30">
-              <Sparkles className="w-6 h-6 text-gold mb-4 stroke-[1.5]" />
-              <h4 className="font-marcellus text-lg text-maroon mb-2">Vein-Flow Geometry</h4>
-              <p className="font-poppins text-xs text-grey leading-relaxed">
-                Every project undergoes a full digital CAD dry-lay and physical factory layout so vein rhythms flow continuously from room to room.
-              </p>
-            </div>
-
-            <div className="p-6 bg-ivory border border-gold/30">
-              <Award className="w-6 h-6 text-gold mb-4 stroke-[1.5]" />
-              <h4 className="font-marcellus text-lg text-maroon mb-2">Generational Stewardship</h4>
-              <p className="font-poppins text-xs text-grey leading-relaxed">
-                Our relationship does not end at handover. With our dedicated AMC division, we maintain mirror clarity through Italian crystallisation for decades.
-              </p>
+          {/* Right Column: Single Archival Image with Luxury Framing */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="relative w-full max-w-md">
+              {/* Outer decorative framing */}
+              <div className="absolute -inset-3 sm:-inset-4 border border-gold/25 pointer-events-none" />
+              <div className="relative aspect-[2/3] w-full overflow-hidden border border-gold/50 shadow-2xl bg-stone-100">
+                <Image
+                  src="/images/legacy-founder.jpg"
+                  alt="INTIOSS Provenance — 55+ Years of Heritage and Mastery"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                />
+                {/* Subtle luxury vignette gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-maroon/30 via-transparent to-transparent pointer-events-none" />
+              </div>
+              <div className="mt-3 text-center">
+                <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-grey">
+                  Five Decades of Architectural Reverence
+                </span>
+              </div>
             </div>
           </div>
         </div>
