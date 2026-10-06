@@ -220,6 +220,11 @@ export function ProductsServicesToggle() {
                           >
                             {item.title}
                           </span>
+
+                          {/* Wine Maroon Brand Small Badge Box */}
+                          <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-montserrat uppercase font-semibold tracking-wider bg-maroon-deep text-ivory border border-gold/40 shadow-xs">
+                            {item.count}
+                          </span>
                         </div>
 
                         {item.hasChevron && (
@@ -300,9 +305,12 @@ export function ProductsServicesToggle() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/95 via-maroon-deep/20 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6 text-ivory">
-                      <span className="font-raleway text-[10px] uppercase tracking-[0.25em] text-gold block mb-1">
-                        Category Focus · {PRODUCT_CATEGORIES[hoveredIndex]?.count}
-                      </span>
+                      {/* Wine Maroon Brand Small Badge Box */}
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-maroon-deep text-ivory border border-gold/40 rounded-full text-[10px] font-montserrat uppercase tracking-wider font-semibold mb-2 shadow-sm">
+                        <span className="text-gold font-bold">✦</span>
+                        <span>{PRODUCT_CATEGORIES[hoveredIndex]?.count}</span>
+                      </div>
+
                       <h4 className="font-marcellus text-xl text-ivory">
                         {PRODUCT_CATEGORIES[hoveredIndex]?.title}
                       </h4>
