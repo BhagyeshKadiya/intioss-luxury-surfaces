@@ -4,10 +4,10 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { SITE_CONFIG } from "@/lib/config";
-import { ExternalLink, Sparkles, MapPin, Award } from "lucide-react";
+import { ExternalLink, Sparkles, MapPin, Award, Calendar } from "lucide-react";
 
 interface Milestone {
-  step: string;
+  year: string;
   title: string;
   desc: string;
   stat: string;
@@ -16,49 +16,49 @@ interface Milestone {
 
 const TIMELINE_MILESTONES: Milestone[] = [
   {
-    step: "01",
+    year: "1970",
     title: "Gandhi Civil Decor",
     desc: "Establishment of Civil Interior Business",
     stat: "Civil Interior Foundation",
     location: "Mumbai, India",
   },
   {
-    step: "02",
+    year: "1982",
     title: "Italian Marble Installation",
     desc: "One of the first teams to install Italian Marble in India",
     stat: "Pioneering Installation Team",
     location: "South Mumbai",
   },
   {
-    step: "03",
+    year: "1995",
     title: "Italian Marble Imports",
     desc: "Commenced own imports of premium Italian marble",
     stat: "Direct European Sourcing",
     location: "Carrara & Verona, Italy",
   },
   {
-    step: "04",
+    year: "1997",
     title: "Quality Marble",
     desc: "Setup of Quality Marble Stock Yard in Vile Parle, Mumbai",
     stat: "Vile Parle Stock Yard",
     location: "Vile Parle, Mumbai",
   },
   {
-    step: "05",
+    year: "2007",
     title: "MGI Factory",
     desc: "Setup of Macma Granite International factory at Silvasa",
     stat: "Industrial Silvassa Plant",
     location: "Silvassa",
   },
   {
-    step: "06",
+    year: "2014",
     title: "Malad Stock Yard",
     desc: "Setting up of specialized stock yard in Malad",
     stat: "Specialized Stock Yard",
     location: "Malad, Mumbai",
   },
   {
-    step: "07",
+    year: "2022",
     title: "INTIOSS Luxury Surfaces",
     desc: "The dedicated ultra-luxury brand for discerning architects, private residences, and landmark estates",
     stat: "Ultra-Luxury Surface Atelier",
@@ -101,7 +101,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function LegacySection() {
-  const [activeIdx, setActiveIdx] = useState(6); // Default to "INTIOSS Luxury Surfaces"
+  const [activeIdx, setActiveIdx] = useState(6); // Default to 2022 "INTIOSS Luxury Surfaces"
   const timelineRef = useRef<HTMLDivElement>(null);
   const isTimelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
 
@@ -251,13 +251,13 @@ export function LegacySection() {
               }}
             />
 
-            {/* 7 Milestone Year / Step Buttons */}
+            {/* 7 Milestone Year Buttons with Exact Years */}
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3 relative z-10">
               {TIMELINE_MILESTONES.map((item, idx) => {
                 const isActive = activeIdx === idx;
                 return (
                   <button
-                    key={idx}
+                    key={item.year}
                     type="button"
                     onClick={() => setActiveIdx(idx)}
                     onMouseEnter={() => setActiveIdx(idx)}
@@ -276,19 +276,19 @@ export function LegacySection() {
 
                       <motion.div
                         animate={{
-                          scale: isActive ? 1.2 : 1,
-                          backgroundColor: isActive ? "#541B2A" : "#FAF7F2",
+                          scale: isActive ? 1.15 : 1,
+                          backgroundColor: isActive ? "#300C16" : "#FAF7F2",
                           borderColor: isActive ? "#DDB62B" : "rgba(221, 182, 43, 0.5)",
                         }}
                         transition={{ duration: 0.25 }}
-                        className="w-8 h-8 rounded-full border-2 flex items-center justify-center relative shadow-sm"
+                        className="px-2.5 py-1 rounded-full border-2 flex items-center justify-center relative shadow-sm"
                       >
                         <span
-                          className={`font-montserrat text-[10px] font-bold ${
-                            isActive ? "text-gold" : "text-maroon/70"
+                          className={`font-montserrat text-xs font-bold tracking-wider ${
+                            isActive ? "text-gold" : "text-maroon/80"
                           }`}
                         >
-                          {item.step}
+                          {item.year}
                         </span>
                       </motion.div>
                     </div>
@@ -325,8 +325,9 @@ export function LegacySection() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-4">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="px-3 py-1 bg-maroon-deep text-ivory text-[10px] font-montserrat uppercase tracking-wider font-semibold border border-gold/40">
-                      Step {TIMELINE_MILESTONES[activeIdx].step}
+                    <span className="flex items-center gap-1.5 px-3 py-1 bg-maroon-deep text-gold text-xs font-montserrat uppercase tracking-wider font-semibold border border-gold/40 shadow-xs">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{TIMELINE_MILESTONES[activeIdx].year}</span>
                     </span>
                     <span className="flex items-center gap-1 text-xs text-gold font-montserrat font-medium">
                       <MapPin className="w-3.5 h-3.5" />
