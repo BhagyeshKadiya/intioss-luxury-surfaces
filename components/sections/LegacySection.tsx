@@ -170,7 +170,7 @@ export function LegacySection() {
             </p>
 
             <p className="font-poppins text-xs sm:text-sm text-grey leading-relaxed">
-              Under the stewardship of the Gandhi Civil Decor Group and Quality Marble, our lineage encompasses three generations of stonemasons, civil engineers, and master quarry scouts. We control the complete lifecycle: scouting raw blocks directly at quarry benches in Carrara, sawing monumental slabs in our high-tech facility, and executing dry-laid floorings with laser calibration.
+              Under the stewardship of the Gandhi Civil Decor Group and Quality Marble, our lineage encompasses generations of stonemasons, civil engineers, and master quarry scouts. We control the complete lifecycle: scouting raw blocks, sawing monumental slabs in our high-tech facility, and executing dry-laid floorings with laser calibration.
             </p>
 
             {/* Parent Brand Link Callout */}
