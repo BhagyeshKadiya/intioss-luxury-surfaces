@@ -193,7 +193,7 @@ export function Footer() {
             {/* Newsletter input */}
             <form onSubmit={handleSubscribe} className="pt-3">
               <span className="font-raleway text-[11px] uppercase tracking-[0.2em] text-ivory/60 block mb-2">
-                Curated Stone Inquiries
+                Subscribe for Updates
               </span>
               <div className="flex items-center border border-gold/40 rounded-sm overflow-hidden bg-black/20">
                 <input
