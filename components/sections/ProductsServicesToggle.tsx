@@ -137,10 +137,10 @@ export function ProductsServicesToggle() {
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-10">
           <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-2">
-            INTIOSS Portfolio
+            Curated Excellence
           </span>
           <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon font-normal tracking-wide max-w-2xl">
-            Sourced from the Earth. Refined for Architecture.
+            We Source Top 2% Best Quality Stones
           </h2>
 
           {/* Exact Rounded Segmented Toggle Pill (Matching Screenshot) */}
