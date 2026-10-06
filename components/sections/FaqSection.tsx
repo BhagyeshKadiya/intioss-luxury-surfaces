@@ -18,13 +18,13 @@ export function FaqSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
-            Expert Advisory
+            INTIOSS Advisory
           </span>
           <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon tracking-wide">
-            Frequently Addressed Inquiries
+            Frequently Asked Questions
           </h2>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 max-w-xl mx-auto">
-            Technical guidance on European quarry sourcing, geological performance, fabrication tolerances, and generational stone maintenance.
+            Everything you need to know about our sourcing, materials, turnkey services, and comprehensive stone care.
           </p>
         </div>
 
