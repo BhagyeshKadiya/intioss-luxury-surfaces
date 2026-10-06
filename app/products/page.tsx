@@ -30,6 +30,7 @@ function ProductsContent() {
 
   const [filterState, setFilterState] = useState<FilterState>({
     category: initialCategory ? [initialCategory] : [],
+    subCategory: [],
     colorFamily: [],
     origin: [],
     finishes: [],
@@ -115,6 +116,11 @@ function ProductsContent() {
       );
     }
 
+    // Filter by subCategory
+    if (filterState.subCategory.length > 0) {
+      list = list.filter((p) => p.subCategory && filterState.subCategory.includes(p.subCategory));
+    }
+
     // Filter by color family
     if (filterState.colorFamily.length > 0) {
       list = list.filter((p) => filterState.colorFamily.includes(p.colorFamily));
@@ -161,6 +167,7 @@ function ProductsContent() {
   const clearAllFilters = () => {
     setFilterState({
       category: [],
+      subCategory: [],
       colorFamily: [],
       origin: [],
       finishes: [],
@@ -175,16 +182,27 @@ function ProductsContent() {
 
   const handleCategoryPillClick = (cat: string) => {
     if (cat === "ALL") {
-      setFilterState((prev) => ({ ...prev, category: [] }));
+      setFilterState((prev) => ({ ...prev, category: [], subCategory: [] }));
     } else {
       setFilterState((prev) => {
         const isSelected = prev.category.length === 1 && prev.category[0] === cat;
         return {
           ...prev,
           category: isSelected ? [] : [cat],
+          subCategory: [], // Reset subcategory when switching top category
         };
       });
     }
+  };
+
+  const handleSubCategoryPillClick = (subCat: string) => {
+    setFilterState((prev) => {
+      const exists = prev.subCategory.includes(subCat);
+      return {
+        ...prev,
+        subCategory: exists ? prev.subCategory.filter((s) => s !== subCat) : [...prev.subCategory, subCat],
+      };
+    });
   };
 
   const CATEGORY_PILLS = [
@@ -196,6 +214,30 @@ function ProductsContent() {
     { id: "Stone Veneers", label: "Stone Veneers", count: PRODUCTS.filter((p) => p.category === "Stone Veneers").length },
     { id: "Artefacts", label: "Artefacts", count: PRODUCTS.filter((p) => p.category === "Artefacts").length },
   ];
+
+  // Derive active secondary sub-category pills depending on selected category
+  const getSubCategoryPills = () => {
+    const activeCat = filterState.category.length === 1 ? filterState.category[0] : null;
+    if (activeCat === "Natural Stones") {
+      return ["Marble", "Quartzite", "Travertine", "Onyx", "Granite"];
+    }
+    if (activeCat === "Semi-Precious Stones") {
+      return ["Slabs", "Inlays", "Custom tops & furniture"];
+    }
+    if (activeCat === "Mosaics") {
+      return ["Marble", "Semi-precious gemstone", "Hand-cut glass"];
+    }
+    if (activeCat === "Stone Veneers") {
+      return ["Flexible Slate", "Translucent Backlit", "Stone Veneers"];
+    }
+    if (activeCat === "Artefacts") {
+      return ["Artefacts"];
+    }
+    // Default when ALL or multiple categories
+    return ["Marble", "Quartzite", "Travertine", "Onyx", "Granite", "Slabs", "Inlays", "Custom tops & furniture"];
+  };
+
+  const subCategoryPills = getSubCategoryPills();
 
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
@@ -237,7 +279,7 @@ function ProductsContent() {
           </div>
         </div>
 
-        {/* Top Horizontal Category Pills Carousel */}
+        {/* Top Horizontal Primary Category Pills Carousel */}
         <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center gap-2 sm:gap-3">
           {CATEGORY_PILLS.map((pill) => {
             const isActive =
@@ -265,6 +307,41 @@ function ProductsContent() {
             );
           })}
         </div>
+
+        {/* Secondary Sub-Category Pills Bar */}
+        {subCategoryPills.length > 0 && (
+          <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-grey flex-shrink-0 mr-1">
+              Stone Variety:
+            </span>
+            {subCategoryPills.map((subCat) => {
+              const isActive = filterState.subCategory.includes(subCat);
+              const count = PRODUCTS.filter((p) => {
+                if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
+                  return false;
+                }
+                return p.subCategory === subCat;
+              }).length;
+              if (count === 0 && filterState.category.length > 0) return null;
+              return (
+                <button
+                  key={subCat}
+                  onClick={() => handleSubCategoryPillClick(subCat)}
+                  className={`flex-none inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-montserrat tracking-wide transition-all border rounded-full ${
+                    isActive
+                      ? "bg-gold text-maroon border-maroon font-semibold shadow-sm"
+                      : "bg-white/80 text-maroon border-gold/25 hover:border-gold"
+                  }`}
+                >
+                  <span>{subCat}</span>
+                  {count > 0 && (
+                    <span className="text-[9px] opacity-75">({count})</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* Toolbar: Result count, Search, Sort & Density */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">

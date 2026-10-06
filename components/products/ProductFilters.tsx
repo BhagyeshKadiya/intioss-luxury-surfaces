@@ -6,6 +6,7 @@ import { StoneProduct } from "@/lib/types";
 
 export interface FilterState {
   category: string[];
+  subCategory: string[];
   colorFamily: string[];
   origin: string[];
   finishes: string[];
@@ -63,6 +64,7 @@ export function ProductFilters({
       if (key === "applications") return p.applications.includes(value as any);
       if (key === "thicknesses") return p.thicknesses.includes(value as any);
       if (key === "category") return p.category === value;
+      if (key === "subCategory") return p.subCategory === value;
       if (key === "colorFamily") return p.colorFamily === value;
       if (key === "origin") return p.origin.toLowerCase().includes(value.toLowerCase());
       if (key === "veining") return p.veining === value;
@@ -73,6 +75,22 @@ export function ProductFilters({
   };
 
   const totalActiveFilters = Object.values(filterState).flat().length;
+
+  // Distinct subcategories available across all products
+  const availableSubCategories = [
+    "Marble",
+    "Quartzite",
+    "Travertine",
+    "Onyx",
+    "Granite",
+    "Slabs",
+    "Inlays",
+    "Custom tops & furniture",
+    "Exclusive Table Tops — Stone",
+    "Hand-cut glass",
+    "Stone Veneers",
+    "Artefacts",
+  ];
 
   return (
     <div className="space-y-6 select-none font-poppins">
@@ -168,6 +186,54 @@ export function ProductFilters({
                     />
                     <span className={checked ? "font-medium text-maroon" : "text-grey"}>
                       {cat}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
+                </label>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 2. Stone Type / Sub-Category Filter */}
+      <div className="border-b border-gold/20 pb-4">
+        <button
+          onClick={() => toggleGroup("subCategory")}
+          className="w-full flex items-center justify-between py-1 text-left"
+        >
+          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+            Stone Type / Variety
+          </span>
+          {collapsedGroups["subCategory"] ? (
+            <ChevronDown className="w-4 h-4 text-gold" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-gold" />
+          )}
+        </button>
+
+        {!collapsedGroups["subCategory"] && (
+          <div className="mt-3 space-y-1.5 max-h-48 overflow-y-auto pr-1">
+            {availableSubCategories.map((subCat) => {
+              const count = getCount("subCategory", subCat);
+              if (count === 0) return null;
+              const checked = filterState.subCategory.includes(subCat);
+              return (
+                <label
+                  key={subCat}
+                  className={`flex items-center justify-between text-xs cursor-pointer py-1 px-1 rounded-sm transition-colors ${
+                    checked ? "bg-gold/10 font-semibold" : ""
+                  } hover:text-maroon hover:bg-ivory`}
+                >
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => handleToggle("subCategory", subCat)}
+                      className="accent-[#541B2A] rounded-none cursor-pointer"
+                    />
+                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
+                      {subCat}
                     </span>
                   </div>
                   <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
