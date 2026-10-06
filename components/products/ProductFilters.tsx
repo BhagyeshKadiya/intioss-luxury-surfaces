@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ChevronDown, ChevronUp, Search, X } from "lucide-react";
+import { ChevronDown, ChevronUp, Search, X, RotateCcw } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
 
 export interface FilterState {
@@ -22,19 +22,23 @@ interface ProductFiltersProps {
   onFilterChange: (newFilters: FilterState) => void;
   onClearAll: () => void;
   allProducts: StoneProduct[];
+  hideCategorySelectors?: boolean;
 }
 
-const COLOR_SWATCHES: Record<string, string> = {
-  White: "#FFFFFF",
-  Beige: "#E6DEC8",
-  Grey: "#949494",
-  Black: "#1A1A1A",
-  Green: "#2D5A43",
-  Pink: "#D8A49B",
-  Brown: "#593D2E",
-  Blue: "#1F4E79",
-  "Gold-Yellow": "#D4AF37",
-  Multi: "linear-gradient(135deg, #FAF7F2 25%, #541B2A 50%, #DDB62B 75%)",
+const COLOR_SWATCHES: Record<string, { bg: string; border: string }> = {
+  White: { bg: "#FFFFFF", border: "#D1D5DB" },
+  Beige: { bg: "#E6DEC8", border: "#C8BFA8" },
+  Grey: { bg: "#949494", border: "#737373" },
+  Black: { bg: "#1A1A1A", border: "#000000" },
+  Green: { bg: "#2D5A43", border: "#1F3E2E" },
+  Pink: { bg: "#D8A49B", border: "#B5837B" },
+  Brown: { bg: "#593D2E", border: "#3D2A1F" },
+  Blue: { bg: "#1F4E79", border: "#143350" },
+  "Gold-Yellow": { bg: "#D4AF37", border: "#A68620" },
+  Multi: {
+    bg: "linear-gradient(135deg, #FAF7F2 25%, #541B2A 50%, #DDB62B 75%)",
+    border: "#DDB62B",
+  },
 };
 
 export function ProductFilters({
@@ -42,8 +46,12 @@ export function ProductFilters({
   onFilterChange,
   onClearAll,
   allProducts,
+  hideCategorySelectors = false,
 }: ProductFiltersProps) {
-  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
+  const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({
+    thickness: true,
+    priceTier: true,
+  });
   const [originSearch, setOriginSearch] = useState("");
 
   const toggleGroup = (group: string) => {
@@ -76,183 +84,137 @@ export function ProductFilters({
 
   const totalActiveFilters = Object.values(filterState).flat().length;
 
-  // Distinct subcategories available across all products
-  const availableSubCategories = [
-    "Marble",
-    "Quartzite",
-    "Travertine",
-    "Onyx",
-    "Granite",
-    "Slabs",
-    "Inlays",
-    "Custom tops & furniture",
-    "Exclusive Table Tops — Stone",
-    "Hand-cut glass",
-    "Stone Veneers",
-    "Artefacts",
+  const FINISH_OPTIONS = [
+    "Polished",
+    "Honed",
+    "Leathered",
+    "Translucent Backlit",
+    "Hand-Carved",
+    "Waterjet Precision",
+    "Brushed",
+    "Antique",
+  ];
+
+  const APPLICATION_OPTIONS = [
+    "Flooring",
+    "Wall Cladding",
+    "Countertop",
+    "Bathroom",
+    "Pooja Room",
+    "Dining & Living",
+    "Furniture",
+    "Feature Wall",
+    "Facade",
+    "Outdoor",
+  ];
+
+  const VEINING_OPTIONS = [
+    "Bookmatch-ready",
+    "Dramatic",
+    "Intricate Inlay",
+    "Artisanal Mosaic",
+    "Hand-Sculpted",
+    "Veined",
+    "Uniform",
+  ];
+
+  const ORIGIN_COUNTRIES = [
+    "Italy",
+    "Brazil",
+    "India",
+    "Spain",
+    "Turkey",
+    "South Africa",
   ];
 
   return (
     <div className="space-y-6 select-none font-poppins">
-      {/* Header & Active Filter Count */}
+      {/* Header & Reset */}
       <div className="flex items-center justify-between pb-3 border-b border-gold/30">
         <div className="flex items-center gap-2">
           <span className="font-montserrat text-xs uppercase tracking-[0.2em] font-semibold text-maroon">
-            Filters
+            Filter Refinement
           </span>
           {totalActiveFilters > 0 && (
-            <span className="bg-gold text-maroon text-[10px] font-semibold px-1.5 py-0.2 rounded-none">
-              {totalActiveFilters}
+            <span className="bg-maroon text-gold text-[10px] font-semibold px-2 py-0.5 border border-gold/40">
+              {totalActiveFilters} Active
             </span>
           )}
         </div>
         {totalActiveFilters > 0 && (
           <button
             onClick={onClearAll}
-            className="text-[11px] font-montserrat uppercase tracking-wider text-grey hover:text-maroon underline"
+            className="inline-flex items-center gap-1 text-[11px] font-montserrat text-grey hover:text-maroon underline transition-colors"
           >
-            Clear All
+            <RotateCcw className="w-3 h-3" />
+            <span>Reset All</span>
           </button>
         )}
       </div>
 
-      {/* Active Filter Chips */}
-      {totalActiveFilters > 0 && (
-        <div className="flex flex-wrap gap-1.5 pb-2">
-          {Object.entries(filterState).map(([k, vals]) =>
-            vals.map((val: string) => (
-              <span
-                key={`${k}-${val}`}
-                className="inline-flex items-center gap-1 bg-white text-maroon text-[10px] font-montserrat px-2 py-1 border border-gold/40 shadow-sm"
-              >
-                <span>{val}</span>
-                <button
-                  onClick={() => handleToggle(k as keyof FilterState, val)}
-                  aria-label={`Remove ${val}`}
-                  className="hover:text-red-700"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))
+      {/* 1. Optional Category Selector (when not displayed on top bar) */}
+      {!hideCategorySelectors && (
+        <div className="border-b border-gold/20 pb-4">
+          <button
+            onClick={() => toggleGroup("category")}
+            className="w-full flex items-center justify-between py-1 text-left"
+          >
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Collection
+            </span>
+            {collapsedGroups["category"] ? (
+              <ChevronDown className="w-4 h-4 text-gold" />
+            ) : (
+              <ChevronUp className="w-4 h-4 text-gold" />
+            )}
+          </button>
+
+          {!collapsedGroups["category"] && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {[
+                "Natural Stones",
+                "Semi-Precious Stones",
+                "Exclusive Table Tops — Stone",
+                "Mosaics",
+                "Stone Veneers",
+                "Artefacts",
+              ].map((cat) => {
+                const checked = filterState.category.includes(cat);
+                const count = getCount("category", cat);
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => handleToggle("category", cat)}
+                    className={`px-2.5 py-1 text-xs font-montserrat transition-all border ${
+                      checked
+                        ? "bg-maroon-deep text-ivory border-gold shadow-sm font-medium"
+                        : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                    }`}
+                  >
+                    <span>{cat}</span>
+                    <span className="ml-1 text-[10px] opacity-70">({count})</span>
+                  </button>
+                );
+              })}
+            </div>
           )}
         </div>
       )}
 
-      {/* 1. Category Filter */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("category")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Product Category
-          </span>
-          {collapsedGroups["category"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["category"] && (
-          <div className="mt-3 space-y-1.5">
-            {[
-              "Natural Stones",
-              "Semi-Precious Stones",
-              "Exclusive Table Tops — Stone",
-              "Mosaics",
-              "Stone Veneers",
-              "Artefacts",
-            ].map((cat) => {
-              const count = getCount("category", cat);
-              const checked = filterState.category.includes(cat);
-              const disabled = count === 0;
-              return (
-                <label
-                  key={cat}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-1 px-1 rounded-sm transition-colors ${
-                    checked ? "bg-gold/10 font-semibold" : ""
-                  } ${
-                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon hover:bg-ivory"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => handleToggle("category", cat)}
-                      className="accent-[#541B2A] rounded-none cursor-pointer"
-                    />
-                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                      {cat}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* 2. Stone Type / Sub-Category Filter */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("subCategory")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Stone Type / Variety
-          </span>
-          {collapsedGroups["subCategory"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["subCategory"] && (
-          <div className="mt-3 space-y-1.5 max-h-48 overflow-y-auto pr-1">
-            {availableSubCategories.map((subCat) => {
-              const count = getCount("subCategory", subCat);
-              if (count === 0) return null;
-              const checked = filterState.subCategory.includes(subCat);
-              return (
-                <label
-                  key={subCat}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-1 px-1 rounded-sm transition-colors ${
-                    checked ? "bg-gold/10 font-semibold" : ""
-                  } hover:text-maroon hover:bg-ivory`}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => handleToggle("subCategory", subCat)}
-                      className="accent-[#541B2A] rounded-none cursor-pointer"
-                    />
-                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                      {subCat}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* 2. Color Family Swatches */}
+      {/* 2. Color Palette Swatches */}
       <div className="border-b border-gold/20 pb-4">
         <button
           onClick={() => toggleGroup("color")}
           className="w-full flex items-center justify-between py-1 text-left"
         >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Colour Family
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Color Palette
+            </span>
+            {filterState.colorFamily.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
           {collapsedGroups["color"] ? (
             <ChevronDown className="w-4 h-4 text-gold" />
           ) : (
@@ -262,7 +224,7 @@ export function ProductFilters({
 
         {!collapsedGroups["color"] && (
           <div className="mt-3 grid grid-cols-5 gap-2">
-            {Object.entries(COLOR_SWATCHES).map(([color, swatch]) => {
+            {Object.entries(COLOR_SWATCHES).map(([color, { bg, border }]) => {
               const checked = filterState.colorFamily.includes(color);
               const count = getCount("colorFamily", color);
               const disabled = count === 0;
@@ -273,19 +235,20 @@ export function ProductFilters({
                   title={`${color} (${count})`}
                   disabled={disabled}
                   onClick={() => handleToggle("colorFamily", color)}
-                  className={`relative flex flex-col items-center p-1 border transition-all ${
+                  className={`group relative flex flex-col items-center p-1.5 transition-all border ${
                     checked
-                      ? "border-maroon ring-1 ring-gold shadow-sm"
-                      : "border-gold/20 hover:border-gold"
-                  } ${disabled ? "opacity-30 cursor-not-allowed" : "cursor-pointer"}`}
+                      ? "border-maroon bg-gold/10 ring-1 ring-gold shadow-sm"
+                      : "border-gold/20 hover:border-gold bg-white"
+                  } ${disabled ? "opacity-25 cursor-not-allowed" : "cursor-pointer"}`}
                 >
                   <div
-                    className="w-5 h-5 rounded-none border border-black/10 shadow-inner"
+                    className="w-5 h-5 rounded-full shadow-inner border"
                     style={{
-                      background: swatch.startsWith("linear") ? swatch : swatch,
+                      background: bg,
+                      borderColor: border,
                     }}
                   />
-                  <span className="text-[8px] font-montserrat text-grey mt-1 truncate max-w-full">
+                  <span className="text-[9px] font-montserrat text-grey mt-1 truncate max-w-full group-hover:text-maroon">
                     {color}
                   </span>
                 </button>
@@ -295,15 +258,158 @@ export function ProductFilters({
         )}
       </div>
 
-      {/* 3. Origin with search */}
+      {/* 3. Surface Finishes (Tactile Chips) */}
+      <div className="border-b border-gold/20 pb-4">
+        <button
+          onClick={() => toggleGroup("finishes")}
+          className="w-full flex items-center justify-between py-1 text-left"
+        >
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Surface Finish
+            </span>
+            {filterState.finishes.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
+          {collapsedGroups["finishes"] ? (
+            <ChevronDown className="w-4 h-4 text-gold" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-gold" />
+          )}
+        </button>
+
+        {!collapsedGroups["finishes"] && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {FINISH_OPTIONS.map((fin) => {
+              const checked = filterState.finishes.includes(fin);
+              const count = getCount("finishes", fin);
+              if (count === 0) return null;
+              return (
+                <button
+                  key={fin}
+                  onClick={() => handleToggle("finishes", fin)}
+                  className={`px-2.5 py-1 text-xs font-montserrat rounded-none transition-all border ${
+                    checked
+                      ? "bg-maroon text-gold border-gold font-medium shadow-sm"
+                      : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                  }`}
+                >
+                  <span>{fin}</span>
+                  <span className="ml-1 text-[9px] opacity-70">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 4. Architectural Application (Tactile Chips) */}
+      <div className="border-b border-gold/20 pb-4">
+        <button
+          onClick={() => toggleGroup("applications")}
+          className="w-full flex items-center justify-between py-1 text-left"
+        >
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Application Area
+            </span>
+            {filterState.applications.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
+          {collapsedGroups["applications"] ? (
+            <ChevronDown className="w-4 h-4 text-gold" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-gold" />
+          )}
+        </button>
+
+        {!collapsedGroups["applications"] && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {APPLICATION_OPTIONS.map((app) => {
+              const checked = filterState.applications.includes(app);
+              const count = getCount("applications", app);
+              if (count === 0) return null;
+              return (
+                <button
+                  key={app}
+                  onClick={() => handleToggle("applications", app)}
+                  className={`px-2.5 py-1 text-xs font-montserrat transition-all border ${
+                    checked
+                      ? "bg-maroon text-gold border-gold font-medium shadow-sm"
+                      : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                  }`}
+                >
+                  <span>{app}</span>
+                  <span className="ml-1 text-[9px] opacity-70">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 5. Pattern & Veining */}
+      <div className="border-b border-gold/20 pb-4">
+        <button
+          onClick={() => toggleGroup("veining")}
+          className="w-full flex items-center justify-between py-1 text-left"
+        >
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Veining & Pattern
+            </span>
+            {filterState.veining.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
+          {collapsedGroups["veining"] ? (
+            <ChevronDown className="w-4 h-4 text-gold" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-gold" />
+          )}
+        </button>
+
+        {!collapsedGroups["veining"] && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {VEINING_OPTIONS.map((v) => {
+              const checked = filterState.veining.includes(v);
+              const count = getCount("veining", v);
+              if (count === 0) return null;
+              return (
+                <button
+                  key={v}
+                  onClick={() => handleToggle("veining", v)}
+                  className={`px-2.5 py-1 text-xs font-montserrat transition-all border ${
+                    checked
+                      ? "bg-maroon text-gold border-gold font-medium shadow-sm"
+                      : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                  }`}
+                >
+                  <span>{v}</span>
+                  <span className="ml-1 text-[9px] opacity-70">({count})</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 6. Quarry Origin */}
       <div className="border-b border-gold/20 pb-4">
         <button
           onClick={() => toggleGroup("origin")}
           className="w-full flex items-center justify-between py-1 text-left"
         >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Origin
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Quarry Origin
+            </span>
+            {filterState.origin.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
           {collapsedGroups["origin"] ? (
             <ChevronDown className="w-4 h-4 text-gold" />
           ) : (
@@ -313,208 +419,27 @@ export function ProductFilters({
 
         {!collapsedGroups["origin"] && (
           <div className="mt-3 space-y-2">
-            <div className="relative">
-              <Search className="w-3.5 h-3.5 text-grey absolute left-2 top-2" />
-              <input
-                type="text"
-                placeholder="Search origin..."
-                value={originSearch}
-                onChange={(e) => setOriginSearch(e.target.value)}
-                className="w-full pl-7 pr-2 py-1 text-xs bg-white border border-gold/30 rounded-none focus:outline-none focus:border-gold"
-              />
+            <div className="flex flex-wrap gap-1.5">
+              {ORIGIN_COUNTRIES.map((origin) => {
+                const count = getCount("origin", origin);
+                const checked = filterState.origin.includes(origin);
+                if (count === 0) return null;
+                return (
+                  <button
+                    key={origin}
+                    onClick={() => handleToggle("origin", origin)}
+                    className={`px-2.5 py-1 text-xs font-montserrat transition-all border ${
+                      checked
+                        ? "bg-maroon text-gold border-gold font-medium shadow-sm"
+                        : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                    }`}
+                  >
+                    <span>{origin}</span>
+                    <span className="ml-1 text-[9px] opacity-70">({count})</span>
+                  </button>
+                );
+              })}
             </div>
-            <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-              {[
-                "Italy",
-                "Brazil",
-                "India",
-                "Spain",
-                "Turkey",
-                "South Africa",
-                "Greece",
-                "Iran",
-              ]
-                .filter((o) => o.toLowerCase().includes(originSearch.toLowerCase()))
-                .map((origin) => {
-                  const count = getCount("origin", origin);
-                  const checked = filterState.origin.includes(origin);
-                  const disabled = count === 0;
-                  return (
-                    <label
-                      key={origin}
-                      className={`flex items-center justify-between text-xs cursor-pointer py-0.5 ${
-                        disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={() => handleToggle("origin", origin)}
-                          className="accent-[#541B2A] rounded-none cursor-pointer"
-                        />
-                        <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                          {origin}
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                    </label>
-                  );
-                })}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 4. Finish Filter */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("finishes")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Finish
-          </span>
-          {collapsedGroups["finishes"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["finishes"] && (
-          <div className="mt-3 space-y-1.5">
-            {["Polished", "Honed", "Leathered", "Brushed", "Antique", "Flamed"].map((fin) => {
-              const count = getCount("finishes", fin);
-              const checked = filterState.finishes.includes(fin);
-              const disabled = count === 0;
-              return (
-                <label
-                  key={fin}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-0.5 ${
-                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => handleToggle("finishes", fin)}
-                      className="accent-[#541B2A] rounded-none cursor-pointer"
-                    />
-                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                      {fin}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* 5. Application Area */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("applications")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Application
-          </span>
-          {collapsedGroups["applications"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["applications"] && (
-          <div className="mt-3 space-y-1.5">
-            {[
-              "Flooring",
-              "Wall Cladding",
-              "Countertop",
-              "Facade",
-              "Staircase",
-              "Bathroom",
-              "Pooja Room",
-              "Outdoor",
-            ].map((app) => {
-              const count = getCount("applications", app);
-              const checked = filterState.applications.includes(app);
-              const disabled = count === 0;
-              return (
-                <label
-                  key={app}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-0.5 ${
-                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => handleToggle("applications", app)}
-                      className="accent-[#541B2A] rounded-none cursor-pointer"
-                    />
-                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                      {app}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                </label>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* 6. Veining & Pattern */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("veining")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-            Veining & Pattern
-          </span>
-          {collapsedGroups["veining"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["veining"] && (
-          <div className="mt-3 space-y-1.5">
-            {["Bookmatch-ready", "Dramatic", "Veined", "Uniform", "Cloudy"].map((v) => {
-              const count = getCount("veining", v);
-              const checked = filterState.veining.includes(v);
-              const disabled = count === 0;
-              return (
-                <label
-                  key={v}
-                  className={`flex items-center justify-between text-xs cursor-pointer py-0.5 ${
-                    disabled ? "opacity-35 pointer-events-none" : "hover:text-maroon"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => handleToggle("veining", v)}
-                      className="accent-[#541B2A] rounded-none cursor-pointer"
-                    />
-                    <span className={checked ? "font-medium text-maroon" : "text-grey"}>
-                      {v}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-grey/60 font-montserrat">({count})</span>
-                </label>
-              );
-            })}
           </div>
         )}
       </div>

@@ -45,6 +45,7 @@ function ProductsContent() {
   const [sortBy, setSortBy] = useState<"featured" | "name-asc" | "name-desc">("featured");
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(true);
 
   // Compare & Moodboard state
   const [compareList, setCompareList] = useState<StoneProduct[]>([]);
@@ -180,6 +181,26 @@ function ProductsContent() {
     setSearchQuery("");
   };
 
+  const removeFilter = (key: keyof FilterState, val: string) => {
+    setFilterState((prev) => ({
+      ...prev,
+      [key]: prev[key].filter((v) => v !== val),
+    }));
+  };
+
+  const activeFiltersCount = useMemo(() => {
+    return (
+      filterState.category.length +
+      filterState.subCategory.length +
+      filterState.colorFamily.length +
+      filterState.origin.length +
+      filterState.finishes.length +
+      filterState.applications.length +
+      filterState.veining.length +
+      (searchQuery.trim() ? 1 : 0)
+    );
+  }, [filterState, searchQuery]);
+
   const handleCategoryPillClick = (cat: string) => {
     if (cat === "ALL") {
       setFilterState((prev) => ({ ...prev, category: [], subCategory: [] }));
@@ -201,6 +222,16 @@ function ProductsContent() {
       return {
         ...prev,
         subCategory: exists ? prev.subCategory.filter((s) => s !== subCat) : [...prev.subCategory, subCat],
+      };
+    });
+  };
+
+  const toggleColorFilter = (color: string) => {
+    setFilterState((prev) => {
+      const exists = prev.colorFamily.includes(color);
+      return {
+        ...prev,
+        colorFamily: exists ? prev.colorFamily.filter((c) => c !== color) : [...prev.colorFamily, color],
       };
     });
   };
@@ -239,10 +270,22 @@ function ProductsContent() {
 
   const subCategoryPills = getSubCategoryPills();
 
+  const QUICK_COLORS = [
+    { name: "White", hex: "#FFFFFF", border: "#D1D5DB" },
+    { name: "Beige", hex: "#E6DEC8", border: "#C8BFA8" },
+    { name: "Grey", hex: "#949494", border: "#737373" },
+    { name: "Black", hex: "#1A1A1A", border: "#333333" },
+    { name: "Green", hex: "#2D5A43", border: "#1F3E2E" },
+    { name: "Blue", hex: "#1F4E79", border: "#143350" },
+    { name: "Pink", hex: "#D8A49B", border: "#B5837B" },
+    { name: "Brown", hex: "#593D2E", border: "#3D2A1F" },
+    { name: "Gold-Yellow", hex: "#D4AF37", border: "#A68620" },
+  ];
+
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
       {/* Editorial Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gold/30 pb-6">
           <div>
             <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-grey mb-2">
@@ -259,6 +302,20 @@ function ProductsContent() {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Desktop Filters Toggle Button */}
+            <button
+              onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
+              className="hidden lg:inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold shadow-sm transition-all"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gold" />
+              <span>{isFilterSidebarOpen ? "Hide Filters" : "Show Filters"}</span>
+              {activeFiltersCount > 0 && (
+                <span className="w-4 h-4 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center">
+                  {activeFiltersCount}
+                </span>
+              )}
+            </button>
+
             {/* Shortlist button */}
             <button
               onClick={() => setIsMoodboardOpen(true)}
@@ -274,7 +331,7 @@ function ProductsContent() {
               className="lg:hidden inline-flex items-center gap-2 bg-maroon text-white px-3.5 py-2 text-xs font-montserrat uppercase tracking-wider font-semibold border border-gold"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-gold" />
-              <span>Filters</span>
+              <span>Filters {activeFiltersCount > 0 ? `(${activeFiltersCount})` : ""}</span>
             </button>
           </div>
         </div>
@@ -343,7 +400,37 @@ function ProductsContent() {
           </div>
         )}
 
-        {/* Toolbar: Result count, Search, Sort & Density */}
+        {/* Quick Color Swatches Bar */}
+        <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+          <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-grey flex-shrink-0 mr-1">
+            Tone Palette:
+          </span>
+          <div className="flex items-center gap-1.5">
+            {QUICK_COLORS.map((col) => {
+              const isSelected = filterState.colorFamily.includes(col.name);
+              return (
+                <button
+                  key={col.name}
+                  onClick={() => toggleColorFilter(col.name)}
+                  title={`Filter by ${col.name}`}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-montserrat transition-all border rounded-full ${
+                    isSelected
+                      ? "bg-maroon text-gold border-gold font-semibold shadow-sm"
+                      : "bg-white/80 text-maroon/80 border-gold/25 hover:border-gold"
+                  }`}
+                >
+                  <span
+                    className="w-3 h-3 rounded-full border shadow-inner flex-shrink-0"
+                    style={{ backgroundColor: col.hex, borderColor: col.border }}
+                  />
+                  <span>{col.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Toolbar: Search, Result count, Sort & Density */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
           <div className="w-full sm:w-80 relative">
             <Search className="w-4 h-4 text-grey absolute left-3 top-2.5" />
@@ -364,7 +451,7 @@ function ProductsContent() {
             )}
           </div>
 
-          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4">
+          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
             <span className="text-xs font-montserrat text-grey">
               Showing <strong className="text-maroon">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
             </span>
@@ -402,23 +489,126 @@ function ProductsContent() {
             </div>
           </div>
         </div>
+
+        {/* Active Filter Dismissible Badges Bar */}
+        {activeFiltersCount > 0 && (
+          <div className="flex flex-wrap items-center gap-2 pt-4 pb-2 border-t border-gold/20 mt-4">
+            <span className="text-[11px] font-raleway uppercase tracking-[0.2em] text-grey mr-1">
+              Active Filters:
+            </span>
+            {searchQuery.trim() && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white border border-gold/40 text-maroon shadow-sm">
+                <span>&ldquo;{searchQuery}&rdquo;</span>
+                <button onClick={() => setSearchQuery("")} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            )}
+            {filterState.category.map((cat) => (
+              <span
+                key={`cat-${cat}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-maroon-deep text-ivory border border-gold shadow-sm font-medium"
+              >
+                <span>{cat}</span>
+                <button onClick={() => removeFilter("category", cat)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.subCategory.map((sub) => (
+              <span
+                key={`sub-${sub}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gold text-maroon font-semibold border border-maroon/20 shadow-sm"
+              >
+                <span>{sub}</span>
+                <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon/70">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.colorFamily.map((col) => (
+              <span
+                key={`col-${col}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
+              >
+                <span>Color: {col}</span>
+                <button onClick={() => removeFilter("colorFamily", col)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.finishes.map((f) => (
+              <span
+                key={`f-${f}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
+              >
+                <span>Finish: {f}</span>
+                <button onClick={() => removeFilter("finishes", f)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.applications.map((app) => (
+              <span
+                key={`app-${app}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
+              >
+                <span>Area: {app}</span>
+                <button onClick={() => removeFilter("applications", app)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.veining.map((v) => (
+              <span
+                key={`v-${v}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
+              >
+                <span>Pattern: {v}</span>
+                <button onClick={() => removeFilter("veining", v)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.origin.map((orig) => (
+              <span
+                key={`orig-${orig}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
+              >
+                <span>Origin: {orig}</span>
+                <button onClick={() => removeFilter("origin", orig)} className="hover:text-gold">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            <button
+              onClick={clearAllFilters}
+              className="inline-flex items-center gap-1 text-xs font-montserrat text-grey hover:text-maroon underline ml-2 cursor-pointer font-medium"
+            >
+              Clear All ({activeFiltersCount})
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Main Catalog Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Desktop Sticky Filter Sidebar (3 cols) */}
-          <aside className="hidden lg:block lg:col-span-3 sticky top-28 max-h-[82vh] overflow-y-auto pr-3 bg-white p-5 border border-gold/30 shadow-sm scrollbar-thin">
-            <ProductFilters
-              filterState={filterState}
-              onFilterChange={setFilterState}
-              onClearAll={clearAllFilters}
-              allProducts={PRODUCTS}
-            />
-          </aside>
+        <div className="flex gap-8 items-start">
+          {/* Desktop Sticky Filter Sidebar */}
+          {isFilterSidebarOpen && (
+            <aside className="hidden lg:block w-72 flex-shrink-0 sticky top-28 max-h-[82vh] overflow-y-auto pr-3 bg-white p-5 border border-gold/30 shadow-sm scrollbar-thin">
+              <ProductFilters
+                filterState={filterState}
+                onFilterChange={setFilterState}
+                onClearAll={clearAllFilters}
+                allProducts={PRODUCTS}
+                hideCategorySelectors={true}
+              />
+            </aside>
+          )}
 
-          {/* Product Grid (9 cols) */}
-          <div className="lg:col-span-9">
+          {/* Product Grid Area */}
+          <div className="flex-1 min-w-0">
             {filteredProducts.length === 0 ? (
               // Empty State with Sourcing on Request WhatsApp CTA
               <div className="bg-white border border-gold/30 p-12 sm:p-16 text-center shadow-sm">
@@ -455,8 +645,12 @@ function ProductsContent() {
                 layout
                 className={`grid gap-6 ${
                   density === "compact"
-                    ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                    ? isFilterSidebarOpen
+                      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+                      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+                    : isFilterSidebarOpen
+                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                    : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
                 }`}
               >
                 <AnimatePresence>
@@ -505,23 +699,41 @@ function ProductsContent() {
               className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-ivory text-maroon z-[99] rounded-t-sm p-6 border-t-2 border-gold shadow-2xl"
             >
               <div className="flex items-center justify-between pb-4 border-b border-gold/30 mb-4">
-                <span className="font-marcellus text-xl text-maroon">Filters</span>
-                <button
-                  onClick={() => setIsMobileFilterOpen(false)}
-                  className="p-1.5 border border-gold/40 text-maroon"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <span className="font-marcellus text-xl text-maroon">Filters</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-maroon text-gold text-xs font-semibold px-2 py-0.5 border border-gold/40">
+                      {activeFiltersCount} Active
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center gap-3">
+                  {activeFiltersCount > 0 && (
+                    <button
+                      onClick={clearAllFilters}
+                      className="text-xs font-montserrat text-grey hover:text-maroon underline"
+                    >
+                      Reset All
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setIsMobileFilterOpen(false)}
+                    className="p-1.5 border border-gold/40 text-maroon"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
               <ProductFilters
                 filterState={filterState}
                 onFilterChange={setFilterState}
                 onClearAll={clearAllFilters}
                 allProducts={PRODUCTS}
+                hideCategorySelectors={true}
               />
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-full mt-6 bg-maroon text-white py-3 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold"
+                className="w-full mt-6 bg-maroon text-white py-3 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold shadow-md"
               >
                 Apply Filters ({filteredProducts.length} Results)
               </button>
