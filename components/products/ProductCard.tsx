@@ -6,7 +6,7 @@ import Link from "next/link";
 import { StoneProduct } from "@/lib/types";
 import { formatPriceTier } from "@/lib/utils";
 import { getProductWhatsAppUrl } from "@/lib/config";
-import { Scale, MessageSquare, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Scale, MessageSquare, Sparkles, ChevronLeft, ChevronRight, Layers } from "lucide-react";
 
 interface ProductCardProps {
   product: StoneProduct;
@@ -169,6 +169,21 @@ export function ProductCard({
               : "opacity-90 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
           }`}
         >
+          {/* Book Match (Layers) */}
+          <Link
+            href={`/book-match?stone=${product.slug}`}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            aria-label="Simulate Book Match"
+            className="p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 bg-white/95 text-maroon border-gold/40 hover:bg-gold hover:text-maroon shadow-sm"
+          >
+            <Layers className="w-3.5 h-3.5 text-gold" />
+            <span className="text-[10px] font-montserrat hidden sm:inline font-medium">
+              Book Match
+            </span>
+          </Link>
+
           {/* Compare (Scale) */}
           <button
             type="button"

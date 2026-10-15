@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Fuse from "fuse.js";
 import { PRODUCTS } from "@/data/products";
@@ -18,6 +19,7 @@ import {
   LayoutGrid,
   Search,
   MessageSquare,
+  Layers,
   X,
 } from "lucide-react";
 
@@ -302,6 +304,15 @@ function ProductsContent() {
                 </span>
               )}
             </button>
+
+            {/* Book Match Studio Button */}
+            <Link
+              href="/book-match"
+              className="inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/10 shadow-sm transition-all"
+            >
+              <Layers className="w-3.5 h-3.5 text-gold" />
+              <span className="font-medium">Book Match</span>
+            </Link>
 
             {/* Mobile Filter Button */}
             <button
