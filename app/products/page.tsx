@@ -226,15 +226,6 @@ function ProductsContent() {
     });
   };
 
-  const toggleColorFilter = (color: string) => {
-    setFilterState((prev) => {
-      const exists = prev.colorFamily.includes(color);
-      return {
-        ...prev,
-        colorFamily: exists ? prev.colorFamily.filter((c) => c !== color) : [...prev.colorFamily, color],
-      };
-    });
-  };
 
   const CATEGORY_PILLS = [
     { id: "ALL", label: "All Collections", count: PRODUCTS.length },
@@ -270,17 +261,6 @@ function ProductsContent() {
 
   const subCategoryPills = getSubCategoryPills();
 
-  const QUICK_COLORS = [
-    { name: "White", hex: "#FFFFFF", border: "#D1D5DB" },
-    { name: "Beige", hex: "#E6DEC8", border: "#C8BFA8" },
-    { name: "Grey", hex: "#949494", border: "#737373" },
-    { name: "Black", hex: "#1A1A1A", border: "#333333" },
-    { name: "Green", hex: "#2D5A43", border: "#1F3E2E" },
-    { name: "Blue", hex: "#1F4E79", border: "#143350" },
-    { name: "Pink", hex: "#D8A49B", border: "#B5837B" },
-    { name: "Brown", hex: "#593D2E", border: "#3D2A1F" },
-    { name: "Gold-Yellow", hex: "#D4AF37", border: "#A68620" },
-  ];
 
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
@@ -400,35 +380,6 @@ function ProductsContent() {
           </div>
         )}
 
-        {/* Quick Color Swatches Bar */}
-        <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-          <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-grey flex-shrink-0 mr-1">
-            Tone Palette:
-          </span>
-          <div className="flex items-center gap-1.5">
-            {QUICK_COLORS.map((col) => {
-              const isSelected = filterState.colorFamily.includes(col.name);
-              return (
-                <button
-                  key={col.name}
-                  onClick={() => toggleColorFilter(col.name)}
-                  title={`Filter by ${col.name}`}
-                  className={`flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-montserrat transition-all border rounded-full ${
-                    isSelected
-                      ? "bg-maroon text-gold border-gold font-semibold shadow-sm"
-                      : "bg-white/80 text-maroon/80 border-gold/25 hover:border-gold"
-                  }`}
-                >
-                  <span
-                    className="w-3 h-3 rounded-full border shadow-inner flex-shrink-0"
-                    style={{ backgroundColor: col.hex, borderColor: col.border }}
-                  />
-                  <span>{col.name}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
 
         {/* Toolbar: Search, Result count, Sort & Density */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
