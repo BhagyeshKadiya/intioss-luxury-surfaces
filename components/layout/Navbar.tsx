@@ -120,14 +120,11 @@ export function Navbar() {
               transition={{ duration: 0.3 }}
               className="flex items-center gap-3 sm:gap-4 pointer-events-auto"
             >
-              {/* Logo in Magenta Border Box */}
-              <div className="flex items-center px-2 sm:px-2.5 py-1 rounded-sm border-2 border-maroon bg-white/90 shadow-sm">
-                <IntiossLogo
-                  theme="light"
-                  size="sm"
-                  showSubtitle={false}
-                />
-              </div>
+              <IntiossLogo
+                theme="light"
+                size="sm"
+                showSubtitle={false}
+              />
 
               {/* White Tagline beside Logo */}
               <div
