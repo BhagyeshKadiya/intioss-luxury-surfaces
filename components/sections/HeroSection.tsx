@@ -316,15 +316,17 @@ export function HeroSection() {
             <IntiossLogo size="hero" asLink={false} />
 
             {/* Exclusive Hero Tagline - Only in Hero Section */}
-            <motion.p
+            <motion.div
               style={{ opacity: taglineOpacity }}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" }}
-              className="mt-3 sm:mt-4 font-raleway text-xs sm:text-sm md:text-[14px] uppercase tracking-[0.24em] sm:tracking-[0.34em] text-white/95 font-light text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] pointer-events-none"
+              transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
+              className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center pointer-events-none"
             >
-              Breathtaking stones for the deserving few.
-            </motion.p>
+              <p className="font-raleway text-xs sm:text-[13px] md:text-sm uppercase tracking-[0.32em] sm:tracking-[0.42em] text-white/95 font-light text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+                Breathtaking stones for the discerning few.
+              </p>
+            </motion.div>
           </div>
         </motion.div>
 
