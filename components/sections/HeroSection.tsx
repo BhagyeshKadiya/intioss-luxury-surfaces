@@ -312,7 +312,33 @@ export function HeroSection() {
           }}
           className="flex flex-col items-center"
         >
-          <div className="flex flex-col items-center">
+          <div className="relative flex flex-col items-center">
+            {/* Luminous Soft White Cloud Effect behind Logo */}
+            <motion.div
+              style={{ opacity: taglineOpacity }}
+              className="absolute -inset-x-12 -inset-y-8 sm:-inset-x-20 sm:-inset-y-12 md:-inset-x-28 md:-inset-y-16 rounded-[100%] pointer-events-none -z-10"
+              aria-hidden="true"
+            >
+              {/* Outer soft white cloud diffusion */}
+              <div
+                className="w-full h-full rounded-[100%]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.52) 35%, rgba(255, 255, 255, 0.24) 60%, rgba(255, 255, 255, 0.05) 80%, transparent 100%)",
+                  filter: "blur(32px)",
+                }}
+              />
+              {/* Inner ambient mist core */}
+              <div
+                className="absolute inset-4 sm:inset-6 rounded-[100%] backdrop-blur-[2px]"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.3) 50%, transparent 85%)",
+                  filter: "blur(18px)",
+                }}
+              />
+            </motion.div>
+
             <IntiossLogo size="hero" asLink={false} />
 
             {/* Exclusive Hero Tagline - Only in Hero Section */}
