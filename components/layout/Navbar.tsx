@@ -16,7 +16,7 @@ export function Navbar() {
 
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(!isHome);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(!isHome);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const lastScrollY = useRef(0);
@@ -27,7 +27,7 @@ export function Navbar() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  // Sync scroll state on initial mount to prevent jerks when refreshing while scrolled down
+  // Sync scroll state on initial mount
   useEffect(() => {
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
@@ -37,6 +37,12 @@ export function Navbar() {
         setIsScrolled(true);
       } else {
         setIsScrolled(!isHome);
+      }
+
+      if (isHome) {
+        setIsVisible(false);
+      } else if (!isHome && currentScrollY <= 80) {
+        setIsVisible(true);
       }
     }
   }, [isHome]);
@@ -52,7 +58,10 @@ export function Navbar() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Scroll behavior: intent-based hide on scroll down, show on scroll up
+  // Scroll behavior:
+  // - On homepage: navbar NEVER appears when home page appears/loads at the top.
+  // - Navbar ONLY appears when user back-scrolls (scrolls UP).
+  // - When scrolling down, navbar hides.
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = lastScrollY.current;
     const diff = latest - previous;
@@ -60,15 +69,31 @@ export function Navbar() {
     if (latest > 80) {
       setIsScrolled(true);
     } else {
-      setIsScrolled(!isHome); // On non-home pages, keep solid ivory
+      setIsScrolled(!isHome);
     }
 
-    if (latest > 100 && diff > 0) {
-      // Scrolling down
-      setIsVisible(false);
-    } else if (diff < 0 || latest <= 100) {
-      // Scrolling up or near top
-      setIsVisible(true);
+    if (isHome) {
+      if (latest <= 120) {
+        // At top of homepage: navbar MUST NOT appear
+        setIsVisible(false);
+      } else if (diff < -3) {
+        // Back-scrolling (scrolling UP): navbar appears
+        setIsVisible(true);
+      } else if (diff > 3) {
+        // Scrolling DOWN: navbar hides
+        setIsVisible(false);
+      }
+    } else {
+      if (latest <= 80) {
+        // Top of inner pages: visible
+        setIsVisible(true);
+      } else if (diff < -3) {
+        // Back-scrolling (scrolling UP): navbar appears
+        setIsVisible(true);
+      } else if (diff > 3) {
+        // Scrolling DOWN: navbar hides
+        setIsVisible(false);
+      }
     }
 
     lastScrollY.current = latest;
@@ -102,7 +127,7 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: 0 }}
+        initial={{ y: isHome ? -100 : 0 }}
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
