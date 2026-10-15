@@ -7,6 +7,7 @@ import { formatPriceTier } from "@/lib/utils";
 import { getProductWhatsAppUrl } from "@/lib/config";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductStickyBar } from "@/components/products/ProductStickyBar";
+import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 import { ArrowLeft, Layers, Calendar, ShieldCheck, Check } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -101,45 +102,54 @@ export default function ProductDetailPage({
           <span className="text-gold font-medium">{product.name}</span>
         </div>
 
-        {/* Full Screen Scroller Images */}
-        <div className="w-screen relative left-1/2 -translate-x-1/2 mb-16">
-          <div className="w-full px-4 sm:px-8 overflow-x-auto flex snap-x snap-mandatory gap-4 sm:gap-6 pb-6 scrollbar-hide">
-            {[
-              product.primaryImage,
-              product.veinCloseUpImage,
-              ...(product.galleryImages || []),
-            ].filter((v, i, a) => v && a.indexOf(v) === i).map((src, idx) => (
-              <div
-                key={idx}
-                className="relative flex-none w-[90vw] sm:w-[85vw] lg:w-[75vw] aspect-[16/10] sm:aspect-[21/9] snap-center overflow-hidden border border-gold/40 shadow-xl bg-stone-100 group"
-              >
-                <Image
-                  src={src}
-                  alt={`${product.name} view ${idx + 1}`}
-                  fill
-                  priority={idx === 0}
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 85vw, 75vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
-                />
-                {idx === 0 && (
-                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
-                    Primary Curation View
-                  </div>
-                )}
-                {idx === 1 && (
-                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
-                    Architectural Application / Usecase
-                  </div>
-                )}
-                {idx > 1 && (
-                  <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
-                    Interior Installation
-                  </div>
-                )}
-              </div>
-            ))}
+        {/* Order-Basis Bespoke Form or Full Screen Scroller Images */}
+        {["Exclusive Table Tops — Stone", "Mosaics", "Stone Veneers", "Artefacts"].includes(product.category) ? (
+          <div className="mb-16">
+            <BespokeOrderForm
+              categoryName={`${product.category} — ${product.name}`}
+              variant="full"
+            />
           </div>
-        </div>
+        ) : (
+          <div className="w-screen relative left-1/2 -translate-x-1/2 mb-16">
+            <div className="w-full px-4 sm:px-8 overflow-x-auto flex snap-x snap-mandatory gap-4 sm:gap-6 pb-6 scrollbar-hide">
+              {[
+                product.primaryImage,
+                product.veinCloseUpImage,
+                ...(product.galleryImages || []),
+              ].filter((v, i, a) => v && a.indexOf(v) === i).map((src, idx) => (
+                <div
+                  key={idx}
+                  className="relative flex-none w-[90vw] sm:w-[85vw] lg:w-[75vw] aspect-[16/10] sm:aspect-[21/9] snap-center overflow-hidden border border-gold/40 shadow-xl bg-stone-100 group"
+                >
+                  <Image
+                    src={src}
+                    alt={`${product.name} view ${idx + 1}`}
+                    fill
+                    priority={idx === 0}
+                    sizes="(max-width: 640px) 90vw, (max-width: 1024px) 85vw, 75vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out"
+                  />
+                  {idx === 0 && (
+                    <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
+                      Primary Curation View
+                    </div>
+                  )}
+                  {idx === 1 && (
+                    <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
+                      Architectural Application / Usecase
+                    </div>
+                  )}
+                  {idx > 1 && (
+                    <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-black/60 backdrop-blur-md text-ivory text-[10px] font-montserrat uppercase tracking-widest px-3 py-1.5 border border-gold/40">
+                      Interior Installation
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Details & Specs Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">

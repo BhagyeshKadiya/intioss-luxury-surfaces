@@ -6,7 +6,7 @@ import Link from "next/link";
 import { StoneProduct } from "@/lib/types";
 import { formatPriceTier } from "@/lib/utils";
 import { getProductWhatsAppUrl } from "@/lib/config";
-import { Heart, Scale, MessageSquare, ArrowRight } from "lucide-react";
+import { Heart, Scale, MessageSquare, ArrowRight, Sparkles } from "lucide-react";
 
 interface ProductCardProps {
   product: StoneProduct;
@@ -27,35 +27,61 @@ export function ProductCard({
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  const isOrderBasis = [
+    "Exclusive Table Tops — Stone",
+    "Mosaics",
+    "Stone Veneers",
+    "Artefacts",
+  ].includes(product.category);
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="group relative flex flex-col bg-white border border-gold/25 hover:border-gold transition-all duration-500 shadow-sm hover:shadow-xl overflow-hidden"
     >
-      {/* Image Container with Crossfade to Veining Close-up on Hover */}
+      {/* Image / Bespoke Canvas Container */}
       <div className={`relative w-full overflow-hidden bg-stone-100 ${density === "compact" ? "aspect-square" : "aspect-[4/3]"}`}>
-        {/* Primary Slab Image */}
-        <Image
-          src={product.primaryImage}
-          alt={`${product.name} Natural Stone Slab`}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className={`object-cover transition-opacity duration-700 ${
-            isHovered ? "opacity-0" : "opacity-100"
-          }`}
-        />
+        {isOrderBasis ? (
+          <div className="absolute inset-0 bg-gradient-to-br from-maroon-deep via-maroon to-[#2b0f14] flex flex-col items-center justify-center p-6 text-center text-ivory">
+            <div className="w-10 h-10 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center mb-2">
+              <Sparkles className="w-5 h-5 text-gold" />
+            </div>
+            <span className="text-[10px] font-raleway uppercase tracking-[0.25em] text-gold font-medium mb-1">
+              Available on Request
+            </span>
+            <span className="font-marcellus text-sm text-ivory/95">
+              Bespoke Order Basis
+            </span>
+            <span className="text-[9px] font-montserrat text-ivory/60 mt-1 italic">
+              Photos updating soon
+            </span>
+          </div>
+        ) : (
+          <>
+            {/* Primary Slab Image */}
+            <Image
+              src={product.primaryImage}
+              alt={`${product.name} Natural Stone Slab`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className={`object-cover transition-opacity duration-700 ${
+                isHovered ? "opacity-0" : "opacity-100"
+              }`}
+            />
 
-        {/* Second Image: Veining Close-Up crossfades in on hover */}
-        <Image
-          src={product.veinCloseUpImage}
-          alt={`${product.name} Texture Close-Up`}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className={`object-cover transition-all duration-700 ${
-            isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
-          }`}
-        />
+            {/* Second Image: Veining Close-Up crossfades in on hover */}
+            <Image
+              src={product.veinCloseUpImage}
+              alt={`${product.name} Texture Close-Up`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className={`object-cover transition-all duration-700 ${
+                isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
+              }`}
+            />
+          </>
+        )}
 
         {/* Top Badges */}
         <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
@@ -126,7 +152,13 @@ export function ProductCard({
 
           {/* Enquire on WhatsApp */}
           <a
-            href={getProductWhatsAppUrl(product.name)}
+            href={
+              isOrderBasis
+                ? `https://wa.me/919930171094?text=${encodeURIComponent(
+                    `Hello INTIOSS Concierge, I would like to enquire about bespoke ${product.name} (Available on Request / Order Basis).`
+                  )}`
+                : getProductWhatsAppUrl(product.name)
+            }
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Enquire on WhatsApp"
@@ -175,8 +207,8 @@ export function ProductCard({
 
         {/* Footer Details */}
         <div className="mt-5 pt-3 border-t border-gold/20 flex items-center justify-between">
-          <span className="text-[10px] font-montserrat text-grey/80">
-            {product.availability}
+          <span className="text-[10px] font-montserrat text-gold font-medium">
+            {isOrderBasis ? "Available on Request" : product.availability}
           </span>
           <Link
             href={`/products/${product.slug}`}

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { SERVICES } from "@/data/services";
 import { ChevronRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 
 interface ProductCategoryItem {
   title: string;
@@ -14,6 +15,7 @@ interface ProductCategoryItem {
   image: string;
   count: string;
   hasChevron: boolean;
+  isOrderBasis?: boolean;
 }
 
 const PRODUCT_CATEGORIES: ProductCategoryItem[] = [
@@ -24,6 +26,7 @@ const PRODUCT_CATEGORIES: ProductCategoryItem[] = [
     image: "/images/stones/golden-statuario.jpg",
     count: "180+ Varieties",
     hasChevron: true,
+    isOrderBasis: false,
   },
   {
     title: "Semi-Precious Stones",
@@ -32,38 +35,43 @@ const PRODUCT_CATEGORIES: ProductCategoryItem[] = [
     image: "/images/products/amethyst_slab_1791259421373.jpg",
     count: "40+ Gemstones",
     hasChevron: true,
+    isOrderBasis: false,
   },
   {
     title: "Exclusive Table Tops — Stone",
     slug: "Exclusive Table Tops — Stone",
     subtitle: "Monolithic Dining, Centre & Executive Conference Slabs",
-    image: "/images/products/stone_dining_table_1791259504231.jpg",
-    count: "Bespoke Edges",
-    hasChevron: false,
+    image: "",
+    count: "On Request",
+    hasChevron: true,
+    isOrderBasis: true,
   },
   {
     title: "Mosaics",
     slug: "Mosaics",
     subtitle: "Marble, Semi-Precious Gemstone & Hand-Cut Glass",
-    image: "/images/products/mosaic_luxury_1791259521634.jpg",
-    count: "Custom Patterns",
+    image: "",
+    count: "On Request",
     hasChevron: true,
+    isOrderBasis: true,
   },
   {
     title: "Stone Veneers",
     slug: "Stone Veneers",
     subtitle: "Flexible Slate & Translucent Backlit Quartzite Panels",
-    image: "/images/products/stone_veneer_1791259541616.jpg",
-    count: "1.5mm to 3mm",
-    hasChevron: false,
+    image: "",
+    count: "On Request",
+    hasChevron: true,
+    isOrderBasis: true,
   },
   {
     title: "Artefacts",
     slug: "Artefacts",
     subtitle: "Monolithic Bathtubs, Fluted Basins & Hand-Carved Mandirs",
-    image: "/images/products/sculpted_bathtub_1791259560005.jpg",
-    count: "Monolithic Pieces",
-    hasChevron: false,
+    image: "",
+    count: "On Request",
+    hasChevron: true,
+    isOrderBasis: true,
   },
 ];
 
@@ -288,44 +296,60 @@ export function ProductsServicesToggle() {
             <div className="relative h-full min-h-[380px] w-full rounded-3xl overflow-hidden border border-gold/40 shadow-xl bg-maroon-deep">
               <AnimatePresence mode="wait">
                 {activeTab === "products" ? (
-                  <motion.div
-                    key={`prod-${hoveredIndex}`}
-                    initial={{ opacity: 0, scale: 1.05 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={PRODUCT_CATEGORIES[hoveredIndex]?.image || PRODUCT_CATEGORIES[0].image}
-                      alt={PRODUCT_CATEGORIES[hoveredIndex]?.title || "Intioss Luxury Surfaces"}
-                      fill
-                      sizes="40vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/95 via-maroon-deep/20 to-transparent" />
-                    <div className="absolute bottom-6 left-6 right-6 text-ivory">
-                      {/* Wine Maroon Brand Small Badge Box */}
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-maroon-deep text-ivory border border-gold/40 rounded-full text-[10px] font-montserrat uppercase tracking-wider font-semibold mb-2 shadow-sm">
-                        <span className="text-gold font-bold">✦</span>
-                        <span>{PRODUCT_CATEGORIES[hoveredIndex]?.count}</span>
-                      </div>
+                  PRODUCT_CATEGORIES[hoveredIndex]?.isOrderBasis ? (
+                    <motion.div
+                      key={`bespoke-${hoveredIndex}`}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0"
+                    >
+                      <BespokeOrderForm
+                        categoryName={PRODUCT_CATEGORIES[hoveredIndex]?.title}
+                        variant="card"
+                      />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={`prod-${hoveredIndex}`}
+                      initial={{ opacity: 0, scale: 1.05 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={PRODUCT_CATEGORIES[hoveredIndex]?.image || PRODUCT_CATEGORIES[0].image}
+                        alt={PRODUCT_CATEGORIES[hoveredIndex]?.title || "Intioss Luxury Surfaces"}
+                        fill
+                        sizes="40vw"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/95 via-maroon-deep/20 to-transparent" />
+                      <div className="absolute bottom-6 left-6 right-6 text-ivory">
+                        {/* Wine Maroon Brand Small Badge Box */}
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-maroon-deep text-ivory border border-gold/40 rounded-full text-[10px] font-montserrat uppercase tracking-wider font-semibold mb-2 shadow-sm">
+                          <span className="text-gold font-bold">✦</span>
+                          <span>{PRODUCT_CATEGORIES[hoveredIndex]?.count}</span>
+                        </div>
 
-                      <h4 className="font-marcellus text-xl text-ivory">
-                        {PRODUCT_CATEGORIES[hoveredIndex]?.title}
-                      </h4>
-                      <p className="font-poppins text-xs text-ivory/70 mt-1 line-clamp-2">
-                        {PRODUCT_CATEGORIES[hoveredIndex]?.subtitle}
-                      </p>
-                      <Link
-                        href={`/products?category=${encodeURIComponent(PRODUCT_CATEGORIES[hoveredIndex]?.slug)}`}
-                        className="inline-flex items-center gap-1.5 text-xs text-gold mt-3 font-montserrat uppercase tracking-wider font-semibold group/link"
-                      >
-                        <span>Explore Collection</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                      </Link>
-                    </div>
-                  </motion.div>
+                        <h4 className="font-marcellus text-xl text-ivory">
+                          {PRODUCT_CATEGORIES[hoveredIndex]?.title}
+                        </h4>
+                        <p className="font-poppins text-xs text-ivory/70 mt-1 line-clamp-2">
+                          {PRODUCT_CATEGORIES[hoveredIndex]?.subtitle}
+                        </p>
+                        <Link
+                          href={`/products?category=${encodeURIComponent(PRODUCT_CATEGORIES[hoveredIndex]?.slug)}`}
+                          className="inline-flex items-center gap-1.5 text-xs text-gold mt-3 font-montserrat uppercase tracking-wider font-semibold group/link"
+                        >
+                          <span>Explore Collection</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                        </Link>
+                      </div>
+                    </motion.div>
+                  )
                 ) : (
                   <motion.div
                     key={`srv-${hoveredIndex}`}

@@ -9,6 +9,7 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { ProductFilters, FilterState } from "@/components/products/ProductFilters";
 import { CompareDrawer } from "@/components/products/CompareDrawer";
 import { MoodboardDrawer } from "@/components/products/MoodboardDrawer";
+import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 import { getWhatsAppUrl } from "@/lib/config";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -227,14 +228,21 @@ function ProductsContent() {
   };
 
 
+  const ORDER_BASIS_CATEGORIES = [
+    "Exclusive Table Tops — Stone",
+    "Mosaics",
+    "Stone Veneers",
+    "Artefacts",
+  ];
+
   const CATEGORY_PILLS = [
     { id: "ALL", label: "All Collections", count: PRODUCTS.length },
     { id: "Natural Stones", label: "Natural Stones", count: PRODUCTS.filter((p) => p.category === "Natural Stones").length },
     { id: "Semi-Precious Stones", label: "Semi-Precious Stones", count: PRODUCTS.filter((p) => p.category === "Semi-Precious Stones").length },
-    { id: "Exclusive Table Tops — Stone", label: "Exclusive Table Tops", count: PRODUCTS.filter((p) => p.category === "Exclusive Table Tops — Stone").length },
-    { id: "Mosaics", label: "Mosaics", count: PRODUCTS.filter((p) => p.category === "Mosaics").length },
-    { id: "Stone Veneers", label: "Stone Veneers", count: PRODUCTS.filter((p) => p.category === "Stone Veneers").length },
-    { id: "Artefacts", label: "Artefacts", count: PRODUCTS.filter((p) => p.category === "Artefacts").length },
+    { id: "Exclusive Table Tops — Stone", label: "Exclusive Table Tops", count: "On Request" },
+    { id: "Mosaics", label: "Mosaics", count: "On Request" },
+    { id: "Stone Veneers", label: "Stone Veneers", count: "On Request" },
+    { id: "Artefacts", label: "Artefacts", count: "On Request" },
   ];
 
   // Derive active secondary sub-category pills depending on selected category
@@ -560,6 +568,15 @@ function ProductsContent() {
 
           {/* Product Grid Area */}
           <div className="flex-1 min-w-0">
+            {filterState.category.length === 1 &&
+              ORDER_BASIS_CATEGORIES.includes(filterState.category[0]) && (
+                <BespokeOrderForm
+                  categoryName={filterState.category[0]}
+                  variant="full"
+                  className="mb-8"
+                />
+              )}
+
             {filteredProducts.length === 0 ? (
               // Empty State with Sourcing on Request WhatsApp CTA
               <div className="bg-white border border-gold/30 p-12 sm:p-16 text-center shadow-sm">
