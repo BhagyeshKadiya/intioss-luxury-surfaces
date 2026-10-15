@@ -107,43 +107,39 @@ export function Navbar() {
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isOverHero
-            ? "bg-transparent text-ivory"
-            : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b border-maroon/25"
+            ? "bg-black/20 text-ivory backdrop-blur-sm border-b-2 border-maroon"
+            : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b-2 border-maroon"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Left: Brand Logo + Tagline */}
+          {/* Left: Brand Logo + White Tagline */}
           <div className="flex items-center">
             <motion.div
               initial={false}
-              animate={{ opacity: (isHome && !isScrolled) ? 0 : 1 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
               className="flex items-center gap-3 sm:gap-4 pointer-events-auto"
             >
               {/* Logo in Magenta Border Box */}
-              <div
-                className={`flex items-center px-2 sm:px-2.5 py-1 rounded-sm border transition-colors ${
-                  isOverHero
-                    ? "bg-black/20 border-maroon/50 backdrop-blur-sm"
-                    : "bg-white/60 border-maroon/35 shadow-sm"
-                }`}
-              >
+              <div className="flex items-center px-2 sm:px-2.5 py-1 rounded-sm border-2 border-maroon bg-white/90 shadow-sm">
                 <IntiossLogo
-                  theme={isOverHero ? "dark" : "light"}
+                  theme="light"
                   size="sm"
                   showSubtitle={false}
                 />
               </div>
 
-              {/* Tagline beside Logo */}
+              {/* White Tagline beside Logo */}
               <div
                 className={`hidden sm:flex items-center pl-3 sm:pl-4 border-l transition-colors ${
-                  isOverHero ? "border-ivory/30" : "border-maroon/25"
+                  isOverHero ? "border-white/30" : "border-maroon/30"
                 }`}
               >
                 <span
-                  className={`font-raleway text-[9px] md:text-[10px] lg:text-[11px] uppercase tracking-[0.18em] lg:tracking-[0.24em] font-light leading-snug whitespace-nowrap ${
-                    isOverHero ? "text-ivory/90" : "text-maroon/85"
+                  className={`font-raleway text-[9px] md:text-[10px] lg:text-[11px] uppercase tracking-[0.18em] lg:tracking-[0.24em] font-medium leading-snug whitespace-nowrap text-white ${
+                    isOverHero
+                      ? "drop-shadow-[0_1px_6px_rgba(0,0,0,0.95)]"
+                      : "bg-maroon px-2.5 py-0.5 rounded-sm border border-gold/40 shadow-sm"
                   }`}
                 >
                   Breathtaking stones for the discerning few.
