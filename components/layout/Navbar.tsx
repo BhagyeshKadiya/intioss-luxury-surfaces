@@ -137,36 +137,19 @@ export function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Left: Brand Logo + White Tagline */}
+          {/* Left: Brand Logo */}
           <div className="flex items-center">
             <motion.div
               initial={false}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.3 }}
-              className="flex items-center gap-3 sm:gap-4 pointer-events-auto"
+              className="flex items-center pointer-events-auto"
             >
               <IntiossLogo
                 theme="light"
                 size="sm"
                 showSubtitle={false}
               />
-
-              {/* White Tagline beside Logo */}
-              <div
-                className={`hidden sm:flex items-center pl-3 sm:pl-4 border-l transition-colors ${
-                  isOverHero ? "border-white/30" : "border-maroon/30"
-                }`}
-              >
-                <span
-                  className={`font-raleway text-[9px] md:text-[10px] lg:text-[11px] uppercase tracking-[0.18em] lg:tracking-[0.24em] font-medium leading-snug whitespace-nowrap text-white ${
-                    isOverHero
-                      ? "drop-shadow-[0_1px_6px_rgba(0,0,0,0.95)]"
-                      : "bg-maroon px-2.5 py-0.5 rounded-sm border border-gold/40 shadow-sm"
-                  }`}
-                >
-                  Breathtaking stones for the discerning few.
-                </span>
-              </div>
             </motion.div>
           </div>
 
