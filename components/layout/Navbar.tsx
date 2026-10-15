@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
-import { MoreVertical } from "lucide-react";
+import { Menu } from "lucide-react";
 import { IntiossLogo } from "@/components/brand/IntiossLogo";
 
 import { HoverMenu } from "./HoverMenu";
@@ -163,7 +163,7 @@ export function Navbar() {
               </Link>
             </nav>
 
-            {/* 3-Dot Menu Trigger */}
+            {/* Three-Line Mobile App Style Menu Trigger */}
             <div
               className="relative"
               onMouseEnter={handleTriggerMouseEnter}
@@ -180,7 +180,7 @@ export function Navbar() {
                     : "text-maroon hover:text-gold"
                 }`}
               >
-                <MoreVertical className="w-5 h-5 stroke-[2.4]" />
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2]" />
               </button>
             </div>
           </div>
