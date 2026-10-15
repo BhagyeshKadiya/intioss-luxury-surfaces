@@ -47,9 +47,6 @@ export function Footer() {
             </p>
 
             <div className="pt-2">
-              <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold/80 block mb-2">
-                A Gandhi Civil Decor Group Enterprise
-              </span>
               <a
                 href={SITE_CONFIG.parentBrand.url}
                 target="_blank"
