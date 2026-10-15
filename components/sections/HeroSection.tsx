@@ -299,7 +299,7 @@ export function HeroSection() {
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(48, 12, 22, 0.5) 0%, rgba(48, 12, 22, 0.35) 45%, rgba(48, 12, 22, 0.8) 100%)",
+            "linear-gradient(180deg, rgba(20, 8, 14, 0.42) 0%, rgba(20, 8, 14, 0.12) 40%, rgba(20, 8, 14, 0.62) 100%)",
         }}
       />
 
@@ -313,24 +313,13 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Luminous Seamless White Cloud Effect behind Logo */}
+            {/* Minimalist Architectural Frosted Glass Plinth */}
             <motion.div
               style={{ opacity: taglineOpacity }}
-              className="absolute -top-16 -bottom-16 -left-16 -right-16 sm:-top-24 sm:-bottom-24 sm:-left-32 sm:-right-32 pointer-events-none -z-10 flex items-center justify-center overflow-visible"
-              aria-hidden="true"
+              className="relative flex flex-col items-center px-7 sm:px-12 md:px-14 py-4 sm:py-6 rounded-2xl sm:rounded-3xl bg-[#FAF8F5]/85 backdrop-blur-xl border border-white/90 shadow-[0_16px_44px_rgba(0,0,0,0.16)] ring-1 ring-gold/25"
             >
-              {/* Ultra-soft feathered atmospheric white cloud aura */}
-              <div
-                className="w-full h-full max-w-[900px] max-h-[520px] rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.65) 25%, rgba(255, 255, 255, 0.35) 45%, rgba(255, 255, 255, 0.12) 62%, rgba(255, 255, 255, 0) 78%)",
-                  filter: "blur(48px)",
-                }}
-              />
+              <IntiossLogo size="hero" asLink={false} />
             </motion.div>
-
-            <IntiossLogo size="hero" asLink={false} />
 
             {/* Exclusive Hero Tagline - Only in Hero Section */}
             <motion.div
@@ -338,7 +327,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-              className="mt-8 sm:mt-10 md:mt-12 flex flex-col items-center pointer-events-none"
+              className="mt-6 sm:mt-8 md:mt-10 flex flex-col items-center pointer-events-none"
             >
               <p className="font-raleway text-xs sm:text-[13px] md:text-sm uppercase tracking-[0.32em] sm:tracking-[0.42em] text-white/95 font-light text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
                 Breathtaking stones for the discerning few.
