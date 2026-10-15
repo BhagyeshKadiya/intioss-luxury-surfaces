@@ -45,7 +45,9 @@ export function IntiossLogo({
         alt="INTIOSS Luxury Surfaces"
         width={1024}
         height={359}
-        className="w-full h-auto object-contain"
+        className={`w-full h-auto object-contain ${
+          size === "hero" ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.16)]" : ""
+        }`}
         priority
       />
     </div>

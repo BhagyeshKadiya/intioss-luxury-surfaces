@@ -313,10 +313,10 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Minimalist Architectural Frosted Glass Plinth */}
+            {/* Minimalist Architectural Frosted Crystal Plinth */}
             <motion.div
               style={{ opacity: taglineOpacity }}
-              className="relative flex flex-col items-center px-7 sm:px-12 md:px-14 py-4 sm:py-6 rounded-2xl sm:rounded-3xl bg-[#FAF8F5]/85 backdrop-blur-xl border border-white/90 shadow-[0_16px_44px_rgba(0,0,0,0.16)] ring-1 ring-gold/25"
+              className="relative flex flex-col items-center px-6 sm:px-10 md:px-12 py-3 sm:py-4.5 rounded-2xl bg-gradient-to-b from-white/55 to-white/35 backdrop-blur-2xl border border-white/65 shadow-[0_12px_36px_rgba(0,0,0,0.16)] ring-1 ring-gold/20"
             >
               <IntiossLogo size="hero" asLink={false} />
             </motion.div>
@@ -327,7 +327,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-              className="mt-6 sm:mt-8 md:mt-10 flex flex-col items-center pointer-events-none"
+              className="mt-6 sm:mt-7 md:mt-8 flex flex-col items-center pointer-events-none"
             >
               <p className="font-raleway text-xs sm:text-[13px] md:text-sm uppercase tracking-[0.32em] sm:tracking-[0.42em] text-white/95 font-light text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
                 Breathtaking stones for the discerning few.
