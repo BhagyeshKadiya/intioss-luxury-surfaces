@@ -30,7 +30,34 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-gold/20">
           {/* Col 1: Brand & Parentage (4 Cols) */}
           <div className="lg:col-span-4 flex flex-col items-start space-y-6">
-            <IntiossLogo theme="dark" size="md" />
+            {/* Luminous Soft White Cloud Effect behind Footer Logo */}
+            <div className="relative inline-flex items-center justify-center py-2 px-3">
+              <div
+                className="absolute -inset-x-8 -inset-y-4 rounded-[100%] pointer-events-none -z-10"
+                aria-hidden="true"
+              >
+                {/* Outer feathered soft white cloud diffusion */}
+                <div
+                  className="w-full h-full rounded-[100%]"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 75% 65% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.78) 40%, rgba(255, 255, 255, 0.38) 70%, rgba(255, 255, 255, 0.08) 88%, transparent 100%)",
+                    filter: "blur(22px)",
+                  }}
+                />
+                {/* Inner bright ambient mist core */}
+                <div
+                  className="absolute inset-2 rounded-[100%]"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse 65% 55% at 50% 50%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.55) 55%, transparent 88%)",
+                    filter: "blur(12px)",
+                  }}
+                />
+              </div>
+
+              <IntiossLogo theme="dark" size="md" />
+            </div>
 
             <p className="font-poppins text-xs sm:text-sm text-ivory/70 leading-relaxed max-w-sm mt-3">
               Direct quarrier, bespoke processor, and turnkey master fitter of rare marble,
