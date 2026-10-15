@@ -54,30 +54,18 @@ export function Navbar() {
   }, []);
 
   // Scroll behavior:
-  // - Top of page (home or inner): Products, Services, and 3-dot menu remain visible.
-  // - Over homepage hero: background is transparent and left logo is hidden.
-  // - Scrolling down: header hides for immersion.
-  // - Back-scrolling (scrolling UP): full solid navbar slides into view.
+  // - Entire scroll ke dauran menu, products & services hamesha rehna chahiye (never hide on scroll down).
+  // - Top of homepage: transparent background, logo hidden over hero.
+  // - Scrolled down (> 80px): luxury solid ivory navbar with magenta border & logo.
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = lastScrollY.current;
-    const diff = latest - previous;
-
     if (latest > 80) {
       setIsScrolled(true);
     } else {
       setIsScrolled(!isHome);
     }
 
-    if (latest <= 80) {
-      // Near the very top: always visible
-      setIsVisible(true);
-    } else if (diff > 3) {
-      // Scrolling DOWN: hide
-      setIsVisible(false);
-    } else if (diff < -3) {
-      // Scrolling UP (back-scrolling): appear!
-      setIsVisible(true);
-    }
+    // Keep visible throughout entire scroll
+    setIsVisible(true);
 
     lastScrollY.current = latest;
   });
@@ -111,7 +99,7 @@ export function Navbar() {
     <>
       <motion.header
         initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isOverHero
