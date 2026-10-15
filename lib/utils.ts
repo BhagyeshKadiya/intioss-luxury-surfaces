@@ -8,13 +8,13 @@ export function cn(...inputs: ClassValue[]) {
 export function formatPriceTier(tier: string): string {
   switch (tier) {
     case "tier_1":
-      return "₹₹";
+      return "Select Curation";
     case "tier_2":
-      return "₹₹₹";
+      return "Premium Reserve";
     case "tier_3":
-      return "₹₹₹₹";
+      return "Rare Monumental";
     case "on_request":
     default:
-      return "On request";
+      return "Price on Request";
   }
 }
