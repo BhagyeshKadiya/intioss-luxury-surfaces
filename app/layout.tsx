@@ -5,7 +5,6 @@ import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
-import { CustomCursor } from "@/components/layout/CustomCursor";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SITE_CONFIG } from "@/lib/config";
 
@@ -92,8 +91,6 @@ export default function RootLayout({
           {/* Top hairline scroll progress */}
           <ScrollProgress />
 
-          {/* Custom desktop pointer */}
-          <CustomCursor />
 
           {/* Sticky Luxury Navbar */}
           <Navbar />
