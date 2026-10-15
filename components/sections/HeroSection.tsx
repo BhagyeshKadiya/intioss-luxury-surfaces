@@ -313,10 +313,10 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Minimalist Architectural Frosted Crystal Plinth */}
+            {/* Minimalist Architectural Frosted Crystal Plinth with Magenta Border */}
             <motion.div
               style={{ opacity: taglineOpacity }}
-              className="relative flex flex-col items-center px-6 sm:px-10 md:px-12 py-3 sm:py-4.5 rounded-2xl bg-gradient-to-b from-white/55 to-white/35 backdrop-blur-2xl border border-white/65 shadow-[0_12px_36px_rgba(0,0,0,0.16)] ring-1 ring-gold/20"
+              className="relative flex flex-col items-center px-6 sm:px-10 md:px-12 py-3 sm:py-4.5 rounded-2xl bg-gradient-to-b from-white/60 to-white/40 backdrop-blur-2xl border-2 border-maroon/50 shadow-[0_12px_36px_rgba(84,27,42,0.18)] ring-1 ring-maroon/25"
             >
               <IntiossLogo size="hero" asLink={false} />
             </motion.div>

@@ -108,23 +108,47 @@ export function Navbar() {
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
           isOverHero
             ? "bg-transparent text-ivory"
-            : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b border-gold/30"
+            : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b border-maroon/25"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Left: Brand Logo / Icon */}
+          {/* Left: Brand Logo + Tagline */}
           <div className="flex items-center">
             <motion.div
               initial={false}
               animate={{ opacity: (isHome && !isScrolled) ? 0 : 1 }}
               transition={{ duration: 0.3 }}
-              className="flex items-center pointer-events-auto"
+              className="flex items-center gap-3 sm:gap-4 pointer-events-auto"
             >
-              <IntiossLogo
-                theme={isOverHero ? "dark" : "light"}
-                size="sm"
-                showSubtitle={false}
-              />
+              {/* Logo in Magenta Border Box */}
+              <div
+                className={`flex items-center px-2 sm:px-2.5 py-1 rounded-sm border transition-colors ${
+                  isOverHero
+                    ? "bg-black/20 border-maroon/50 backdrop-blur-sm"
+                    : "bg-white/60 border-maroon/35 shadow-sm"
+                }`}
+              >
+                <IntiossLogo
+                  theme={isOverHero ? "dark" : "light"}
+                  size="sm"
+                  showSubtitle={false}
+                />
+              </div>
+
+              {/* Tagline beside Logo */}
+              <div
+                className={`hidden sm:flex items-center pl-3 sm:pl-4 border-l transition-colors ${
+                  isOverHero ? "border-ivory/30" : "border-maroon/25"
+                }`}
+              >
+                <span
+                  className={`font-raleway text-[9px] md:text-[10px] lg:text-[11px] uppercase tracking-[0.18em] lg:tracking-[0.24em] font-light leading-snug whitespace-nowrap ${
+                    isOverHero ? "text-ivory/90" : "text-maroon/85"
+                  }`}
+                >
+                  Breathtaking stones for the discerning few.
+                </span>
+              </div>
             </motion.div>
           </div>
 
