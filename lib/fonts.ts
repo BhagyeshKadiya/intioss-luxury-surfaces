@@ -2,6 +2,10 @@ import {
   Forum,
   Marcellus,
   Castoro_Titling,
+  Inter,
+  Jost,
+  Montserrat,
+  Poppins,
 } from "next/font/google";
 
 export const fontForum = Forum({
@@ -25,4 +29,32 @@ export const fontCastoro = Castoro_Titling({
   display: "swap",
 });
 
-export const fontVariables = `${fontForum.variable} ${fontMarcellus.variable} ${fontCastoro.variable}`;
+export const fontInter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export const fontJost = Jost({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-jost",
+  display: "swap",
+});
+
+export const fontMontserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
+export const fontPoppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-poppins",
+  display: "swap",
+});
+
+export const fontVariables = `${fontForum.variable} ${fontMarcellus.variable} ${fontCastoro.variable} ${fontInter.variable} ${fontJost.variable} ${fontMontserrat.variable} ${fontPoppins.variable}`;
+

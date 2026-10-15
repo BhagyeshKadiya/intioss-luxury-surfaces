@@ -5,10 +5,23 @@
 :root {
   --maroon: #541B2A;
   --maroon-deep: #300C16;
+  --wine: #4B1330;
+  --wine-deep: #38091F;
   --gold: #DDB62B;
   --grey: #5B5B5B;
   --ivory: #FAF7F2;
+  --paper: #FAF7F2;
+  --paper-warm: #F8F6F2;
+  --ink: #1A1712;
   --white: #FFFFFF;
+}
+
+.text-display {
+  font-family: var(--font-montserrat), var(--font-marcellus), serif;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 * {
