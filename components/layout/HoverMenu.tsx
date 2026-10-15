@@ -20,7 +20,7 @@ const MENU_ITEMS = [
   { title: "Book Match", href: "/book-match", description: "Interactive mirror simulation tool" },
   { title: "Gallery (Marble Use Cases)", href: "/gallery", description: "Curated architectural installations" },
   { title: "Blogs", href: "/blogs", description: "Editorial stone guides & material science" },
-  { title: "Contact Us", href: "/contact", description: "Showrooms in South Mumbai & Gujarat" },
+  { title: "Contact Us", href: "/contact", description: "Showrooms in Mumbai, Silvassa & Kishangarh" },
 ];
 
 export function HoverMenu({
@@ -194,7 +194,7 @@ export function HoverMenu({
               </div>
 
               <div className="flex items-center justify-between text-[10px] text-ivory/50 tracking-wider">
-                <span>South Mumbai · Ahmedabad · Surat</span>
+                <span>Mumbai · Silvassa · Kishangarh</span>
                 <span className="text-gold/80">Est. 1970</span>
               </div>
             </div>
