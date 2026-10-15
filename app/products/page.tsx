@@ -18,7 +18,6 @@ import {
   LayoutGrid,
   Search,
   MessageSquare,
-  Heart,
   X,
 } from "lucide-react";
 
@@ -302,15 +301,6 @@ function ProductsContent() {
                   {activeFiltersCount}
                 </span>
               )}
-            </button>
-
-            {/* Shortlist button */}
-            <button
-              onClick={() => setIsMoodboardOpen(true)}
-              className="inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold shadow-sm"
-            >
-              <Heart className="w-3.5 h-3.5 text-gold fill-gold" />
-              <span>Shortlist ({moodboard.length})</span>
             </button>
 
             {/* Mobile Filter Button */}

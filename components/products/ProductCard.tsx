@@ -6,7 +6,7 @@ import Link from "next/link";
 import { StoneProduct } from "@/lib/types";
 import { formatPriceTier } from "@/lib/utils";
 import { getProductWhatsAppUrl } from "@/lib/config";
-import { Heart, Scale, MessageSquare, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { Scale, MessageSquare, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ProductCardProps {
   product: StoneProduct;
@@ -169,27 +169,6 @@ export function ProductCard({
               : "opacity-90 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
           }`}
         >
-          {/* Save to Moodboard (Heart) */}
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onToggleMoodboard(product);
-            }}
-            aria-label="Save to Moodboard"
-            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 ${
-              isSavedToMoodboard
-                ? "bg-maroon text-gold border-gold"
-                : "bg-white/95 text-maroon border-gold/40 hover:bg-white hover:text-gold"
-            }`}
-          >
-            <Heart className={`w-3.5 h-3.5 ${isSavedToMoodboard ? "fill-gold text-gold" : ""}`} />
-            <span className="text-[10px] font-montserrat hidden sm:inline">
-              {isSavedToMoodboard ? "Saved" : "Shortlist"}
-            </span>
-          </button>
-
           {/* Compare (Scale) */}
           <button
             type="button"
