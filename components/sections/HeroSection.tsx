@@ -92,6 +92,7 @@ export function HeroSection() {
   const logoScale = useTransform(scrollY, [0, 400], [1, 0.4]);
   const logoY = useTransform(scrollY, [0, 400], [0, -180]);
   const scrollCueOpacity = useTransform(scrollY, [0, 120], [1, 0]);
+  const taglineOpacity = useTransform(scrollY, [0, 140], [1, 0]);
 
   const handlePrevSlide = useCallback(() => {
     if (HERO_MEDIA.length > 0) {
@@ -313,6 +314,17 @@ export function HeroSection() {
         >
           <div className="flex flex-col items-center">
             <IntiossLogo size="hero" asLink={false} />
+
+            {/* Exclusive Hero Tagline - Only in Hero Section */}
+            <motion.p
+              style={{ opacity: taglineOpacity }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" }}
+              className="mt-3 sm:mt-4 font-raleway text-xs sm:text-sm md:text-[15px] uppercase tracking-[0.24em] sm:tracking-[0.32em] text-ivory/90 font-light text-center drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] pointer-events-none"
+            >
+              Breathtaking stones for the deserving few.
+            </motion.p>
           </div>
         </motion.div>
 
