@@ -321,7 +321,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.25, ease: "easeOut" }}
-              className="mt-3 sm:mt-4 font-raleway text-xs sm:text-sm md:text-[15px] uppercase tracking-[0.24em] sm:tracking-[0.32em] text-ivory/90 font-light text-center drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] pointer-events-none"
+              className="mt-3 sm:mt-4 font-raleway text-xs sm:text-sm md:text-[14px] uppercase tracking-[0.24em] sm:tracking-[0.34em] text-white/95 font-light text-center drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)] pointer-events-none"
             >
               Breathtaking stones for the deserving few.
             </motion.p>
