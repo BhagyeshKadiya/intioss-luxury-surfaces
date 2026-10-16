@@ -58,10 +58,10 @@ export function ProductStickyBar({ product }: ProductStickyBarProps) {
         <div className="w-full sm:w-auto flex items-center justify-end gap-3">
           <Link
             href={`/book-match?stone=${product.slug}`}
-            className="flex-1 sm:flex-none hidden lg:inline-flex items-center justify-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold shadow transition-colors shrink-0 whitespace-nowrap"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-4 sm:px-6 py-2.5 sm:py-3 font-montserrat text-xs uppercase tracking-[0.15em] sm:tracking-[0.2em] font-semibold border border-gold shadow transition-colors shrink-0 whitespace-nowrap"
           >
             <Layers className="w-4 h-4 text-gold shrink-0" />
-            <span>Bookmatch This Slab</span>
+            <span className="whitespace-nowrap">Bookmatch This Slab</span>
           </Link>
 
           <ProductHoldModal

@@ -161,16 +161,26 @@ export default function ProductDetailPage({
               {product.name}
             </h1>
 
-            <div className="mt-4 flex items-center gap-4 pb-4 border-b border-gold/30">
-              <span className="text-sm font-montserrat font-medium text-maroon">
-                Tier:{" "}
-                <strong className="text-gold font-semibold">
-                  {formatPriceTier(product.priceTier)}
-                </strong>
-              </span>
-              <span className="text-xs font-montserrat text-emerald-800 bg-emerald-50 px-2.5 py-0.5 border border-emerald-200">
-                {product.availability}
-              </span>
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-gold/30">
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-montserrat font-medium text-maroon">
+                  Tier:{" "}
+                  <strong className="text-gold font-semibold">
+                    {formatPriceTier(product.priceTier)}
+                  </strong>
+                </span>
+                <span className="text-xs font-montserrat text-emerald-800 bg-emerald-50 px-2.5 py-0.5 border border-emerald-200">
+                  {product.availability}
+                </span>
+              </div>
+
+              <Link
+                href={`/book-match?stone=${product.slug}`}
+                className="inline-flex items-center gap-2 bg-white hover:bg-gold/15 text-maroon border border-gold/60 px-4 py-2 text-xs font-montserrat uppercase tracking-[0.15em] font-medium shadow-sm transition-all whitespace-nowrap shrink-0 group"
+              >
+                <Layers className="w-3.5 h-3.5 text-gold group-hover:scale-110 transition-transform shrink-0" />
+                <span className="whitespace-nowrap">Simulate Mirror Match</span>
+              </Link>
             </div>
 
             <p className="font-poppins text-sm sm:text-base text-grey leading-relaxed mt-6">

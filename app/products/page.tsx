@@ -308,10 +308,10 @@ function ProductsContent() {
             {/* Book Match Studio Button */}
             <Link
               href="/book-match"
-              className="inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/10 shadow-sm transition-all"
+              className="inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/10 shadow-sm transition-all whitespace-nowrap shrink-0"
             >
-              <Layers className="w-3.5 h-3.5 text-gold" />
-              <span className="font-medium">Book Match</span>
+              <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span className="font-medium whitespace-nowrap">Book Match</span>
             </Link>
 
             {/* Mobile Filter Button */}
@@ -434,17 +434,29 @@ function ProductsContent() {
             <div className="hidden sm:flex items-center border border-gold/30 bg-white">
               <button
                 onClick={() => setDensity("comfortable")}
-                aria-label="Comfortable Grid"
-                className={`p-1.5 ${density === "comfortable" ? "bg-maroon text-gold" : "text-grey hover:text-maroon"}`}
+                aria-label="2 Columns Showcase"
+                title="2 Columns Luxury Showcase"
+                className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 ${
+                  density === "comfortable"
+                    ? "bg-maroon text-gold font-semibold"
+                    : "text-grey hover:text-maroon"
+                }`}
               >
-                <Grid3X3 className="w-4 h-4" />
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>2 Col</span>
               </button>
               <button
                 onClick={() => setDensity("compact")}
-                aria-label="Compact Grid"
-                className={`p-1.5 ${density === "compact" ? "bg-maroon text-gold" : "text-grey hover:text-maroon"}`}
+                aria-label="3 Columns Compact"
+                title="3 Columns Compact"
+                className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 ${
+                  density === "compact"
+                    ? "bg-maroon text-gold font-semibold"
+                    : "text-grey hover:text-maroon"
+                }`}
               >
-                <LayoutGrid className="w-4 h-4" />
+                <Grid3X3 className="w-3.5 h-3.5" />
+                <span>3 Col</span>
               </button>
             </div>
           </div>
@@ -609,17 +621,15 @@ function ProductsContent() {
                 </div>
               </div>
             ) : (
-              // Product Cards Grid
+              // Product Cards Grid: 2 marble products per row by default
               <motion.div
                 layout
-                className={`grid gap-6 ${
+                className={`grid gap-6 sm:gap-8 ${
                   density === "compact"
                     ? isFilterSidebarOpen
-                      ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
-                      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-                    : isFilterSidebarOpen
-                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                      ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2"
                 }`}
               >
                 <AnimatePresence>

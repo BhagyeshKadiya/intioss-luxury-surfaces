@@ -163,23 +163,24 @@ export function ProductCard({
 
         {/* Quick Action Floating Bar: always accessible on mobile, slide up on desktop hover */}
         <div
-          className={`absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1.5 z-20 transition-all duration-300 ${
+          className={`absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 z-20 transition-all duration-300 ${
             isHovered
               ? "opacity-100 translate-y-0"
-              : "opacity-90 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
+              : "opacity-95 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
           }`}
         >
-          {/* Book Match (Layers) */}
+          {/* Book Match (Layers) - Single Line Proper Button */}
           <Link
             href={`/book-match?stone=${product.slug}`}
             onClick={(e) => {
               e.stopPropagation();
             }}
             aria-label="Simulate Book Match"
-            className="p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 bg-white/95 text-maroon border-gold/40 hover:bg-gold hover:text-maroon shadow-sm"
+            title="Simulate Mirror Book Match"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-none border border-gold/40 bg-white/95 hover:bg-gold text-maroon hover:text-maroon shadow-md backdrop-blur-md transition-all duration-200 active:scale-95 shrink-0 whitespace-nowrap group/btn"
           >
-            <Layers className="w-3.5 h-3.5 text-gold" />
-            <span className="text-[10px] font-montserrat hidden sm:inline font-medium">
+            <Layers className="w-3.5 h-3.5 text-gold group-hover/btn:text-maroon shrink-0 transition-colors" />
+            <span className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider font-semibold whitespace-nowrap">
               Book Match
             </span>
           </Link>
@@ -193,14 +194,14 @@ export function ProductCard({
               onToggleCompare(product);
             }}
             aria-label="Compare Stone"
-            className={`p-2 rounded-none border text-xs flex items-center gap-1 backdrop-blur-md transition-all active:scale-90 ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-none border shadow-md backdrop-blur-md transition-all duration-200 active:scale-95 shrink-0 whitespace-nowrap ${
               isSelectedForCompare
                 ? "bg-gold text-maroon border-maroon font-semibold"
                 : "bg-white/95 text-maroon border-gold/40 hover:bg-white hover:text-gold"
             }`}
           >
-            <Scale className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-montserrat hidden sm:inline">
+            <Scale className="w-3.5 h-3.5 text-gold shrink-0" />
+            <span className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider font-medium whitespace-nowrap">
               {isSelectedForCompare ? "Comparing" : "Compare"}
             </span>
           </button>
@@ -214,10 +215,12 @@ export function ProductCard({
               window.open(whatsappUrl, "_blank", "noopener,noreferrer");
             }}
             aria-label="Enquire on WhatsApp"
-            className="p-2 bg-maroon text-white hover:bg-maroon-deep border border-gold flex items-center gap-1 text-[10px] font-montserrat uppercase tracking-wider transition-all active:scale-90 shadow"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-none bg-maroon hover:bg-maroon-deep text-white border border-gold shadow-md transition-all duration-200 active:scale-95 shrink-0 whitespace-nowrap"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-gold" />
-            <span className="hidden sm:inline">Enquire</span>
+            <MessageSquare className="w-3.5 h-3.5 text-gold shrink-0" />
+            <span className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider font-semibold whitespace-nowrap">
+              Enquire
+            </span>
           </button>
         </div>
       </div>
