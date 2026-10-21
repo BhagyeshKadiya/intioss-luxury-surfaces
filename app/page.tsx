@@ -21,7 +21,7 @@ export default function HomePage() {
       {/* 4.4 Our Legacy (55+ Years, Animated Counters, Quality Marble Link) */}
       <LegacySection />
 
-      {/* 4.5 Testimonials (EB Garamond Carousel, South Mumbai / Gujarat context) */}
+      {/* 4.5 Testimonials */}
       <TestimonialsSection />
 
       {/* 4.6 Book Consultation Form (2 Columns, Floating Inputs, WhatsApp handoff) */}

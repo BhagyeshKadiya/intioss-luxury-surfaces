@@ -15,7 +15,8 @@ const bannedStrings = [
   'Origin Source', 'Vision to Reality', 'Compressive Strength'
 ];
 
-const ignoreDirs = new Set(['.next', 'node_modules', '.git', 'qa']);
+const ignoreDirs = new Set(['.next', 'node_modules', '.git', 'qa', 'scripts']);
+const ignoreFiles = new Set(['package-lock.json']);
 const hits = [];
 
 function searchDir(currentDir) {
@@ -26,6 +27,7 @@ function searchDir(currentDir) {
         searchDir(path.join(currentDir, entry.name));
       }
     } else if (entry.isFile()) {
+      if (ignoreFiles.has(entry.name)) continue;
       const ext = path.extname(entry.name).toLowerCase();
       if (['.ts', '.tsx', '.js', '.jsx', '.json', '.mjs', '.css', '.md', '.html'].includes(ext)) {
         const filePath = path.join(currentDir, entry.name);

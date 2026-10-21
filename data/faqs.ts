@@ -20,7 +20,7 @@ export const FAQS: FAQItem[] = [
     question: "Does INTIOSS handle everything from sourcing to installation?",
     answer:
       "Yes. We offer an integrated ecosystem covering international stone sourcing, precision block processing and expert fitting through our luxury civil contracting division, ensuring accountability at every step.",
-    category: "Turnkey Solutions",
+    category: "End-to-End Solutions",
   },
   {
     id: "faq-4",

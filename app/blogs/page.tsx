@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Architectural Journals & Material Science | INTIOSS",
   description:
-    "Curated editorial articles on Italian marble specification, humidity considerations in South Mumbai, Indian stone density, and curatorial care.",
+    "Curated editorial articles on Italian marble specification, humidity considerations in coastal climates, Indian stone density, and curatorial care.",
 };
 
 export default function BlogsPage() {
@@ -27,7 +27,7 @@ export default function BlogsPage() {
             Essays in Stone, Geology & Architecture
           </h1>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
-            Written by senior stone consultants and civil engineers from Gandhi Civil Decor Group and Quality Marble. Technical material science meets high-end spatial aesthetics.
+            Written by senior stone consultants and civil engineers from Gandhi Civil Décor and Quality Marble. Technical material science meets spatial aesthetics.
           </p>
         </div>
 

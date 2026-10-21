@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 import { IntiossPattern } from "@/components/brand/IntiossPattern";
 import { SITE_CONFIG } from "@/lib/config";
-import { ArrowUp, Instagram, Linkedin, Youtube, ExternalLink, Check } from "lucide-react";
+import { Instagram, Linkedin, Youtube, ExternalLink, Check } from "lucide-react";
 
 export function Footer() {
   const [email, setEmail] = useState("");
@@ -27,9 +27,8 @@ export function Footer() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Grid: 4 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-gold/20">
-          {/* Col 1: Brand & Parentage (4 Cols) */}
+          {/* Col 1: INTIOSS & Group Companies (4 Cols) */}
           <div className="lg:col-span-4 flex flex-col items-start space-y-6">
-            {/* INTIOSS Hexagon Symbol Only */}
             <Link
               href="/"
               className="inline-flex items-center transition-transform hover:scale-105 select-none"
@@ -41,21 +40,29 @@ export function Footer() {
               />
             </Link>
 
-            <p className="font-poppins text-xs sm:text-sm text-ivory/70 leading-relaxed max-w-sm mt-3">
-              Direct quarrier, bespoke processor, and turnkey master fitter of rare marble,
-              semi-precious gemstones, and architectural surfaces.
+            <p className="font-jost text-xs sm:text-sm text-ivory/80 leading-relaxed max-w-sm mt-2">
+              Curators of rare Italian marble, semi-precious gemstones, and bespoke architectural stone surfaces.
             </p>
 
-            <div className="pt-2">
-              <a
-                href={SITE_CONFIG.parentBrand.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-montserrat text-ivory/80 hover:text-gold transition-colors"
-              >
-                <span>Parent Brand: Quality Marble</span>
-                <ExternalLink className="w-3.5 h-3.5 text-gold" />
-              </a>
+            {/* Group Companies Section (Text-only until unmodified logo artwork is supplied) */}
+            <div className="w-full pt-3 border-t border-gold/20">
+              <span className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-gold font-semibold block mb-3">
+                INTIOSS Group
+              </span>
+              <div className="space-y-2 text-xs font-jost text-ivory/80">
+                <div className="flex items-start justify-between gap-2">
+                  <strong className="text-ivory font-medium">Quality Marble</strong>
+                  <span className="text-ivory/60 text-[11px] text-right">Stockyard and marbles</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <strong className="text-ivory font-medium">Marmo Granite International</strong>
+                  <span className="text-ivory/60 text-[11px] text-right">Production</span>
+                </div>
+                <div className="flex items-start justify-between gap-2">
+                  <strong className="text-ivory font-medium">Gandhi Civil Décor</strong>
+                  <span className="text-ivory/60 text-[11px] text-right">Installation</span>
+                </div>
+              </div>
             </div>
 
             {/* Social Icons */}
@@ -97,17 +104,17 @@ export function Footer() {
             </h4>
             <ul className="space-y-2.5 font-montserrat text-xs text-ivory/70">
               <li>
-                <Link href="/products?category=Marble" className="hover:text-gold transition-colors">
+                <Link href="/products?category=Natural Stones" className="hover:text-gold transition-colors">
                   Natural Stones
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Semi-Precious" className="hover:text-gold transition-colors">
+                <Link href="/products?category=Semi-Precious Stones" className="hover:text-gold transition-colors">
                   Semi-Precious Stones
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Countertop" className="hover:text-gold transition-colors">
+                <Link href="/products?category=Exclusive Table Tops — Stone" className="hover:text-gold transition-colors">
                   Exclusive Table Tops — Stone
                 </Link>
               </li>
@@ -117,7 +124,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Veneers" className="hover:text-gold transition-colors">
+                <Link href="/products?category=Stone Veneers" className="hover:text-gold transition-colors">
                   Stone Veneers
                 </Link>
               </li>
@@ -128,21 +135,21 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/products" className="text-gold hover:underline">
-                  View All Surfaces →
+                  View Full Catalogue →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Services & Company (3 Cols) */}
+          {/* Col 3: Services (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-marcellus text-base uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
               Services
             </h4>
             <ul className="space-y-2.5 font-montserrat text-xs text-ivory/70">
               <li>
-                <Link href="/services#luxury-civil-interior-contracting" className="hover:text-gold transition-colors">
-                  Luxury Civil Interior Contracting
+                <Link href="/services#luxury-civil-contracting" className="hover:text-gold transition-colors">
+                  Luxury Civil Contracting
                 </Link>
               </li>
               <li>
@@ -152,7 +159,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services#stone-facades" className="hover:text-gold transition-colors">
-                  Stone Facades
+                  Stone Façades
                 </Link>
               </li>
               <li>
@@ -166,29 +173,29 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services#stone-maintenance-services" className="hover:text-gold transition-colors">
-                  Stone Maintenance Services
+                <Link href="/services#stone-restoration-maintenance" className="hover:text-gold transition-colors">
+                  Stone Restoration & Maintenance
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Locations & Newsletter (3 Cols) */}
+          {/* Col 4: Exactly Three Locations & Direct Line (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="font-marcellus text-base uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
               Locations
             </h4>
-            <ul className="flex flex-col gap-2 font-poppins text-xs text-ivory/80 pt-1">
+            <ul className="flex flex-col gap-2 font-jost text-xs text-ivory/80 pt-1">
               <li className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
                 <span>Mumbai</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
                 <span>Silvassa</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold/70"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
                 <span>Kishangarh</span>
               </li>
             </ul>
@@ -204,7 +211,7 @@ export function Footer() {
 
             {/* Newsletter input */}
             <form onSubmit={handleSubscribe} className="pt-3">
-              <span className="font-raleway text-[11px] uppercase tracking-[0.2em] text-ivory/60 block mb-2">
+              <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-ivory/60 block mb-2 font-medium">
                 Subscribe for Updates
               </span>
               <div className="flex items-center border border-gold/40 rounded-sm overflow-hidden bg-black/20">
@@ -228,10 +235,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar without Back to Top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-raleway text-ivory/60">
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-jost text-ivory/60">
           <div>
             © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved.
+          </div>
+          <div className="flex items-center gap-4 text-[11px] font-montserrat uppercase tracking-wider text-ivory/50">
+            <span>Mumbai</span>
+            <span>·</span>
+            <span>Silvassa</span>
+            <span>·</span>
+            <span>Kishangarh</span>
           </div>
         </div>
       </div>

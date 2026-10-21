@@ -24,7 +24,7 @@ export function FaqSection() {
             Frequently Asked Questions
           </h2>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 max-w-xl mx-auto">
-            Everything you need to know about our sourcing, materials, turnkey services, and comprehensive stone care.
+            Everything you need to know about our sourcing, materials, architectural services, and comprehensive stone care.
           </p>
         </div>
 

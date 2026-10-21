@@ -15,22 +15,22 @@ export const metadata: Metadata = {
     template: "%s | INTIOSS – Luxury Surfaces",
   },
   description:
-    "The luxury stone brand of the Gandhi Civil Decor Group and Quality Marble. Curating rare Italian marble, semi-precious gemstones, onyx, and architectural surfaces across South Mumbai and Gujarat.",
+    "The luxury stone brand of INTIOSS Luxury Surfaces and group companies Quality Marble, Marmo Granite International, and Gandhi Civil Décor. Curating rare Italian marble, semi-precious gemstones, onyx, and architectural surfaces across Mumbai, Silvassa, and Kishangarh.",
   keywords: [
     "Italian Marble Mumbai",
-    "Luxury Surfaces Gujarat",
-    "Statuario Marble South Mumbai",
+    "Luxury Surfaces Silvassa",
+    "Rare Marble Kishangarh",
     "Precious Stone Slabs",
-    "Architectural Stone Facades",
+    "Architectural Stone Surfaces",
     "Bookmatch Marble",
-    "Gandhi Civil Decor",
+    "INTIOSS",
     "Quality Marble",
   ],
   authors: [{ name: "INTIOSS Luxury Surfaces" }],
   openGraph: {
     title: "INTIOSS – Luxury Surfaces",
     description:
-      "Rare marble and architectural stone for discerning estates in South Mumbai and Gujarat.",
+      "Rare marble and architectural stone across Mumbai, Silvassa, and Kishangarh.",
     url: "https://intioss.com",
     siteName: "INTIOSS Luxury Surfaces",
     locale: "en_IN",
@@ -55,7 +55,7 @@ const jsonLd = {
   email: SITE_CONFIG.email,
   parentOrganization: {
     "@type": "Organization",
-    name: "Gandhi Civil Decor Group",
+    name: "Gandhi Civil Décor",
     subOrganization: {
       "@type": "Organization",
       name: "Quality Marble",
@@ -67,10 +67,9 @@ const jsonLd = {
     streetAddress: SITE_CONFIG.locations[0].address,
     addressLocality: "Mumbai",
     addressRegion: "Maharashtra",
-    postalCode: "400018",
     addressCountry: "IN",
   },
-  areaServed: ["Mumbai", "Silvassa", "Kishangarh", "Ahmedabad", "Surat", "Vadodara", "Goa"],
+  areaServed: ["Mumbai", "Silvassa", "Kishangarh"],
 };
 
 export default function RootLayout({
