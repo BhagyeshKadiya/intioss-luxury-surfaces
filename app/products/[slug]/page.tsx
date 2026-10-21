@@ -171,25 +171,25 @@ export default function ProductDetailPage({
               <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {SEVEN_SPACES.map((spaceName) => {
                   const isSuitable =
-                    product.applications.some(
-                      (app) =>
-                        spaceName.toLowerCase().includes(app.toLowerCase()) ||
-                        app.toLowerCase().includes(spaceName.split(" ")[0].toLowerCase())
-                    ) ||
+                    (product.applications as string[]).includes(spaceName) ||
                     (spaceName === "Flooring" && product.applications.includes("Flooring")) ||
                     (spaceName === "Bathroom" && product.applications.includes("Bathroom")) ||
                     (spaceName === "Table Top" &&
-                      (product.applications.includes("Countertop") ||
-                        product.applications.includes("Dining & Living"))) ||
+                      (product.applications.includes("Table Top") ||
+                        product.applications.includes("Countertop"))) ||
                     (spaceName === "Kitchen Countertop" &&
-                      product.applications.includes("Countertop")) ||
+                      (product.applications.includes("Kitchen Countertop") ||
+                        product.applications.includes("Countertop"))) ||
                     (spaceName === "Wall Cladding — Interior" &&
-                      (product.applications.includes("Wall Cladding") ||
+                      (product.applications.includes("Wall Cladding — Interior") ||
+                        product.applications.includes("Wall Cladding") ||
                         product.applications.includes("Feature Wall"))) ||
                     (spaceName === "Wall Cladding — Exterior" &&
-                      product.applications.includes("Facade")) ||
+                      (product.applications.includes("Wall Cladding — Exterior") ||
+                        product.applications.includes("Wall Cladding"))) ||
                     (spaceName === "Exterior Flooring" &&
-                      product.applications.includes("Outdoor"));
+                      (product.applications.includes("Exterior Flooring") ||
+                        product.applications.includes("Flooring")));
 
                   return (
                     <li

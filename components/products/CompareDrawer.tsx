@@ -154,10 +154,12 @@ export function CompareDrawer({
                           <span className="text-grey font-raleway uppercase">Density:</span>
                           <span className="font-montserrat text-maroon">{product.specs.density || "2.7 g/cm³"}</span>
                         </div>
-                        <div className="pt-2 flex justify-between">
-                          <span className="text-grey font-raleway uppercase">Absorption:</span>
-                          <span className="font-montserrat text-maroon">{product.specs.waterAbsorption || "0.1%"}</span>
-                        </div>
+                        {product.specs.dimensions && (
+                          <div className="pt-2 flex justify-between">
+                            <span className="text-grey font-raleway uppercase">Dimensions:</span>
+                            <span className="font-montserrat text-maroon">{product.specs.dimensions}</span>
+                          </div>
+                        )}
                         <div className="pt-2">
                           <span className="text-grey font-raleway uppercase block mb-1">Finishes:</span>
                           <div className="flex flex-wrap gap-1">

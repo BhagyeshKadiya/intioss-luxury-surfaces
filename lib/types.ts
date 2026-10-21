@@ -74,7 +74,7 @@ export type VeiningPattern =
 
 export type PriceTier = "tier_1" | "tier_2" | "tier_3" | "on_request";
 
-export type AvailabilityStatus = "Available on request" | "Import on request" | "Bespoke Made to Order";
+export type AvailabilityStatus = "Available on request" | "Import on request" | "Bespoke Made to Order" | "";
 
 export interface StoneProduct {
   id: string;
@@ -89,7 +89,7 @@ export interface StoneProduct {
   thicknesses: ThicknessOption[];
   veining: VeiningPattern;
   priceTier: PriceTier;
-  availability: AvailabilityStatus;
+  availability?: AvailabilityStatus;
   primaryImage: string;
   veinCloseUpImage: string;
   galleryImages: string[];

@@ -31,7 +31,7 @@ function BookMatchContent() {
         setSelectedStone(stoneFromUrl);
       }
     }
-  }, [stoneSlug]);
+  }, [stoneSlug, selectedStone.id]);
   const [matchMode, setMatchMode] = useState<"2-way-horizontal" | "2-way-vertical" | "4-way-quadrant">(
     "4-way-quadrant"
   );
