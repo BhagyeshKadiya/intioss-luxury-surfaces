@@ -9,7 +9,7 @@ import { FaqSection } from "@/components/sections/FaqSection";
 export default function HomePage() {
   return (
     <div className="relative w-full">
-      {/* 4.1 Hero (Cinematic Video, Center Logo Scroll Morph, Raleway Tagline) */}
+      {/* 4.1 Hero (Cinematic Video, Center Logo Scroll Morph, Marcellus Tagline) */}
       <HeroSection />
 
       {/* 4.2 Products and Services Segmented Toggle */}
