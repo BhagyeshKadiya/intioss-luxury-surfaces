@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+import { Placeholder } from "@/components/ui/Placeholder";
 import { Check, ArrowRight, MessageSquare } from "lucide-react";
 
 const SURFACE_OPTIONS = [
@@ -87,31 +88,33 @@ export function ConsultationSection() {
   return (
     <section id="consultation" className="relative py-24 sm:py-32 bg-ivory text-maroon overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Luxury Persuasive Image (5 cols) */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative aspect-[4/5] w-full overflow-hidden border border-gold/40 shadow-xl bg-maroon-deep">
-              <Image
-                src="/images/private-consultation.jpg"
-                alt="INTIOSS Private Stone Consultation & Dry Lay"
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep via-transparent to-transparent opacity-85" />
-
-              <div className="absolute bottom-8 left-8 right-8 text-ivory">
-                <span className="font-raleway text-[10px] uppercase tracking-[0.3em] text-gold block mb-2">
-                  Bespoke Atelier Service
-                </span>
-                <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory leading-snug">
-                  Experience slabs under natural daylight at our private studios.
-                </h3>
-                <p className="font-poppins text-xs text-ivory/70 mt-3 leading-relaxed">
-                  We schedule private viewings for architects and homeowners across our South Mumbai and Gujarat display reserves.
-                </p>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+          {/* Left Column: Placeholder & Appointment Info (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[420px] bg-maroon-deep p-8 sm:p-10 border border-gold/40 shadow-xl text-ivory">
+            <div>
+              <span className="font-jost text-xs uppercase tracking-[0.25em] text-gold block mb-3 font-semibold">
+                Private Consultation
+              </span>
+              <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory leading-snug">
+                Private viewings by appointment in Mumbai, Silvassa and Kishangarh.
+              </h3>
             </div>
+
+            <div className="my-8 flex-1 flex items-center justify-center min-h-[220px]">
+              <Placeholder
+                kind="PHOTO"
+                label="[PHOTO]"
+                className="w-full h-full min-h-[220px] bg-black/25 border-gold/30 text-ivory flex-col"
+              >
+                <span className="text-[11px] text-ivory/60 mt-1 max-w-xs block">
+                  Private studio & consultation photography waiting for INTIOSS supply/approval.
+                </span>
+              </Placeholder>
+            </div>
+
+            <p className="font-jost text-xs text-ivory/70 leading-relaxed border-t border-gold/20 pt-4">
+              Dedicated architectural stone consultation for private residences, estates, and commercial spaces.
+            </p>
           </div>
 
           {/* Right Column: Form Container (7 cols) */}
@@ -252,7 +255,7 @@ export function ConsultationSection() {
                         required
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        placeholder="Mumbai, Ahmedabad, Surat..."
+                        placeholder="Mumbai, Silvassa, Kishangarh..."
                         className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
                       />
                       {errors.city && (
@@ -351,7 +354,7 @@ export function ConsultationSection() {
                       rows={3}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="e.g. Looking for continuous bookmatched Statuario for Worli duplex living room..."
+                      placeholder="e.g. Looking for continuous bookmatched Statuario for living room flooring..."
                       className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors resize-none"
                     />
                   </div>
