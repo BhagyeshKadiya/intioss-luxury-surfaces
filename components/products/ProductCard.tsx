@@ -163,11 +163,13 @@ export function ProductCard({
               : "opacity-95 sm:opacity-0 translate-y-0 sm:translate-y-3 sm:pointer-events-none"
           }`}
         >
-          {/* Book Match (Layers) - Single Line Proper Button */}
-          <Link
-            href={`/book-match?stone=${product.slug}`}
+          {/* Book Match (Layers) - Button that navigates without nesting <a> */}
+          <button
+            type="button"
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
+              window.location.href = `/book-match?stone=${product.slug}`;
             }}
             aria-label="Simulate Book Match"
             title="Simulate Mirror Book Match"
@@ -177,7 +179,7 @@ export function ProductCard({
             <span className="text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider font-semibold whitespace-nowrap">
               Book Match
             </span>
-          </Link>
+          </button>
 
           {/* Compare (Scale) */}
           <button
@@ -235,17 +237,17 @@ export function ProductCard({
 
           {/* Finishes and Applications Chips */}
           <div className="flex flex-wrap gap-1 mt-3">
-            {product.finishes.slice(0, 2).map((fin) => (
+            {product.finishes.slice(0, 2).map((fin, idx) => (
               <span
-                key={fin}
+                key={`${fin}-${idx}`}
                 className="bg-ivory border border-gold/30 text-[9px] font-montserrat text-maroon/80 px-1.5 py-0.5"
               >
                 {fin}
               </span>
             ))}
-            {product.applications.slice(0, 2).map((app) => (
+            {Array.from(new Set(product.applications)).slice(0, 2).map((app, idx) => (
               <span
-                key={app}
+                key={`${app}-${idx}`}
                 className="bg-stone-50 border border-grey/20 text-[9px] font-montserrat text-grey px-1.5 py-0.5"
               >
                 {app}
