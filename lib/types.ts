@@ -26,6 +26,7 @@ export type ColorFamily =
   | "Brown"
   | "Blue"
   | "Gold-Yellow"
+  | "Red"
   | "Multi";
 
 export type FinishType =
@@ -96,6 +97,7 @@ export interface StoneProduct {
   description: string;
   bestSuitedFor: string[];
   specs: {
+    countryOfOrigin?: string;
     compressiveStrength?: string;
     waterAbsorption?: string;
     density?: string;

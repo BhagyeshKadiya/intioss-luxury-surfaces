@@ -154,12 +154,6 @@ export function ProductCard({
           )}
         </div>
 
-        {/* Price Tier Badge (Zero Rupee Symbol) */}
-        <div className="absolute top-3 right-3 z-10 pointer-events-none">
-          <span className="bg-white/95 text-maroon text-[10px] font-montserrat font-medium px-2 py-0.5 border border-gold/30 shadow-sm">
-            {formatPriceTier(product.priceTier)}
-          </span>
-        </div>
 
         {/* Quick Action Floating Bar: always accessible on mobile, slide up on desktop hover */}
         <div
@@ -263,7 +257,7 @@ export function ProductCard({
         {/* Clean Luxury Footer without redundant "Details" button */}
         <div className="mt-4 pt-3 border-t border-gold/15 flex items-center justify-between">
           <span className="text-[10px] font-montserrat text-gold font-medium">
-            {isOrderBasis ? "Available on Request" : product.availability}
+            {isOrderBasis ? "Available on Request" : ""}
           </span>
           <span className="text-[10px] font-montserrat uppercase tracking-wider text-maroon/70 group-hover:text-gold transition-colors font-medium">
             View Stone Collection →

@@ -35,6 +35,7 @@ const COLOR_SWATCHES: Record<string, { bg: string; border: string }> = {
   Brown: { bg: "#593D2E", border: "#3D2A1F" },
   Blue: { bg: "#1F4E79", border: "#143350" },
   "Gold-Yellow": { bg: "#D4AF37", border: "#A68620" },
+  Red: { bg: "#A8222A", border: "#7A151C" },
   Multi: {
     bg: "linear-gradient(135deg, #FAF7F2 25%, #541B2A 50%, #DDB62B 75%)",
     border: "#DDB62B",
@@ -97,15 +98,12 @@ export function ProductFilters({
 
   const APPLICATION_OPTIONS = [
     "Flooring",
-    "Wall Cladding",
-    "Countertop",
     "Bathroom",
-    "Pooja Room",
-    "Dining & Living",
-    "Furniture",
-    "Feature Wall",
-    "Facade",
-    "Outdoor",
+    "Table Top",
+    "Kitchen Countertop",
+    "Wall Cladding — Interior",
+    "Wall Cladding — Exterior",
+    "Exterior Flooring",
   ];
 
   const VEINING_OPTIONS = [
@@ -404,7 +402,7 @@ export function ProductFilters({
         >
           <div className="flex items-center gap-2">
             <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-              Quarry Origin
+              Country of Origin
             </span>
             {filterState.origin.length > 0 && (
               <span className="w-2 h-2 rounded-full bg-gold inline-block" />

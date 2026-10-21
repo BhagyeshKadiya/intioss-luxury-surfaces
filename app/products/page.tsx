@@ -335,20 +335,13 @@ function ProductsContent() {
               <button
                 key={pill.id}
                 onClick={() => handleCategoryPillClick(pill.id)}
-                className={`flex-none inline-flex items-center gap-2 px-4 py-2.5 text-xs font-montserrat uppercase tracking-wider transition-all border ${
+                className={`flex-none inline-flex items-center px-4 py-2.5 text-xs font-montserrat uppercase tracking-wider transition-all border ${
                   isActive
                     ? "bg-maroon-deep text-ivory border-gold shadow-md font-semibold"
                     : "bg-white text-maroon/80 border-gold/30 hover:border-gold hover:text-maroon"
                 }`}
               >
                 <span>{pill.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-none ${
-                    isActive ? "bg-gold text-maroon font-bold" : "bg-ivory text-grey border border-gold/20"
-                  }`}
-                >
-                  {pill.count}
-                </span>
               </button>
             );
           })}
@@ -380,9 +373,6 @@ function ProductsContent() {
                   }`}
                 >
                   <span>{subCat}</span>
-                  {count > 0 && (
-                    <span className="text-[9px] opacity-75">({count})</span>
-                  )}
                 </button>
               );
             })}
@@ -593,28 +583,28 @@ function ProductsContent() {
             {filteredProducts.length === 0 ? (
               // Empty State with Sourcing on Request WhatsApp CTA
               <div className="bg-white border border-gold/30 p-12 sm:p-16 text-center shadow-sm">
-                <span className="font-raleway text-xs uppercase tracking-[0.25em] text-gold block mb-2">
-                  Bespoke Procurement
+                <span className="font-jost text-xs uppercase tracking-[0.25em] text-gold block mb-2 font-medium">
+                  Search & Filter
                 </span>
                 <h3 className="font-marcellus text-2xl sm:text-3xl text-maroon">
-                  Can&apos;t find what you are looking for?
+                  No surfaces match the selected filters.
                 </h3>
-                <p className="font-poppins text-xs sm:text-sm text-grey mt-3 max-w-lg mx-auto leading-relaxed">
-                  With 55+ years of European quarry alliances, we source custom blocks directly from Carrara, Verona, and Brazil on request for architects and private estates.
+                <p className="font-jost text-xs sm:text-sm text-grey mt-3 max-w-lg mx-auto leading-relaxed">
+                  We source stones through long-standing relationships with quarries worldwide. If you are looking for a specific marble, onyx, or quartzite, our concierge can assist you directly.
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
-                    href={getWhatsAppUrl("Hello INTIOSS, I have a specific stone requirement that is not in the online catalog.")}
+                    href={getWhatsAppUrl("Hello INTIOSS, I am inquiring about a specific stone requirement.")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3.5 font-montserrat text-xs uppercase tracking-[0.2em] font-medium border border-gold shadow transition-colors"
                   >
                     <MessageSquare className="w-4 h-4 text-gold" />
-                    <span>Inquire on WhatsApp for Custom Sourcing</span>
+                    <span>Inquire via WhatsApp</span>
                   </a>
                   <button
                     onClick={clearAllFilters}
-                    className="text-xs font-montserrat uppercase tracking-wider text-grey hover:text-maroon underline"
+                    className="text-xs font-montserrat uppercase tracking-wider text-grey hover:text-maroon underline cursor-pointer"
                   >
                     Clear Filter Parameters
                   </button>
