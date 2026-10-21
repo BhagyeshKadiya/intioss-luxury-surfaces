@@ -1,4 +1,5 @@
 import {
+  EB_Garamond,
   Forum,
   Marcellus,
   Castoro_Titling,
@@ -7,6 +8,13 @@ import {
   Montserrat,
   Poppins,
 } from "next/font/google";
+
+export const fontEBGaramond = EB_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-garamond",
+  display: "swap",
+});
 
 export const fontForum = Forum({
   subsets: ["latin"],
@@ -56,5 +64,5 @@ export const fontPoppins = Poppins({
   display: "swap",
 });
 
-export const fontVariables = `${fontForum.variable} ${fontMarcellus.variable} ${fontCastoro.variable} ${fontInter.variable} ${fontJost.variable} ${fontMontserrat.variable} ${fontPoppins.variable}`;
+export const fontVariables = `${fontEBGaramond.variable} ${fontForum.variable} ${fontMarcellus.variable} ${fontCastoro.variable} ${fontInter.variable} ${fontJost.variable} ${fontMontserrat.variable} ${fontPoppins.variable}`;
 

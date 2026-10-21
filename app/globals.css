@@ -24,6 +24,13 @@
   letter-spacing: -0.01em;
 }
 
+/* Section 10: Ensure headings use loaded web font Marcellus Regular (replacing system default) */
+h1, h2 {
+  font-family: var(--font-marcellus), serif;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;

@@ -47,7 +47,7 @@ const config: Config = {
         montserrat: ["var(--font-montserrat)", "sans-serif"],
         poppins: ["var(--font-poppins)", "sans-serif"],
         raleway: ["var(--font-castoro)", "sans-serif"],
-        garamond: ["var(--font-marcellus)", "serif"],
+        garamond: ["var(--font-garamond)", "serif"],
         bebas: ["var(--font-castoro)", "sans-serif"],
         jost: ["var(--font-jost)", "sans-serif"],
         inter: ["var(--font-inter)", "sans-serif"],
