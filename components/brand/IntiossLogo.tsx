@@ -6,7 +6,7 @@ import Image from "next/image";
 
 interface IntiossLogoProps {
   className?: string;
-  theme?: "light" | "dark"; // Kept for API compatibility, but image remains static
+  theme?: "light" | "dark" | "ivory";
   showSubtitle?: boolean;
   size?: "sm" | "md" | "lg" | "hero";
   asLink?: boolean;
@@ -20,7 +20,6 @@ export function IntiossLogo({
   asLink = true,
 }: IntiossLogoProps) {
   // Map sizes to Tailwind widths.
-  // The original SVG was responsive and had width/height scaling. We use widths here.
   const sizeClasses = {
     sm: "w-32 md:w-40",
     md: "w-48 md:w-56",
@@ -35,6 +34,8 @@ export function IntiossLogo({
     hero: "450px",
   }[size];
 
+  const isIvory = theme === "ivory" || theme === "dark";
+
   const content = (
     <div
       className={`relative flex items-center justify-center ${sizeClasses}`}
@@ -45,9 +46,14 @@ export function IntiossLogo({
         alt="INTIOSS Luxury Surfaces"
         width={1024}
         height={359}
-        className={`w-full h-auto object-contain ${
-          size === "hero" ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.16)]" : ""
+        className={`w-full h-auto object-contain transition-all duration-300 ${
+          isIvory
+            ? "filter drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] drop-shadow-[0_6px_28px_rgba(0,0,0,0.65)]"
+            : size === "hero"
+            ? "drop-shadow-[0_1px_3px_rgba(0,0,0,0.16)]"
+            : ""
         }`}
+        style={isIvory ? { filter: "brightness(0) invert(1)" } : undefined}
         priority
       />
     </div>

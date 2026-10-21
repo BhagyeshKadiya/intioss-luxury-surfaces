@@ -296,12 +296,20 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Minimalist Architectural Frosted Crystal Plinth (No Border) */}
+            {/* Zero-Box Centered Floating Logo — Material Stays 100% The Hero */}
             <motion.div
               style={{ opacity: taglineOpacity }}
-              className="relative flex flex-col items-center px-6 sm:px-10 md:px-12 py-3 sm:py-4.5 rounded-2xl bg-gradient-to-b from-white/60 to-white/40 backdrop-blur-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)]"
+              className="relative flex flex-col items-center select-none"
             >
-              <IntiossLogo size="hero" asLink={false} />
+              {/* Seamless, borderless ambient lens vignette (NO box, NO rectangle edges, 100% natural stone view) */}
+              <div
+                className="absolute -inset-x-20 -inset-y-12 sm:-inset-x-32 sm:-inset-y-20 pointer-events-none -z-10"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, rgba(16, 6, 11, 0.42) 0%, rgba(16, 6, 11, 0.16) 50%, transparent 75%)",
+                }}
+              />
+              <IntiossLogo size="hero" theme="ivory" asLink={false} />
             </motion.div>
 
             {/* Exclusive Hero Tagline - Only in Hero Section */}
