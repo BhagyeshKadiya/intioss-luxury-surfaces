@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
-import { TESTIMONIALS } from "@/data/testimonials";
+import { TESTIMONIALS, TESTIMONIALS_STATUS } from "@/data/testimonials";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export function TestimonialsSection() {
@@ -42,6 +42,11 @@ export function TestimonialsSection() {
     }, 7000);
     return () => clearInterval(interval);
   }, [emblaApi, isPaused]);
+
+  // Section 9: Hide invented testimonials behind pending status until INTIOSS confirms in writing
+  if (TESTIMONIALS_STATUS === "pending") {
+    return null;
+  }
 
   return (
     <section

@@ -5,6 +5,10 @@ import Image from "next/image";
 import { X, ZoomIn, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getWhatsAppUrl } from "@/lib/config";
+import { Placeholder } from "@/components/ui/Placeholder";
+
+// Section 9: Realised gallery projects hidden behind pending flag
+const GALLERY_STATUS: "active" | "pending" = "pending";
 
 interface GalleryItem {
   id: string;
@@ -22,7 +26,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Living",
     title: "Double-Height Bookmatched Salon",
     stoneUsed: "Golden Statuario Italian Marble",
-    location: "Worli, South Mumbai",
+    location: "Mumbai",
     projectType: "Private Duplex Penthouse",
     image: "/images/usecases/Intioss_Golden-Statuario_Living-Room-Flooring_03.png",
   },
@@ -31,7 +35,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Kitchen",
     title: "Monolithic Waterfall Chef's Island & Backsplash",
     stoneUsed: "Ice Berg Metamorphic Quartzite",
-    location: "Bodakdev, Ahmedabad",
+    location: "Silvassa",
     projectType: "Private Estate Villa",
     image: "/images/usecases/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.png",
   },
@@ -40,8 +44,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Bath",
     title: "Portoro Gold Deep Obsidian Cladding",
     stoneUsed: "Michael Angelo (Portoro Gold)",
-    location: "Malabar Hill, Mumbai",
-    projectType: "Heritage Master Ensuite",
+    location: "Mumbai",
+    projectType: "Master Ensuite",
     image: "/images/usecases/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.png",
   },
   {
@@ -49,8 +53,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Bath",
     title: "Pure Vein Italian Marble Bathroom Cladding",
     stoneUsed: "Golden Statuario Carrara",
-    location: "Cuffe Parade, Mumbai",
-    projectType: "Presidential Sky Villa",
+    location: "Mumbai",
+    projectType: "Private Villa",
     image: "/images/usecases/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.png",
   },
   {
@@ -58,7 +62,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Facade",
     title: "Ventilated Engineered Stone Cladding",
     stoneUsed: "Navona Travertine & Titanium 30mm",
-    location: "Alibaug Coastline",
+    location: "Mumbai",
     projectType: "Waterfront Architectural Villa",
     image: "/images/services/stone-facades.jpg",
   },
@@ -67,8 +71,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Hospitality",
     title: "Backlit Emerald Onyx Cocktail Feature Bar",
     stoneUsed: "Emerald Green Onyx",
-    location: "Bandra Kurla Complex (BKC)",
-    projectType: "Private Members Club",
+    location: "Mumbai",
+    projectType: "Private Lounge",
     image: "/images/stones/emerald-green-onyx.jpg",
   },
   {
@@ -76,8 +80,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Commercial",
     title: "Grand Entrance Vestibule Feature Wall",
     stoneUsed: "Tiger Eye Gold Gemstone",
-    location: "SG Highway, Ahmedabad",
-    projectType: "Diamond Trading Conglomerate",
+    location: "Kishangarh",
+    projectType: "Corporate Headquarters",
     image: "/images/usecases/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.png",
   },
   {
@@ -85,7 +89,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Living",
     title: "Monolithic Sawn Dining Table Top",
     stoneUsed: "White Navona Travertine",
-    location: "Juhu Beach Estate, Mumbai",
+    location: "Mumbai",
     projectType: "Architectural Villa",
     image: "/images/usecases/Intioss_White-Travertine_Dining-Table-Top_05.png",
   },
@@ -94,7 +98,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Commercial",
     title: "Fossilised Wood Mosaic Executive Boardroom",
     stoneUsed: "Petrified Wood Mosaic 20mm",
-    location: "Nariman Point, Mumbai",
+    location: "Mumbai",
     projectType: "Family Office Headquarters",
     image: "/images/usecases/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.png",
   },
@@ -103,8 +107,8 @@ const GALLERY_ITEMS: GalleryItem[] = [
     category: "Hospitality",
     title: "Luminous Crystalline Quartzite Reception",
     stoneUsed: "Patagonia Quartzite Translucent",
-    location: "Sindhu Bhavan Road, Ahmedabad",
-    projectType: "Boutique Luxury Hotel",
+    location: "Silvassa",
+    projectType: "Boutique Hotel",
     image: "/images/stones/patagonia-quartzite.jpg",
   },
 ];
@@ -129,35 +133,58 @@ export default function GalleryPage() {
             Architectural Portfolio
           </span>
           <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
-            Marble Use Cases & Master Installations
+            Curated Stone Installations
           </h1>
           <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
-            Realised projects across South Mumbai and Gujarat. Explore how custom quarry yields, continuous bookmatching, and precision engineering manifest across diverse spaces.
+            Explore stone installations, continuous bookmatching, and precision craftsmanship across diverse living and architectural spaces.
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 text-xs font-montserrat uppercase tracking-[0.15em] border transition-all ${
-                selectedCategory === cat
-                  ? "bg-maroon text-white border-gold font-semibold shadow-sm"
-                  : "bg-white text-grey border-gold/30 hover:border-gold hover:text-maroon"
-              }`}
+        {GALLERY_STATUS === "pending" ? (
+          <div className="max-w-3xl mx-auto text-center py-12">
+            <div className="bg-white border border-gold/30 p-8 sm:p-12 mb-8 shadow-sm">
+              <Placeholder kind="PHOTO" className="w-full h-72 sm:h-96 mb-6" />
+              <h2 className="font-marcellus text-2xl text-maroon mb-3">
+                Project Gallery in Verification
+              </h2>
+              <p className="font-poppins text-xs sm:text-sm text-grey leading-relaxed max-w-xl mx-auto">
+                Realised project photography and architectural installation case studies are currently being verified and compiled for public exhibition.
+              </p>
+            </div>
+            <a
+              href={getWhatsAppUrl("Hello INTIOSS, I would like to request a private portfolio presentation of your completed architectural installations.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-maroon text-white hover:bg-gold hover:text-maroon px-8 py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold transition-colors"
             >
-              {cat}
-            </button>
-          ))}
-        </div>
+              <span>Request Private Portfolio</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        ) : (
+          <>
+            {/* Filter Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-4 py-2 text-xs font-montserrat uppercase tracking-[0.15em] border transition-all ${
+                    selectedCategory === cat
+                      ? "bg-maroon text-white border-gold font-semibold shadow-sm"
+                      : "bg-white text-grey border-gold/30 hover:border-gold hover:text-maroon"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
 
-        {/* Masonry / Grid */}
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+            {/* Masonry / Grid */}
+            <motion.div
+              layout
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
           <AnimatePresence>
             {filteredItems.map((item) => (
               <motion.div
@@ -299,6 +326,8 @@ export default function GalleryPage() {
             </div>
           )}
         </AnimatePresence>
+          </>
+        )}
       </div>
     </div>
   );
