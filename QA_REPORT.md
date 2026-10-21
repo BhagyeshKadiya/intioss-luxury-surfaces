@@ -32,13 +32,15 @@ All 12 numbered sections of client feedback have been executed precisely with ze
 ### Section 1: Hero, Tagline & Logo
 - **Status:** ✅ Done | ⏳ Waiting on INTIOSS (Vector Logo) | ⚠️ Logged Decision
 - **Implementation:**
+  - **Zero-Box Floating Logo (White Box Removed):** Completely eliminated the white frosted crystal plinth / box (`bg-white/60`, `backdrop-blur-2xl`, and rounded container). The natural stone material is now 100% visible and unblocked across the entire screen.
+  - **Crisp Multi-Slide Legibility:** Implemented an architectural ivory floating hallmark (`theme="ivory"` with multi-layered directional shadow `drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] drop-shadow-[0_6px_28px_rgba(0,0,0,0.65)]`) paired with a seamless, borderless feathered radial vignette. The logo and tagline read with razor-sharp clarity on light Statuario and dark Tiger Eye alike without any visible box lines or patches.
   - Tagline updated in `components/sections/HeroSection.tsx` to: `Breathtaking Stones for the Discerning Few`.
   - Type styling: Marcellus Regular (weight `400` strictly), Title Case, ivory color (`#FAF7F2`), `font-synthesis: none`, and `text-transform: none`. Verified tagline does not appear in footer or visible body text elsewhere.
   - Sub-lines removed from hero; `SOURCING - PROCESSING - INSTALLATION` moved to the Services section.
   - Heading above toggle updated to plain **"Products & Services"**.
   - Created preview route `/design/logo-options` presenting **4 non-box hero logo mockups** (Minimalist Scrim, Scrolled Tonal Shift, Frosted Glass Micro-Bar, and Floating Sovereign Monogram) across light and dark marble backdrops, desktop, phone, and scrolled states.
   - Reusable `<Placeholder kind="LOGO" label="[LOGO — vector needed]" />` implemented.
-- **Evidence:** [hero_desktop-1440.png](file:///c:/Users/DC/OneDrive/Desktop/intioss_final_web_App/qa/after/home_desktop-1440.png), [logo-options_desktop-1440.png](file:///c:/Users/DC/OneDrive/Desktop/intioss_final_web_App/qa/after/logo-options_desktop-1440.png)
+- **Evidence:** [hero_nobox_light.png](file:///c:/Users/DC/OneDrive/Desktop/intioss_final_web_App/qa/after/hero_nobox_light.png), [hero_nobox_slide2.png](file:///c:/Users/DC/OneDrive/Desktop/intioss_final_web_App/qa/after/hero_nobox_slide2.png), [logo-options_desktop-1440.png](file:///c:/Users/DC/OneDrive/Desktop/intioss_final_web_App/qa/after/logo-options_desktop-1440.png)
 - **Waiting on INTIOSS:** Vector logo (`SVG` or vector `PDF`). Currently only raster PNGs exist in the repository; the logo options page flags `[LOGO — vector needed]` until supplied.
 
 ---
