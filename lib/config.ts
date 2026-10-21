@@ -33,7 +33,7 @@ export const SITE_CONFIG = {
     },
     {
       city: "Kishangarh",
-      area: "Stone Atelier",
+      area: "Stone Studio",
       address: "[ADDRESS]",
       phone: "+91 99301 71094",
       hours: "Mon – Sat (By Appointment)",

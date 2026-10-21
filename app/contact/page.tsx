@@ -81,7 +81,7 @@ export default function ContactPage() {
           ))}
         </div>
 
-        {/* Studio Locations Overview (Replaces Worli Map) */}
+        {/* Studio Locations Overview */}
         <div className="mb-20 border border-gold/40 shadow-sm bg-white p-8 sm:p-12 text-center">
           <span className="font-montserrat text-xs uppercase tracking-widest text-gold block mb-2 font-medium">
             Physical Presence
@@ -110,7 +110,7 @@ export default function ContactPage() {
             </div>
             <div className="p-4 bg-paper border border-gold/25">
               <strong className="block font-marcellus text-lg text-maroon">Kishangarh</strong>
-              <span className="text-xs text-grey">Architectural Stone Atelier</span>
+              <span className="text-xs text-grey">Architectural Stone Center</span>
               <div className="mt-2">
                 <Placeholder kind="ADDRESS" label="[ADDRESS]" className="w-full text-[10px]" />
               </div>

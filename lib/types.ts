@@ -42,16 +42,15 @@ export type FinishType =
 
 export type ApplicationArea =
   | "Flooring"
+  | "Bathroom"
+  | "Table Top"
+  | "Kitchen Countertop"
+  | "Wall Cladding — Interior"
+  | "Wall Cladding — Exterior"
+  | "Exterior Flooring"
   | "Wall Cladding"
   | "Countertop"
-  | "Facade"
-  | "Staircase"
-  | "Bathroom"
-  | "Pooja Room"
-  | "Dining & Living"
-  | "Furniture"
-  | "Feature Wall"
-  | "Outdoor";
+  | "Feature Wall";
 
 export type ThicknessOption =
   | "1mm - 2mm (Flexible)"
@@ -75,7 +74,7 @@ export type VeiningPattern =
 
 export type PriceTier = "tier_1" | "tier_2" | "tier_3" | "on_request";
 
-export type AvailabilityStatus = "In stock" | "Import on request" | "Bespoke Made to Order";
+export type AvailabilityStatus = "Available on request" | "Import on request" | "Bespoke Made to Order";
 
 export interface StoneProduct {
   id: string;
@@ -98,12 +97,10 @@ export interface StoneProduct {
   bestSuitedFor: string[];
   specs: {
     countryOfOrigin?: string;
-    compressiveStrength?: string;
-    waterAbsorption?: string;
     density?: string;
     dimensions?: string;
-    quarryLocation: string;
-    recommendedCare: string;
+    quarryLocation?: string;
+    recommendedCare?: string;
   };
   pairsWithSlugs?: string[];
 }

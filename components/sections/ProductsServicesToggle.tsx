@@ -358,7 +358,7 @@ export function ProductsServicesToggle() {
                   >
                     <Image
                       src={SERVICE_ITEMS[hoveredIndex]?.image || SERVICE_ITEMS[0].image}
-                      alt={SERVICE_ITEMS[hoveredIndex]?.title || "Intioss Turnkey Services"}
+                      alt={SERVICE_ITEMS[hoveredIndex]?.title || "INTIOSS Services"}
                       fill
                       sizes="40vw"
                       className="object-cover"
@@ -366,7 +366,7 @@ export function ProductsServicesToggle() {
                     <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/95 via-maroon-deep/20 to-transparent" />
                     <div className="absolute bottom-6 left-6 right-6 text-ivory">
                       <span className="font-raleway text-[10px] uppercase tracking-[0.25em] text-gold block mb-1">
-                        Turnkey Service Focus · Discipline 0{hoveredIndex + 1}
+                        Service Focus · Discipline 0{hoveredIndex + 1}
                       </span>
                       <h4 className="font-marcellus text-xl text-ivory">
                         {SERVICE_ITEMS[hoveredIndex]?.title}
@@ -378,7 +378,7 @@ export function ProductsServicesToggle() {
                         href={`/services#${SERVICE_ITEMS[hoveredIndex]?.slug}`}
                         className="inline-flex items-center gap-1.5 text-xs text-gold mt-3 font-montserrat uppercase tracking-wider font-semibold group/link"
                       >
-                        <span>View Technical Specs</span>
+                        <span>View Service Details</span>
                         <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
                       </Link>
                     </div>
@@ -397,8 +397,8 @@ export function ProductsServicesToggle() {
           >
             <span>
               {activeTab === "products"
-                ? "View All 6 Product Categories (280+ Varieties)"
-                : "Explore All 6 Turnkey Architectural Services"}
+                ? "View All Product Collections"
+                : "Explore All 6 Architectural Services"}
             </span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
