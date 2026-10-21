@@ -329,7 +329,10 @@ export function HeroSection() {
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
               className="mt-6 sm:mt-7 md:mt-8 flex flex-col items-center pointer-events-none"
             >
-              <p className="font-marcellus font-normal text-base sm:text-lg md:text-xl tracking-[0.06em] sm:tracking-[0.08em] text-ivory text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+              <p
+                style={{ fontSynthesis: "none" }}
+                className="font-marcellus font-normal text-base sm:text-lg md:text-xl tracking-[0.06em] sm:tracking-[0.08em] text-ivory text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-transform:none]"
+              >
                 Breathtaking Stones for the Discerning Few
               </p>
             </motion.div>

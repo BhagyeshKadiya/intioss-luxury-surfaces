@@ -144,11 +144,8 @@ export function ProductsServicesToggle() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-10">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-2">
-            Curated Excellence
-          </span>
           <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon font-normal tracking-wide max-w-2xl">
-            We Source Top 2% Best Quality Stones
+            Products & Services
           </h2>
 
           {/* Exact Rounded Segmented Toggle Pill (Matching Screenshot) */}
