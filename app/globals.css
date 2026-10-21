@@ -151,3 +151,10 @@ select:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Section 11: Safe bottom padding for scrollable mobile content so floating dock never covers CTAs/cards */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+  }
+}

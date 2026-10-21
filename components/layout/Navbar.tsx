@@ -107,9 +107,9 @@ export function Navbar() {
             : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b-2 border-maroon"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
-          {/* Left: Brand Logo (hidden over hero to prevent duplicate with hero center logo, visible on back-scroll/inner pages) */}
-          <div className="flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+          {/* Left: Brand Logo (proper min width so it never distorts or squashes) */}
+          <div className="flex items-center min-w-[130px] sm:min-w-[180px] shrink-0">
             <motion.div
               initial={false}
               animate={{ opacity: isOverHero ? 0 : 1 }}
@@ -126,9 +126,9 @@ export function Navbar() {
             </motion.div>
           </div>
 
-          {/* Right: Visible Links ("Products", "Services") + 3-Dot Menu */}
-          <div className="flex items-center gap-4 sm:gap-10">
-            <nav className="flex items-center gap-4 sm:gap-10">
+          {/* Right: Visible Links ("Products", "Services", "About", "Gallery") + Menu Trigger */}
+          <div className="flex items-center gap-3 sm:gap-8">
+            <nav className="flex items-center gap-3 sm:gap-7">
               <Link
                 href="/products"
                 className={`font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
@@ -148,6 +148,26 @@ export function Navbar() {
                 }`}
               >
                 Services
+              </Link>
+              <Link
+                href="/about"
+                className={`hidden md:inline-block font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
+                  isOverHero
+                    ? "text-ivory drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)] hover:text-gold"
+                    : "text-maroon hover:text-gold"
+                }`}
+              >
+                About
+              </Link>
+              <Link
+                href="/gallery"
+                className={`hidden md:inline-block font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
+                  isOverHero
+                    ? "text-ivory drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)] hover:text-gold"
+                    : "text-maroon hover:text-gold"
+                }`}
+              >
+                Gallery
               </Link>
             </nav>
 

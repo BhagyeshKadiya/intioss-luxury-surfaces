@@ -69,7 +69,8 @@ export function HeroSection() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const userManuallyPaused = useRef(false);
+  // Section 11: Audio is strictly off by default. Only plays on explicit toggle.
+  const userExplicitlyEnabled = useRef(false);
   const isOutOfHero = useRef(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -132,9 +133,9 @@ export function HeroSection() {
     }
   }, []);
 
-  // Play ambient music
+  // Play ambient music ONLY when user explicitly enabled it
   const playAudio = useCallback(() => {
-    if (!audioRef.current || userManuallyPaused.current || isOutOfHero.current) return;
+    if (!audioRef.current || !userExplicitlyEnabled.current || isOutOfHero.current) return;
     audioRef.current.volume = 0.45;
     audioRef.current
       .play()
@@ -144,39 +145,21 @@ export function HeroSection() {
       });
   }, []);
 
-  // Initialize music & handle first user interaction
+  // Audio lifecycle: default strictly off, pauses when tab is hidden
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    playAudio();
-
-    const handleFirstGesture = () => {
-      if (!userManuallyPaused.current && !isOutOfHero.current) {
-        playAudio();
-      }
-      window.removeEventListener("click", handleFirstGesture);
-      window.removeEventListener("touchstart", handleFirstGesture);
-      window.removeEventListener("keydown", handleFirstGesture);
-    };
-
-    window.addEventListener("click", handleFirstGesture, { passive: true });
-    window.addEventListener("touchstart", handleFirstGesture, { passive: true });
-    window.addEventListener("keydown", handleFirstGesture, { passive: true });
-
     const handleVisibilityChange = () => {
       if (document.hidden) {
         stopAudio();
-      } else if (!isOutOfHero.current && !userManuallyPaused.current) {
+      } else if (!isOutOfHero.current && userExplicitlyEnabled.current) {
         playAudio();
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      window.removeEventListener("click", handleFirstGesture);
-      window.removeEventListener("touchstart", handleFirstGesture);
-      window.removeEventListener("keydown", handleFirstGesture);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       if (audio) {
         audio.pause();
@@ -202,7 +185,7 @@ export function HeroSection() {
     } else if (latest < 200) {
       if (isOutOfHero.current) {
         isOutOfHero.current = false;
-        if (!userManuallyPaused.current) {
+        if (userExplicitlyEnabled.current) {
           playAudio();
         }
       }
@@ -214,11 +197,11 @@ export function HeroSection() {
     if (!audioRef.current) return;
 
     if (isPlaying) {
-      userManuallyPaused.current = true;
+      userExplicitlyEnabled.current = false;
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      userManuallyPaused.current = false;
+      userExplicitlyEnabled.current = true;
       audioRef.current.volume = 0.45;
       audioRef.current
         .play()
@@ -232,12 +215,12 @@ export function HeroSection() {
       ref={containerRef}
       className="relative w-full h-[100svh] min-h-[640px] flex items-center justify-center overflow-hidden bg-maroon-deep select-none touch-pan-y"
     >
-      {/* Background Classical Violin Audio */}
+      {/* Background Classical Violin Audio (Strictly manual, no autoplay) */}
       <audio
         ref={audioRef}
         src="/nastelbom-violin-299793.mp3"
         loop
-        preload="auto"
+        preload="none"
       />
 
       {/* Top App Story Progress Indicators */}

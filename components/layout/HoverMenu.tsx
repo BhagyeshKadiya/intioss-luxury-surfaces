@@ -16,11 +16,13 @@ interface HoverMenuProps {
 }
 
 const MENU_ITEMS = [
-  { title: "About Us", href: "/about", description: "55+ years heritage · Gandhi Civil Decor Group" },
-  { title: "Book Match", href: "/book-match", description: "Interactive mirror simulation tool" },
-  { title: "Gallery (Marble Use Cases)", href: "/gallery", description: "Curated architectural installations" },
-  { title: "Blogs", href: "/blogs", description: "Editorial stone guides & material science" },
-  { title: "Contact Us", href: "/contact", description: "Showrooms in Mumbai, Silvassa & Kishangarh" },
+  { title: "Products & Surfaces", href: "/products", description: "Rare Italian marble, exotic stone & gemstones" },
+  { title: "Architectural Services", href: "/services", description: "End-to-end quarrying, processing & installation" },
+  { title: "About Us", href: "/about", description: "55 years heritage · Gandhi Civil Décor & Quality Marble" },
+  { title: "Curated Installations", href: "/gallery", description: "Architectural portfolio & installation case studies" },
+  { title: "Book Match Simulator", href: "/book-match", description: "Interactive mirror simulation tool" },
+  { title: "Architectural Journals", href: "/blogs", description: "Editorial stone guides & material science" },
+  { title: "Private Consultation", href: "/contact", description: "Studios in Mumbai, Silvassa & Kishangarh" },
 ];
 
 export function HoverMenu({

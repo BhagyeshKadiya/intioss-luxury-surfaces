@@ -43,7 +43,7 @@ export function ProductStickyBar({ product }: ProductStickyBarProps) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gold/40 shadow-2xl py-4 px-4 sm:px-8 transition-transform duration-300 ease-in-out ${
+      className={`fixed bottom-[74px] sm:bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-gold/40 shadow-2xl py-3 sm:py-4 px-4 sm:px-8 transition-transform duration-300 ease-in-out ${
         isVisible ? "translate-y-0" : "translate-y-full"
       }`}
     >
