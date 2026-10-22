@@ -24,14 +24,14 @@ export function IntiossLogo({
     sm: "w-32 md:w-40",
     md: "w-48 md:w-56",
     lg: "w-64 md:w-72",
-    hero: "w-72 sm:w-80 md:w-96 lg:w-[450px]",
+    hero: "w-[274px] sm:w-[304px] md:w-[365px] lg:w-[428px]",
   }[size];
 
   const maxPixelWidth = {
     sm: "160px",
     md: "220px",
     lg: "280px",
-    hero: "450px",
+    hero: "428px",
   }[size];
 
   const isIvory = theme === "ivory" || theme === "dark";

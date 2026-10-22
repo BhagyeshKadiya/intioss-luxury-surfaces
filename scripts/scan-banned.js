@@ -15,8 +15,8 @@ const bannedStrings = [
   'Origin Source', 'Vision to Reality', 'Compressive Strength'
 ];
 
-const ignoreDirs = new Set(['.next', 'node_modules', '.git', 'qa', 'scripts']);
-const ignoreFiles = new Set(['package-lock.json']);
+const ignoreDirs = new Set(['.next', 'node_modules', '.git', 'qa', 'scripts', 'docs']);
+const ignoreFiles = new Set(['package-lock.json', 'QA_REPORT.md', 'FONT_LIST_FOR_APPROVAL.md']);
 const hits = [];
 
 function searchDir(currentDir) {

@@ -312,19 +312,44 @@ export function HeroSection() {
               <IntiossLogo size="hero" theme="ivory" asLink={false} />
             </motion.div>
 
-            {/* Exclusive Hero Tagline - Only in Hero Section */}
+            {/* Exclusive Hero Tagline - Aligned so 'B' aligns with 'I' and 'w' aligns with 'S' */}
             <motion.div
-              style={{ opacity: taglineOpacity }}
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-              className="mt-6 sm:mt-7 md:mt-8 flex flex-col items-center pointer-events-none"
+              className="mt-6 sm:mt-7 md:mt-8 w-[274px] sm:w-[304px] md:w-[365px] lg:w-[428px] max-w-[428px] pointer-events-none select-none flex flex-col items-center"
+              style={{
+                opacity: taglineOpacity,
+                paddingLeft: "2.5%",
+                paddingRight: "3.0%",
+              }}
             >
-              <p
-                style={{ fontSynthesis: "none" }}
-                className="font-marcellus font-normal text-base sm:text-lg md:text-xl tracking-[0.06em] sm:tracking-[0.08em] text-ivory text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] [text-transform:none]"
+              <svg
+                viewBox="0 0 1000 58"
+                width="100%"
+                height="auto"
+                role="img"
+                aria-label="Breathtaking Stones For The Discerning Few"
+                className="overflow-visible block filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]"
               >
-                Breathtaking Stones for the Discerning Few
+                <text
+                  x="0"
+                  y="44"
+                  textLength="1000"
+                  lengthAdjust="spacing"
+                  fill="#FBF9F5"
+                  className="font-marcellus font-normal"
+                  style={{
+                    fontFamily: "var(--font-marcellus), 'Marcellus', serif",
+                    fontSize: "44px",
+                    fontSynthesis: "none",
+                  }}
+                >
+                  Breathtaking Stones For The Discerning Few
+                </text>
+              </svg>
+              <p className="sr-only">
+                Breathtaking Stones For The Discerning Few
               </p>
             </motion.div>
           </div>
