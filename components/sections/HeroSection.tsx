@@ -317,38 +317,16 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-              className="mt-6 sm:mt-7 md:mt-8 w-[274px] sm:w-[304px] md:w-[365px] lg:w-[428px] max-w-[428px] pointer-events-none select-none flex flex-col items-center"
-              style={{
-                opacity: taglineOpacity,
-                paddingLeft: "2.5%",
-                paddingRight: "3.0%",
-              }}
+              className="mt-6 sm:mt-7 md:mt-8 flex flex-col items-center pointer-events-none"
+              style={{ opacity: taglineOpacity }}
             >
-              <svg
-                viewBox="0 0 1000 58"
-                width="100%"
-                height="auto"
-                role="img"
-                aria-label="Breathtaking Stones For The Discerning Few"
-                className="overflow-visible block filter drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]"
+              <p
+                style={{
+                  fontSynthesis: "none",
+                  letterSpacing: "0.0655em",
+                }}
+                className="font-marcellus font-normal text-[12px] sm:text-[13.5px] md:text-[16px] lg:text-[18px] text-ivory text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap [text-transform:none]"
               >
-                <text
-                  x="0"
-                  y="44"
-                  textLength="1000"
-                  lengthAdjust="spacing"
-                  fill="#FBF9F5"
-                  className="font-marcellus font-normal"
-                  style={{
-                    fontFamily: "var(--font-marcellus), 'Marcellus', serif",
-                    fontSize: "44px",
-                    fontSynthesis: "none",
-                  }}
-                >
-                  Breathtaking Stones For The Discerning Few
-                </text>
-              </svg>
-              <p className="sr-only">
                 Breathtaking Stones For The Discerning Few
               </p>
             </motion.div>
