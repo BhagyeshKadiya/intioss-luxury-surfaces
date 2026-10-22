@@ -103,7 +103,7 @@ export const SERVICES: ExtendedServiceItem[] = [
   {
     id: "s3",
     slug: "stone-facades",
-    title: "Stone Façades",
+    title: "Stone Facades",
     shortDesc:
       "Engineered ventilated stone facades, mechanical anchor systems, and exterior stone cladding.",
     fullDesc:

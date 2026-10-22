@@ -172,7 +172,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services#stone-facades" className="hover:text-gold transition-colors">
-                  Stone Façades
+                  Stone Facades
                 </Link>
               </li>
               <li>

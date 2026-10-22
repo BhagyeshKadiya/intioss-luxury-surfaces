@@ -103,7 +103,7 @@ const SERVICE_ITEMS: ServiceCategoryItem[] = [
   },
   {
     id: "s3",
-    title: "Stone Façades",
+    title: "Stone Facades",
     slug: "stone-facades",
     shortDesc: "Engineered ventilated facades, anchor systems, and exterior stone cladding.",
     image: "/images/services/stone-facades.jpg",
