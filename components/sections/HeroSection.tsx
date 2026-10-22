@@ -296,20 +296,32 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Zero-Box Centered Floating Logo — Material Stays 100% The Hero */}
+            {/* Soft Organic Atmospheric Cloud Glow for Pristine Visibility */}
+            <div
+              className="absolute -inset-x-20 -inset-y-12 sm:-inset-x-28 sm:-inset-y-16 md:-inset-x-36 md:-inset-y-20 pointer-events-none -z-10 blur-3xl opacity-90"
+              style={{
+                background:
+                  "radial-gradient(ellipse 65% 60% at 50% 50%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.82) 35%, rgba(255, 255, 255, 0.45) 60%, rgba(255, 255, 255, 0.12) 80%, transparent 100%)",
+              }}
+            />
+            <div
+              className="absolute -inset-x-12 -inset-y-8 sm:-inset-x-20 sm:-inset-y-12 md:-inset-x-28 md:-inset-y-16 pointer-events-none -z-10 backdrop-blur-xl opacity-90"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%)",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 40%, rgba(0,0,0,0.4) 65%, transparent 100%)",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse at center, black 40%, rgba(0,0,0,0.4) 65%, transparent 100%)",
+              }}
+            />
+
+            {/* Original Colored Floating Logo (Maroon & Gold) */}
             <motion.div
               style={{ opacity: taglineOpacity }}
               className="relative flex flex-col items-center select-none"
             >
-              {/* Seamless, borderless ambient lens vignette (NO box, NO rectangle edges, 100% natural stone view) */}
-              <div
-                className="absolute -inset-x-20 -inset-y-12 sm:-inset-x-32 sm:-inset-y-20 pointer-events-none -z-10"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at center, rgba(16, 6, 11, 0.42) 0%, rgba(16, 6, 11, 0.16) 50%, transparent 75%)",
-                }}
-              />
-              <IntiossLogo size="hero" theme="ivory" asLink={false} />
+              <IntiossLogo size="hero" theme="light" asLink={false} />
             </motion.div>
 
             {/* Exclusive Hero Tagline - Aligned so 'B' aligns with 'I' and 'w' aligns with 'S' */}
@@ -325,7 +337,7 @@ export function HeroSection() {
                   fontSynthesis: "none",
                   letterSpacing: "0.0655em",
                 }}
-                className="font-marcellus font-normal text-[12px] sm:text-[13.5px] md:text-[16px] lg:text-[18px] text-ivory text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] whitespace-nowrap [text-transform:none]"
+                className="font-marcellus font-normal text-[12px] sm:text-[13.5px] md:text-[16px] lg:text-[18px] text-maroon-deep text-center drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] whitespace-nowrap [text-transform:none]"
               >
                 Breathtaking Stones For The Discerning Few
               </p>
