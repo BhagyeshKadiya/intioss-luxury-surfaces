@@ -216,13 +216,13 @@ export function ProductsServicesToggle() {
                         key={item.title}
                         href={`/products?category=${encodeURIComponent(item.slug)}`}
                         onMouseEnter={() => setHoveredIndex(idx)}
-                        className={`flex items-center justify-between px-6 sm:px-8 py-5 transition-all duration-200 group cursor-pointer ${
+                        className={`flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 transition-all duration-200 group cursor-pointer active:bg-stone-100 ${
                           isHovered ? "bg-stone-50/80" : "hover:bg-stone-50/50"
                         }`}
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
                           <span
-                            className={`font-marcellus text-lg sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors ${
+                            className={`font-marcellus text-base sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors ${
                               isHovered ? "font-medium" : ""
                             }`}
                           >
@@ -230,14 +230,14 @@ export function ProductsServicesToggle() {
                           </span>
 
                           {/* Wine Maroon Brand Small Badge Box */}
-                          <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-montserrat uppercase font-semibold tracking-wider bg-maroon-deep text-ivory border border-gold/40 shadow-xs">
+                          <span className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider bg-maroon-deep text-ivory border border-gold/40 shadow-xs">
                             {item.count}
                           </span>
                         </div>
 
                         {item.hasChevron && (
                           <ChevronRight
-                            className={`w-5 h-5 text-maroon/70 transition-transform duration-200 ${
+                            className={`w-4 h-4 sm:w-5 sm:h-5 text-maroon/70 transition-transform duration-200 ${
                               isHovered ? "translate-x-1 text-gold" : ""
                             }`}
                           />
@@ -262,13 +262,13 @@ export function ProductsServicesToggle() {
                         key={item.title}
                         href={`/services#${item.slug}`}
                         onMouseEnter={() => setHoveredIndex(idx)}
-                        className={`flex items-center justify-between px-6 sm:px-8 py-5 transition-all duration-200 group cursor-pointer ${
+                        className={`flex items-center justify-between px-5 sm:px-8 py-4 sm:py-5 transition-all duration-200 group cursor-pointer active:bg-stone-100 ${
                           isHovered ? "bg-stone-50/80" : "hover:bg-stone-50/50"
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <span
-                            className={`font-marcellus text-lg sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors ${
+                            className={`font-marcellus text-base sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors ${
                               isHovered ? "font-medium" : ""
                             }`}
                           >
@@ -278,7 +278,7 @@ export function ProductsServicesToggle() {
 
                         {item.hasChevron && (
                           <ChevronRight
-                            className={`w-5 h-5 text-maroon/70 transition-transform duration-200 ${
+                            className={`w-4 h-4 sm:w-5 sm:h-5 text-maroon/70 transition-transform duration-200 ${
                               isHovered ? "translate-x-1 text-gold" : ""
                             }`}
                           />

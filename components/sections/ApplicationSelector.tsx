@@ -33,7 +33,7 @@ export function ApplicationSelector() {
             <Link
               key={space.id}
               href={`/products?application=${encodeURIComponent(space.title)}`}
-              className="group relative h-80 sm:h-96 rounded-none overflow-hidden border border-gold/25 bg-maroon transition-all duration-300 hover:border-gold hover:shadow-xl flex flex-col justify-end"
+              className="group relative h-72 sm:h-96 rounded-none overflow-hidden border border-gold/25 bg-maroon transition-all duration-300 hover:border-gold hover:shadow-xl active:scale-[0.98] flex flex-col justify-end"
             >
               {/* Photograph */}
               <Image
@@ -49,16 +49,16 @@ export function ApplicationSelector() {
                 className="absolute inset-0 pointer-events-none transition-opacity duration-300"
                 style={{
                   background:
-                    "linear-gradient(180deg, rgba(20, 8, 14, 0.05) 0%, rgba(20, 8, 14, 0.25) 50%, rgba(20, 8, 14, 0.82) 100%)",
+                    "linear-gradient(180deg, rgba(20, 8, 14, 0.05) 0%, rgba(20, 8, 14, 0.3) 50%, rgba(20, 8, 14, 0.88) 100%)",
                 }}
               />
 
               {/* Upright Space Title Only */}
               <div className="relative z-10 p-5 sm:p-6 flex items-center justify-between">
-                <h3 className="font-marcellus text-xl sm:text-2xl text-ivory font-normal tracking-wide group-hover:text-gold transition-colors">
+                <h3 className="font-marcellus text-xl sm:text-2xl text-ivory font-normal tracking-wide group-hover:text-gold transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]">
                   {space.title}
                 </h3>
-                <ArrowRight className="w-4 h-4 text-gold transform group-hover:translate-x-1.5 transition-transform opacity-80 group-hover:opacity-100" />
+                <ArrowRight className="w-4 h-4 text-gold transform group-hover:translate-x-1.5 transition-transform opacity-90 group-hover:opacity-100" />
               </div>
             </Link>
           ))}

@@ -224,11 +224,11 @@ export function ProductCard({
       {/* Card Body - Entire box is clickable to open product page */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between text-[11px] font-raleway uppercase tracking-wider text-grey mb-1">
-            <span className="truncate max-w-[65%] font-medium text-gold/90">
+          <div className="flex items-center justify-between text-[11px] font-raleway uppercase tracking-wider text-stone-600 mb-1">
+            <span className="truncate max-w-[65%] font-semibold text-gold-dark">
               {product.subCategory || product.category}
             </span>
-            <span>{product.colorFamily}</span>
+            <span className="font-medium text-stone-700">{product.colorFamily}</span>
           </div>
 
           <h3 className="font-marcellus text-xl text-maroon group-hover:text-gold transition-colors">
@@ -240,7 +240,7 @@ export function ProductCard({
             {product.finishes.slice(0, 2).map((fin, idx) => (
               <span
                 key={`${fin}-${idx}`}
-                className="bg-ivory border border-gold/30 text-[9px] font-montserrat text-maroon/80 px-1.5 py-0.5"
+                className="bg-ivory border border-gold/30 text-[9px] font-montserrat text-maroon/90 font-medium px-1.5 py-0.5"
               >
                 {fin}
               </span>
@@ -248,7 +248,7 @@ export function ProductCard({
             {Array.from(new Set(product.applications)).slice(0, 2).map((app, idx) => (
               <span
                 key={`${app}-${idx}`}
-                className="bg-stone-50 border border-grey/20 text-[9px] font-montserrat text-grey px-1.5 py-0.5"
+                className="bg-stone-100 border border-stone-200 text-[9px] font-montserrat text-stone-700 font-medium px-1.5 py-0.5"
               >
                 {app}
               </span>
@@ -258,10 +258,10 @@ export function ProductCard({
 
         {/* Clean Luxury Footer without redundant "Details" button */}
         <div className="mt-4 pt-3 border-t border-gold/15 flex items-center justify-between">
-          <span className="text-[10px] font-montserrat text-gold font-medium">
+          <span className="text-[10px] font-montserrat text-gold-dark font-semibold">
             {isOrderBasis ? "Available on Request" : ""}
           </span>
-          <span className="text-[10px] font-montserrat uppercase tracking-wider text-maroon/70 group-hover:text-gold transition-colors font-medium">
+          <span className="text-[10px] font-montserrat uppercase tracking-wider text-maroon/80 group-hover:text-gold transition-colors font-semibold">
             View Stone Collection →
           </span>
         </div>

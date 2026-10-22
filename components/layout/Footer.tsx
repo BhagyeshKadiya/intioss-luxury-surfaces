@@ -20,7 +20,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-maroon-deep text-ivory pt-20 pb-12 overflow-hidden border-t border-gold/30">
+    <footer className="relative bg-maroon-deep text-ivory pt-20 pb-28 sm:pb-14 overflow-hidden border-t border-gold/30">
       {/* Faint Hexagon Watermark Pattern */}
       <IntiossPattern opacity={0.05} />
 
@@ -53,7 +53,7 @@ export function Footer() {
               />
             </Link>
 
-            <p className="font-jost text-xs sm:text-sm text-ivory/80 leading-relaxed max-w-sm mt-2">
+            <p className="font-jost text-xs sm:text-sm text-ivory/90 leading-relaxed max-w-sm mt-2">
               Curators of rare Italian marble, semi-precious gemstones, and bespoke architectural stone surfaces.
             </p>
 
@@ -62,18 +62,18 @@ export function Footer() {
               <span className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-gold font-semibold block mb-3">
                 INTIOSS Group
               </span>
-              <div className="space-y-2 text-xs font-jost text-ivory/80">
+              <div className="space-y-2 text-xs font-jost text-ivory/90">
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Quality Marble</strong>
-                  <span className="text-ivory/60 text-[11px] text-right">Stockyard and marbles</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Stockyard and marbles</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Marmo Granite International</strong>
-                  <span className="text-ivory/60 text-[11px] text-right">Production</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Production</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Gandhi Civil Décor</strong>
-                  <span className="text-ivory/60 text-[11px] text-right">Installation</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Installation</span>
                 </div>
               </div>
             </div>
@@ -215,16 +215,16 @@ export function Footer() {
             <div className="pt-2 border-t border-gold/15">
               <a
                 href="tel:+919930171094"
-                className="text-gold font-montserrat text-sm hover:underline block font-medium"
+                className="text-gold font-montserrat text-sm hover:underline block font-semibold"
               >
                 +91 99301 71094
               </a>
-              <span className="text-ivory/50 text-xs">{SITE_CONFIG.email}</span>
+              <span className="text-ivory/80 text-xs">{SITE_CONFIG.email}</span>
             </div>
 
             {/* Newsletter input */}
             <form onSubmit={handleSubscribe} className="pt-3">
-              <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-ivory/60 block mb-2 font-medium">
+              <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-ivory/85 block mb-2 font-medium">
                 Subscribe for Updates
               </span>
               <div className="flex items-center border border-gold/40 rounded-sm overflow-hidden bg-black/20">
@@ -234,12 +234,12 @@ export function Footer() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Architect or Client Email"
                   required
-                  className="bg-transparent px-3 py-2 text-xs text-ivory placeholder:text-ivory/40 flex-1 focus:outline-none"
+                  className="bg-transparent px-3 py-2 text-xs text-ivory placeholder:text-ivory/60 flex-1 focus:outline-none"
                 />
                 <button
                   type="submit"
                   aria-label="Subscribe"
-                  className="bg-gold text-maroon px-5 py-2.5 text-xs font-montserrat font-semibold hover:bg-gold-light transition-colors shrink-0 whitespace-nowrap flex items-center justify-center min-w-[100px]"
+                  className="bg-gold text-maroon px-5 py-2.5 text-xs font-montserrat font-semibold hover:bg-gold-light transition-colors shrink-0 whitespace-nowrap flex items-center justify-center min-w-[100px] active:scale-95"
                 >
                   {subscribed ? <Check className="w-4 h-4" /> : "Subscribe"}
                 </button>
@@ -249,11 +249,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-jost text-ivory/60">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-jost text-ivory/80">
           <div>
             © {new Date().getFullYear()} INTIOSS – Luxury Surfaces. All rights reserved.
           </div>
-          <div className="flex items-center gap-4 text-[11px] font-montserrat uppercase tracking-wider text-ivory/50">
+          <div className="flex items-center gap-4 text-[11px] font-montserrat uppercase tracking-wider text-ivory/70">
             <span>Mumbai</span>
             <span>·</span>
             <span>Silvassa</span>

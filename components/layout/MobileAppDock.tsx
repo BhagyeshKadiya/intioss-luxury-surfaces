@@ -127,7 +127,7 @@ export function MobileAppDock({ onOpenMenu }: MobileAppDockProps) {
                     ) : (
                       <Icon
                         className={`w-4 h-4 transition-colors duration-200 ${
-                          tab.isActive ? "text-gold stroke-[2.2]" : "text-ivory/70 stroke-[1.6]"
+                          tab.isActive ? "text-gold stroke-[2.2]" : "text-ivory/80 stroke-[1.7]"
                         }`}
                       />
                     )}
@@ -135,7 +135,7 @@ export function MobileAppDock({ onOpenMenu }: MobileAppDockProps) {
                     {/* Label */}
                     <span
                       className={`text-[9px] font-montserrat uppercase tracking-wider mt-1 transition-colors duration-200 font-medium ${
-                        tab.isActive ? "text-gold font-semibold" : "text-ivory/60"
+                        tab.isActive ? "text-gold font-semibold" : "text-ivory/80"
                       }`}
                     >
                       {tab.label}

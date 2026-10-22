@@ -193,7 +193,7 @@ export function ConsultationSection() {
                   {/* Row 1: Full Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         Full Name *
                       </label>
                       <input
@@ -202,7 +202,7 @@ export function ConsultationSection() {
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         placeholder="e.g. Rahul Mehta"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                       {errors.fullName && (
                         <span className="text-[10px] text-red-600 mt-1 block">{errors.fullName}</span>
@@ -210,7 +210,7 @@ export function ConsultationSection() {
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         Phone (+91) *
                       </label>
                       <input
@@ -219,7 +219,7 @@ export function ConsultationSection() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98200 XXXXX"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                       {errors.phone && (
                         <span className="text-[10px] text-red-600 mt-1 block">{errors.phone}</span>
@@ -230,7 +230,7 @@ export function ConsultationSection() {
                   {/* Row 2: Email & City */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         Email Address *
                       </label>
                       <input
@@ -239,7 +239,7 @@ export function ConsultationSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="rahul@example.com"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                       {errors.email && (
                         <span className="text-[10px] text-red-600 mt-1 block">{errors.email}</span>
@@ -247,7 +247,7 @@ export function ConsultationSection() {
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         City *
                       </label>
                       <input
@@ -256,7 +256,7 @@ export function ConsultationSection() {
                         value={formData.city}
                         onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                         placeholder="Mumbai, Silvassa, Kishangarh..."
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                       {errors.city && (
                         <span className="text-[10px] text-red-600 mt-1 block">{errors.city}</span>
@@ -266,7 +266,7 @@ export function ConsultationSection() {
 
                   {/* Project Type */}
                   <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-2">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
                       Project Type
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -275,10 +275,10 @@ export function ConsultationSection() {
                           key={type}
                           type="button"
                           onClick={() => setFormData({ ...formData, projectType: type })}
-                          className={`py-2 px-3 text-xs font-montserrat text-center border transition-all ${
+                          className={`py-2 px-3 text-xs font-montserrat text-center border transition-all active:scale-95 ${
                             formData.projectType === type
-                              ? "bg-maroon text-white border-gold font-medium"
-                              : "border-gold/30 text-grey hover:border-gold hover:text-maroon"
+                              ? "bg-maroon text-white border-gold font-semibold shadow-sm"
+                              : "border-gold/30 text-stone-700 hover:border-gold hover:text-maroon font-medium"
                           }`}
                         >
                           {type}
@@ -289,7 +289,7 @@ export function ConsultationSection() {
 
                   {/* Interested In Multi-Select Chips */}
                   <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-2">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
                       Surfaces & Disciplines of Interest *
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -300,10 +300,10 @@ export function ConsultationSection() {
                             key={item}
                             type="button"
                             onClick={() => toggleInterest(item)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat transition-all border ${
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat transition-all border active:scale-95 ${
                               isSelected
-                                ? "bg-maroon-deep text-ivory border-gold"
-                                : "bg-white text-grey border-gold/30 hover:border-gold hover:text-maroon"
+                                ? "bg-maroon-deep text-ivory border-gold font-semibold"
+                                : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:text-maroon font-medium"
                             }`}
                           >
                             {isSelected && <Check className="w-3.5 h-3.5 text-gold" />}
@@ -320,7 +320,7 @@ export function ConsultationSection() {
                   {/* Row 3: Approx Area & Preferred Date */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         Approx. Area (Sq Ft)
                       </label>
                       <input
@@ -328,26 +328,26 @@ export function ConsultationSection() {
                         value={formData.approxArea}
                         onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
                         placeholder="e.g. 5,000 sq ft"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                         Preferred Date
                       </label>
                       <input
                         type="date"
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
                       />
                     </div>
                   </div>
 
                   {/* Message */}
                   <div className="relative">
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-grey mb-1">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
                       Project Notes or Specific Stones Needed
                     </label>
                     <textarea
@@ -355,7 +355,7 @@ export function ConsultationSection() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="e.g. Looking for continuous bookmatched Statuario for living room flooring..."
-                      className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-grey/40 focus:outline-none focus:border-gold transition-colors resize-none"
+                      className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors resize-none"
                     />
                   </div>
 

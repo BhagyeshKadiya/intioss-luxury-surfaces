@@ -129,13 +129,13 @@ export default function GalleryPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
+          <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
             Architectural Portfolio
           </span>
           <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
             Curated Stone Installations
           </h1>
-          <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
+          <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-4 leading-relaxed">
             Explore stone installations, continuous bookmatching, and precision craftsmanship across diverse living and architectural spaces.
           </p>
         </div>
@@ -147,7 +147,7 @@ export default function GalleryPage() {
               <h2 className="font-marcellus text-2xl text-maroon mb-3">
                 Project Gallery in Verification
               </h2>
-              <p className="font-poppins text-xs sm:text-sm text-grey leading-relaxed max-w-xl mx-auto">
+              <p className="font-poppins text-xs sm:text-sm text-stone-700 leading-relaxed max-w-xl mx-auto">
                 Realised project photography and architectural installation case studies are currently being verified and compiled for public exhibition.
               </p>
             </div>
@@ -155,7 +155,7 @@ export default function GalleryPage() {
               href={getWhatsAppUrl("Hello INTIOSS, I would like to request a private portfolio presentation of your completed architectural installations.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-maroon text-white hover:bg-gold hover:text-maroon px-8 py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold transition-colors"
+              className="inline-flex items-center gap-2 bg-maroon text-white hover:bg-gold hover:text-maroon px-8 py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold transition-all duration-200 active:scale-95 shadow-sm"
             >
               <span>Request Private Portfolio</span>
               <ArrowRight className="w-4 h-4" />
@@ -169,10 +169,10 @@ export default function GalleryPage() {
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 text-xs font-montserrat uppercase tracking-[0.15em] border transition-all ${
+                  className={`px-4 py-2 text-xs font-montserrat uppercase tracking-[0.15em] border transition-all active:scale-95 ${
                     selectedCategory === cat
                       ? "bg-maroon text-white border-gold font-semibold shadow-sm"
-                      : "bg-white text-grey border-gold/30 hover:border-gold hover:text-maroon"
+                      : "bg-white text-stone-700 font-medium border-gold/30 hover:border-gold hover:text-maroon"
                   }`}
                 >
                   {cat}

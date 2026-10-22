@@ -42,23 +42,23 @@ function BookMatchContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
+          <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
             Digital Dry-Lay Studio
           </span>
           <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
             Interactive Book Match Simulator
           </h1>
-          <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
+          <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-4 leading-relaxed max-w-xl mx-auto">
             Bookmatching mirrors consecutive slabs sliced from the same marble block, yielding symmetrical butterfly veins. Select a stone below and simulate 2-way and 4-way quadrant reflections.
           </p>
         </div>
 
         {/* Controls Strip: Stone Picker & Mirror Mode Toggle */}
-        <div className="bg-white border border-gold/30 p-6 mb-8 shadow-sm">
+        <div className="bg-white border border-gold/30 p-5 sm:p-6 mb-8 shadow-sm">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             {/* Stone Selector */}
-            <div className="w-full lg:w-auto flex flex-col sm:flex-row items-center gap-3">
-              <span className="font-montserrat text-xs uppercase tracking-wider text-grey">
+            <div className="w-full lg:w-auto flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <span className="font-montserrat text-xs uppercase tracking-wider text-stone-800 font-semibold shrink-0">
                 Select Stone:
               </span>
               <div className="flex flex-wrap gap-2">
@@ -66,10 +66,10 @@ function BookMatchContent() {
                   <button
                     key={stone.id}
                     onClick={() => setSelectedStone(stone)}
-                    className={`px-3 py-1.5 text-xs font-montserrat border transition-all ${
+                    className={`px-3 py-1.5 text-xs font-montserrat border transition-all active:scale-95 ${
                       selectedStone.id === stone.id
-                        ? "bg-maroon text-white border-gold font-medium"
-                        : "bg-ivory border-gold/30 text-grey hover:border-gold hover:text-maroon"
+                        ? "bg-maroon text-white border-gold font-semibold shadow-sm"
+                        : "bg-ivory border-gold/30 text-stone-700 hover:border-gold hover:text-maroon font-medium"
                     }`}
                   >
                     {stone.name}
@@ -79,36 +79,36 @@ function BookMatchContent() {
             </div>
 
             {/* Mirror Mode Selector */}
-            <div className="w-full lg:w-auto flex items-center justify-center gap-2 border border-gold/30 p-1 bg-ivory">
+            <div className="w-full lg:w-auto grid grid-cols-3 gap-1.5 sm:gap-2 border border-gold/30 p-1.5 bg-ivory">
               <button
                 onClick={() => setMatchMode("2-way-horizontal")}
-                className={`px-3 py-1 text-xs font-montserrat tracking-wider uppercase transition-colors ${
+                className={`px-2.5 sm:px-3 py-2 text-[10px] sm:text-xs font-montserrat tracking-wider uppercase transition-colors text-center active:scale-95 ${
                   matchMode === "2-way-horizontal"
-                    ? "bg-maroon text-white font-medium"
-                    : "text-grey hover:text-maroon"
+                    ? "bg-maroon text-white font-semibold shadow-sm"
+                    : "text-stone-700 hover:text-maroon font-medium"
                 }`}
               >
-                2-Way (Horizontal)
+                2-Way (H)
               </button>
               <button
                 onClick={() => setMatchMode("2-way-vertical")}
-                className={`px-3 py-1 text-xs font-montserrat tracking-wider uppercase transition-colors ${
+                className={`px-2.5 sm:px-3 py-2 text-[10px] sm:text-xs font-montserrat tracking-wider uppercase transition-colors text-center active:scale-95 ${
                   matchMode === "2-way-vertical"
-                    ? "bg-maroon text-white font-medium"
-                    : "text-grey hover:text-maroon"
+                    ? "bg-maroon text-white font-semibold shadow-sm"
+                    : "text-stone-700 hover:text-maroon font-medium"
                 }`}
               >
-                2-Way (Vertical)
+                2-Way (V)
               </button>
               <button
                 onClick={() => setMatchMode("4-way-quadrant")}
-                className={`px-3 py-1 text-xs font-montserrat tracking-wider uppercase transition-colors ${
+                className={`px-2.5 sm:px-3 py-2 text-[10px] sm:text-xs font-montserrat tracking-wider uppercase transition-colors text-center active:scale-95 ${
                   matchMode === "4-way-quadrant"
-                    ? "bg-maroon text-white font-medium"
-                    : "text-grey hover:text-maroon"
+                    ? "bg-maroon text-white font-semibold shadow-sm"
+                    : "text-stone-700 hover:text-maroon font-medium"
                 }`}
               >
-                4-Way (Diamond Quad)
+                4-Way Quad
               </button>
             </div>
           </div>

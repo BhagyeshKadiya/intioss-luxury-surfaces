@@ -17,13 +17,13 @@ export function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
+          <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
             INTIOSS Advisory
           </span>
           <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon tracking-wide">
             Frequently Asked Questions
           </h2>
-          <p className="font-poppins text-xs sm:text-sm text-grey mt-4 max-w-xl mx-auto">
+          <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-4 max-w-xl mx-auto leading-relaxed">
             Everything you need to know about our sourcing, materials, architectural services, and comprehensive stone care.
           </p>
         </div>
@@ -33,28 +33,28 @@ export function FaqSection() {
           {FAQS.map((faq) => {
             const isOpen = openId === faq.id;
             return (
-              <div key={faq.id} className="py-6">
+              <div key={faq.id} className="py-5 sm:py-6">
                 <button
                   type="button"
                   onClick={() => toggleItem(faq.id)}
                   aria-expanded={isOpen}
-                  className="w-full flex items-center justify-between gap-4 text-left group focus-visible:outline-none"
+                  className="w-full flex items-center justify-between gap-4 text-left group focus-visible:outline-none py-1"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="font-raleway text-[11px] uppercase tracking-wider text-gold font-medium">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
+                    <span className="font-raleway text-[10px] sm:text-[11px] uppercase tracking-wider text-gold-dark font-semibold">
                       {faq.category}
                     </span>
-                    <h3 className="font-marcellus text-lg sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors">
+                    <h3 className="font-marcellus text-base sm:text-xl text-maroon group-hover:text-maroon-deep transition-colors leading-snug">
                       {faq.question}
                     </h3>
                   </div>
 
                   {/* Gold Plus / Minus Icon */}
-                  <div className="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center text-gold group-hover:border-gold transition-colors flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full border border-gold/40 flex items-center justify-center text-maroon hover:text-gold group-hover:border-gold transition-colors flex-shrink-0 active:scale-90">
                     {isOpen ? (
-                      <Minus className="w-4 h-4 stroke-[1.5]" />
+                      <Minus className="w-4 h-4 stroke-[1.8]" />
                     ) : (
-                      <Plus className="w-4 h-4 stroke-[1.5]" />
+                      <Plus className="w-4 h-4 stroke-[1.8]" />
                     )}
                   </div>
                 </button>
@@ -69,7 +69,7 @@ export function FaqSection() {
                       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="font-poppins text-xs sm:text-sm text-grey pt-4 leading-relaxed pr-8">
+                      <p className="font-poppins text-xs sm:text-sm text-stone-700 pt-3 sm:pt-4 leading-relaxed pr-2 sm:pr-8">
                         {faq.answer}
                       </p>
                     </motion.div>

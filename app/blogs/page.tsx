@@ -20,13 +20,13 @@ export default function BlogsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mb-16">
-          <span className="font-raleway font-light text-xs sm:text-sm uppercase tracking-[0.3em] text-grey mb-3 block">
+          <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
             Architectural Journals
           </span>
           <h1 className="font-marcellus text-4xl sm:text-6xl text-maroon tracking-wide">
             Essays in Stone, Geology & Architecture
           </h1>
-          <p className="font-poppins text-xs sm:text-sm text-grey mt-4 leading-relaxed">
+          <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-4 leading-relaxed">
             Written by senior stone consultants and civil engineers from Gandhi Civil Décor and Quality Marble. Technical material science meets spatial aesthetics.
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function BlogsPage() {
         <div className="mb-20">
           <Link
             href={`/blogs/${featuredPost.slug}`}
-            className="group block bg-white border border-gold/30 shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden"
+            className="group block bg-white border border-gold/30 shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden active:scale-[0.99]"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-7 relative aspect-[16/10] lg:aspect-auto overflow-hidden bg-stone-100 min-h-[360px]">
@@ -53,31 +53,31 @@ export default function BlogsPage() {
 
               <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center gap-4 text-xs font-raleway uppercase tracking-wider text-gold mb-3">
+                  <div className="flex items-center gap-4 text-xs font-raleway uppercase tracking-wider text-gold-dark font-semibold mb-3">
                     <span>{featuredPost.category}</span>
                     <span>·</span>
-                    <span className="flex items-center gap-1 text-grey">
+                    <span className="flex items-center gap-1 text-stone-600">
                       <Clock className="w-3.5 h-3.5" />
                       {featuredPost.readTime}
                     </span>
                   </div>
 
-                  <h2 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-maroon group-hover:text-gold transition-colors leading-snug">
+                  <h2 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-maroon group-hover:text-gold-dark transition-colors leading-snug">
                     {featuredPost.title}
                   </h2>
 
-                  <p className="font-garamond italic text-base sm:text-lg text-grey/90 mt-4 leading-relaxed">
+                  <p className="font-garamond italic text-base sm:text-lg text-stone-700 mt-4 leading-relaxed">
                     {featuredPost.excerpt}
                   </p>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-xs font-poppins text-grey">
+                  <span className="text-xs font-poppins text-stone-600">
                     {featuredPost.publishDate}
                   </span>
                   <span className="inline-flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider text-maroon font-semibold group-hover:translate-x-1 transition-transform">
                     <span>Read Article</span>
-                    <ArrowRight className="w-4 h-4 text-gold" />
+                    <ArrowRight className="w-4 h-4 text-gold-dark" />
                   </span>
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default function BlogsPage() {
             <Link
               key={post.id}
               href={`/blogs/${post.slug}`}
-              className="group block bg-white border border-gold/30 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
+              className="group block bg-white border border-gold/30 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden active:scale-[0.99]"
             >
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
                 <Image
@@ -106,23 +106,23 @@ export default function BlogsPage() {
               </div>
 
               <div className="p-8">
-                <div className="flex items-center gap-3 text-xs font-raleway uppercase tracking-wider text-grey mb-2">
+                <div className="flex items-center gap-3 text-xs font-raleway uppercase tracking-wider text-stone-600 font-medium mb-2">
                   <span>{post.publishDate}</span>
                   <span>·</span>
                   <span>{post.readTime}</span>
                 </div>
 
-                <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold transition-colors">
+                <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors">
                   {post.title}
                 </h3>
 
-                <p className="font-poppins text-xs text-grey mt-3 leading-relaxed line-clamp-3">
+                <p className="font-poppins text-xs text-stone-700 mt-3 leading-relaxed line-clamp-3">
                   {post.excerpt}
                 </p>
 
                 <div className="mt-6 pt-4 border-t border-gold/20 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider text-maroon font-semibold group-hover:translate-x-1 transition-transform">
                   <span>Read Article</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-gold" />
+                  <ArrowRight className="w-3.5 h-3.5 text-gold-dark" />
                 </div>
               </div>
             </Link>

@@ -140,6 +140,17 @@ select:focus-visible {
   outline-offset: 2px;
 }
 
+/* Mobile App touch feedback utilities */
+.app-touch-tap {
+  touch-action: manipulation;
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.15s ease;
+}
+
+.app-touch-tap:active {
+  transform: scale(0.97);
+  opacity: 0.92;
+}
+
 /* Reduced motion overrides */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -149,12 +160,5 @@ select:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Section 11: Safe bottom padding for scrollable mobile content so floating dock never covers CTAs/cards */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
   }
 }

@@ -19,13 +19,13 @@ export default function ServicesPage() {
       {/* Intro Header Strip */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         <div className="text-center max-w-3xl mx-auto">
-          <span className="font-montserrat font-medium text-xs sm:text-sm uppercase tracking-[0.3em] text-gold mb-3 block">
+          <span className="font-montserrat font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
             SOURCING - PROCESSING - INSTALLATION
           </span>
           <h1 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon tracking-wide">
             Stone Services & Architectural Execution
           </h1>
-          <p className="font-jost text-sm sm:text-base text-grey-dark mt-5 leading-relaxed font-normal">
+          <p className="font-jost text-sm sm:text-base text-stone-700 mt-5 leading-relaxed font-normal">
             INTIOSS delivers stone work end to end, through its in-house capability and its group companies, which handle luxury civil contracting and related work.
           </p>
         </div>
@@ -89,13 +89,13 @@ export default function ServicesPage() {
                       isEven ? "lg:order-2" : "lg:order-1"
                     }`}
                   >
-                    <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-gold font-semibold">
+                    <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-gold-dark font-semibold">
                       Architectural Discipline 0{index + 1}
                     </span>
                     <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon mt-1">
                       {service.title}
                     </h2>
-                    <p className="font-jost text-sm sm:text-base text-grey-dark leading-relaxed mt-4">
+                    <p className="font-jost text-sm sm:text-base text-stone-700 leading-relaxed mt-4">
                       {service.fullDesc}
                     </p>
 
@@ -118,7 +118,7 @@ export default function ServicesPage() {
 
                     {service.protocolStatus === "active" && (
                       <div className="mt-8 pt-6 border-t border-gold/25">
-                        <span className="font-montserrat text-[11px] uppercase tracking-[0.2em] text-grey block mb-4">
+                        <span className="font-montserrat text-[11px] uppercase tracking-[0.2em] text-stone-600 font-medium block mb-4">
                           Execution Protocol
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
@@ -127,13 +127,13 @@ export default function ServicesPage() {
                               key={step.stepNumber}
                               className="bg-ivory/80 p-3 border border-gold/30 flex flex-col"
                             >
-                              <span className="font-montserrat text-[10px] text-gold font-bold">
+                              <span className="font-montserrat text-[10px] text-gold-dark font-bold">
                                 {step.stepNumber}
                               </span>
                               <span className="font-marcellus text-xs text-maroon font-semibold mt-1">
                                 {step.title}
                               </span>
-                              <p className="font-jost text-[10px] text-grey mt-1 leading-snug">
+                              <p className="font-jost text-[10px] text-stone-600 mt-1 leading-snug">
                                 {step.description}
                               </p>
                             </div>
@@ -146,7 +146,7 @@ export default function ServicesPage() {
                     <div className="mt-8 flex flex-wrap items-center gap-4">
                       <Link
                         href="/contact"
-                        className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold transition-colors"
+                        className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold transition-all duration-200 active:scale-95 shadow-sm"
                       >
                         <Calendar className="w-3.5 h-3.5 text-gold" />
                         <span>Book Consultation</span>
@@ -156,7 +156,7 @@ export default function ServicesPage() {
                         href={getWhatsAppUrl(`Hello INTIOSS, I would like to inquire regarding ${service.title}.`)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 bg-white hover:bg-ivory text-maroon px-5 py-3 font-montserrat text-xs uppercase tracking-[0.18em] border border-gold/40 transition-colors"
+                        className="inline-flex items-center gap-2 bg-white hover:bg-ivory text-maroon px-5 py-3 font-montserrat text-xs uppercase tracking-[0.18em] border border-gold/40 transition-all duration-200 active:scale-95 shadow-sm"
                       >
                         <MessageSquare className="w-3.5 h-3.5 text-gold" />
                         <span>Inquire on WhatsApp</span>

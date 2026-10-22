@@ -277,15 +277,15 @@ function ProductsContent() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gold/30 pb-6">
           <div>
-            <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-grey mb-2">
+            <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 mb-2 font-medium">
               <span>Home</span>
               <span>/</span>
-              <span className="text-gold">Surface Catalog</span>
+              <span className="text-gold-dark font-semibold">Surface Catalog</span>
             </div>
             <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
               Luxury Surfaces & Bespoke Stones
             </h1>
-            <p className="font-poppins text-xs sm:text-sm text-grey mt-2 max-w-2xl">
+            <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-2 max-w-2xl leading-relaxed">
               From rare Italian marble and Brazilian quartzites to luminescent semi-precious slabs, artisan mosaics, flexible stone veneers, and monumental hand-carved artefacts.
             </p>
           </div>
@@ -350,7 +350,7 @@ function ProductsContent() {
         {/* Secondary Sub-Category Pills Bar */}
         {subCategoryPills.length > 0 && (
           <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-grey flex-shrink-0 mr-1">
+            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-700 font-semibold flex-shrink-0 mr-1">
               Stone Variety:
             </span>
             {subCategoryPills.map((subCat) => {
@@ -664,9 +664,13 @@ function ProductsContent() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-ivory text-maroon z-[99] rounded-t-sm p-6 border-t-2 border-gold shadow-2xl"
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-ivory text-maroon z-[99] rounded-t-2xl p-6 border-t-2 border-gold shadow-2xl"
+              style={{ paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
             >
+              {/* iOS Grab Handle */}
+              <div className="w-12 h-1 bg-gold/40 rounded-full mx-auto mb-4" />
+
               <div className="flex items-center justify-between pb-4 border-b border-gold/30 mb-4">
                 <div className="flex items-center gap-2">
                   <span className="font-marcellus text-xl text-maroon">Filters</span>
@@ -680,14 +684,15 @@ function ProductsContent() {
                   {activeFiltersCount > 0 && (
                     <button
                       onClick={clearAllFilters}
-                      className="text-xs font-montserrat text-grey hover:text-maroon underline"
+                      className="text-xs font-montserrat text-stone-700 hover:text-maroon underline font-medium"
                     >
                       Reset All
                     </button>
                   )}
                   <button
                     onClick={() => setIsMobileFilterOpen(false)}
-                    className="p-1.5 border border-gold/40 text-maroon"
+                    aria-label="Close filters"
+                    className="p-1.5 border border-gold/40 text-maroon hover:border-gold transition-colors active:scale-90"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -702,7 +707,7 @@ function ProductsContent() {
               />
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-full mt-6 bg-maroon text-white py-3 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold shadow-md"
+                className="w-full mt-6 bg-maroon hover:bg-maroon-deep text-white py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold shadow-md active:scale-[0.98] transition-all"
               >
                 Apply Filters ({filteredProducts.length} Results)
               </button>
