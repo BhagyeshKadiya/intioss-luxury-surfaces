@@ -111,7 +111,6 @@ body {
 /* Gold animated underline link utility */
 .nav-link-gold {
   position: relative;
-  display: inline-block;
   padding-bottom: 2px;
 }
 

@@ -21,14 +21,14 @@ export function IntiossLogo({
 }: IntiossLogoProps) {
   // Map sizes to Tailwind widths.
   const sizeClasses = {
-    sm: "w-32 md:w-40",
-    md: "w-48 md:w-56",
-    lg: "w-64 md:w-72",
+    sm: "w-28 sm:w-32 md:w-40",
+    md: "w-44 sm:w-48 md:w-56",
+    lg: "w-60 sm:w-64 md:w-72",
     hero: "w-[274px] sm:w-[304px] md:w-[365px] lg:w-[428px]",
   }[size];
 
   const maxPixelWidth = {
-    sm: "160px",
+    sm: "150px",
     md: "220px",
     lg: "280px",
     hero: "428px",

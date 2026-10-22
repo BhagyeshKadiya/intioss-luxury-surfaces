@@ -27,19 +27,24 @@ export function Navbar() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  // Sync scroll state on initial mount
+  // Sync scroll state on initial mount & native window scroll
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window === "undefined") return;
+
+    const updateScroll = () => {
       const currentScrollY = window.scrollY;
       lastScrollY.current = currentScrollY;
-      
-      if (currentScrollY > 80) {
+      if (currentScrollY > 70) {
         setIsScrolled(true);
       } else {
         setIsScrolled(!isHome);
       }
       setIsVisible(true);
-    }
+    };
+
+    updateScroll();
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    return () => window.removeEventListener("scroll", updateScroll);
   }, [isHome]);
 
   // Close on Escape key
@@ -56,17 +61,14 @@ export function Navbar() {
   // Scroll behavior:
   // - Entire scroll ke dauran menu, products & services hamesha rehna chahiye (never hide on scroll down).
   // - Top of homepage: transparent background, logo hidden over hero.
-  // - Scrolled down (> 80px): luxury solid ivory navbar with magenta border & logo.
+  // - Scrolled down (> 70px): luxury solid ivory navbar with magenta border & logo.
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 80) {
+    if (latest > 70) {
       setIsScrolled(true);
     } else {
       setIsScrolled(!isHome);
     }
-
-    // Keep visible throughout entire scroll
     setIsVisible(true);
-
     lastScrollY.current = latest;
   });
 
@@ -107,9 +109,9 @@ export function Navbar() {
             : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b-2 border-maroon"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-          {/* Left: Brand Logo (proper min width so it never distorts or squashes) */}
-          <div className="flex items-center min-w-[130px] sm:min-w-[180px] shrink-0">
+        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Left: Brand Logo (never squashed or overlapping) */}
+          <div className="flex items-center min-w-[96px] sm:min-w-[140px] shrink-0">
             <motion.div
               initial={false}
               animate={{ opacity: isOverHero ? 0 : 1 }}
@@ -126,12 +128,12 @@ export function Navbar() {
             </motion.div>
           </div>
 
-          {/* Right: Visible Links ("Products", "Services", "About", "Gallery") + Menu Trigger */}
-          <div className="flex items-center gap-3 sm:gap-8">
-            <nav className="flex items-center gap-3 sm:gap-7">
+          {/* Right: Responsive Navigation Links + Menu Trigger */}
+          <div className="flex items-center gap-2 sm:gap-6 lg:gap-8">
+            <nav className="flex items-center gap-2 sm:gap-5 lg:gap-7">
               <Link
                 href="/products"
-                className={`font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
+                className={`inline-block font-montserrat text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] font-medium nav-link-gold ${
                   isOverHero
                     ? "text-ivory drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)] hover:text-gold"
                     : "text-maroon hover:text-gold"
@@ -141,7 +143,7 @@ export function Navbar() {
               </Link>
               <Link
                 href="/services"
-                className={`font-montserrat text-xs sm:text-sm uppercase tracking-[0.18em] font-medium nav-link-gold ${
+                className={`hidden sm:inline-block font-montserrat text-xs sm:text-sm uppercase tracking-[0.14em] sm:tracking-[0.18em] font-medium nav-link-gold ${
                   isOverHero
                     ? "text-ivory drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)] hover:text-gold"
                     : "text-maroon hover:text-gold"
@@ -173,7 +175,7 @@ export function Navbar() {
 
             {/* Three-Line Mobile App Style Menu Trigger */}
             <div
-              className="relative"
+              className="relative shrink-0"
               onMouseEnter={handleTriggerMouseEnter}
               onMouseLeave={handleTriggerMouseLeave}
             >
@@ -182,7 +184,7 @@ export function Navbar() {
                 onClick={() => setIsMenuOpen((prev) => !prev)}
                 aria-label="Toggle navigation menu"
                 aria-expanded={isMenuOpen}
-                className={`p-2 transition-colors flex items-center justify-center rounded-sm active:scale-90 ${
+                className={`p-1.5 sm:p-2 transition-colors flex items-center justify-center rounded-sm active:scale-90 ${
                   isOverHero
                     ? "text-ivory hover:text-gold drop-shadow-[0_1px_4px_rgba(0,0,0,0.85)]"
                     : "text-maroon hover:text-gold"

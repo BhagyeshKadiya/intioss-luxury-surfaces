@@ -293,6 +293,7 @@ export function HeroSection() {
           style={{
             scale: logoScale,
             y: logoY,
+            opacity: taglineOpacity,
           }}
           className="flex flex-col items-center"
         >
