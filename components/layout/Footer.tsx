@@ -31,7 +31,20 @@ export function Footer() {
           <div className="lg:col-span-4 flex flex-col items-start space-y-6">
             <Link
               href="/"
-              className="inline-flex items-center transition-transform hover:scale-105 select-none"
+              onClick={(e) => {
+                if (typeof window !== "undefined") {
+                  const lenis = (window as any).__lenis;
+                  if (lenis) {
+                    lenis.scrollTo(0, { duration: 1.0 });
+                  }
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+
+                  if (window.location.pathname === "/") {
+                    e.preventDefault();
+                  }
+                }
+              }}
+              className="inline-flex items-center transition-transform hover:scale-105 active:scale-95 select-none"
               aria-label="INTIOSS Home"
             >
               <IntiossHexagon

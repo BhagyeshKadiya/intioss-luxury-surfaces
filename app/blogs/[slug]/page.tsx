@@ -111,7 +111,7 @@ export default function BlogPostDetailPage({
             </p>
             <div className="mt-4">
               <Link
-                href="/#consultation"
+                href="/contact"
                 className="text-xs font-montserrat uppercase tracking-wider text-maroon hover:text-gold underline font-semibold"
               >
                 Schedule an Architectural Briefing →

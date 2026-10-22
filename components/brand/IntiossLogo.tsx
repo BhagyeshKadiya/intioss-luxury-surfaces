@@ -59,9 +59,28 @@ export function IntiossLogo({
     </div>
   );
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window !== "undefined") {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 0.9 });
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (window.location.pathname === "/") {
+        e.preventDefault();
+      }
+    }
+  };
+
   if (asLink) {
     return (
-      <Link href="/" className={`inline-flex flex-col items-center select-none transition-opacity hover:opacity-90 ${className}`}>
+      <Link
+        href="/"
+        onClick={handleClick}
+        aria-label="INTIOSS Luxury Surfaces - Return to Home"
+        className={`inline-flex flex-col items-center select-none transition-opacity hover:opacity-90 active:scale-[0.98] ${className}`}
+      >
         {content}
       </Link>
     );

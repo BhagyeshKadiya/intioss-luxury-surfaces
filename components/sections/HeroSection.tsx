@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 import NextImage from "next/image";
+import Link from "next/link";
 
 interface HeroMediaItem {
   type: "image";
@@ -307,8 +308,22 @@ export function HeroSection() {
                 background: "rgba(255, 255, 255, 0.28)",
               }}
             >
-              {/* Original Colored Logo (Maroon & Gold, Compact) */}
-              <div className="w-[210px] sm:w-[240px] md:w-[270px] lg:w-[300px] max-w-[300px] flex items-center justify-center">
+              {/* Original Colored Logo (Maroon & Gold, Compact) - Clickable to Home / Scroll to Top */}
+              <Link
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof window !== "undefined") {
+                    const lenis = (window as any).__lenis;
+                    if (lenis) {
+                      lenis.scrollTo(0, { duration: 0.8 });
+                    }
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                className="w-[210px] sm:w-[240px] md:w-[270px] lg:w-[300px] max-w-[300px] flex items-center justify-center cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                aria-label="INTIOSS Luxury Surfaces - Return to Home"
+              >
                 <NextImage
                   src="/Intioss_logo_transparent.png"
                   alt="INTIOSS Luxury Surfaces"
@@ -317,7 +332,7 @@ export function HeroSection() {
                   className="w-full h-auto object-contain drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]"
                   priority
                 />
-              </div>
+              </Link>
 
               {/* Exclusive Hero Tagline - Aligned so 'B' aligns with 'I' and 'w' aligns with 'S' */}
               <div

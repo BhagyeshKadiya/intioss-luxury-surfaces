@@ -88,6 +88,16 @@ export function MobileAppDock({ onOpenMenu }: MobileAppDockProps) {
                 <Link
                   key={tab.id}
                   href={tab.href}
+                  onClick={(e) => {
+                    if (tab.id === "home" && pathname === "/") {
+                      e.preventDefault();
+                      if (typeof window !== "undefined") {
+                        const lenis = (window as any).__lenis;
+                        if (lenis) lenis.scrollTo(0, { duration: 0.8 });
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }
+                  }}
                   className="relative flex-1 flex flex-col items-center justify-center py-1 group focus-visible:outline-none"
                 >
                   <motion.div

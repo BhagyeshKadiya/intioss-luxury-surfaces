@@ -145,7 +145,7 @@ export default function ServicesPage() {
                     {/* CTA Strip */}
                     <div className="mt-8 flex flex-wrap items-center gap-4">
                       <Link
-                        href="/#consultation"
+                        href="/contact"
                         className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold transition-colors"
                       >
                         <Calendar className="w-3.5 h-3.5 text-gold" />
