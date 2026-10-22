@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
-import { IntiossLogo } from "@/components/brand/IntiossLogo";
+import NextImage from "next/image";
 
 interface HeroMediaItem {
   type: "image";
@@ -296,51 +296,44 @@ export function HeroSection() {
           className="flex flex-col items-center"
         >
           <div className="relative flex flex-col items-center">
-            {/* Soft Organic Atmospheric Cloud Glow for Pristine Visibility */}
-            <div
-              className="absolute -inset-x-20 -inset-y-12 sm:-inset-x-28 sm:-inset-y-16 md:-inset-x-36 md:-inset-y-20 pointer-events-none -z-10 blur-3xl opacity-90"
-              style={{
-                background:
-                  "radial-gradient(ellipse 65% 60% at 50% 50%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.82) 35%, rgba(255, 255, 255, 0.45) 60%, rgba(255, 255, 255, 0.12) 80%, transparent 100%)",
-              }}
-            />
-            <div
-              className="absolute -inset-x-12 -inset-y-8 sm:-inset-x-20 sm:-inset-y-12 md:-inset-x-28 md:-inset-y-16 pointer-events-none -z-10 backdrop-blur-xl opacity-90"
-              style={{
-                background:
-                  "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%)",
-                maskImage:
-                  "radial-gradient(ellipse at center, black 40%, rgba(0,0,0,0.4) 65%, transparent 100%)",
-                WebkitMaskImage:
-                  "radial-gradient(ellipse at center, black 40%, rgba(0,0,0,0.4) 65%, transparent 100%)",
-              }}
-            />
-
-            {/* Original Colored Floating Logo (Maroon & Gold) */}
-            <motion.div
-              style={{ opacity: taglineOpacity }}
-              className="relative flex flex-col items-center select-none"
-            >
-              <IntiossLogo size="hero" theme="light" asLink={false} />
-            </motion.div>
-
-            {/* Exclusive Hero Tagline - Aligned so 'B' aligns with 'I' and 'w' aligns with 'S' */}
+            {/* Option 2: Ultra-thin Frosted Crystal Pill (Architectural Sheer Glass — Veins Flow Through) */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.0, delay: 0.35, ease: "easeOut" }}
-              className="mt-6 sm:mt-7 md:mt-8 flex flex-col items-center pointer-events-none"
-              style={{ opacity: taglineOpacity }}
+              className="relative flex flex-col items-center px-6 sm:px-8 py-3.5 sm:py-4.5 rounded-[22px] sm:rounded-[26px] border border-white/50 shadow-[0_8px_32px_0_rgba(0,0,0,0.14)] ring-1 ring-white/30 backdrop-blur-xl select-none"
+              style={{
+                opacity: taglineOpacity,
+                background: "rgba(255, 255, 255, 0.28)",
+              }}
             >
-              <p
-                style={{
-                  fontSynthesis: "none",
-                  letterSpacing: "0.0655em",
-                }}
-                className="font-marcellus font-normal text-[12px] sm:text-[13.5px] md:text-[16px] lg:text-[18px] text-maroon-deep text-center drop-shadow-[0_1px_4px_rgba(255,255,255,0.8)] whitespace-nowrap [text-transform:none]"
+              {/* Original Colored Logo (Maroon & Gold, Compact) */}
+              <div className="w-[210px] sm:w-[240px] md:w-[270px] lg:w-[300px] max-w-[300px] flex items-center justify-center">
+                <NextImage
+                  src="/Intioss_logo_transparent.png"
+                  alt="INTIOSS Luxury Surfaces"
+                  width={1024}
+                  height={359}
+                  className="w-full h-auto object-contain drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]"
+                  priority
+                />
+              </div>
+
+              {/* Exclusive Hero Tagline - Aligned so 'B' aligns with 'I' and 'w' aligns with 'S' */}
+              <div
+                className="mt-2.5 sm:mt-3 w-[210px] sm:w-[240px] md:w-[270px] lg:w-[300px] max-w-[300px] flex items-center justify-center pointer-events-none"
+                style={{ paddingLeft: "2.5%", paddingRight: "3.0%" }}
               >
-                Breathtaking Stones For The Discerning Few
-              </p>
+                <p
+                  style={{
+                    fontSynthesis: "none",
+                    letterSpacing: "0.0655em",
+                  }}
+                  className="font-marcellus font-normal text-[8.8px] sm:text-[10px] md:text-[11.4px] lg:text-[12.6px] text-maroon-deep text-center whitespace-nowrap [text-transform:none]"
+                >
+                  Breathtaking Stones For The Discerning Few
+                </p>
+              </div>
             </motion.div>
           </div>
         </motion.div>
