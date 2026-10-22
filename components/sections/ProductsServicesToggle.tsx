@@ -144,9 +144,12 @@ export function ProductsServicesToggle() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-10">
-          <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon font-normal tracking-wide max-w-2xl">
-            Products & Services
+          <h2 className="font-marcellus text-3xl sm:text-4xl md:text-5xl text-maroon font-normal tracking-wide max-w-3xl leading-tight">
+            Gold Standard in Stone Selection.
           </h2>
+          <p className="font-marcellus text-lg sm:text-2xl text-maroon/80 font-normal tracking-wide mt-2 sm:mt-3">
+            Beyond the Slabs. Into the Details.
+          </p>
 
           {/* Exact Rounded Segmented Toggle Pill (Matching Screenshot) */}
           <div className="mt-8 inline-flex items-center p-1 bg-stone-200/60 rounded-full border border-stone-300/80 shadow-inner">
