@@ -27,50 +27,74 @@ export function Navbar() {
     setIsMenuOpen(false);
   }, [pathname]);
 
-  // Sync scroll state on initial mount & native window scroll
+  // Multi-source bulletproof scroll detection (Native + Lenis + RAF)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const updateScroll = () => {
-      const currentScrollY = window.scrollY;
-      lastScrollY.current = currentScrollY;
-      if (currentScrollY > 70) {
+    const checkScroll = (y?: number) => {
+      const scrollY =
+        typeof y === "number"
+          ? y
+          : window.scrollY || document.documentElement.scrollTop || 0;
+      if (scrollY > 60) {
         setIsScrolled(true);
       } else {
         setIsScrolled(!isHome);
       }
       setIsVisible(true);
+      lastScrollY.current = scrollY;
     };
 
-    updateScroll();
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    return () => window.removeEventListener("scroll", updateScroll);
-  }, [isHome]);
+    // Initial check
+    checkScroll();
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsMenuOpen(false);
+    // 1. Native scroll listeners
+    const onScroll = () => checkScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("scroll", onScroll, { passive: true });
+
+    // 2. Lenis hook
+    let lenisHooked = false;
+    const tryHookLenis = () => {
+      const lenis = (window as any).__lenis;
+      if (lenis && typeof lenis.on === "function" && !lenisHooked) {
+        lenisHooked = true;
+        lenis.on("scroll", (e: any) => {
+          checkScroll(typeof e?.scroll === "number" ? e.scroll : window.scrollY);
+        });
+        return true;
       }
+      return false;
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
-  // Scroll behavior:
-  // - Entire scroll ke dauran menu, products & services hamesha rehna chahiye (never hide on scroll down).
-  // - Top of homepage: transparent background, logo hidden over hero.
-  // - Scrolled down (> 70px): luxury solid ivory navbar with magenta border & logo.
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 70) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(!isHome);
+    if (!tryHookLenis()) {
+      const pollInterval = setInterval(() => {
+        if (tryHookLenis()) {
+          clearInterval(pollInterval);
+        }
+      }, 100);
+      setTimeout(() => clearInterval(pollInterval), 3000);
     }
-    setIsVisible(true);
-    lastScrollY.current = latest;
-  });
+
+    // 3. RAF continuous frame check (ensures immediate response on touch fling / smooth scrolling)
+    let rafId: number;
+    let lastCheckedY = -1;
+    const frameLoop = () => {
+      const currentY = window.scrollY || document.documentElement.scrollTop || 0;
+      if (Math.abs(currentY - lastCheckedY) >= 2) {
+        lastCheckedY = currentY;
+        checkScroll(currentY);
+      }
+      rafId = requestAnimationFrame(frameLoop);
+    };
+    rafId = requestAnimationFrame(frameLoop);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [isHome]);
 
   // Hover triggers for menu with 200ms grace period on mouse leave
   const handleTriggerMouseEnter = () => {
@@ -103,11 +127,19 @@ export function Navbar() {
         initial={{ y: 0 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isOverHero
             ? "bg-transparent text-ivory border-b border-transparent shadow-none"
-            : "bg-ivory/95 text-maroon backdrop-blur-md shadow-sm border-b-2 border-maroon"
+            : "bg-[#FAF7F2] text-maroon shadow-[0_4px_20px_-2px_rgba(48,12,22,0.08)] border-b border-gold/40"
         }`}
+        style={
+          isOverHero
+            ? undefined
+            : {
+                backgroundColor: "#FAF7F2",
+                borderBottomColor: "rgba(221, 182, 43, 0.35)",
+              }
+        }
       >
         <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Brand Logo (never squashed or overlapping) */}

@@ -28,6 +28,11 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       (window as any).__lenis = lenis;
     }
 
+    // Sync Lenis scroll ticks with window scroll event for framer-motion and navbars
+    lenis.on("scroll", () => {
+      window.dispatchEvent(new Event("scroll"));
+    });
+
     let rafId: number;
     function raf(time: number) {
       lenis.raf(time);

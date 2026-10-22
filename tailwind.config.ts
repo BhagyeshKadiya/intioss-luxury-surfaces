@@ -10,8 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         maroon: {
-          DEFAULT: "var(--maroon)",
-          deep: "var(--maroon-deep)",
+          DEFAULT: "var(--maroon, #541B2A)",
+          deep: "var(--maroon-deep, #300C16)",
           light: "#6D2539",
         },
         wine: {
@@ -23,17 +23,17 @@ const config: Config = {
           warm: "var(--paper-warm, #F8F6F2)",
         },
         gold: {
-          DEFAULT: "var(--gold)",
+          DEFAULT: "var(--gold, #DDB62B)",
           light: "#E5C557",
           dark: "#B89218",
         },
         grey: {
-          DEFAULT: "var(--grey)",
+          DEFAULT: "var(--grey, #5B5B5B)",
           light: "#858585",
           dark: "#3B3B3B",
         },
         ivory: {
-          DEFAULT: "var(--ivory)",
+          DEFAULT: "#FAF7F2",
           pure: "#FFFFFF",
           muted: "#F3EDE4",
         },
