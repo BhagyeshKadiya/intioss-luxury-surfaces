@@ -56,6 +56,7 @@ export type ThicknessOption =
   | "1mm - 2mm (Flexible)"
   | "12mm"
   | "15mm"
+  | "16mm"
   | "18mm"
   | "20mm"
   | "30mm"

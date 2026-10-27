@@ -255,6 +255,265 @@ export const PRODUCTS: StoneProduct[] = [
           "INTIOSS Luxury Surfaces imports and verifies authentic Italian Golden Statuario directly from Carrara quarries. Each slab is cataloged with provenance documentation, ultrasonically inspected for structural soundness, and dry-laid for dry-match visualization prior to dispatch to Mumbai, Delhi, Bengaluru, and pan-India sites.",
       },
     ],
-    pairsWithSlugs: ["paunazo-quartzite", "thassos-white-marble"],
+    pairsWithSlugs: ["paunazo-quartzite", "thassos-white-marble", "statuario-marble"],
+  },
+  {
+    id: "p-statuario",
+    slug: "statuario-marble",
+    name: "Statuario Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "White",
+    origin: "Carrara, Tuscany, Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/statuario/statuario-slab.png",
+    veinCloseUpImage: "/images/stones/statuario/statuario-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/statuario/statuario-slab.png",
+      "/images/stones/statuario/statuario-kitchen-countertop.png",
+      "/images/stones/statuario/statuario-bathroom.png",
+      "/images/stones/statuario/statuario-table-top.png",
+      "/images/stones/statuario/statuario-flooring.png",
+      "/images/stones/statuario/statuario-cladding-interior.png",
+    ],
+    description:
+      "Directly quarried from the high-altitude mountain quarries of Carrara, Italy, Statuario Marble is the timeless crown jewel of classical architecture and contemporary luxury design. Revered for its brilliant milk-white crystalline canvas intersected by bold, dramatic black and charcoal-grey veins, Statuario creates an unmatched sense of grandeur and monochromatic black and white sophistication. Sourced by INTIOSS in monolithic 110\" x 71\" (279 x 180 cm) slabs at 20mm thickness, each consecutive block pair is calibrated for mirror-image bookmatch vein continuity—rendering it the premier choice for monumental living room flooring, master spa bathroom sanctuaries, bespoke dining table centerpieces, culinary waterfall islands, and double-height interior feature walls.",
+    bestSuitedFor: [
+      "Mirror-Image Bookmatched Accent Walls & Double-Height Atriums (Symmetrical Black & White Vein Artistry)",
+      "Five-Star Master Spa Bathrooms, Bathtub Surrounds & Vanities (Timeless Carrara Luxury)",
+      "Monolithic Living Room & Penthouse Flooring (Dazzling White Reflectance with Charcoal Contrast)",
+      "Sculptural Bespoke Dining & Executive Boardroom Tables (Statement Natural Art)",
+      "Chef's Kitchen Waterfall Countertops & Backsplashes (Protected with Breathable Penetrating Impregnators)",
+    ],
+    specs: {
+      density: "2.71 g/cm³",
+      dimensions: "110\" x 71\" (279 x 180 cm) · 20mm Thickness",
+      quarryLocation: "Carrara, Apuan Alps, Tuscany, Italy",
+      recommendedCare:
+        "Classic Italian calcitic marble. Clean with pH-neutral stone cleaner and microfiber cloth. Avoid acidic cleaners. Reapply penetrating fluoropolymer sealer periodically to preserve immaculate white crystalline brightness.",
+    },
+    faqs: [
+      {
+        question: "What is authentic Italian Statuario Marble and why is it considered the apex of white marble?",
+        shortAnswer: "Statuario is the rarest, most prized white Italian marble, quarried high in the Carrara mountains and distinguished by its pure white field and bold black-grey veins.",
+        answer:
+          "Authentic Statuario Marble is quarried exclusively in the upper mountain regions of Carrara in Tuscany, Italy. Unlike common Carrara marble—which has a greyish background and subtle feathery veining—Statuario features an exceptionally bright, pure milk-white background intersected by bold, commanding veins in dark grey, charcoal, and black. Limited quarry yield and historical prestige make it the gold standard of luxury architecture worldwide.",
+      },
+      {
+        question: "What is the difference between Statuario, Calacatta, and Carrara marble?",
+        shortAnswer: "Statuario has a pure white background with bold dark grey/black veins; Calacatta has warmer gold/taupe tones; Carrara is softer grey with muted feather veins.",
+        answer:
+          "While all three originate from the Apuan Alps of Italy, their aesthetics and rarity differ substantially: Bianco Carrara is the most abundant, featuring a soft greyish-white base with fine misty veins. Calacatta features an ivory-white field with thick, dramatic veins that frequently carry warm gold, beige, or bronze undertones. Statuario is the rarest and purest: it possesses the brightest white crystalline background with sharp, high-contrast charcoal and black veining, delivering an iconic monochromatic look.",
+      },
+      {
+        question: "Can Statuario marble slabs be bookmatched for symmetrical wall cladding?",
+        shortAnswer: "Yes. INTIOSS imports consecutive slabs cut and polished from the same block to achieve perfect mirror-image bookmatch symmetry.",
+        answer:
+          "Yes. Statuario is universally celebrated for bookmatching. When consecutive slabs (cut in alternating sequence) are laid side-by-side, the bold black and charcoal veins mirror each other to create mesmerizing geometric and organic patterns—including butterfly, bookmatch, and diamond motifs. This makes Statuario the preferred choice for living room feature walls, luxury fireplace facades, and double-height entrance lobbies.",
+      },
+      {
+        question: "How does Statuario marble perform for flooring, bathroom vanities, and kitchen countertops?",
+        shortAnswer: "Exceptional for flooring and master bathrooms; ideal for culinary islands when treated with advanced penetrating sealers.",
+        answer:
+          "On residential floors and interior wall claddings, Statuario creates a palace-like atmosphere, staying naturally cool and reflecting abundant ambient light. In master spa bathrooms, its pure white background and moisture resilience make it ideal for floating vanities, shower walls, and custom stone bathtubs. For culinary islands and dining tables, INTIOSS applies state-of-the-art penetrating oleophobic nano-sealers to protect the marble against stains while retaining its natural honed or polished texture.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for INTIOSS Statuario slabs?",
+        shortAnswer: "Monolithic slabs measure 110\" x 71\" (279 x 180 cm) with a standard architectural profile of 20mm.",
+        answer:
+          "Curated Statuario slabs measure 110 inches in length by 71 inches in height (279 cm × 180 cm) at a standard 20mm thickness. Gang-saw calibration ensures absolute planar accuracy, seamless joint alignment, and uniform edge finishing. Custom architectural thicknesses (30mm) and cut-to-size packages are available on project request.",
+      },
+      {
+        question: "How should Statuario marble surfaces be sealed, cleaned, and maintained?",
+        shortAnswer: "Wipe daily with warm water and pH-neutral stone soap. Protect with penetrating impregnating sealer and avoid all acidic solutions.",
+        answer:
+          "Daily care is simple: wipe with a soft microfiber cloth and lukewarm water with a pH-neutral stone cleaner. Because all natural calcitic marbles are sensitive to acids, never use vinegar, lemon juice, bathroom descalers, or bleach. INTIOSS recommends an initial deep-penetrating breathable sealer followed by a routine resealing every 12 to 18 months to ensure lasting stain and moisture resistance.",
+      },
+    ],
+    pairsWithSlugs: ["golden-statuario-marble", "super-spider-marble", "montano-pulchiano-marble"],
+  },
+  {
+    id: "p-super-spider",
+    slug: "super-spider-marble",
+    name: "Super Spider Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "White",
+    origin: "Mediterranean Basin",
+    finishes: ["Polished", "Honed"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["16mm"],
+    veining: "Dramatic",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/super-spider/super-spider-slab.png",
+    veinCloseUpImage: "/images/stones/super-spider/super-spider-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/super-spider/super-spider-slab.png",
+      "/images/stones/super-spider/super-spider-kitchen-countertop.png",
+      "/images/stones/super-spider/super-spider-bathroom.png",
+      "/images/stones/super-spider/super-spider-table-top.png",
+      "/images/stones/super-spider/super-spider-flooring.png",
+      "/images/stones/super-spider/super-spider-cladding-interior.png",
+    ],
+    description:
+      "Distinguished by an electrifying network of fine, intersecting amber-gold, bronze, and charcoal-grey web-like veins coursing across an immaculate crystalline white backdrop, Super Spider Marble is an extraordinary natural stone masterpiece. Its distinctive webbed or spider-matrix motif delivers a striking three-dimensional visual depth that captivates architects and interior connoisseurs alike. Sourced in custom 77\" x 48\" (196 x 122 cm) slabs at a refined 16mm profile, Super Spider offers lightweight structural advantages without sacrificing monolithic luxury—making it the ideal selection for expansive living room floorings, luminous master bathroom vanity enclaves, bespoke coffee and dining tables, statement kitchen countertops, and sculptural interior cladding facades.",
+    bestSuitedFor: [
+      "Luxury Residential Flooring & Hallways (Dynamic Interlocking Spider Vein Symmetry)",
+      "Master Bathroom Spa Sanctuaries & Floating Vanities (High-Reflectance White Crystalline Ground)",
+      "Architectural Feature Cladding & Fireplace Lounges (Striking Geometric Web Motif)",
+      "Curated Marble Dining & Center Table Tops (Captivating Natural Art)",
+      "Contemporary Kitchen Islands & Countertops (Refined 16mm Slab Calibration)",
+    ],
+    specs: {
+      density: "2.68 g/cm³",
+      dimensions: "77\" x 48\" (196 x 122 cm) · 16mm Thickness",
+      quarryLocation: "Mediterranean Mountain Formations",
+      recommendedCare:
+        "Calcitic natural marble with crystalline matrix. Clean using pH-neutral gentle stone cleaners. Seal with breathable penetrating impregnator to protect against staining while highlighting delicate webbed veins.",
+    },
+    faqs: [
+      {
+        question: "What defines Super Spider Marble and why is its veining pattern so unique?",
+        shortAnswer: "Super Spider is famous for its intricate, spiderweb-like network of bronze and charcoal veins branching over a luminous white crystalline background.",
+        answer:
+          "Super Spider Marble gets its evocative name from the delicate, hyper-detailed web of fine veins that crisscross its snowy white surface. Unlike conventional linear or cloud-veined marbles, Super Spider features multidirectional fractals and gossamer webs of golden-bronze, taupe, and deep charcoal. This creates a mesmerizing textural illusion of depth and movement, making every slab an abstract geometric artwork created by centuries of natural geological pressure.",
+      },
+      {
+        question: "What are the structural and installation advantages of the 16mm slab thickness?",
+        shortAnswer: "The 16mm profile reduces dead weight by ~20% compared to 20mm slabs, facilitating easier elevator transit and lower structural loading.",
+        answer:
+          "At 16mm thickness, Super Spider slabs offer an optimized strength-to-weight ratio. The reduced mass makes handling, vertical crane transport, and high-rise installation significantly safer and faster while adhering to architectural dead-load constraints for suspended floors and floating vanities. Despite the sleeker profile, modern resin-reinforced backing ensures exceptional flexural strength and crack resistance.",
+      },
+      {
+        question: "How does Super Spider marble perform across flooring and bathroom environments?",
+        shortAnswer: "Excellent thermal conductivity and light reflectance make it premier for radiant floor heating and luxurious wet areas.",
+        answer:
+          "In flooring installations, the stone's bright white crystalline base reflects sunlight across interior spaces, keeping rooms naturally cool and luminous. The interlocking vein network also conceals everyday dust and minor surface marks better than solid monochrome whites. In bathrooms, polished or honed Super Spider creates a boutique hotel ambience, particularly when paired with warm brass or matte black plumbing fixtures.",
+      },
+      {
+        question: "Can Super Spider Marble be used for kitchen countertops and dining table tops?",
+        shortAnswer: "Yes. Treated with premium penetrating oleophobic sealers, it serves as a stunning dining table or culinary island centerpiece.",
+        answer:
+          "Yes. Super Spider makes a spectacular statement island or sculptural dining table. As with all fine calcitic marbles, it should be protected with a high-grade fluoropolymer impregnating sealer prior to handover. Trivets should be used under hot cookware and cutting boards should be utilized during meal prep to safeguard the pristine polished luster.",
+      },
+      {
+        question: "What are the exact slab dimensions and finishes available for Super Spider Marble?",
+        shortAnswer: "Slabs measure 77\" x 48\" (196 x 122 cm) at 16mm thickness, available in high-gloss Polished and smooth Honed finishes.",
+        answer:
+          "INTIOSS maintains curated lots of Super Spider slabs measuring 77 inches in length by 48 inches in height (196 cm × 122 cm) with a 16mm thickness. Finishes include a glass-like High Polish that accentuates the depth of the spider veins, and an organic Honed matte finish that diffuses lighting softly for minimalist interiors.",
+      },
+      {
+        question: "How should Super Spider Marble be maintained to keep its pristine white luster?",
+        shortAnswer: "Use a damp microfiber cloth with pH-neutral stone wash daily. Re-seal every 12 to 18 months and clean spills immediately.",
+        answer:
+          "Maintenance is effortless when following basic stone care protocols: wipe surfaces with a microfiber cloth and water mixed with a pH-neutral cleaner. Never apply abrasive scouring pads, vinegar, citrus-based solutions, or harsh bathroom chemicals. Periodically testing water droplet beading indicates when a fresh coat of penetrating sealer should be applied.",
+      },
+    ],
+    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "montano-pulchiano-marble"],
+  },
+  {
+    id: "p-montano-pulchiano",
+    slug: "montano-pulchiano-marble",
+    name: "Montano Pulchiano Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "Multi",
+    origin: "Tuscany / Northern Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Dramatic",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/montano-pulchiano/montano-pulchiano-slab.png",
+    veinCloseUpImage: "/images/stones/montano-pulchiano/montano-pulchiano-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/montano-pulchiano/montano-pulchiano-slab.png",
+      "/images/stones/montano-pulchiano/montano-pulchiano-kitchen-countertop.png",
+      "/images/stones/montano-pulchiano/montano-pulchiano-bathroom.png",
+      "/images/stones/montano-pulchiano/montano-pulchiano-table-top.png",
+      "/images/stones/montano-pulchiano/montano-pulchiano-flooring.png",
+      "/images/stones/montano-pulchiano/montano-pulchiano-cladding-interior.png",
+    ],
+    description:
+      "Montano Pulchiano Marble is a rare, dramatically evocative polychrome stone quarried from exclusive European geological reserves. Renowned for its rich multicolored tapestry combining earthy rust, warm ochre, smoky charcoal, olive-tinted veins, and soft alabaster clouds, Montano Pulchiano commands attention as a living canvas of geological history. Formatted in generous 96\" x 56\" (244 x 142 cm) slabs with a substantial 20mm thickness, it introduces warmth, depth, and opulent character to high-end residential and hospitality environments. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary islands.",
+    bestSuitedFor: [
+      "Monolithic Architectural Cladding & Living Room Accent Walls (Vibrant Multicolored Geological Veining)",
+      "Statement Kitchen Islands & Waterfall Countertops (Rich Earth Tones & Superior Durability)",
+      "Opulent Master Bathroom Suites & Floating Vanities (Spa-Like Warmth & Contrast)",
+      "Luxury Residence & Penthouse Flooring (Warm Ambient Tone with Rich Natural Depth)",
+      "Custom Sculptural Dining, Boardroom & Cocktail Tables (One-of-a-Kind Polychrome Natural Centerpiece)",
+    ],
+    specs: {
+      density: "2.72 g/cm³",
+      dimensions: "96\" x 56\" (244 x 142 cm) · 20mm Thickness",
+      quarryLocation: "Apuan Alps / Northern Italian Reserves",
+      recommendedCare:
+        "Dense calcitic polychrome marble. Daily cleaning with damp microfiber cloth and pH-balanced stone soap. Re-treat annually with high-performance penetrating sealant to enrich multicolored depth and protect against moisture.",
+    },
+    faqs: [
+      {
+        question: "What makes Montano Pulchiano Marble a premier multicolored natural stone?",
+        shortAnswer: "Montano Pulchiano stands out for its complex chromatic palette of rust, ochre, charcoal, and warm cream formed over millennia.",
+        answer:
+          "Unlike monochromatic white or black marbles, Montano Pulchiano is an expressive polychrome stone. Its surface displays intricate mineral transitions—where iron oxides yield warm terracotta and golden-ochre bands, while silicate layers produce smoky charcoal and sage-olive currents against soft cream stone. This rich spectrum complements both contemporary neutral palettes and lavish walnut or bronze architectural finishes.",
+      },
+      {
+        question: "Where is Montano Pulchiano best utilized in luxury interior architecture?",
+        shortAnswer: "Ideal for feature walls, large-format living room floors, waterfall kitchen islands, and bespoke dining tables.",
+        answer:
+          "Due to its bold multicolored personality, Montano Pulchiano is frequently specified as the focal anchor of a room. On full-height fireplace walls or foyer cladding, it acts as a dramatic fine art installation. As a waterfall kitchen island or monolithic conference table, its diverse palette naturally harmonizes with warm woods, brushed brass, champagne gold, and dark fluted millwork.",
+      },
+      {
+        question: "What are the dimensions and thickness of INTIOSS Montano Pulchiano slabs?",
+        shortAnswer: "Monolithic slabs measure 96\" x 56\" (244 x 142 cm) at an architectural 20mm thickness.",
+        answer:
+          "Each slab measures 96 inches in length by 56 inches in height (244 cm × 142 cm) with a standard 20mm (3/4\") thickness. This substantial profile ensures robust structural integrity for mitered edge waterfall islands, cantilevered vanities, and expansive floor tile cutting schedules.",
+      },
+      {
+        question: "How does Montano Pulchiano perform in bathrooms and wet areas?",
+        shortAnswer: "Its dense mineral structure makes it highly durable for vanity counters, shower walls, and custom soaker tubs when sealed.",
+        answer:
+          "Montano Pulchiano possesses low porosity and high compressive strength compared to porous sedimentary stones. In luxury bathrooms, it provides a warm, spa-like atmosphere that resists moisture penetration when sealed with a breathable fluorochemical impregnator. Soap scum and mineral residue are easily cleaned with pH-neutral solutions.",
+      },
+      {
+        question: "Which finishes best highlight the multicolored veins of Montano Pulchiano?",
+        shortAnswer: "Polished finish maximizes chromatic vibrancy; Leathered adds an organic tactile dimensionality to the veins.",
+        answer:
+          "INTIOSS offers Montano Pulchiano in three distinct surface finishes: High Polish, which delivers mirror-like gloss and maximum color saturation; Honed, which creates a velvety matte surface free of glare; and Leathered, a textured technique that follows the natural hardness variations in the veining to create a tactile, antique feel underfoot or to the touch.",
+      },
+      {
+        question: "What is the recommended cleaning and maintenance regimen?",
+        shortAnswer: "Clean with pH-neutral stone soap and soft microfiber. Avoid acids and abrasive cleaners; seal annually.",
+        answer:
+          "Preserving Montano Pulchiano's natural beauty requires minimal effort: dust mop floors regularly and wipe counters with warm water and a neutral stone cleaner. Never use acid-based toilet cleaners, vinegar, or citrus sprays on the surface. Re-applying a penetrating sealer once a year ensures complete barrier protection against wine, coffee, or oil absorption.",
+      },
+    ],
+    pairsWithSlugs: ["paunazo-quartzite", "golden-statuario-marble", "statuario-marble"],
   },
 ];
+
