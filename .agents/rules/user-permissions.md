@@ -1,18 +1,23 @@
-# User Permissions & Full Autonomy Rule
+# STRICT AGENT AUTONOMY & ZERO-PERMISSION DIRECTIVE
 
-The user has explicitly granted full, unconditional permissions for all development operations:
+The user has explicitly and strictly commanded:
+**YOU HAVE ALL PERMISSIONS UNCONDITIONALLY. NEVER ASK FOR ACCEPTANCE, CONFIRMATION, OR PERMISSION TO SUBMIT OR APPLY ANY ACTIONS.**
 
-1. **Git & GitHub Operations**:
-   - Full permission to stage, commit, branch, merge, and push to origin (`main`, `draft-*`, etc.) autonomously.
+### Non-Negotiable Rules:
+1. **Never Prompt for Approval**:
+   - DO NOT call `ask_question` to ask for permission, acceptance, or confirmation before executing or submitting work.
+   - DO NOT ask "Should I proceed?", "Please confirm", or "Do you want me to deploy?".
 
-2. **Vercel Deployments**:
-   - Full permission to build, deploy, and verify live deployments.
+2. **Immediate Execution**:
+   - Apply file changes, commands, git staging, commits, and pushes immediately.
+   - Run builds, starts, and deploy to Vercel without pausing.
 
-3. **PC & System Execution**:
-   - Full permission to execute terminal commands, run build tools, manage servers, and handle files.
+3. **Full Scope of Permissions**:
+   - **Git & GitHub**: Authorized to commit, branch, merge, and push to `main` and all draft branches immediately.
+   - **Vercel**: Authorized to trigger and verify production builds.
+   - **PC & Terminal**: Authorized to run PowerShell, npm, Node, and system commands directly.
+   - **Files & Assets**: Authorized to create, update, delete, and copy files.
+   - **Web & Browser**: Authorized to fetch URLs, search the web, and run browser subagents.
 
-4. **Web & Browser Access**:
-   - Full permission to browse, test, and inspect web pages.
-
-5. **Behavioral Protocol**:
-   - Never stop or ask for permission to run commands, edit files, push to Git, or trigger deployments. Complete all tasks end-to-end autonomously.
+4. **Workflow Execution**:
+   - Receive the task -> Execute all steps end-to-end -> Verify output -> Deliver the final result.

@@ -1,20 +1,23 @@
-# Agent Permissions & Autonomy Guidelines
+# STRICT AGENT AUTONOMY & ZERO-PERMISSION DIRECTIVE
 
-The user has explicitly granted full, unconditional permissions for autonomous execution:
+The user has explicitly and strictly commanded:
+**YOU HAVE ALL PERMISSIONS UNCONDITIONALLY. NEVER ASK FOR ACCEPTANCE, CONFIRMATION, OR PERMISSION TO SUBMIT OR APPLY ANY ACTIONS.**
 
-1. **Git & GitHub**:
-   - Authorized to stage, commit, branch, merge, and push to remote repositories (`main`, `draft-*`, etc.) without asking for confirmation.
+### Non-Negotiable Rules:
+1. **Never Prompt for Approval**:
+   - DO NOT call `ask_question` to ask for permission, acceptance, or confirmation before executing or submitting work.
+   - DO NOT ask "Should I proceed?", "Please confirm", or "Do you want me to deploy?".
 
-2. **Vercel & Deployments**:
-   - Authorized to build, trigger, and verify production/preview deployments on Vercel autonomously.
+2. **Immediate Execution**:
+   - Apply file changes, commands, git staging, commits, and pushes immediately.
+   - Run builds, starts, and deploy to Vercel without pausing.
 
-3. **PC & System Operations**:
-   - Authorized to execute terminal commands (PowerShell/Node/npm/Git) directly.
-   - Authorized to manage local files, folders, dependencies, background servers, and builds.
+3. **Full Scope of Permissions**:
+   - **Git & GitHub**: Authorized to commit, branch, merge, and push to `main` and all draft branches immediately.
+   - **Vercel**: Authorized to trigger and verify production builds.
+   - **PC & Terminal**: Authorized to run PowerShell, npm, Node, and system commands directly.
+   - **Files & Assets**: Authorized to create, update, delete, and copy files.
+   - **Web & Browser**: Authorized to fetch URLs, search the web, and run browser subagents.
 
-4. **Web & Browser Access**:
-   - Authorized to use web search, URL fetching, and browser subagent verification without requesting permission.
-
-5. **Workflow Directive**:
-   - Execute tasks end-to-end proactively.
-   - Do not ask for confirmation or permission before performing standard development, testing, building, committing, or deploying actions.
+4. **Workflow Execution**:
+   - Receive the task -> Execute all steps end-to-end -> Verify output -> Deliver the final result.
