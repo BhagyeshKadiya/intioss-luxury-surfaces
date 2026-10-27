@@ -6,6 +6,7 @@ import { PRODUCTS } from "@/data/products";
 import { ProductStickyBar } from "@/components/products/ProductStickyBar";
 import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 import { ProductTopCarousel } from "@/components/products/ProductTopCarousel";
+import { ProductAeoGeoSection } from "@/components/products/ProductAeoGeoSection";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { ArrowLeft, Layers, ShieldCheck, Check } from "lucide-react";
 import type { Metadata } from "next";
@@ -24,13 +25,34 @@ export async function generateMetadata({
   const product = PRODUCTS.find((p) => p.slug === params.slug);
   if (!product) return {};
 
+  const cleanDesc =
+    product.description ||
+    `${product.name} is an exotic luxury stone curated by INTIOSS Luxury Surfaces.`;
+
   return {
-    title: `${product.name} | INTIOSS Luxury Surfaces`,
-    description: `Curated ${product.name} ${product.category} from ${product.origin}.`,
+    title: `${product.name} | Exotic Natural Quartzite Slabs | INTIOSS Luxury Surfaces`,
+    description: `${cleanDesc.slice(0, 155)}... Bookmatched 20mm monolithic slabs for luxury kitchen islands, bathrooms, and feature walls.`,
+    keywords: [
+      product.name,
+      `${product.name} India`,
+      `${product.name} quartzite vs marble`,
+      "exotic quartzite countertops",
+      "luxury kitchen island stone",
+      "bookmatched quartzite slabs Mumbai",
+      "INTIOSS luxury surfaces",
+      "natural stone slabs 20mm",
+    ],
     openGraph: {
-      title: `${product.name} – ${product.category} from ${product.origin}`,
-      description: `Curated ${product.name} ${product.category} from ${product.origin}.`,
-      images: [{ url: product.primaryImage }],
+      title: `${product.name} | INTIOSS Luxury Surfaces`,
+      description: `${product.name} – Monolithic ${product.subCategory || product.category} slabs for bespoke architectural living spaces.`,
+      images: [{ url: product.primaryImage, width: 1536, height: 1024, alt: product.name }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | INTIOSS Luxury Surfaces`,
+      description: `Explore ${product.name} – High-density exotic stone for bespoke architectural living spaces.`,
+      images: [product.primaryImage],
     },
   };
 }
@@ -57,18 +79,119 @@ export default function ProductDetailPage({
   const newArrivals = [...PRODUCTS].filter((p) => p.id !== product.id).reverse().slice(0, 3);
 
   const countryOfOrigin =
-    product.specs.countryOfOrigin || product.specs.quarryLocation || product.origin || "[COUNTRY]";
+    product.specs.countryOfOrigin || product.specs.quarryLocation || product.origin || "Exotic Quarry Import";
 
-  const jsonLd = {
-    "@context": "https://schema.org",
+  // Comprehensive AEO / GEO / SEO Knowledge Graph (Schema.org)
+  const productSchema = {
     "@type": "Product",
+    "@id": `https://intioss.com/products/${product.slug}#product`,
     name: product.name,
     image: product.primaryImage,
-    description: `Curated ${product.name} ${product.category} from ${product.origin}.`,
+    description: product.description,
+    category: product.category,
+    material: "Exotic Quartzite Natural Stone",
+    color: product.colorFamily,
     brand: {
       "@type": "Brand",
-      name: "INTIOSS",
+      name: "INTIOSS Luxury Surfaces",
+      url: "https://intioss.com",
     },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "INR",
+      price: "0",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        priceCurrency: "INR",
+        description: "Bespoke Price On Application / Availability on request",
+      },
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: {
+        "@type": "Organization",
+        name: "INTIOSS Luxury Surfaces",
+      },
+    },
+    additionalProperty: [
+      {
+        "@type": "PropertyValue",
+        name: "Slab Dimensions",
+        value: product.specs.dimensions || "119\" x 77\" (302 x 195 cm)",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Thickness",
+        value: product.thicknesses.join(", "),
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Mohs Hardness",
+        value: "7 (Superior scratch resistance compared to marble)",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Water Absorption",
+        value: "<0.2% (Impermeable crystalline matrix)",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Heat Resistance",
+        value: "Up to 260°C / 500°F",
+      },
+      {
+        "@type": "PropertyValue",
+        name: "Pattern Bookmatch",
+        value: product.veining,
+      },
+    ],
+  };
+
+  const faqSchema = product.faqs && product.faqs.length > 0 ? {
+    "@type": "FAQPage",
+    "@id": `https://intioss.com/products/${product.slug}#faq`,
+    mainEntity: product.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: f.answer,
+      },
+    })),
+  } : null;
+
+  const breadcrumbSchema = {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://intioss.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Catalogue",
+        item: "https://intioss.com/products",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.category,
+        item: `https://intioss.com/products?category=${encodeURIComponent(product.category)}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: product.name,
+        item: `https://intioss.com/products/${product.slug}`,
+      },
+    ],
+  };
+
+  const jsonLdGraph = {
+    "@context": "https://schema.org",
+    "@graph": [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])],
   };
 
   const isOrderBasis = [
@@ -82,7 +205,7 @@ export default function ProductDetailPage({
     <div className="min-h-screen bg-ivory text-maroon pt-16 sm:pt-20 pb-28 overflow-x-hidden">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -367,6 +490,11 @@ export default function ProductDetailPage({
             </div>
           </div>
         )}
+
+        {/* ======================================================== */}
+        {/* AEO / GEO / SEO ARCHITECTURAL ADVISORY & KNOWLEDGE BASE   */}
+        {/* ======================================================== */}
+        <ProductAeoGeoSection product={product} />
 
         {/* Other Surfaces in Collection (Clean, replaces new arrivals) */}
         {newArrivals.length > 0 && (

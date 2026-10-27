@@ -102,6 +102,11 @@ export interface StoneProduct {
     quarryLocation?: string;
     recommendedCare?: string;
   };
+  faqs?: {
+    question: string;
+    answer: string;
+    shortAnswer?: string;
+  }[];
   pairsWithSlugs?: string[];
 }
 
