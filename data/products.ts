@@ -273,7 +273,7 @@ export const PRODUCTS: StoneProduct[] = [
       "Table Top",
       "Kitchen Countertop",
     ],
-    thicknesses: ["20mm"],
+    thicknesses: ["18mm"],
     veining: "Bookmatch-ready",
     priceTier: "tier_3",
     availability: "Available on request",
@@ -288,7 +288,7 @@ export const PRODUCTS: StoneProduct[] = [
       "/images/stones/statuario/statuario-cladding-interior.png",
     ],
     description:
-      "Directly quarried from the high-altitude mountain quarries of Carrara, Italy, Statuario Marble is the timeless crown jewel of classical architecture and contemporary luxury design. Revered for its brilliant milk-white crystalline canvas intersected by bold, dramatic black and charcoal-grey veins, Statuario creates an unmatched sense of grandeur and monochromatic black and white sophistication. Sourced by INTIOSS in monolithic 110\" x 71\" (279 x 180 cm) slabs at 20mm thickness, each consecutive block pair is calibrated for mirror-image bookmatch vein continuity—rendering it the premier choice for monumental living room flooring, master spa bathroom sanctuaries, bespoke dining table centerpieces, culinary waterfall islands, and double-height interior feature walls.",
+      "Directly quarried from the high-altitude mountain quarries of Carrara, Italy, Statuario Marble is the timeless crown jewel of classical architecture and contemporary luxury design. Revered for its brilliant milk-white crystalline canvas intersected by bold, dramatic black and charcoal-grey veins, Statuario creates an unmatched sense of grandeur and monochromatic black and white sophistication. Sourced by INTIOSS in monolithic 115\" x 75\" (292 x 191 cm) slabs at 18mm thickness (Lot 6415A), each consecutive block pair is calibrated for mirror-image bookmatch vein continuity—rendering it the premier choice for monumental living room flooring, master spa bathroom sanctuaries, bespoke dining table centerpieces, culinary waterfall islands, and double-height interior feature walls.",
     bestSuitedFor: [
       "Mirror-Image Bookmatched Accent Walls & Double-Height Atriums (Symmetrical Black & White Vein Artistry)",
       "Five-Star Master Spa Bathrooms, Bathtub Surrounds & Vanities (Timeless Carrara Luxury)",
@@ -298,8 +298,8 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     specs: {
       density: "2.71 g/cm³",
-      dimensions: "110\" x 71\" (279 x 180 cm) · 20mm Thickness",
-      quarryLocation: "Carrara, Apuan Alps, Tuscany, Italy",
+      dimensions: "115\" x 75\" (292 x 191 cm) · 18mm Thickness",
+      quarryLocation: "Carrara, Apuan Alps, Tuscany, Italy · Lot 6415A",
       recommendedCare:
         "Classic Italian calcitic marble. Clean with pH-neutral stone cleaner and microfiber cloth. Avoid acidic cleaners. Reapply penetrating fluoropolymer sealer periodically to preserve immaculate white crystalline brightness.",
     },
@@ -330,9 +330,9 @@ export const PRODUCTS: StoneProduct[] = [
       },
       {
         question: "What are the exact slab dimensions and thickness for INTIOSS Statuario slabs?",
-        shortAnswer: "Monolithic slabs measure 110\" x 71\" (279 x 180 cm) with a standard architectural profile of 20mm.",
+        shortAnswer: "Monolithic slabs measure 115\" x 75\" (292 x 191 cm) with an architectural profile of 18mm (Lot 6415A).",
         answer:
-          "Curated Statuario slabs measure 110 inches in length by 71 inches in height (279 cm × 180 cm) at a standard 20mm thickness. Gang-saw calibration ensures absolute planar accuracy, seamless joint alignment, and uniform edge finishing. Custom architectural thicknesses (30mm) and cut-to-size packages are available on project request.",
+          "Curated Statuario slabs measure 115 inches in length by 75 inches in height (292 cm × 191 cm) at an architectural 18mm thickness (Lot 6415A). Gang-saw calibration ensures absolute planar accuracy, seamless joint alignment, and uniform edge finishing. Custom architectural thicknesses and cut-to-size packages are available on project request.",
       },
       {
         question: "How should Statuario marble surfaces be sealed, cleaned, and maintained?",
