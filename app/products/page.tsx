@@ -584,13 +584,17 @@ function ProductsContent() {
               // Empty State with Sourcing on Request WhatsApp CTA
               <div className="bg-white border border-gold/30 p-12 sm:p-16 text-center shadow-sm">
                 <span className="font-jost text-xs uppercase tracking-[0.25em] text-gold block mb-2 font-medium">
-                  Search & Filter
+                  {PRODUCTS.length === 0 ? "Catalog Update" : "Search & Filter"}
                 </span>
                 <h3 className="font-marcellus text-2xl sm:text-3xl text-maroon">
-                  No surfaces match the selected filters.
+                  {PRODUCTS.length === 0
+                    ? "Curated Collections Arriving Soon"
+                    : "No surfaces match the selected filters."}
                 </h3>
                 <p className="font-jost text-xs sm:text-sm text-grey mt-3 max-w-lg mx-auto leading-relaxed">
-                  We source stones through long-standing relationships with quarries worldwide. If you are looking for a specific marble, onyx, or quartzite, our concierge can assist you directly.
+                  {PRODUCTS.length === 0
+                    ? "We are currently updating our bespoke inventory. We source rare Italian marbles, quartzites, onyxes, and semi-precious slabs directly from quarries worldwide for custom projects."
+                    : "We source stones through long-standing relationships with quarries worldwide. If you are looking for a specific marble, onyx, or quartzite, our concierge can assist you directly."}
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a
@@ -602,12 +606,14 @@ function ProductsContent() {
                     <MessageSquare className="w-4 h-4 text-gold" />
                     <span>Inquire via WhatsApp</span>
                   </a>
-                  <button
-                    onClick={clearAllFilters}
-                    className="text-xs font-montserrat uppercase tracking-wider text-grey hover:text-maroon underline cursor-pointer"
-                  >
-                    Clear Filter Parameters
-                  </button>
+                  {PRODUCTS.length > 0 && (
+                    <button
+                      onClick={clearAllFilters}
+                      className="text-xs font-montserrat uppercase tracking-wider text-grey hover:text-maroon underline cursor-pointer"
+                    >
+                      Clear Filter Parameters
+                    </button>
+                  )}
                 </div>
               </div>
             ) : (

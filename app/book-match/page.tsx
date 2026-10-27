@@ -9,8 +9,23 @@ import { MessageSquare, RefreshCw, Sparkles, Layers, Sliders } from "lucide-reac
 import { motion } from "motion/react";
 
 const BOOKMATCH_STONES = PRODUCTS.filter(
-  (p) => p.veining === "Bookmatch-ready" || p.category === "Marble" || p.category === "Quartzite"
-);
+  (p) =>
+    p.veining === "Bookmatch-ready" ||
+    p.category === "Marble" ||
+    p.category === "Quartzite" ||
+    p.subCategory === "Quartzite" ||
+    p.subCategory === "Marble"
+).length > 0
+  ? PRODUCTS.filter(
+      (p) =>
+        p.veining === "Bookmatch-ready" ||
+        p.category === "Marble" ||
+        p.category === "Quartzite" ||
+        p.subCategory === "Quartzite" ||
+        p.subCategory === "Marble"
+    )
+  : PRODUCTS;
+
 
 function BookMatchContent() {
   const searchParams = useSearchParams();
@@ -27,15 +42,52 @@ function BookMatchContent() {
   React.useEffect(() => {
     if (stoneSlug) {
       const stoneFromUrl = BOOKMATCH_STONES.find((s) => s.slug === stoneSlug) || PRODUCTS.find((s) => s.slug === stoneSlug);
-      if (stoneFromUrl && stoneFromUrl.id !== selectedStone.id) {
+      if (stoneFromUrl && stoneFromUrl.id !== selectedStone?.id) {
         setSelectedStone(stoneFromUrl);
       }
     }
-  }, [stoneSlug, selectedStone.id]);
+  }, [stoneSlug, selectedStone?.id]);
   const [matchMode, setMatchMode] = useState<"2-way-horizontal" | "2-way-vertical" | "4-way-quadrant">(
     "4-way-quadrant"
   );
   const [splitSlider, setSplitSlider] = useState(50); // percentage slider
+
+  if (!selectedStone) {
+    return (
+      <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">
+              Digital Dry-Lay Studio
+            </span>
+            <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
+              Interactive Book Match Simulator
+            </h1>
+          </div>
+          <div className="bg-white border border-gold/30 p-10 sm:p-14 text-center shadow-sm max-w-2xl mx-auto">
+            <Layers className="w-10 h-10 text-gold mx-auto mb-4" />
+            <h3 className="font-marcellus text-2xl text-maroon">
+              Collections Arriving Soon
+            </h3>
+            <p className="font-poppins text-xs sm:text-sm text-stone-600 mt-3 leading-relaxed">
+              Our bookmatch-ready marble and quartzite collections are currently being updated. Connect with our concierge to preview exclusive dry-lays and quarry blocks directly.
+            </p>
+            <div className="mt-8">
+              <a
+                href={getProductWhatsAppUrl("bookmatched stones")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-6 py-3.5 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold shadow transition-colors"
+              >
+                <MessageSquare className="w-4 h-4 text-gold" />
+                <span>Inquire via WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">

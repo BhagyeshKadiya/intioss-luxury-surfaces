@@ -161,3 +161,20 @@ select:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Luxury Stone Zoom-In / Zoom-Out Motion */
+@keyframes stoneZoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1.06);
+  }
+}
+
+.animate-stone-zoom {
+  animation: stoneZoomInOut 5s ease-in-out infinite alternate;
+}

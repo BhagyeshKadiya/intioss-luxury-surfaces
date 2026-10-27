@@ -3,9 +3,39 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import { APPLICATION_SPACES } from "@/data/applications";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+
+// Cinematic Card Hover & Zoom In / Zoom Out Motion Variants
+const cardHoverVariants: Variants = {
+  rest: {
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.25, 1, 0.5, 1] },
+  },
+  hover: {
+    y: -8,
+    scale: 1.015,
+    transition: { duration: 0.4, ease: [0.25, 1, 0.5, 1] },
+  },
+};
+
+const imageZoomMotionVariants: Variants = {
+  rest: {
+    scale: 1,
+    transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] },
+  },
+  hover: {
+    scale: [1, 1.20, 1.07, 1.18],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    },
+  },
+};
 
 export function ApplicationSelector() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -149,18 +179,33 @@ export function ApplicationSelector() {
                     }}
                     className="shrink-0 transition-opacity duration-500"
                   >
-                    <Link
-                      href={`/products?application=${encodeURIComponent(space.title)}`}
-                      className="group relative h-[380px] sm:h-[460px] lg:h-[500px] w-full block overflow-hidden border border-gold/30 bg-maroon transition-all duration-500 hover:border-gold hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] active:scale-[0.985]"
+                    <motion.div
+                      initial="rest"
+                      whileHover="hover"
+                      animate="rest"
+                      variants={cardHoverVariants}
+                      className="group relative h-[390px] sm:h-[470px] lg:h-[510px] w-full block overflow-hidden border border-gold/30 bg-maroon transition-colors duration-500 hover:border-gold hover:shadow-[0_25px_60px_rgba(0,0,0,0.85),0_0_35px_rgba(221,182,43,0.35)] cursor-pointer"
                     >
-                      {/* High-Resolution Stone Photography */}
-                      <Image
-                        src={space.image}
-                        alt={space.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                      {/* Entire Card Clickable Link */}
+                      <Link
+                        href={`/products?application=${encodeURIComponent(space.title)}`}
+                        className="absolute inset-0 z-30 block"
+                        aria-label={`Explore ${space.title}`}
                       />
+
+                      {/* High-Resolution Stone Photography with Dynamic Zoom-In / Zoom-Out Motion */}
+                      <motion.div
+                        variants={imageZoomMotionVariants}
+                        className="absolute inset-0 w-full h-full pointer-events-none"
+                      >
+                        <Image
+                          src={space.image}
+                          alt={space.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover"
+                        />
+                      </motion.div>
 
                       {/* Multi-stage Scrim Overlay */}
                       <div
@@ -189,19 +234,19 @@ export function ApplicationSelector() {
                       <div className="absolute bottom-3 right-3 w-3.5 h-3.5 border-b border-r border-gold/40 group-hover:w-5 group-hover:h-5 group-hover:border-gold transition-all duration-300 pointer-events-none" />
 
                       {/* Bottom Space Title & Circular Interactive Button */}
-                      <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-7 flex items-end justify-between">
+                      <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-7 flex items-end justify-between pointer-events-none">
                         <div>
-                          <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory font-normal tracking-wide group-hover:text-gold transition-colors duration-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+                          <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory font-normal tracking-wide group-hover:text-gold group-hover:translate-x-1.5 transition-all duration-300 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                             {space.title}
                           </h3>
                         </div>
 
                         {/* Circular Arrow Button */}
-                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-gold/50 bg-maroon-deep/70 backdrop-blur-md flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-maroon-deep group-hover:scale-110 group-hover:shadow-[0_0_16px_rgba(221,182,43,0.5)] transition-all duration-300 shrink-0 ml-3">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-gold/50 bg-maroon-deep/70 backdrop-blur-md flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-maroon-deep group-hover:scale-115 group-hover:shadow-[0_0_18px_rgba(221,182,43,0.6)] transition-all duration-300 shrink-0 ml-3">
                           <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2] transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </div>
                       </div>
-                    </Link>
+                    </motion.div>
                   </div>
                 );
               })}
