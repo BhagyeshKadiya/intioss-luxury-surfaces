@@ -546,7 +546,7 @@ export const PRODUCTS: StoneProduct[] = [
       "/images/stones/montano-pulchiano/montano-pulchiano-cladding-interior.png",
     ],
     description:
-      "Montano Pulchiano Marble is a rare, dramatically evocative polychrome stone quarried from exclusive European geological reserves. Renowned for its rich multicolored tapestry combining earthy rust, warm ochre, smoky charcoal, olive-tinted veins, and soft alabaster clouds, Montano Pulchiano commands attention as a living canvas of geological history. Formatted in generous 96\" x 56\" (244 x 142 cm) slabs with a substantial 20mm thickness, it introduces warmth, depth, and opulent character to high-end residential and hospitality environments. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary islands.",
+      "Montano Pulchiano Marble is a rare, dramatically evocative polychrome stone quarried from exclusive European geological reserves. Renowned for its rich multicolored tapestry combining earthy rust, warm ochre, smoky charcoal, olive-tinted veins, and soft alabaster clouds, Montano Pulchiano commands attention as a living canvas of geological history. Formatted in generous 93\" x 58\" (236 x 147 cm) slabs with a substantial 20mm thickness (Lot 87206), it introduces warmth, depth, and opulent character to high-end residential and hospitality environments. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary islands.",
     bestSuitedFor: [
       "Monolithic Architectural Cladding & Living Room Accent Walls (Vibrant Multicolored Geological Veining)",
       "Statement Kitchen Islands & Waterfall Countertops (Rich Earth Tones & Superior Durability)",
@@ -556,8 +556,8 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     specs: {
       density: "2.72 g/cm³",
-      dimensions: "96\" x 56\" (244 x 142 cm) · 20mm Thickness",
-      quarryLocation: "Apuan Alps / Northern Italian Reserves",
+      dimensions: "93\" x 58\" (236 x 147 cm) · 20mm Thickness",
+      quarryLocation: "Apuan Alps / Northern Italian Reserves · Lot 87206",
       recommendedCare:
         "Dense calcitic polychrome marble. Daily cleaning with damp microfiber cloth and pH-balanced stone soap. Re-treat annually with high-performance penetrating sealant to enrich multicolored depth and protect against moisture.",
     },
@@ -576,9 +576,9 @@ export const PRODUCTS: StoneProduct[] = [
       },
       {
         question: "What are the dimensions and thickness of INTIOSS Montano Pulchiano slabs?",
-        shortAnswer: "Monolithic slabs measure 96\" x 56\" (244 x 142 cm) at an architectural 20mm thickness.",
+        shortAnswer: "Monolithic slabs measure 93\" x 58\" (236 x 147 cm) at an architectural 20mm thickness (Lot 87206).",
         answer:
-          "Each slab measures 96 inches in length by 56 inches in height (244 cm × 142 cm) with a standard 20mm (3/4\") thickness. This substantial profile ensures robust structural integrity for mitered edge waterfall islands, cantilevered vanities, and expansive floor tile cutting schedules.",
+          "Each slab measures 93 inches in length by 58 inches in height (236 cm × 147 cm) with a standard 20mm (3/4\") thickness (Lot 87206). This substantial profile ensures robust structural integrity for mitered edge waterfall islands, cantilevered vanities, and expansive floor tile cutting schedules.",
       },
       {
         question: "How does Montano Pulchiano perform in bathrooms and wet areas?",
