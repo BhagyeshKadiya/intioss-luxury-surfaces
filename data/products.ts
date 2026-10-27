@@ -857,7 +857,90 @@ export const PRODUCTS: StoneProduct[] = [
           "Authentic monolithic Michael Angelo Marble slabs (Lot SL-11096) are curated and imported exclusively by INTIOSS Luxury Surfaces. Each slab is cataloged with full origin documentation, structural resonance testing, and pre-dispatch quality verification for delivery to Mumbai, Delhi, Bengaluru, and across India.",
       },
     ],
-    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "montano-pulchiano-marble"],
+    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "montano-pulchiano-marble", "white-crystal-quartz"],
+  },
+  {
+    id: "p-white-crystal-quartz",
+    slug: "white-crystal-quartz",
+    name: "White Crystal Quartzite (Lot JNC-01)",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "White",
+    origin: "Espirito Santo, Brazil",
+    finishes: ["Polished", "Honed", "Leathered", "Translucent Backlit"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Uniform",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/white-crystal-quartz/white-crystal-quartz-slab.png",
+    veinCloseUpImage: "/images/stones/white-crystal-quartz/white-crystal-quartz-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/white-crystal-quartz/white-crystal-quartz-slab.png",
+      "/images/stones/white-crystal-quartz/white-crystal-quartz-kitchen-countertop.png",
+      "/images/stones/white-crystal-quartz/white-crystal-quartz-bathroom.png",
+      "/images/stones/white-crystal-quartz/white-crystal-quartz-table-top.png",
+      "/images/stones/white-crystal-quartz/white-crystal-quartz-cladding-interior.png",
+    ],
+    description:
+      "White Crystal Quartz (Lot JNC-01) is an extraordinary natural quartzite renowned for its semi-translucent crystalline purity, diamond-like luminescence, and serene white-on-white mineral structure. Sourced in monolithic 91\" x 57\" (231 x 145 cm) slabs at an architectural 20mm thickness, it boasts a Mohs hardness of 7 and exceptional thermal resilience. Unlike soft calcitic marbles, natural crystalline quartzite is naturally impervious to acidic etching from lemon juice, wine, or vinegar, making it the premier architectural specification for high-performance culinary islands, bespoke dining table tops, luminous spa bathroom sanctuaries, and translucent backlit feature claddings.",
+    bestSuitedFor: [
+      "High-Performance Chef's Kitchen Waterfall Islands (Mohs 7 Scratch & Acid Etch Resistant Alternative to Marble)",
+      "Luminous Master Spa Bathrooms & Floating Vanities (<0.2% Water Absorption)",
+      "Bespoke Sculptural Dining & Executive Boardroom Table Tops (Heat & Knife Scratch Proof)",
+      "Translucent Backlit Feature Walls & Interior Cladding (Natural Light-Refracting Quartz Matrix)",
+    ],
+    specs: {
+      density: "2.65 g/cm³",
+      dimensions: "91\" x 57\" (231 x 145 cm) · 20mm Thickness",
+      quarryLocation: "Espirito Santo, Brazil · Lot JNC-01",
+      recommendedCare:
+        "Dense 100% natural crystalline quartzite. Impervious to everyday kitchen acids. Clean with warm water and pH-neutral cleaner. Periodic sealing preserves its radiant crystalline translucency.",
+    },
+    faqs: [
+      {
+        question: "What is White Crystal Quartz and what makes it distinct from white marble?",
+        shortAnswer: "White Crystal Quartz is a genuine metamorphic quartzite ranking Mohs 7 hardness, completely immune to acid etching.",
+        answer:
+          "White Crystal Quartz is a 100% natural metamorphic rock formed under extreme tectonic heat and pressure from pure quartz sandstone. While white calcitic marble has a Mohs hardness of 3–4 and reacts chemically with acids (lemon, vinegar, wine), White Crystal Quartz scores Mohs 7 (harder than granite) and will never etch, dull, or scratch under normal residential or commercial culinary usage.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Lot JNC-01?",
+        shortAnswer: "Monolithic slabs measure 91\" x 57\" (231 x 145 cm) at an architectural 20mm thickness.",
+        answer:
+          "Curated Lot JNC-01 slabs measure 91 inches in length by 57 inches in height (231 cm × 145 cm) with a substantial 20mm profile. Precision diamond-gang calibration guarantees uniform flatness, seamless mitered waterfall edges, and flawless vertical installation.",
+      },
+      {
+        question: "Can White Crystal Quartz be backlit with LED illumination?",
+        shortAnswer: "Yes. Due to its pure crystalline quartz matrix, select areas transmit warm ambient light when backlit.",
+        answer:
+          "Yes. White Crystal Quartz features high light translucency thanks to its fused macro-crystalline quartz grains. When paired with slimline LED light panels behind vertical feature wall claddings or floating bathroom vanity fascias, it produces a breathtaking, warm, honey-white glow that acts as illuminated fine architectural art.",
+      },
+      {
+        question: "How does White Crystal Quartz perform in luxury kitchens and bathrooms?",
+        shortAnswer: "Superior heat tolerance up to 260°C (500°F) and near-zero water absorption (<0.2%).",
+        answer:
+          "In culinary spaces, hot pots, acidic liquids, and sharp cutlery do not harm genuine quartzite. In master spa bathrooms, its ultra-dense crystal matrix prevents moisture ingress, soap residue buildup, and cosmetic oil penetration, ensuring lifelong pristine elegance.",
+      },
+      {
+        question: "Which finishes best highlight White Crystal Quartz?",
+        shortAnswer: "Polished maximizes crystalline refraction; Leathered introduces an organic, silky tactile depth.",
+        answer:
+          "High Polish produces a dazzling diamond-like sheen that catches natural daylight. Leathered texture enhances the micro-topography of the quartz crystals for a velvety, tactile experience under hand.",
+      },
+      {
+        question: "Where can architects and homeowners source authentic White Crystal Quartz in India?",
+        shortAnswer: "Curated and supplied exclusively across India by INTIOSS Luxury Surfaces.",
+        answer:
+          "Authentic monolithic White Crystal Quartz slabs (Lot JNC-01) are imported and supplied directly by INTIOSS Luxury Surfaces with complete provenance verification, ultrasonic resonance testing, and turnkey project delivery nationwide.",
+      },
+    ],
+    pairsWithSlugs: ["paunazo-quartzite", "thassos-white-marble", "statuario-marble"],
   },
 ];
 
