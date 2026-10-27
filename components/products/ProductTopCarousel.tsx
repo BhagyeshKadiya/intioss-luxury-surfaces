@@ -162,13 +162,13 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
   const effectiveFit = currentSlide.isSlab ? "contain" : fitMode;
 
   return (
-    <div className="w-full mb-12 sm:mb-16 select-none">
+    <div className="w-full mb-6 sm:mb-8 select-none max-w-5xl mx-auto">
       {/* 
         ============================================================
-        STAGE HERO PRESENTATION (Architectural Gallery Format)
+        STAGE HERO PRESENTATION (Device-Calibrated 1-Frame Viewport)
         ============================================================
       */}
-      <div className="relative w-full h-[420px] sm:h-[540px] md:h-[620px] lg:h-[680px] bg-[#0E070B] border border-gold/40 shadow-2xl overflow-hidden rounded-sm group">
+      <div className="relative w-full h-[40vh] sm:h-[44vh] md:h-[46vh] max-h-[460px] min-h-[260px] bg-[#100A0D] border border-gold/40 shadow-2xl overflow-hidden rounded-sm group">
         
         {/* Dynamic Ambient Blur Glow (Takes stone color palette and illuminates background) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -178,18 +178,18 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
             alt="Ambient Glow"
             fill
             sizes="100vw"
-            className="object-cover blur-3xl opacity-35 scale-125 transition-opacity duration-700"
+            className="object-cover blur-2xl opacity-60 scale-120 transition-opacity duration-700"
             priority
           />
           {/* Subtle vignette gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0E070B]/90 via-[#0E070B]/30 to-[#0E070B]/70" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#100A0D]/80 via-transparent to-[#100A0D]/60" />
         </div>
 
         {/* Foreground Active Slide Image */}
         <div
           className={`relative w-full h-full flex items-center justify-center transition-all duration-500 cursor-zoom-in ${
             effectiveFit === "contain"
-              ? "p-4 sm:p-8 md:p-12"
+              ? "p-2 sm:p-4"
               : "p-0"
           }`}
           onClick={() => setIsLightboxOpen(true)}
@@ -200,7 +200,7 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+              transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
               className="relative w-full h-full flex items-center justify-center"
             >
               <Image
@@ -208,10 +208,10 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
                 alt={`${product.name} - ${currentSlide.title}`}
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1400px) 90vw, 1300px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1400px) 90vw, 1200px"
                 className={`transition-all duration-300 ${
                   effectiveFit === "contain"
-                    ? "object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.85)]"
+                    ? "object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.85)]"
                     : "object-cover"
                 }`}
               />
@@ -323,8 +323,8 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
         ============================================================
       */}
       {slides.length > 1 && (
-        <div className="mt-4 sm:mt-5">
-          <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto pb-3 pt-1 scrollbar-thin scrollbar-thumb-gold/30">
+        <div className="mt-2.5 sm:mt-3">
+          <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5 w-full">
             {slides.map((slide, idx) => {
               const isActive = currentIndex === idx;
               return (
@@ -332,15 +332,15 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
                   key={`${slide.src}-${idx}`}
                   type="button"
                   onClick={() => setCurrentIndex(idx)}
-                  className={`group relative flex-none text-left transition-all duration-300 focus:outline-none ${
+                  className={`group relative text-left transition-all duration-300 focus:outline-none w-full ${
                     isActive ? "scale-[1.02]" : "opacity-75 hover:opacity-100"
                   }`}
                 >
                   {/* Thumbnail Image Box */}
                   <div
-                    className={`relative w-28 sm:w-36 h-18 sm:h-22 overflow-hidden border bg-stone-900 transition-all ${
+                    className={`relative w-full h-11 sm:h-13 md:h-15 overflow-hidden border bg-stone-900 transition-all ${
                       isActive
-                        ? "border-gold shadow-[0_0_15px_rgba(221,182,43,0.45)] ring-2 ring-gold"
+                        ? "border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] ring-2 ring-gold"
                         : "border-stone-300 hover:border-gold/60"
                     }`}
                   >
@@ -348,33 +348,33 @@ export function ProductTopCarousel({ product }: ProductTopCarouselProps) {
                       src={slide.src}
                       alt={slide.title}
                       fill
-                      sizes="144px"
+                      sizes="180px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
                     {/* Active Checkmark Pill */}
                     {isActive && (
-                      <div className="absolute top-1 right-1 bg-gold text-maroon w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
-                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      <div className="absolute top-1 right-1 bg-gold text-maroon w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs">
+                        <Check className="w-2 h-2 stroke-[3]" />
                       </div>
                     )}
 
                     {/* Micro Number */}
-                    <span className="absolute top-1 left-1.5 text-[9px] font-mono text-white/90 bg-black/70 px-1 rounded-none border border-white/20">
+                    <span className="absolute top-1 left-1 text-[8px] sm:text-[9px] font-mono text-white/90 bg-black/75 px-1 border border-white/20">
                       0{idx + 1}
                     </span>
                   </div>
 
                   {/* Clean Label Below Thumbnail */}
-                  <div className="mt-1.5 w-28 sm:w-36 text-center">
+                  <div className="mt-1 text-center w-full">
                     <span
-                      className={`block text-[11px] font-montserrat uppercase tracking-wider font-semibold transition-colors truncate ${
+                      className={`block text-[9px] sm:text-[11px] font-montserrat uppercase tracking-wider font-semibold transition-colors truncate ${
                         isActive ? "text-maroon font-bold" : "text-stone-600 group-hover:text-maroon"
                       }`}
                     >
                       {slide.shortTitle}
                     </span>
-                    <span className="block text-[9px] font-poppins text-stone-500 uppercase tracking-wide truncate">
+                    <span className="block text-[8px] sm:text-[9px] font-poppins text-stone-500 uppercase tracking-wide truncate">
                       {slide.badge.replace(" Application", "")}
                     </span>
                   </div>

@@ -79,7 +79,7 @@ export default function ProductDetailPage({
   ].includes(product.category);
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32 overflow-x-hidden">
+    <div className="min-h-screen bg-ivory text-maroon pt-16 sm:pt-20 pb-28 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -87,7 +87,7 @@ export default function ProductDetailPage({
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link & Breadcrumb */}
-        <div className="flex items-center gap-3 text-xs font-montserrat uppercase tracking-[0.2em] text-grey mb-8 flex-wrap">
+        <div className="flex items-center gap-2.5 text-[11px] font-montserrat uppercase tracking-[0.18em] text-grey mb-3 flex-wrap">
           <Link
             href="/products"
             className="inline-flex items-center gap-1.5 text-maroon hover:text-gold transition-colors"
