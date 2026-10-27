@@ -178,3 +178,10 @@ select:focus-visible {
 .animate-stone-zoom {
   animation: stoneZoomInOut 5s ease-in-out infinite alternate;
 }
+
+/* Lightbox Fullscreen Mode - Suppress all background fixed navigation & floating buttons */
+body.lightbox-active header,
+body.lightbox-active .fixed-dock,
+body.lightbox-active .whatsapp-btn {
+  display: none !important;
+}

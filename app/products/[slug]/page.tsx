@@ -203,38 +203,48 @@ export default function ProductDetailPage({
   ].includes(product.category);
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-16 sm:pt-20 pb-28 overflow-x-hidden">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 md:pt-32 pb-28 overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back Link & Breadcrumb */}
-        <div className="flex items-center gap-2.5 text-[11px] font-montserrat uppercase tracking-[0.18em] text-grey mb-3 flex-wrap">
+        {/* Architectural Breadcrumb Navigation with Generous Breathing Room */}
+        <nav
+          aria-label="Breadcrumbs"
+          className="flex items-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs font-montserrat uppercase tracking-[0.2em] text-stone-600 mb-6 sm:mb-8 flex-wrap"
+        >
           <Link
             href="/products"
-            className="inline-flex items-center gap-1.5 text-maroon hover:text-gold transition-colors"
+            className="inline-flex items-center gap-1.5 text-maroon hover:text-gold font-semibold transition-colors group"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5 text-gold group-hover:-translate-x-0.5 transition-transform" />
             <span>Catalogue</span>
           </Link>
-          <span>/</span>
+          <span className="text-gold/60 font-light select-none">/</span>
           <Link
             href={`/products?category=${encodeURIComponent(product.category)}`}
-            className="hover:text-gold transition-colors"
+            className="hover:text-gold text-stone-700 transition-colors"
           >
             {product.category}
           </Link>
           {product.subCategory && (
             <>
-              <span>/</span>
-              <span>{product.subCategory}</span>
+              <span className="text-gold/60 font-light select-none">/</span>
+              <Link
+                href={`/products?category=${encodeURIComponent(product.category)}&subCategory=${encodeURIComponent(product.subCategory)}`}
+                className="hover:text-gold text-stone-700 transition-colors"
+              >
+                {product.subCategory}
+              </Link>
             </>
           )}
-          <span>/</span>
-          <span className="text-gold font-medium">{product.name}</span>
-        </div>
+          <span className="text-gold/60 font-light select-none">/</span>
+          <span className="text-maroon font-bold tracking-[0.22em] bg-gold/15 px-2.5 py-1 border border-gold/40 rounded-xs shadow-xs">
+            {product.name}
+          </span>
+        </nav>
 
         {/* Order-Basis Bespoke Form OR Houzez-Style 5-Image Bento Gallery */}
         {isOrderBasis ? (
