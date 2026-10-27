@@ -347,12 +347,12 @@ export default function ProductDetailPage({
               )}
             </div>
 
-            {/* Recommended Applications (7 spaces tick list in exact order with auto photo indicator) */}
+            {/* Recommended Applications (Suitability checklist with clean architectural tick marks) */}
             <div className="mt-8">
               <h3 className="font-marcellus text-sm uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
                 Recommended Applications
               </h3>
-              <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {SEVEN_SPACES.map((spaceName) => {
                   const isSuitable =
                     (product.applications as string[]).includes(spaceName) ||
@@ -375,39 +375,25 @@ export default function ProductDetailPage({
                       (product.applications.includes("Exterior Flooring") ||
                         product.applications.includes("Flooring")));
 
-                  const matchingImg = product.galleryImages?.find((img) => {
-                    const l = img.toLowerCase();
-                    if (spaceName === "Flooring" && l.includes("flooring")) return true;
-                    if (spaceName === "Bathroom" && (l.includes("bathroom") || l.includes("bath") || l.includes("vanity"))) return true;
-                    if (spaceName === "Table Top" && (l.includes("table-top") || l.includes("dining"))) return true;
-                    if (spaceName === "Kitchen Countertop" && (l.includes("kitchen") || l.includes("countertop"))) return true;
-                    if (spaceName === "Wall Cladding — Interior" && (l.includes("cladding") || l.includes("wall"))) return true;
-                    return false;
-                  });
-
                   return (
                     <li
                       key={spaceName}
-                      className="flex items-center gap-2.5 text-xs font-montserrat text-maroon p-1.5 rounded-xs hover:bg-gold/5 transition-colors border border-transparent hover:border-gold/20"
+                      className={`flex items-center gap-2.5 text-xs font-montserrat p-2 rounded-xs transition-colors border ${
+                        isSuitable
+                          ? "text-maroon font-medium bg-gold/[0.04] border-gold/20 hover:border-gold/40 hover:bg-gold/10"
+                          : "text-grey/40 border-transparent bg-transparent"
+                      }`}
                     >
                       {isSuitable ? (
-                        <div className="w-4 h-4 rounded-none bg-maroon text-gold flex items-center justify-center shrink-0 border border-gold/40">
-                          <Check className="w-3 h-3 text-gold" />
+                        <div className="w-4 h-4 rounded-none bg-maroon text-gold flex items-center justify-center shrink-0 border border-gold/40 shadow-2xs">
+                          <Check className="w-3 h-3 text-gold" strokeWidth={2.5} />
                         </div>
                       ) : (
-                        <div className="w-4 h-4 rounded-none border border-grey/30 bg-white/60 shrink-0" />
+                        <div className="w-4 h-4 rounded-none border border-grey/25 bg-white/40 shrink-0" />
                       )}
-                      <span className={isSuitable ? "text-maroon font-medium" : "text-grey/60"}>
+                      <span className={isSuitable ? "text-maroon font-medium" : "text-grey/40"}>
                         {spaceName}
                       </span>
-                      {matchingImg && (
-                        <div
-                          title={`View ${spaceName} photo`}
-                          className="relative w-5 h-5 rounded-xs overflow-hidden border border-gold/50 shrink-0 ml-auto shadow-2xs group cursor-pointer"
-                        >
-                          <Image src={matchingImg} alt={`${product.name} ${spaceName}`} fill className="object-cover group-hover:scale-125 transition-transform" />
-                        </div>
-                      )}
                     </li>
                   );
                 })}
