@@ -341,7 +341,93 @@ export const PRODUCTS: StoneProduct[] = [
           "Daily care is simple: wipe with a soft microfiber cloth and lukewarm water with a pH-neutral stone cleaner. Because all natural calcitic marbles are sensitive to acids, never use vinegar, lemon juice, bathroom descalers, or bleach. INTIOSS recommends an initial deep-penetrating breathable sealer followed by a routine resealing every 12 to 18 months to ensure lasting stain and moisture resistance.",
       },
     ],
-    pairsWithSlugs: ["golden-statuario-marble", "super-spider-marble", "montano-pulchiano-marble"],
+    pairsWithSlugs: ["statuario-rb4384-marble", "golden-statuario-marble", "super-spider-marble", "montano-pulchiano-marble"],
+  },
+  {
+    id: "p-statuario-rb4384",
+    slug: "statuario-rb4384-marble",
+    name: "Statuario Marble (Lot RB-4384)",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "White",
+    origin: "Carrara, Tuscany, Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/statuario-rb4384/statuario-rb4384-slab.png",
+    veinCloseUpImage: "/images/stones/statuario-rb4384/statuario-rb4384-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/statuario-rb4384/statuario-rb4384-slab.png",
+      "/images/stones/statuario-rb4384/statuario-rb4384-kitchen-countertop.png",
+      "/images/stones/statuario-rb4384/statuario-rb4384-bathroom.png",
+      "/images/stones/statuario-rb4384/statuario-rb4384-table-top.png",
+      "/images/stones/statuario-rb4384/statuario-rb4384-flooring.png",
+      "/images/stones/statuario-rb4384/statuario-rb4384-cladding-interior.png",
+    ],
+    description:
+      "Directly quarried from the premier high-altitude reserves of Carrara, Tuscany, Italy, Statuario Marble (Lot RB-4384) represents the ultimate expression of Italian architectural drama. Characterized by a high-contrast black and white palette, bold graphite-black and deep charcoal veining cuts decisively across a pristine, crystalline milk-white canvas. Precision-quarried in monolithic 100\" x 71\" (254 x 180 cm) slabs at a solid 20mm thickness, Lot RB-4384 is bookmatch-ready for mirror-image symmetry—making it the benchmark selection for luxury living room flooring, master spa bathroom sanctuaries, bespoke dining table tops, culinary waterfall islands, and bookmatched interior wall cladding.",
+    bestSuitedFor: [
+      "Symmetrical Bookmatched Interior Cladding & Feature Walls (High-Contrast Black & White Vein Artistry)",
+      "Five-Star Master Spa Bathrooms & Bespoke Floating Vanities (Opulent Carrara Crystalline Background)",
+      "Expansive Monolithic Living Room & Penthouse Flooring (Dazzling Ambient Reflectance with Charcoal Drama)",
+      "Sculptural Bespoke Dining & Executive Boardroom Table Tops (20mm Calibrated Solid Slab Profile)",
+      "Chef's Kitchen Waterfall Countertops & Backsplashes (Protected with Breathable Penetrating Impregnators)",
+    ],
+    specs: {
+      density: "2.71 g/cm³",
+      dimensions: "100\" x 71\" (254 x 180 cm) · 20mm Thickness",
+      quarryLocation: "Carrara, Apuan Alps, Tuscany, Italy · Lot RB-4384",
+      recommendedCare:
+        "Calcitic Carrara marble with high-contrast black veining. Clean with pH-neutral stone cleaner and soft microfiber. Seal with premium breathable penetrating impregnator to protect against acidic etching and maintain natural luster.",
+    },
+    faqs: [
+      {
+        question: "What distinguishes Statuario Marble Lot RB-4384 from standard white marbles?",
+        shortAnswer: "Lot RB-4384 features high-contrast, bold black and graphite veining sweeping over a pure milk-white Carrara crystalline field.",
+        answer:
+          "Quarried in the renowned Apuan Alps of Carrara, Italy, Statuario Lot RB-4384 is celebrated for its rare high-contrast black and white visual power. While standard Carrara marbles exhibit soft muted grey feathering, Lot RB-4384 delivers pronounced, sweeping ribbons of deep charcoal and raven black against a brilliant milk-white calcitic background, providing immediate architectural presence.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Statuario Lot RB-4384?",
+        shortAnswer: "Monolithic slabs measure 100\" x 71\" (254 x 180 cm) in an architectural 20mm thickness.",
+        answer:
+          "Monolithic slabs of Statuario Lot RB-4384 measure 100 inches in length by 71 inches in height (254 cm × 180 cm) with a solid 20mm thickness. Calibrated with diamond-gang saws for planar uniformity, this 20mm profile provides ideal structural substance for mitered edge fabrication, expansive floorplate cutting, and full-slab wall installation.",
+      },
+      {
+        question: "Can Statuario Lot RB-4384 slabs be bookmatched for interior wall cladding?",
+        shortAnswer: "Yes. Slabs are quarried and polished in consecutive block pairs specifically for mirror-image bookmatching.",
+        answer:
+          "Yes. INTIOSS curates Statuario Lot RB-4384 in consecutive sequence pairs (Block Pairs A and B). When mounted side-by-side, the bold black veins mirror each other across the central seam to form dramatic butterfly and diamond patterns, making it the premier choice for double-height foyer accent walls, living room feature claddings, and luxury fireplace surrounds.",
+      },
+      {
+        question: "How does this 20mm Statuario marble perform for flooring and master bathrooms?",
+        shortAnswer: "Its dense calcitic matrix and brilliant reflectance keep floors cool, luminous, and spa-grade luxurious.",
+        answer:
+          "In luxury residences and penthouses, 20mm Statuario flooring provides thermal cooling and magnificent light reflectance under natural sunlight. For master bathrooms, vanity tops, and steam shower surrounds, the dense crystalline stone creates an opulent boutique-hotel sanctuary when protected with an architectural breathable penetrating sealant.",
+      },
+      {
+        question: "Is Statuario Lot RB-4384 suitable for kitchen countertops and dining table tops?",
+        shortAnswer: "Yes. It creates a sculptural statement island or dining table when maintained with proper penetrating sealers.",
+        answer:
+          "Yes. Statuario Lot RB-4384 makes a breathtaking culinary waterfall island or bespoke dining table. As with all genuine Italian marbles, wiping acidic spills (citrus, vinegar, red wine) promptly and applying a penetrating oleophobic nano-sealer safeguards the polished marble luster for decades of refined living.",
+      },
+      {
+        question: "Where can architects and designers source authentic Statuario Lot RB-4384 in India?",
+        shortAnswer: "Curated and supplied exclusively across India by INTIOSS Luxury Surfaces.",
+        answer:
+          "Authentic monolithic Statuario Lot RB-4384 slabs are curated and supplied directly by INTIOSS Luxury Surfaces. Each slab includes provenance verification, ultrasonic structural scanning, and pre-dispatch inspection for turnkey delivery to Mumbai, Delhi, Bengaluru, Hyderabad, and nationwide luxury projects.",
+      },
+    ],
+    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "thassos-white-marble"],
   },
   {
     id: "p-super-spider",

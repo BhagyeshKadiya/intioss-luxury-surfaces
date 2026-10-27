@@ -133,7 +133,16 @@ function ProductsContent() {
 
     // Filter by color family
     if (filterState.colorFamily.length > 0) {
-      list = list.filter((p) => filterState.colorFamily.includes(p.colorFamily));
+      list = list.filter((p) => {
+        if (filterState.colorFamily.includes(p.colorFamily)) return true;
+        if (
+          (filterState.colorFamily.includes("Black") || filterState.colorFamily.includes("White")) &&
+          p.description?.toLowerCase().includes("black and white")
+        ) {
+          return true;
+        }
+        return false;
+      });
     }
 
     // Filter by origin
