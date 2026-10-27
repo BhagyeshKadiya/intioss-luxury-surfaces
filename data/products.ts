@@ -599,7 +599,93 @@ export const PRODUCTS: StoneProduct[] = [
           "Preserving Montano Pulchiano's natural beauty requires minimal effort: dust mop floors regularly and wipe counters with warm water and a neutral stone cleaner. Never use acid-based toilet cleaners, vinegar, or citrus sprays on the surface. Re-applying a penetrating sealer once a year ensures complete barrier protection against wine, coffee, or oil absorption.",
       },
     ],
-    pairsWithSlugs: ["paunazo-quartzite", "golden-statuario-marble", "statuario-marble"],
+    pairsWithSlugs: ["paunazo-quartzite", "golden-statuario-marble", "statuario-marble", "michael-angelo-marble"],
+  },
+  {
+    id: "p-michael-angelo",
+    slug: "michael-angelo-marble",
+    name: "Michael Angelo Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "Pink",
+    origin: "Apuan Alps / Mediterranean Reserves",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Dramatic",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/michael-angelo/michael-angelo-slab.png",
+    veinCloseUpImage: "/images/stones/michael-angelo/michael-angelo-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/michael-angelo/michael-angelo-slab.png",
+      "/images/stones/michael-angelo/michael-angelo-kitchen-countertop.png",
+      "/images/stones/michael-angelo/michael-angelo-bathroom.png",
+      "/images/stones/michael-angelo/michael-angelo-table-top.png",
+      "/images/stones/michael-angelo/michael-angelo-flooring.png",
+      "/images/stones/michael-angelo/michael-angelo-cladding-interior.png",
+    ],
+    description:
+      "Named in homage to the legendary Renaissance master sculptor, Michael Angelo Marble is a rare, poetic natural stone celebrated for its luminous blush pink, rosy alabaster, and warm cream canvas interlaced with dramatic, delicate crystalline veining. Quarried in extra-large monolithic 135\" x 71\" (343 x 180 cm) slabs at a solid 20mm thickness (Lot SL-11096), Michael Angelo introduces an unprecedented aura of romantic warmth, softness, and modern luxury to interior spaces. Ideal for architects and discerning homeowners seeking an elevated alternative to monochromatic stone, it is exquisitely suited for expansive living room flooring, spa bathroom sanctuaries, bespoke dining table tops, culinary waterfall islands, and sculptural interior wall cladding.",
+    bestSuitedFor: [
+      "Monolithic Living Room & Penthouse Flooring (Warm Rose-Toned Ambient Reflectance)",
+      "Five-Star Master Spa Bathrooms & Floating Vanities (Subtle Blush Pink Crystalline Luxury)",
+      "Sculptural Bespoke Dining & Boardroom Table Tops (Extra-Large 135\" Monolithic Format)",
+      "Chef's Kitchen Waterfall Countertops & Islands (Warm Organic Tones Sealed with Oleophobic Impregnators)",
+      "Architectural Feature Cladding & Fireplace Backdrops (Dramatic Vein Continuity)",
+    ],
+    specs: {
+      density: "2.70 g/cm³",
+      dimensions: "135\" x 71\" (343 x 180 cm) · 20mm Thickness",
+      quarryLocation: "Apuan Alps / Mediterranean Reserves · Lot SL-11096",
+      recommendedCare:
+        "Calcitic marble with delicate pink crystalline structure. Daily cleaning with microfiber cloth and pH-neutral stone cleaner. Seal with breathable penetrating impregnator annually to preserve radiant blush tones and protect against moisture and oils.",
+    },
+    faqs: [
+      {
+        question: "What makes Michael Angelo Marble distinct in luxury interior design?",
+        shortAnswer: "Its rare blush-pink and rosy alabaster field brings soft organic warmth, departing from sterile stark white or grey marbles.",
+        answer:
+          "Michael Angelo Marble is celebrated for its ethereal palette of soft blush pink, rose alabaster, and warm cream quartz accents. Unlike harsh artificial pigments, its color is formed naturally by mineral trace infusions deep within tectonic marble formations. It infuses interiors with warmth, romance, and tactile sophistication without overwhelming surrounding decor.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Michael Angelo Marble?",
+        shortAnswer: "Extra-large monolithic slabs measure 135\" x 71\" (343 x 180 cm) with a substantial 20mm thickness.",
+        answer:
+          "Curated Michael Angelo slabs measure an extraordinary 135 inches in length by 71 inches in height (343 cm × 180 cm) at an architectural 20mm profile (Lot SL-11096). This grand monolithic scale allows expansive seamless floor layouts, full-height wall cladding with minimal grout joints, and oversized single-slab dining tables without joints.",
+      },
+      {
+        question: "How does Michael Angelo Marble perform in master bathrooms and spa suites?",
+        shortAnswer: "Its dense calcitic matrix and soothing pink reflectance create a serene five-star wellness atmosphere.",
+        answer:
+          "In luxury master bathrooms, Michael Angelo creates a tranquil spa retreat. The soft pink reflectance flatters ambient skin tones, while its dense crystalline structure provides excellent water resistance when sealed with an architectural penetrating fluoropolymer impregnator.",
+      },
+      {
+        question: "Can Michael Angelo Marble be specified for kitchen countertops and dining tables?",
+        shortAnswer: "Yes. Slabs are precision-calibrated for mitered waterfall islands and sculptural dining centerpieces.",
+        answer:
+          "Yes. With a substantial 20mm thickness and impressive 135\" continuous span, Michael Angelo makes an unforgettable statement kitchen island or monolithic dining table. Standard marble maintenance applies: clean spills promptly and use trivets under hot cookware.",
+      },
+      {
+        question: "Which finishes best express the pink hues of Michael Angelo Marble?",
+        shortAnswer: "Polished illuminates crystal depth and translucency; Honed or Leathered softens the rose tone into a velvety tactile aesthetic.",
+        answer:
+          "High Polish maximizes light reflectance and crystalline depth, creating a luminous jewel-like luster. Honed delivers a soft matte glow favored in understated contemporary penthouses, while Leathered accentuates the organic contour of the stone's delicate veins.",
+      },
+      {
+        question: "Where can architects and homeowners source authentic Michael Angelo Marble in India?",
+        shortAnswer: "Curated and supplied exclusively across India by INTIOSS Luxury Surfaces.",
+        answer:
+          "Authentic monolithic Michael Angelo Marble slabs (Lot SL-11096) are curated and imported exclusively by INTIOSS Luxury Surfaces. Each slab is cataloged with full origin documentation, structural resonance testing, and pre-dispatch quality verification for delivery to Mumbai, Delhi, Bengaluru, and across India.",
+      },
+    ],
+    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "montano-pulchiano-marble"],
   },
 ];
 
