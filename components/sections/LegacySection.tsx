@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 interface MilestoneItem {
   year: string;
@@ -165,6 +166,15 @@ export function LegacySection() {
       ref={containerRef}
       className="py-24 sm:py-32 bg-white text-maroon-deep relative overflow-hidden border-y border-gold/20"
     >
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
       {/* Subtle luxury ambient background nuance */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-[#FCFAF7] to-white pointer-events-none" />
 

@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { SERVICES } from "@/data/services";
 import { ChevronRight, ArrowRight, ArrowUpRight } from "lucide-react";
 import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
+import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 
 interface ProductCategoryItem {
   title: string;
@@ -140,10 +142,30 @@ export function ProductsServicesToggle() {
   const [hoveredIndex, setHoveredIndex] = useState<number>(0);
 
   return (
-    <section className="relative py-20 sm:py-28 bg-[#FAF8F5] text-maroon overflow-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 sm:py-28 bg-[#FAF8F5] text-maroon overflow-hidden border-b border-gold/20">
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="medium"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+        spiderDistance={280}
+      />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-10">
+          {/* Hexagon Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold/30 shadow-xs backdrop-blur-xs transition-all hover:border-gold hover:shadow-[0_0_15px_rgba(221,182,43,0.3)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <IntiossHexagon size={16} useVector={true} enableSpiderEffect={true} />
+            <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
+              Curated Surfaces & Solutions
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          </div>
+
           <h2 className="font-marcellus text-3xl sm:text-4xl md:text-5xl text-maroon font-normal tracking-wide max-w-3xl leading-tight">
             Gold Standard in Stone Selection.
           </h2>

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { FAQS } from "@/data/faqs";
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export function FaqSection() {
   const [openId, setOpenId] = useState<string | null>(FAQS[0].id);
@@ -14,7 +15,16 @@ export function FaqSection() {
 
   return (
     <section className="relative py-24 sm:py-32 bg-ivory text-maroon overflow-hidden border-t border-gold/30">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="font-raleway font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">

@@ -4,6 +4,7 @@ import { ConsultationSection } from "@/components/sections/ConsultationSection";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { Phone, Mail, MapPin, Clock, MessageSquare } from "lucide-react";
 import type { Metadata } from "next";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export const metadata: Metadata = {
   title: "Private Contact & Studios | INTIOSS",
@@ -13,8 +14,17 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative overflow-hidden">
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="font-montserrat font-semibold text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-dark mb-3 block">

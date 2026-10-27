@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { Check, ArrowRight, MessageSquare } from "lucide-react";
 
@@ -87,7 +88,16 @@ export function ConsultationSection() {
 
   return (
     <section id="consultation" className="relative py-24 sm:py-32 bg-ivory text-maroon overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
           {/* Left Column: Placeholder & Appointment Info (5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[420px] bg-maroon-deep p-8 sm:p-10 border border-gold/40 shadow-xl text-ivory">

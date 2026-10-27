@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "motion/react";
 import { APPLICATION_SPACES } from "@/data/applications";
 import { ArrowUpRight, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 // Cinematic Card Hover & Zoom In / Zoom Out Motion Variants
 const cardHoverVariants: Variants = {
@@ -87,6 +88,15 @@ export function ApplicationSelector() {
       onMouseLeave={() => setIsHovered(false)}
       className="relative py-20 sm:py-32 bg-maroon-deep text-ivory overflow-hidden border-y border-gold/30 select-none"
     >
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="dark"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
       {/* Ambient Radial Luxury Glow in background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[180px] pointer-events-none" />
 

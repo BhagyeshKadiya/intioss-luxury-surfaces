@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export const metadata: Metadata = {
   title: "Our Provenance | About INTIOSS — 55+ Years of Luxury Surfaces",
@@ -12,8 +13,17 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-28 sm:pt-36 pb-24 sm:pb-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-ivory text-maroon pt-28 sm:pt-36 pb-24 sm:pb-32 relative overflow-hidden">
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        enableSpiderEffect={true}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 font-medium mb-8">
           <Link href="/" className="hover:text-maroon transition-colors">
