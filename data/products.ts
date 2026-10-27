@@ -83,6 +83,92 @@ export const PRODUCTS: StoneProduct[] = [
           "Authentic monolithic Paunazo Quartzite slabs are curated and supplied exclusively by INTIOSS Luxury Surfaces. Each slab undergoes rigorous ultrasonic structural testing, calibration, and edge inspection prior to delivery for premium residential and commercial projects in Mumbai, Delhi, Bengaluru, and across India. Bespoke inspections and slab reserves can be arranged directly through the INTIOSS Concierge.",
       },
     ],
-    pairsWithSlugs: [],
+    pairsWithSlugs: ["thassos-white-marble"],
+  },
+  {
+    id: "p-thassos-marble",
+    slug: "thassos-white-marble",
+    name: "Thassos White Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "White",
+    origin: "Island of Thassos, Greece",
+    finishes: ["Polished", "Honed", "Brushed"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Uniform",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/thassos/thassos-slab.png",
+    veinCloseUpImage: "/images/stones/thassos/thassos-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/thassos/thassos-slab.png",
+      "/images/stones/thassos/thassos-kitchen-countertop.png",
+      "/images/stones/thassos/thassos-bathroom.png",
+      "/images/stones/thassos/thassos-table-top.png",
+      "/images/stones/thassos/thassos-flooring.png",
+      "/images/stones/thassos/thassos-cladding-interior.png",
+    ],
+    description:
+      "Sourced from the legendary quarries of the Island of Thassos, Greece, Thassos White Marble is universally acclaimed as the purest crystalline white marble on Earth. Celebrated since ancient Hellenic civilization for its dazzling snow-white brilliance and light-refracting sugar crystals, Thassos delivers an unmatched architectural aura of purity, spaciousness, and modern minimalism. Available through INTIOSS in curated 20mm monolithic slabs, it is the premier choice for seamless luxury living room flooring, spa bathroom sanctuaries, bespoke dining table tops, luminous interior wall claddings, and tailored culinary countertops.",
+    bestSuitedFor: [
+      "Seamless Luxury Living Room & Corridor Flooring (Maximum Ambient Light Reflection)",
+      "Master Spa Bathrooms, Vanities & Shower Wall Enclosures (Pure Minimalist Sanctuary)",
+      "Bespoke Monolithic Dining & Coffee Table Tops (Timeless Classical Elegance)",
+      "Interior Architectural Wall Cladding & Columns (Clean Crystalline Monoliths)",
+      "Executive Kitchen Countertops & Breakfast Bars (Protected with Premium Impregnating Sealers)",
+    ],
+    specs: {
+      density: "2.85 g/cm³",
+      dimensions: "114\" x 68\" (290 x 173 cm) · 20mm Thickness",
+      quarryLocation: "Thassos Island, Northern Greece",
+      recommendedCare:
+        "Pure calcitic crystalline stone. Clean with pH-neutral stone cleaner and soft microfiber. Seal with breathable penetrating impregnator to preserve immaculate crystal whiteness.",
+    },
+    faqs: [
+      {
+        question: "What is Thassos White Marble and why is it called the purest white marble in the world?",
+        shortAnswer: "Thassos White is a 100% natural Greek calcitic marble renowned for its brilliant sugar-like crystalline matrix and lack of dark veins.",
+        answer:
+          "Thassos White Marble is a legendary natural stone quarried exclusively on the Greek island of Thassos in the Aegean Sea. Unlike Italian Carrara, Statuario, or Calacatta—which contain dramatic grey, gold, or charcoal veining—Thassos is characterized by its exceptionally uniform, snow-white luminescence with zero veining. Its granular, sugar-like crystalline calcitic structure refracts natural and artificial lighting, creating an ethereal glow coveted by world-class architects.",
+      },
+      {
+        question: "How does Thassos White Marble perform for flooring and interior wall cladding?",
+        shortAnswer: "It expands the visual volume of spaces, stays cool underfoot, and creates seamless, luminous monolithic floors.",
+        answer:
+          "In luxury residential flooring and interior vertical cladding, Thassos White Marble has no equal. Its high thermal conductivity keeps interiors naturally cool in warm climates, while its uniform optical reflectance amplifies ambient light, making living rooms and penthouses feel dramatically brighter and more expansive. When laid with minimal hairline joints and high-grade white epoxy grout, it yields a breathtaking, virtually seamless expanse of pure white stone.",
+      },
+      {
+        question: "Is Thassos White Marble suitable for bathrooms, vanities, and shower areas?",
+        shortAnswer: "Yes. When sealed with high-performance penetrating impregnator, it creates timeless, spa-grade bathroom sanctuaries.",
+        answer:
+          "Thassos White is one of the most prestigious choices worldwide for luxury master bathroom suites, bathtub surrounds, and vanity countertops. Because natural marble is porous, INTIOSS recommends treating Thassos with an advanced oleophobic and hydrophobic penetrating sealer prior to grouting. This seals the micro-pores against water marks, body oils, and soaps while allowing the natural stone to breathe.",
+      },
+      {
+        question: "Can Thassos White Marble be used for kitchen countertops and dining tables?",
+        shortAnswer: "Yes, for bespoke dining tables and culinary countertops when paired with modern protective sealants or nano-coatings.",
+        answer:
+          "For bespoke dining tables and kitchen countertops, Thassos White provides an incomparable centerpiece of minimalist refinement. Like all high-grade calcitic marbles (Mohs 3–3.5), it requires thoughtful maintenance: cutting boards should always be used, and acidic spills (lemon, vinegar, wine) should be wiped promptly. For high-activity culinary islands, INTIOSS offers invisible nano-barrier sealants that protect the pure white surface against etching.",
+      },
+      {
+        question: "What are the standard dimensions and thicknesses available for Thassos White Marble slabs?",
+        shortAnswer: "Curated in monolithic slabs measuring approximately 114\" x 68\" (290 x 173 cm) with calibrated 20mm architectural thickness.",
+        answer:
+          "INTIOSS imports select Extra-grade Thassos slabs measuring approximately 114 inches long by 68 inches high (290 cm × 173 cm) at a standard 20mm thickness, with custom gang-saw dimensions and 30mm architectural cuts available on project request. Every slab is meticulously inspected in our curation facility for crystal density, uniform color grading, and structural perfection.",
+      },
+      {
+        question: "How do you care for and maintain the immaculate white color of Thassos Marble?",
+        shortAnswer: "Clean daily with warm water and neutral stone wash. Avoid acids, bleach, or colored cleaning chemicals.",
+        answer:
+          "Preserving the crystalline brilliance of Thassos White is straightforward: dust regularly with a clean dry mop and wash using lukewarm water and a pH-neutral stone soap. Never use acidic descalers, vinegar, citrus solutions, ammonia, or chlorine bleach. Reapply a professional breathable impregnating sealer every 12 to 18 months in high-use areas to maintain total stain resistance.",
+      },
+    ],
+    pairsWithSlugs: ["paunazo-quartzite"],
   },
 ];

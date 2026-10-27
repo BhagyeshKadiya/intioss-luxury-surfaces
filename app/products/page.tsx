@@ -121,7 +121,14 @@ function ProductsContent() {
 
     // Filter by subCategory
     if (filterState.subCategory.length > 0) {
-      list = list.filter((p) => p.subCategory && filterState.subCategory.includes(p.subCategory));
+      list = list.filter((p) =>
+        p.subCategory &&
+        filterState.subCategory.some(
+          (sub) =>
+            p.subCategory!.toLowerCase().includes(sub.toLowerCase()) ||
+            sub.toLowerCase().includes(p.subCategory!.toLowerCase())
+        )
+      );
     }
 
     // Filter by color family

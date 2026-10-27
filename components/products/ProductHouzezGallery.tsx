@@ -42,15 +42,17 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           src,
           title: "Monolithic Quarry Slab",
           category: "Quarry Slab",
-          badge: "Full Slab 119\" x 77\"",
+          badge: product.specs?.dimensions
+            ? product.specs.dimensions.split("·")[0].trim()
+            : "Full Slab 20mm",
         };
       }
-      if (lower.includes("kitchen") || lower.includes("island")) {
+      if (lower.includes("kitchen") || lower.includes("island") || lower.includes("countertop")) {
         return {
           src,
-          title: "Chef's Kitchen Island",
+          title: "Chef's Kitchen Countertop",
           category: "Kitchen Countertop",
-          badge: "Waterfall Island",
+          badge: "Kitchen Countertop",
         };
       }
       if (lower.includes("bath") || lower.includes("vanity") || lower.includes("spa")) {
@@ -69,12 +71,20 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           badge: "Monolithic Top",
         };
       }
-      if (lower.includes("feature-wall") || lower.includes("living") || lower.includes("cladding")) {
+      if (lower.includes("floor") || lower.includes("flooring")) {
         return {
           src,
-          title: "Living Room Feature Wall",
+          title: "Luminous Marble Flooring",
+          category: "Flooring",
+          badge: "Seamless Flooring",
+        };
+      }
+      if (lower.includes("feature-wall") || lower.includes("living") || lower.includes("cladding") || lower.includes("wall")) {
+        return {
+          src,
+          title: "Interior Architectural Cladding",
           category: "Wall Cladding",
-          badge: "Bookmatched Cladding",
+          badge: "Interior Cladding",
         };
       }
       return {
