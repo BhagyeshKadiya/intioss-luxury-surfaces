@@ -427,7 +427,93 @@ export const PRODUCTS: StoneProduct[] = [
           "Authentic monolithic Statuario Lot RB-4384 slabs are curated and supplied directly by INTIOSS Luxury Surfaces. Each slab includes provenance verification, ultrasonic structural scanning, and pre-dispatch inspection for turnkey delivery to Mumbai, Delhi, Bengaluru, Hyderabad, and nationwide luxury projects.",
       },
     ],
-    pairsWithSlugs: ["statuario-marble", "golden-statuario-marble", "thassos-white-marble"],
+    pairsWithSlugs: ["statuario-marble", "statuario-rb599a-marble", "golden-statuario-marble", "thassos-white-marble"],
+  },
+  {
+    id: "p-statuario-rb599a",
+    slug: "statuario-rb599a-marble",
+    name: "Statuario Marble (Lot RB599A)",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "White",
+    origin: "Carrara, Tuscany, Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/statuario-rb599a/statuario-rb599a-slab.png",
+    veinCloseUpImage: "/images/stones/statuario-rb599a/statuario-rb599a-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/statuario-rb599a/statuario-rb599a-slab.png",
+      "/images/stones/statuario-rb599a/statuario-rb599a-kitchen-countertop.png",
+      "/images/stones/statuario-rb599a/statuario-rb599a-bathroom.png",
+      "/images/stones/statuario-rb599a/statuario-rb599a-table-top.png",
+      "/images/stones/statuario-rb599a/statuario-rb599a-flooring.png",
+      "/images/stones/statuario-rb599a/statuario-rb599a-cladding-interior.png",
+    ],
+    description:
+      "Directly extracted from the high-altitude quarries of Carrara, Tuscany, Italy, Statuario Marble (Lot RB599A) represents an extraordinary architectural monumental lot. Presenting a dramatic black and white palette, bold charcoal ribbons and sweeping graphite veins flow with monumental power across a crystalline milk-white background. Calibrated in expansive 125\" x 77\" (318 x 196 cm) monolithic slabs at an architectural 20mm thickness, Lot RB599A is bookmatch-ready for mirror-image symmetry—making it the benchmark selection for luxury living room flooring, master spa bathroom sanctuaries, bespoke dining table centerpieces, culinary waterfall islands, and bookmatched interior wall cladding.",
+    bestSuitedFor: [
+      "Symmetrical Bookmatched Interior Cladding & Feature Walls (Monumental Black & White Vein Artistry)",
+      "Five-Star Master Spa Bathrooms & Floating Vanities (High-Reflectance Carrara Crystalline Base)",
+      "Expansive Monolithic Living Room & Penthouse Flooring (Dazzling 125\" Format with Charcoal Contrast)",
+      "Sculptural Bespoke Dining & Boardroom Table Tops (20mm Calibrated Solid Slab Profile)",
+      "Chef's Kitchen Waterfall Countertops & Islands (Protected with Breathable Penetrating Impregnators)",
+    ],
+    specs: {
+      density: "2.71 g/cm³",
+      dimensions: "125\" x 77\" (318 x 196 cm) · 20mm Thickness",
+      quarryLocation: "Carrara, Apuan Alps, Tuscany, Italy · Lot RB599A",
+      recommendedCare:
+        "Calcitic Carrara marble with high-contrast black veining. Clean with pH-neutral stone cleaner and soft microfiber. Seal with premium breathable penetrating impregnator to protect against acidic etching and preserve natural gloss.",
+    },
+    faqs: [
+      {
+        question: "What distinguishes Statuario Marble Lot RB599A from other Statuario slabs?",
+        shortAnswer: "Lot RB599A features oversized 125\" x 77\" monolithic dimensions paired with high-contrast black and charcoal veining.",
+        answer:
+          "Quarried from the premier Apuan Alps reserves in Carrara, Italy, Statuario Lot RB599A is distinguished by its monumental slab scale of 125\" x 77\" (318 x 196 cm). Its sweeping black and graphite ribbons create exceptional dramatic contrast against a pure milk-white calcitic ground, enabling grand continuous installations across large luxury residential spaces.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Statuario Lot RB599A?",
+        shortAnswer: "Monolithic slabs measure 125\" x 77\" (318 x 196 cm) at an architectural 20mm thickness.",
+        answer:
+          "Monolithic slabs of Statuario Lot RB599A measure 125 inches in length by 77 inches in height (318 cm × 196 cm) with a substantial 20mm profile. This grand format minimizes joint lines across expansive flooring layouts, double-height feature walls, and oversized single-slab kitchen islands.",
+      },
+      {
+        question: "Can Statuario Lot RB599A slabs be bookmatched for interior wall cladding?",
+        shortAnswer: "Yes. Slabs are quarried and calibrated in consecutive block sequence for mirror-image bookmatching.",
+        answer:
+          "Yes. INTIOSS curates Statuario Lot RB599A in consecutive block sequence pairs (Block Pairs A and B). When installed side-by-side, the bold black veins mirror each other seamlessly to create stunning butterfly, diamond, or bookmatched focal murals for living rooms, executive boardrooms, and grand foyers.",
+      },
+      {
+        question: "How does Statuario Lot RB599A perform for flooring and master bathrooms?",
+        shortAnswer: "Its dense calcitic matrix and bright crystalline reflectance create cool, luminous, and spa-grade surfaces.",
+        answer:
+          "In luxury penthouses and villas, 20mm Statuario flooring provides thermal cooling and magnificent light reflectance under ambient sunlight. For master bathrooms, vanity counters, and walk-in shower surrounds, the dense crystalline stone creates an opulent boutique-hotel sanctuary when protected with a breathable penetrating sealant.",
+      },
+      {
+        question: "Is Statuario Lot RB599A suitable for kitchen countertops and dining table tops?",
+        shortAnswer: "Yes. It creates a sculptural statement island or dining table when maintained with proper penetrating sealers.",
+        answer:
+          "Yes. With a substantial 20mm thickness and generous 125\" length, Statuario Lot RB599A makes a breathtaking culinary waterfall island or bespoke monolithic dining table. Standard marble maintenance applies: wipe spills promptly and utilize trivets under hot cookware.",
+      },
+      {
+        question: "Where can architects and designers source authentic Statuario Lot RB599A in India?",
+        shortAnswer: "Curated and supplied exclusively across India by INTIOSS Luxury Surfaces.",
+        answer:
+          "Authentic monolithic Statuario Lot RB599A slabs are curated and supplied directly by INTIOSS Luxury Surfaces. Each slab includes provenance certification, ultrasonic structural scanning, and pre-dispatch inspection for turnkey delivery to Mumbai, Delhi, Bengaluru, Hyderabad, and nationwide luxury projects.",
+      },
+    ],
+    pairsWithSlugs: ["statuario-marble", "statuario-rb4384-marble", "golden-statuario-marble", "michael-angelo-marble"],
   },
   {
     id: "p-super-spider",
