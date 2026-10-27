@@ -565,7 +565,10 @@ function ProductsContent() {
         <div className="flex gap-8 items-start">
           {/* Desktop Sticky Filter Sidebar */}
           {isFilterSidebarOpen && (
-            <aside className="hidden lg:block w-72 flex-shrink-0 sticky top-28 max-h-[82vh] overflow-y-auto pr-3 bg-white p-5 border border-gold/30 shadow-sm scrollbar-thin">
+            <aside
+              data-lenis-prevent
+              className="hidden lg:block w-72 flex-shrink-0 sticky top-24 max-h-[calc(100vh-6.5rem)] overflow-y-auto overscroll-contain pr-2 bg-white p-5 border border-gold/30 shadow-sm luxury-scrollbar"
+            >
               <ProductFilters
                 filterState={filterState}
                 onFilterChange={setFilterState}
@@ -674,11 +677,12 @@ function ProductsContent() {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[98]"
             />
             <motion.div
+              data-lenis-prevent
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto bg-ivory text-maroon z-[99] rounded-t-2xl p-6 border-t-2 border-gold shadow-2xl"
+              className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto overscroll-contain luxury-scrollbar bg-ivory text-maroon z-[99] rounded-t-2xl p-6 border-t-2 border-gold shadow-2xl"
               style={{ paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
             >
               {/* iOS Grab Handle */}

@@ -126,7 +126,7 @@ export function ProductFilters({
   ];
 
   return (
-    <div className="space-y-6 select-none font-poppins">
+    <div className="space-y-6 select-none font-poppins pb-8">
       {/* Header & Reset */}
       <div className="flex items-center justify-between pb-3 border-b border-gold/30">
         <div className="flex items-center gap-2">
