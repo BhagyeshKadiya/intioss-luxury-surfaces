@@ -150,17 +150,33 @@ export default function ProductDetailPage({
               </Link>
             </div>
 
-            {/* Plain Description Placeholder */}
-            <div className="mt-6 mb-8">
-              <Placeholder
-                kind="DESCRIPTION"
-                label="[DESCRIPTION]"
-                className="w-full bg-paper/60 p-6 text-left border-dashed"
-              >
-                <span className="text-xs text-grey max-w-lg block">
-                  Authentic geological profile and quarry description pending from INTIOSS.
-                </span>
-              </Placeholder>
+            {/* Rich Curated Description */}
+            <div className="mt-6 mb-8 bg-white border border-gold/30 p-6 sm:p-8 shadow-sm">
+              <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold block mb-2">
+                Curatorial Profile & Geology
+              </span>
+              <p className="font-poppins text-sm sm:text-base text-stone-700 leading-relaxed">
+                {product.description}
+              </p>
+
+              {product.bestSuitedFor && product.bestSuitedFor.length > 0 && (
+                <div className="mt-6 pt-5 border-t border-gold/20">
+                  <span className="text-[10px] font-montserrat uppercase tracking-[0.2em] text-stone-500 font-semibold block mb-3">
+                    Architectural Highlights
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {product.bestSuitedFor.map((highlight, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ivory text-maroon text-xs font-montserrat border border-gold/40 shadow-xs"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                        <span>{highlight}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Recommended Applications (7 spaces tick list in exact order) */}
@@ -269,6 +285,88 @@ export default function ProductDetailPage({
             </div>
           </div>
         </div>
+
+        {/* ======================================================== */}
+        {/* ARCHITECTURAL LIVING SPACES SHOWCASE                     */}
+        {/* ======================================================== */}
+        {product.galleryImages && product.galleryImages.filter((img) => !img.toLowerCase().includes("slab")).length > 0 && (
+          <div className="mt-20 pt-12 border-t border-gold/30">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <span className="font-raleway text-[11px] uppercase tracking-[0.3em] text-gold-dark font-semibold block mb-2">
+                  Realized Installations
+                </span>
+                <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon">
+                  Living Spaces in {product.name}
+                </h2>
+                <p className="font-poppins text-xs sm:text-sm text-stone-600 mt-2 max-w-2xl leading-relaxed">
+                  Natural stone brought to life across bespoke chef&apos;s kitchens, master spa vanities, custom monolithic dining surfaces, and full-height architectural feature walls.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {product.galleryImages
+                .filter((img) => !img.toLowerCase().includes("slab"))
+                .map((img, idx) => {
+                  const lower = img.toLowerCase();
+                  let title = "Living Space Installation";
+                  let category = "Interior Space";
+                  let aspect = "aspect-[4/5]";
+
+                  if (lower.includes("kitchen")) {
+                    title = "Chef's Kitchen Island";
+                    category = "Kitchen Countertop";
+                  } else if (lower.includes("bath") || lower.includes("vanity")) {
+                    title = "Master Spa Vanity";
+                    category = "Bathroom";
+                  } else if (lower.includes("table") || lower.includes("dining")) {
+                    title = "Bespoke Dining Table";
+                    category = "Table Top";
+                  } else if (lower.includes("feature-wall") || lower.includes("living")) {
+                    title = "Interior Feature Wall";
+                    category = "Wall Cladding";
+                  }
+
+                  return (
+                    <div
+                      key={img}
+                      className="group relative overflow-hidden bg-stone-900 border border-gold/35 shadow-md hover:border-gold hover:shadow-xl transition-all duration-500"
+                    >
+                      <div className={`relative w-full ${aspect} overflow-hidden`}>
+                        <Image
+                          src={img}
+                          alt={`${product.name} - ${title}`}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="object-cover group-hover:scale-108 transition-transform duration-700"
+                        />
+                        {/* Gradient Scrim */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity duration-300" />
+                        
+                        {/* Space Badge */}
+                        <div className="absolute top-3 left-3 z-10">
+                          <span className="bg-maroon-deep/90 text-ivory text-[9px] font-montserrat uppercase tracking-wider px-2 py-0.5 border border-gold/40 backdrop-blur-sm">
+                            {category}
+                          </span>
+                        </div>
+
+                        {/* Caption Overlay */}
+                        <div className="absolute bottom-3 left-3 right-3 z-10">
+                          <h4 className="font-marcellus text-base sm:text-lg text-white group-hover:text-gold transition-colors">
+                            {title}
+                          </h4>
+                          <span className="text-[10px] font-poppins text-stone-300 mt-0.5 block">
+                            Monolithic {product.name}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        )}
 
         {/* Other Surfaces in Collection (Clean, replaces new arrivals) */}
         {newArrivals.length > 0 && (

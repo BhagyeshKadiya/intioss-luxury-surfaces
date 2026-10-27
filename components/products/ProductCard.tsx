@@ -143,10 +143,15 @@ export function ProductCard({
         )}
 
         {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1 z-10 pointer-events-none">
+        <div className="absolute top-3 left-3 flex flex-col items-start gap-1 z-10 pointer-events-none">
           <span className="bg-maroon-deep/90 text-ivory text-[9px] font-montserrat uppercase tracking-wider px-2 py-0.5 border border-gold/40 backdrop-blur-sm">
             {product.origin}
           </span>
+          {product.specs?.dimensions && (
+            <span className="bg-black/80 text-white text-[8px] font-mono tracking-wider px-1.5 py-0.5 border border-white/20 backdrop-blur-sm">
+              {product.specs.dimensions.split("·")[0].trim()}
+            </span>
+          )}
           {product.veining === "Bookmatch-ready" && (
             <span className="bg-gold text-maroon text-[8px] font-montserrat uppercase font-semibold tracking-wider px-1.5 py-0.5 shadow-sm">
               Bookmatch Ready

@@ -15,27 +15,30 @@ interface ProductStickyBarProps {
 }
 
 export function ProductStickyBar({ product }: ProductStickyBarProps) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate how close we are to the bottom of the page
-      const scrollPosition = Math.ceil(window.innerHeight + window.scrollY);
+      const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+      const scrollPosition = Math.ceil(window.innerHeight + scrollY);
       const documentHeight = Math.max(
         document.body.scrollHeight,
         document.documentElement.scrollHeight
       );
-      
-      // If we are within 650px of the bottom (accounting for stacked footer on mobile), hide the bar
-      if (documentHeight - scrollPosition < 650) {
-        setIsVisible(false);
-      } else {
+
+      // Only reveal sticky bar after scrolling past the hero gallery (~480px)
+      // and hide it near footer to prevent blocking footer CTAs
+      const pastGallery = scrollY > 480;
+      const nearBottom = documentHeight - scrollPosition < 600;
+
+      if (pastGallery && !nearBottom) {
         setIsVisible(true);
+      } else {
+        setIsVisible(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initial check
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
