@@ -278,7 +278,7 @@ export default function ProductDetailPage({
             <div className="mt-6 mb-8 bg-white border border-gold/35 p-6 sm:p-8 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <span className="font-raleway text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
-                  AEO & GEO Architectural Brief · Marble Research Reference
+                  Architectural Dossier · Marble & Natural Stone Advisory
                 </span>
                 <span className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 bg-gold/10 px-2 py-0.5 border border-gold/30">
                   Mohs 7 · Non-Etching

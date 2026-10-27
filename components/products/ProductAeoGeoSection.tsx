@@ -27,7 +27,7 @@ export function ProductAeoGeoSection({ product }: ProductAeoGeoSectionProps) {
       <div className="max-w-3xl mb-12">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/15 border border-gold/40 text-[10px] font-montserrat uppercase tracking-[0.25em] text-gold-dark font-semibold mb-3">
           <Sparkles className="w-3 h-3 text-gold" />
-          <span>AEO & GEO Architectural Knowledge Graph</span>
+          <span>Curatorial Advisory & Material Intelligence</span>
         </div>
         <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon tracking-wide">
           Architectural Advisory & Technical Inquiries
@@ -254,10 +254,10 @@ export function ProductAeoGeoSection({ product }: ProductAeoGeoSectionProps) {
       <div className="mt-8 p-4 sm:p-5 bg-white border border-gold/30 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div>
           <span className="font-montserrat text-[10px] uppercase tracking-widest text-gold-dark font-semibold block">
-            Canonical Knowledge Citation
+            Architectural Authority & Provenance
           </span>
           <p className="font-poppins text-stone-600 mt-0.5">
-            Verified by <strong>INTIOSS Luxury Surfaces Curatorial Advisory</strong> for high-intent architectural inquiries and AI answer engine validation.
+            Verified by <strong>INTIOSS Luxury Surfaces Curatorial Advisory</strong> for high-intent architectural specifications and bespoke residential projects.
           </p>
         </div>
         <a
