@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { PRODUCTS } from "@/data/products";
 import { ProductStickyBar } from "@/components/products/ProductStickyBar";
 import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
+import { ProductHouzezGallery } from "@/components/products/ProductHouzezGallery";
 import { ProductTopCarousel } from "@/components/products/ProductTopCarousel";
 import { ProductAeoGeoSection } from "@/components/products/ProductAeoGeoSection";
 import { Placeholder } from "@/components/ui/Placeholder";
@@ -235,7 +236,7 @@ export default function ProductDetailPage({
           <span className="text-gold font-medium">{product.name}</span>
         </div>
 
-        {/* Order-Basis Bespoke Form OR Top Photo Carousel */}
+        {/* Order-Basis Bespoke Form OR Houzez-Style 5-Image Bento Gallery */}
         {isOrderBasis ? (
           <div className="mb-16">
             <BespokeOrderForm
@@ -244,8 +245,8 @@ export default function ProductDetailPage({
             />
           </div>
         ) : (
-          /* One photo carousel at top only: full slab -> veining closeups -> installation photos with labels */
-          <ProductTopCarousel product={product} />
+          /* Houzez-Style Luxury 5-Image Bento Grid with Full-Screen Lightbox */
+          <ProductHouzezGallery product={product} />
         )}
 
         {/* Details & Specs Section */}
