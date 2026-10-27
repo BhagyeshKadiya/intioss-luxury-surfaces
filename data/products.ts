@@ -169,6 +169,92 @@ export const PRODUCTS: StoneProduct[] = [
           "Preserving the crystalline brilliance of Thassos White is straightforward: dust regularly with a clean dry mop and wash using lukewarm water and a pH-neutral stone soap. Never use acidic descalers, vinegar, citrus solutions, ammonia, or chlorine bleach. Reapply a professional breathable impregnating sealer every 12 to 18 months in high-use areas to maintain total stain resistance.",
       },
     ],
-    pairsWithSlugs: ["paunazo-quartzite"],
+    pairsWithSlugs: ["paunazo-quartzite", "golden-statuario-marble"],
+  },
+  {
+    id: "p-golden-statuario",
+    slug: "golden-statuario-marble",
+    name: "Golden Statuario Marble",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "Gold-Yellow",
+    origin: "Carrara, Tuscany, Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/golden-statuario/golden-statuario-slab.png",
+    veinCloseUpImage: "/images/stones/golden-statuario/golden-statuario-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/golden-statuario/golden-statuario-slab.png",
+      "/images/stones/golden-statuario/golden-statuario-kitchen-countertop.png",
+      "/images/stones/golden-statuario/golden-statuario-bathroom.png",
+      "/images/stones/golden-statuario/golden-statuario-table-top.png",
+      "/images/stones/golden-statuario/golden-statuario-flooring.png",
+      "/images/stones/golden-statuario/golden-statuario-cladding-interior.png",
+    ],
+    description:
+      "Directly imported from the premier mountain quarries of Carrara, Italy, Golden Statuario Marble is among the world's most coveted natural stones, fusing the pure milky white crystalline background of classic Statuario with sweeping, dramatic veins of warm amber gold, honey bronze, and soft grey shadow. Sourced by INTIOSS in curated 112\" x 70\" (284 x 178 cm) monolithic slabs at 20mm thickness, its consecutive block quarrying guarantees mirror-image bookmatch vein continuity across expansive luxury floors, culinary islands, master spa bathrooms, executive conference tables, and full-height living room feature walls.",
+    bestSuitedFor: [
+      "Mirror-Image Bookmatched Accent Walls & Fireplace Surrounds (Symmetrical Gold Vein Flow)",
+      "Luxury Master Spa Bathrooms & Bespoke Vanities (Opulent Italian Aesthetic)",
+      "Expansive Living Room & Penthouse Flooring (Warm Golden Reflectance)",
+      "Sculptural Monolithic Dining & Boardroom Table Tops (Distinctive Vein Artistry)",
+      "Chef's Kitchen Waterfall Islands & Backsplashes (Sealed with Premium Impregnators)",
+    ],
+    specs: {
+      density: "2.72 g/cm³",
+      dimensions: "112\" x 70\" (284 x 178 cm) · 20mm Thickness",
+      quarryLocation: "Carrara, Apuan Alps, Italy",
+      recommendedCare:
+        "Classic Italian calcitic marble. Clean with pH-neutral stone cleaner and microfiber cloth. Reapply penetrating fluoropolymer sealer annually to protect golden veins against moisture and oils.",
+    },
+    faqs: [
+      {
+        question: "What is Golden Statuario Marble and how is it distinct from traditional Statuario or Calacatta?",
+        shortAnswer: "Golden Statuario features rare amber-gold and warm bronze ribbons flowing across an immaculate Italian white calcite base.",
+        answer:
+          "Golden Statuario Marble is an ultra-rare geological variation extracted from select veins in the Carrara region of Tuscany, Italy. While standard Statuario features cool slate-grey and charcoal veining, Golden Statuario develops natural iron and mineral infusions that produce luminous golden-honey, amber, and champagne ribbons. It combines the structural purity of white Italian marble with the warm, opulent resonance typically sought in Calacatta Gold.",
+      },
+      {
+        question: "Can Golden Statuario slabs be bookmatched for symmetrical wall cladding?",
+        shortAnswer: "Yes. INTIOSS curates consecutive slabs from the same quarry block specifically cut and polished for mirror-image bookmatch alignment.",
+        answer:
+          "Yes. INTIOSS exclusively curates Golden Statuario in consecutive sequence slabs (Block Pairs A and B). The prominent golden veins mirror each other across adjacent panels to create monumental symmetrical patterns—such as butterfly, diamond, or bookmatch flows—making it the benchmark choice for living room feature walls, double-height lobby claddings, and luxury fireplace surrounds.",
+      },
+      {
+        question: "Which interior spaces benefit most from Golden Statuario Marble?",
+        shortAnswer: "High-visibility focal zones: bookmatched accent walls, master spa vanities, dining table tops, and expansive living room flooring.",
+        answer:
+          "Golden Statuario is designed for high-impact architectural spaces. It excels on expansive living room and penthouse floors where its golden warmth softens minimalist interiors. In master bathrooms, it creates five-star hotel sanctuary vanities, freestanding tub backdrops, and bookmatched shower walls. It is also extensively specified for custom monolithic dining tables and executive boardroom centerpieces.",
+      },
+      {
+        question: "How does Golden Statuario perform for kitchen countertops and waterfall islands?",
+        shortAnswer: "Ideal for statement islands when protected with high-grade oleophobic sealers or specialized marble surface barriers.",
+        answer:
+          "When installed on culinary islands and kitchen backsplashes, Golden Statuario creates unmatched visual drama. Because it is a natural calcitic stone (Mohs 3–3.5), it requires standard luxury marble care: wipe acidic spills (citrus, tomato, wine) promptly. INTIOSS applies advanced penetrating nano-sealers that bond deep within the stone pores to provide robust stain and oil repellency.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Golden Statuario?",
+        shortAnswer: "Monolithic slabs measure 112\" x 70\" (284 x 178 cm) with a standard architectural profile of 20mm.",
+        answer:
+          "Curated Golden Statuario slabs measure 112 inches in length by 70 inches in height (284 cm × 178 cm) with a calibrated 20mm thickness. Custom slab dimensions, 30mm profiles, and precision waterjet cut-to-size packages are available upon request for architectural projects across India.",
+      },
+      {
+        question: "Where can architects and homeowners source authentic Italian Golden Statuario in India?",
+        shortAnswer: "Authentic Golden Statuario slabs are imported and curated exclusively by INTIOSS Luxury Surfaces.",
+        answer:
+          "INTIOSS Luxury Surfaces imports and verifies authentic Italian Golden Statuario directly from Carrara quarries. Each slab is cataloged with provenance documentation, ultrasonically inspected for structural soundness, and dry-laid for dry-match visualization prior to dispatch to Mumbai, Delhi, Bengaluru, and pan-India sites.",
+      },
+    ],
+    pairsWithSlugs: ["paunazo-quartzite", "thassos-white-marble"],
   },
 ];
