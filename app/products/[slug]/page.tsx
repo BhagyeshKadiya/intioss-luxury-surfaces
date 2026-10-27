@@ -8,6 +8,7 @@ import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 import { ProductHouzezGallery } from "@/components/products/ProductHouzezGallery";
 import { ProductTopCarousel } from "@/components/products/ProductTopCarousel";
 import { ProductAeoGeoSection } from "@/components/products/ProductAeoGeoSection";
+import { ProductUseCasesShowcase } from "@/components/products/ProductUseCasesShowcase";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { ArrowLeft, Layers, ShieldCheck, Check } from "lucide-react";
 import type { Metadata } from "next";
@@ -346,7 +347,7 @@ export default function ProductDetailPage({
               )}
             </div>
 
-            {/* Recommended Applications (7 spaces tick list in exact order) */}
+            {/* Recommended Applications (7 spaces tick list in exact order with auto photo indicator) */}
             <div className="mt-8">
               <h3 className="font-marcellus text-sm uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
                 Recommended Applications
@@ -374,10 +375,20 @@ export default function ProductDetailPage({
                       (product.applications.includes("Exterior Flooring") ||
                         product.applications.includes("Flooring")));
 
+                  const matchingImg = product.galleryImages?.find((img) => {
+                    const l = img.toLowerCase();
+                    if (spaceName === "Flooring" && l.includes("flooring")) return true;
+                    if (spaceName === "Bathroom" && (l.includes("bathroom") || l.includes("bath") || l.includes("vanity"))) return true;
+                    if (spaceName === "Table Top" && (l.includes("table-top") || l.includes("dining"))) return true;
+                    if (spaceName === "Kitchen Countertop" && (l.includes("kitchen") || l.includes("countertop"))) return true;
+                    if (spaceName === "Wall Cladding — Interior" && (l.includes("cladding") || l.includes("wall"))) return true;
+                    return false;
+                  });
+
                   return (
                     <li
                       key={spaceName}
-                      className="flex items-center gap-2.5 text-xs font-montserrat text-maroon"
+                      className="flex items-center gap-2.5 text-xs font-montserrat text-maroon p-1.5 rounded-xs hover:bg-gold/5 transition-colors border border-transparent hover:border-gold/20"
                     >
                       {isSuitable ? (
                         <div className="w-4 h-4 rounded-none bg-maroon text-gold flex items-center justify-center shrink-0 border border-gold/40">
@@ -389,6 +400,14 @@ export default function ProductDetailPage({
                       <span className={isSuitable ? "text-maroon font-medium" : "text-grey/60"}>
                         {spaceName}
                       </span>
+                      {matchingImg && (
+                        <div
+                          title={`View ${spaceName} photo`}
+                          className="relative w-5 h-5 rounded-xs overflow-hidden border border-gold/50 shrink-0 ml-auto shadow-2xs group cursor-pointer"
+                        >
+                          <Image src={matchingImg} alt={`${product.name} ${spaceName}`} fill className="object-cover group-hover:scale-125 transition-transform" />
+                        </div>
+                      )}
                     </li>
                   );
                 })}
@@ -454,86 +473,9 @@ export default function ProductDetailPage({
         </div>
 
         {/* ======================================================== */}
-        {/* ARCHITECTURAL LIVING SPACES SHOWCASE                     */}
+        {/* ARCHITECTURAL USE CASES & REALIZED SPACES SHOWCASE       */}
         {/* ======================================================== */}
-        {product.galleryImages && product.galleryImages.filter((img) => !img.toLowerCase().includes("slab")).length > 0 && (
-          <div className="mt-20 pt-12 border-t border-gold/30">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-              <div>
-                <span className="font-raleway text-[11px] uppercase tracking-[0.3em] text-gold-dark font-semibold block mb-2">
-                  Realized Installations
-                </span>
-                <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon">
-                  Living Spaces in {product.name}
-                </h2>
-                <p className="font-poppins text-xs sm:text-sm text-stone-600 mt-2 max-w-2xl leading-relaxed">
-                  Natural stone brought to life across bespoke chef&apos;s kitchens, master spa vanities, custom monolithic dining surfaces, and full-height architectural feature walls.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {product.galleryImages
-                .filter((img) => !img.toLowerCase().includes("slab"))
-                .map((img, idx) => {
-                  const lower = img.toLowerCase();
-                  let title = "Living Space Installation";
-                  let category = "Interior Space";
-                  let aspect = "aspect-[4/5]";
-
-                  if (lower.includes("kitchen")) {
-                    title = "Chef's Kitchen Island";
-                    category = "Kitchen Countertop";
-                  } else if (lower.includes("bath") || lower.includes("vanity")) {
-                    title = "Master Spa Vanity";
-                    category = "Bathroom";
-                  } else if (lower.includes("table") || lower.includes("dining")) {
-                    title = "Bespoke Dining Table";
-                    category = "Table Top";
-                  } else if (lower.includes("feature-wall") || lower.includes("living")) {
-                    title = "Interior Feature Wall";
-                    category = "Wall Cladding";
-                  }
-
-                  return (
-                    <div
-                      key={img}
-                      className="group relative overflow-hidden bg-stone-900 border border-gold/35 shadow-md hover:border-gold hover:shadow-xl transition-all duration-500"
-                    >
-                      <div className={`relative w-full ${aspect} overflow-hidden`}>
-                        <Image
-                          src={img}
-                          alt={`${product.name} - ${title}`}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                          className="object-cover group-hover:scale-108 transition-transform duration-700"
-                        />
-                        {/* Gradient Scrim */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity duration-300" />
-                        
-                        {/* Space Badge */}
-                        <div className="absolute top-3 left-3 z-10">
-                          <span className="bg-maroon-deep/90 text-ivory text-[9px] font-montserrat uppercase tracking-wider px-2 py-0.5 border border-gold/40 backdrop-blur-sm">
-                            {category}
-                          </span>
-                        </div>
-
-                        {/* Caption Overlay */}
-                        <div className="absolute bottom-3 left-3 right-3 z-10">
-                          <h4 className="font-marcellus text-base sm:text-lg text-white group-hover:text-gold transition-colors">
-                            {title}
-                          </h4>
-                          <span className="text-[10px] font-poppins text-stone-300 mt-0.5 block">
-                            Monolithic {product.name}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        )}
+        <ProductUseCasesShowcase product={product} />
 
         {/* ======================================================== */}
         {/* AEO / GEO / SEO ARCHITECTURAL ADVISORY & KNOWLEDGE BASE   */}
