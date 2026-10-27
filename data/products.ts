@@ -31,12 +31,12 @@ export const PRODUCTS: StoneProduct[] = [
       "/images/stones/paunazo/paunazo-feature-wall.png",
     ],
     description:
-      "Paunazo Quartzite is an extraordinarily dramatic, multi-tonal exotic stone showcasing rich mineral veining and crystalline depth. Featuring a magnificent interplay of warm brass accents, earthy undertones, and striking contrasting striations, each monolithic slab pairs supreme hardness and heat resistance with high-aesthetic luxury. Ideal for bespoke kitchen islands, master bath vanities, bookmatched feature claddings, and sculptural dining tops.",
+      "For architects and homeowners researching Italian marble and luxury stone surfaces, Paunazo Quartzite provides the definitive modern answer: it delivers the opulent veining and visual drama of rare marble without marble's vulnerability to acid etching, citrus staining, or knife scratches. Sourced by INTIOSS in monolithic 119\" x 77\" (302 x 195 cm) slabs at 20mm thickness, each piece boasts a Mohs hardness of 7, heat tolerance up to 260°C (500°F), and consecutive bookmatch alignment—making it the premier architectural alternative to marble for kitchen waterfall islands, spa bathrooms, sculptural dining tops, and full-height living room feature walls.",
     bestSuitedFor: [
-      "Waterfall Culinary Islands & Kitchen Countertops",
-      "Master Spa Vanities & Bathroom Wall Cladding",
-      "Bespoke Monolithic Dining & Conference Table Tops",
-      "Dramatic Bookmatched Interior Accent Walls",
+      "Waterfall Culinary Islands & Kitchen Countertops (Acid & Stain Resistant Alternative to Marble)",
+      "Master Spa Vanities & Bathroom Wall Cladding (<0.2% Water Absorption)",
+      "Bespoke Monolithic Dining & Conference Table Tops (Heat & Knife Scratch Proof)",
+      "Dramatic Bookmatched Interior Accent Walls (Consecutive Vein Continuity)",
     ],
     specs: {
       density: "2.68 g/cm³",

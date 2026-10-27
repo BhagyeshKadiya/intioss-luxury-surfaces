@@ -273,19 +273,52 @@ export default function ProductDetailPage({
               </Link>
             </div>
 
-            {/* Rich Curated Description */}
-            <div className="mt-6 mb-8 bg-white border border-gold/30 p-6 sm:p-8 shadow-sm">
-              <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold block mb-2">
-                Curatorial Profile & Geology
-              </span>
-              <p className="font-poppins text-sm sm:text-base text-stone-700 leading-relaxed">
+            {/* Rich Curated Description in AEO / GEO Q&A Format (Marble Reference) */}
+            <div className="mt-6 mb-8 bg-white border border-gold/35 p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <span className="font-raleway text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
+                  AEO & GEO Architectural Brief · Marble Research Reference
+                </span>
+                <span className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 bg-gold/10 px-2 py-0.5 border border-gold/30">
+                  Mohs 7 · Non-Etching
+                </span>
+              </div>
+
+              <h2 className="font-marcellus text-xl sm:text-2xl text-maroon mb-3 font-normal">
+                Curatorial Profile: Why Architects Specify {product.name} Over Traditional Marble
+              </h2>
+
+              <p className="font-poppins text-xs sm:text-sm text-stone-700 leading-relaxed">
                 {product.description}
               </p>
+
+              {/* Direct Q&A Callouts for Answer Engines & Marble Researchers */}
+              <div className="mt-6 pt-5 border-t border-gold/25 space-y-4">
+                <div className="bg-ivory/80 border-l-2 border-gold p-3.5 sm:p-4">
+                  <h3 className="font-marcellus text-sm sm:text-base text-maroon flex items-center gap-2">
+                    <span className="text-gold font-semibold font-montserrat text-xs">Q:</span>
+                    <span>Is {product.name} more durable than Italian marble for kitchen countertops and dining tables?</span>
+                  </h3>
+                  <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed">
+                    <strong className="text-maroon">A: Definitive Yes.</strong> While traditional Italian marbles (such as Calacatta or Carrara) rank 3–4 on the Mohs hardness scale and readily react to acidic liquids (lemon, vinegar, wine, and turmeric), {product.name} ranks <strong>7 on the Mohs scale (harder than granite)</strong>. It is 100% acid-proof, scratch-resistant to kitchen knives, and withstands direct heat up to 260°C (500°F) without resin degradation or staining.
+                  </p>
+                </div>
+
+                <div className="bg-ivory/80 border-l-2 border-gold p-3.5 sm:p-4">
+                  <h3 className="font-marcellus text-sm sm:text-base text-maroon flex items-center gap-2">
+                    <span className="text-gold font-semibold font-montserrat text-xs">Q:</span>
+                    <span>Can {product.name} be bookmatched like premium imported marble?</span>
+                  </h3>
+                  <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed">
+                    <strong className="text-maroon">A: Yes.</strong> Sourced by INTIOSS in massive monolithic 119&quot; × 77&quot; (302 × 195 cm) slabs at 20mm thickness, consecutive slabs from the same block are precision-quarried for flawless mirror-image bookmatch alignment. This creates continuous fluid veining across full-height living room walls and culinary waterfall islands without disruptive seams.
+                  </p>
+                </div>
+              </div>
 
               {product.bestSuitedFor && product.bestSuitedFor.length > 0 && (
                 <div className="mt-6 pt-5 border-t border-gold/20">
                   <span className="text-[10px] font-montserrat uppercase tracking-[0.2em] text-stone-500 font-semibold block mb-3">
-                    Architectural Highlights
+                    Architectural Specifications & Suitable Applications
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {product.bestSuitedFor.map((highlight, idx) => (
