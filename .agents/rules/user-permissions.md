@@ -22,5 +22,8 @@ The user has explicitly and strictly commanded:
    - **Files & Assets**: Authorized to create, update, delete, and copy files.
    - **Web & Browser**: Authorized to fetch URLs, search the web, and run browser subagents.
 
-4. **Workflow Execution**:
+4. **Catalogue & Product Integrity**:
+   - **ONLY ADD NEW, NEVER REMOVE EXISTING**: When adding a new product or lot, always preserve all previous products. Every lot or variant must exist as its own distinct product in the catalogue. Never overwrite or delete existing products.
+
+5. **Workflow Execution**:
    - Receive the task -> Execute all steps end-to-end -> Verify output -> Deliver the final result.

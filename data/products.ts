@@ -604,7 +604,7 @@ export const PRODUCTS: StoneProduct[] = [
   {
     id: "p-montano-pulchiano",
     slug: "montano-pulchiano-marble",
-    name: "Montano Pulchiano Marble",
+    name: "Montano Pulchiano Marble (Lot 87206)",
     category: "Natural Stones",
     subCategory: "Marble",
     colorFamily: "Multi",
@@ -632,7 +632,7 @@ export const PRODUCTS: StoneProduct[] = [
       "/images/stones/montano-pulchiano/montano-pulchiano-cladding-interior.png",
     ],
     description:
-      "Montano Pulchiano Marble is a rare, dramatically evocative polychrome stone quarried from exclusive European geological reserves. Renowned for its rich multicolored tapestry combining earthy rust, warm ochre, smoky charcoal, olive-tinted veins, and soft alabaster clouds, Montano Pulchiano commands attention as a living canvas of geological history. Formatted in generous 93\" x 58\" (236 x 147 cm) slabs with a substantial 20mm thickness (Lot 87206), it introduces warmth, depth, and opulent character to high-end residential and hospitality environments. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary islands.",
+      "Montano Pulchiano Marble (Lot 87206) is a rare, dramatically evocative polychrome stone quarried from exclusive European geological reserves. Renowned for its rich multicolored tapestry combining earthy rust, warm ochre, smoky charcoal, olive-tinted veins, and soft alabaster clouds, Montano Pulchiano commands attention as a living canvas of geological history. Formatted in generous 93\" x 58\" (236 x 147 cm) slabs with a substantial 20mm thickness (Lot 87206), it introduces warmth, depth, and opulent character to high-end residential and hospitality environments. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary islands.",
     bestSuitedFor: [
       "Monolithic Architectural Cladding & Living Room Accent Walls (Vibrant Multicolored Geological Veining)",
       "Statement Kitchen Islands & Waterfall Countertops (Rich Earth Tones & Superior Durability)",
@@ -661,7 +661,7 @@ export const PRODUCTS: StoneProduct[] = [
           "Due to its bold multicolored personality, Montano Pulchiano is frequently specified as the focal anchor of a room. On full-height fireplace walls or foyer cladding, it acts as a dramatic fine art installation. As a waterfall kitchen island or monolithic conference table, its diverse palette naturally harmonizes with warm woods, brushed brass, champagne gold, and dark fluted millwork.",
       },
       {
-        question: "What are the dimensions and thickness of INTIOSS Montano Pulchiano slabs?",
+        question: "What are the dimensions and thickness of INTIOSS Montano Pulchiano Lot 87206 slabs?",
         shortAnswer: "Monolithic slabs measure 93\" x 58\" (236 x 147 cm) at an architectural 20mm thickness (Lot 87206).",
         answer:
           "Each slab measures 93 inches in length by 58 inches in height (236 cm × 147 cm) with a standard 20mm (3/4\") thickness (Lot 87206). This substantial profile ensures robust structural integrity for mitered edge waterfall islands, cantilevered vanities, and expansive floor tile cutting schedules.",
@@ -685,7 +685,93 @@ export const PRODUCTS: StoneProduct[] = [
           "Preserving Montano Pulchiano's natural beauty requires minimal effort: dust mop floors regularly and wipe counters with warm water and a neutral stone cleaner. Never use acid-based toilet cleaners, vinegar, or citrus sprays on the surface. Re-applying a penetrating sealer once a year ensures complete barrier protection against wine, coffee, or oil absorption.",
       },
     ],
-    pairsWithSlugs: ["paunazo-quartzite", "golden-statuario-marble", "statuario-marble", "michael-angelo-marble"],
+    pairsWithSlugs: ["montano-pulchiano-86978-marble", "golden-statuario-marble", "statuario-marble", "michael-angelo-marble"],
+  },
+  {
+    id: "p-montano-pulchiano-86978",
+    slug: "montano-pulchiano-86978-marble",
+    name: "Montano Pulchiano Marble (Lot 86978)",
+    category: "Natural Stones",
+    subCategory: "Marble",
+    colorFamily: "Multi",
+    origin: "Tuscany / Northern Italy",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Flooring",
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Dramatic",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-slab.png",
+    veinCloseUpImage: "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-slab.png",
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-kitchen-countertop.png",
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-bathroom.png",
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-table-top.png",
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-flooring.png",
+      "/images/stones/montano-pulchiano-86978/montano-pulchiano-86978-cladding-interior.png",
+    ],
+    description:
+      "Directly sourced from exclusive North Italian geological reserves, Montano Pulchiano Marble (Lot 86978) presents an extraordinary multicolour tapestry of earth tones, russet red, golden ochre, smoky charcoal ribbons, and warm alabaster clouds. Formatted in expansive 96\" x 56\" (244 x 142 cm) monolithic slabs at a substantial 20mm thickness, Lot 86978 offers commanding architectural presence with rich polychromatic complexity. It is exquisitely suited for monolithic living room flooring, dramatic feature wall cladding, spa-grade bathroom retreats, bespoke statement dining tables, and chef-curated culinary waterfall islands.",
+    bestSuitedFor: [
+      "Monolithic Architectural Cladding & Living Room Accent Walls (Vibrant Multicolour Geological Veining)",
+      "Statement Kitchen Islands & Waterfall Countertops (Rich Earth Tones & Superior Durability)",
+      "Opulent Master Bathroom Suites & Floating Vanities (Spa-Like Warmth & Contrast)",
+      "Luxury Residence & Penthouse Flooring (Warm Ambient Tone with Rich Natural Depth)",
+      "Custom Sculptural Dining, Boardroom & Cocktail Tables (One-of-a-Kind Polychrome Natural Centerpiece)",
+    ],
+    specs: {
+      density: "2.72 g/cm³",
+      dimensions: "96\" x 56\" (244 x 142 cm) · 20mm Thickness",
+      quarryLocation: "Apuan Alps / Northern Italian Reserves · Lot 86978",
+      recommendedCare:
+        "Dense calcitic polychrome marble. Daily cleaning with damp microfiber cloth and pH-balanced stone soap. Re-treat annually with high-performance penetrating sealant to enrich multicolored depth and protect against moisture.",
+    },
+    faqs: [
+      {
+        question: "What makes Montano Pulchiano Marble Lot 86978 unique?",
+        shortAnswer: "Lot 86978 features an expansive 96\" x 56\" format with rich polychromatic earthy rust, charcoal, and warm ochre veining.",
+        answer:
+          "Unlike monochromatic marbles, Montano Pulchiano Lot 86978 is a living geological tapestry. Natural iron oxides and silicate infusions across millions of years have forged rich terracotta currents, ochre highlights, and bold charcoal bands against warm cream calcite, bringing immediate warmth to modern minimalist spaces.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Lot 86978?",
+        shortAnswer: "Monolithic slabs measure 96\" x 56\" (244 x 142 cm) at an architectural 20mm thickness.",
+        answer:
+          "Curated Lot 86978 slabs measure 96 inches in length by 56 inches in height (244 cm × 142 cm) with a calibrated 20mm thickness. Gang-saw planar calibration ensures uniform flatness and seamless joint alignment for luxury interior floor and wall installations.",
+      },
+      {
+        question: "Where is Montano Pulchiano Lot 86978 best utilized in luxury interiors?",
+        shortAnswer: "Ideal for feature walls, large-format living room floors, waterfall kitchen islands, and bespoke dining tables.",
+        answer:
+          "Its rich earth-tone palette makes Lot 86978 a stunning anchor for double-height living room walls, luxury penthouse salons, and bespoke dining tables. It pairs effortlessly with natural walnut millwork, brushed champagne brass fixtures, and bronze accents.",
+      },
+      {
+        question: "How does Montano Pulchiano perform in bathrooms and wet areas?",
+        shortAnswer: "Dense calcitic matrix resists moisture and creates an opulent spa retreat when sealed.",
+        answer:
+          "In luxury master bathrooms, Montano Pulchiano provides a warm, organic spa sanctuary. Its low porosity resists water penetration when treated with architectural penetrating fluoropolymer sealers, and its natural multicolored veining naturally conceals minor soap or water droplet marks.",
+      },
+      {
+        question: "Can Lot 86978 be specified for kitchen countertops and waterfall islands?",
+        shortAnswer: "Yes. The 20mm thickness and miter-ready edge profile make it ideal for statement islands.",
+        answer:
+          "Yes. Montano Pulchiano Lot 86978 creates an unforgettable culinary waterfall island. Wiping acidic spills promptly and maintaining the protective penetrating seal keeps the polished or honed surface in pristine showroom condition.",
+      },
+      {
+        question: "Where can architects source authentic Montano Pulchiano Lot 86978 in India?",
+        shortAnswer: "Curated and supplied exclusively across India by INTIOSS Luxury Surfaces.",
+        answer:
+          "Authentic monolithic Montano Pulchiano Lot 86978 slabs are curated and imported directly by INTIOSS Luxury Surfaces with provenance documentation, ultrasonic soundness testing, and turnkey delivery across India.",
+      },
+    ],
+    pairsWithSlugs: ["montano-pulchiano-marble", "golden-statuario-marble", "statuario-marble", "michael-angelo-marble"],
   },
   {
     id: "p-michael-angelo",
