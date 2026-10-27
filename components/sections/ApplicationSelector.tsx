@@ -88,13 +88,12 @@ export function ApplicationSelector() {
       onMouseLeave={() => setIsHovered(false)}
       className="relative py-20 sm:py-32 bg-maroon-deep text-ivory overflow-hidden border-y border-gold/30 select-none"
     >
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
       <HexagonBackground
         theme="dark"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
-        enableSpiderEffect={true}
       />
 
       {/* Ambient Radial Luxury Glow in background */}

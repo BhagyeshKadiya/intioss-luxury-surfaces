@@ -143,23 +143,21 @@ export function ProductsServicesToggle() {
 
   return (
     <section className="relative py-20 sm:py-28 bg-[#FAF8F5] text-maroon overflow-hidden border-b border-gold/20">
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
       <HexagonBackground
         theme="light"
         intensity="medium"
         showPattern={true}
         showFloating={true}
-        enableSpiderEffect={true}
-        spiderDistance={280}
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center mb-10">
           {/* Hexagon Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold/30 shadow-xs backdrop-blur-xs transition-all hover:border-gold hover:shadow-[0_0_15px_rgba(221,182,43,0.3)]">
+          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold/30 shadow-xs backdrop-blur-xs transition-all hover:border-gold hover:shadow-[0_0_15px_rgba(221,182,43,0.25)]">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-            <IntiossHexagon size={16} useVector={true} enableSpiderEffect={true} />
+            <IntiossHexagon size={16} useVector={true} enablePrismaticGlint={true} />
             <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
               Curated Surfaces & Solutions
             </span>

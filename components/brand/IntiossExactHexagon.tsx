@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 
 interface IntiossExactHexagonProps {
@@ -10,148 +10,120 @@ interface IntiossExactHexagonProps {
   strokeColor?: string;
   strokeWidth?: number;
   interactive?: boolean;
-  enableSpiderEffect?: boolean;
-  spiderThreshold?: number; // Distance in pixels to trigger spider web lines
   animated?: boolean;
   onClick?: () => void;
 }
 
-// Nodes for the INTIOSS Logo Symbol (in 100x116 coordinate system)
+// Precision mathematical coordinates for the INTIOSS Logo Symbol (in 100x116 viewBox)
 export const INTIOSS_SYMBOL_NODES = {
-  // Outer perimeter (6 points)
   outer: [
-    { id: "o-top", x: 50, y: 4 },
-    { id: "o-tr", x: 95, y: 30 },
-    { id: "o-br", x: 95, y: 86 },
-    { id: "o-bot", x: 50, y: 112 },
-    { id: "o-bl", x: 5, y: 86 },
-    { id: "o-tl", x: 5, y: 30 },
+    { x: 50, y: 4 },
+    { x: 95, y: 30 },
+    { x: 95, y: 86 },
+    { x: 50, y: 112 },
+    { x: 5, y: 86 },
+    { x: 5, y: 30 },
   ],
-  // Inner perimeter (6 points)
   inner: [
-    { id: "i-top", x: 50, y: 12 },
-    { id: "i-tr", x: 89, y: 34 },
-    { id: "i-br", x: 89, y: 82 },
-    { id: "i-bot", x: 50, y: 104 },
-    { id: "i-bl", x: 11, y: 82 },
-    { id: "i-tl", x: 11, y: 34 },
+    { x: 50, y: 12 },
+    { x: 89, y: 34 },
+    { x: 89, y: 82 },
+    { x: 50, y: 104 },
+    { x: 11, y: 82 },
+    { x: 11, y: 34 },
   ],
-  // Internal diamond intersection nodes
   facets: [
-    { id: "f-top-mid", x: 50, y: 35 },
-    { id: "f-center", x: 50, y: 58 },
-    { id: "f-bot-mid", x: 50, y: 81 },
-    { id: "f-mid-tl", x: 30.5, y: 46.5 },
-    { id: "f-mid-tr", x: 69.5, y: 46.5 },
-    { id: "f-mid-bl", x: 30.5, y: 69.5 },
-    { id: "f-mid-br", x: 69.5, y: 69.5 },
-    { id: "f-edge-left", x: 11, y: 58 },
-    { id: "f-edge-right", x: 89, y: 58 },
+    { x: 50, y: 35 },
+    { x: 50, y: 58 },
+    { x: 50, y: 81 },
+    { x: 30.5, y: 46.5 },
+    { x: 69.5, y: 46.5 },
+    { x: 30.5, y: 69.5 },
+    { x: 69.5, y: 69.5 },
+    { x: 11, y: 58 },
+    { x: 89, y: 58 },
   ],
 };
+
+const outerPointsString = INTIOSS_SYMBOL_NODES.outer.map((p) => `${p.x},${p.y}`).join(" ");
+const innerPointsString = INTIOSS_SYMBOL_NODES.inner.map((p) => `${p.x},${p.y}`).join(" ");
+
+const DIAGONAL_FACET_LINES = [
+  // Down-Right lines
+  { x1: 30.5, y1: 23, x2: 89, y2: 58 },
+  { x1: 11, y1: 34, x2: 89, y2: 82 },
+  { x1: 11, y1: 58, x2: 69.5, y2: 93 },
+  // Down-Left lines
+  { x1: 69.5, y1: 23, x2: 11, y2: 58 },
+  { x1: 89, y1: 34, x2: 11, y2: 82 },
+  { x1: 89, y1: 58, x2: 30.5, y2: 93 },
+];
 
 export function IntiossExactHexagon({
   size = 120,
   className = "",
   fillMaroon = true,
   strokeColor = "#DDB62B",
-  strokeWidth = 1.6,
+  strokeWidth = 1.3,
   interactive = true,
-  enableSpiderEffect = true,
-  spiderThreshold = 180,
   animated = false,
   onClick,
 }: IntiossExactHexagonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [spiderLines, setSpiderLines] = useState<{ x1: number; y1: number; x2: number; y2: number; opacity: number }[]>([]);
   const shouldReduceMotion = useReducedMotion();
 
-  // Mouse tracking for spider web effect
-  useEffect(() => {
-    if (!enableSpiderEffect || shouldReduceMotion) return;
+  // Subtle 3D Gyroscopic Tilt on cursor interaction
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+  const springTiltX = useSpring(rotateX, { damping: 20, stiffness: 180 });
+  const springTiltY = useSpring(rotateY, { damping: 20, stiffness: 180 });
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!interactive || shouldReduceMotion || !containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
+      const py = (e.clientY - rect.top) / rect.height - 0.5;
 
-      const dist = Math.hypot(e.clientX - centerX, e.clientY - centerY);
+      rotateX.set(-py * 16); // subtle tilt up to 8 deg
+      rotateY.set(px * 16);
+    },
+    [interactive, shouldReduceMotion, rotateX, rotateY]
+  );
 
-      if (dist < spiderThreshold) {
-        // Calculate relative mouse coordinates inside the SVG viewBox (0..100, 0..116)
-        const relX = ((e.clientX - rect.left) / rect.width) * 100;
-        const relY = ((e.clientY - rect.top) / rect.height) * 116;
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+    rotateX.set(0);
+    rotateY.set(0);
+  }, [rotateX, rotateY]);
 
-        // Connect to nearest facet nodes (spider web effect)
-        const allNodes = [
-          ...INTIOSS_SYMBOL_NODES.outer,
-          ...INTIOSS_SYMBOL_NODES.facets,
-        ];
-
-        // Sort nodes by distance to mouse and pick closest 5-7 nodes
-        const sorted = allNodes
-          .map((n) => ({
-            ...n,
-            d: Math.hypot(n.x - relX, n.y - relY),
-          }))
-          .sort((a, b) => a.d - b.d)
-          .slice(0, 6);
-
-        const intensity = Math.max(0, 1 - dist / spiderThreshold);
-
-        const lines = sorted.map((target) => ({
-          x1: relX,
-          y1: relY,
-          x2: target.x,
-          y2: target.y,
-          opacity: (1 - target.d / 120) * intensity * 0.95,
-        }));
-
-        setSpiderLines(lines);
-      } else {
-        if (spiderLines.length > 0) setSpiderLines([]);
-      }
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [enableSpiderEffect, spiderThreshold, shouldReduceMotion, spiderLines.length]);
-
-  const outerPoints = INTIOSS_SYMBOL_NODES.outer.map((p) => `${p.x},${p.y}`).join(" ");
-  const innerPoints = INTIOSS_SYMBOL_NODES.inner.map((p) => `${p.x},${p.y}`).join(" ");
-
-  // Internal diagonal facet lattice lines
-  const diagonalLines = [
-    // Down-Right lines
-    { x1: 30.5, y1: 23, x2: 89, y2: 58 },
-    { x1: 11, y1: 34, x2: 89, y2: 82 },
-    { x1: 11, y1: 58, x2: 69.5, y2: 93 },
-    // Down-Left lines
-    { x1: 69.5, y1: 23, x2: 11, y2: 58 },
-    { x1: 89, y1: 34, x2: 11, y2: 82 },
-    { x1: 89, y1: 58, x2: 30.5, y2: 93 },
-  ];
+  const uniqueId = React.useId().replace(/:/g, "_");
 
   return (
-    <div
+    <motion.div
       ref={containerRef}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setSpiderLines([]);
-      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      className={`relative inline-block select-none ${interactive ? "cursor-pointer" : ""} ${className}`}
-      style={{ width: size, height: (size * 116) / 100 }}
+      style={{
+        width: size,
+        height: (size * 116) / 100,
+        rotateX: springTiltX,
+        rotateY: springTiltY,
+        transformStyle: "preserve-3d",
+      }}
+      className={`relative inline-block select-none transition-transform duration-300 ${
+        interactive ? "cursor-pointer" : ""
+      } ${className}`}
     >
-      {/* Radiant Lighting Aura on Hover / Proximity */}
+      {/* 1. Ethereal Soft Ambient Warm-Gold Glow (Sophisticated & Quiet) */}
       <div
-        className={`absolute inset-0 rounded-full blur-xl pointer-events-none transition-all duration-500 ${
-          isHovered || spiderLines.length > 0
-            ? "bg-gold/35 scale-125 opacity-100"
-            : "bg-gold/0 scale-90 opacity-0"
+        className={`absolute inset-0 rounded-full pointer-events-none transition-all duration-700 ease-out ${
+          isHovered
+            ? "bg-gradient-to-tr from-gold/25 via-gold/15 to-transparent blur-2xl scale-125 opacity-100"
+            : "bg-gold/0 blur-xl scale-95 opacity-0"
         }`}
       />
 
@@ -159,165 +131,121 @@ export function IntiossExactHexagon({
         viewBox="0 0 100 116"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-full h-full relative z-10 transition-transform duration-300 ${
-          isHovered ? "scale-105" : "scale-100"
+        className={`w-full h-full relative z-10 transition-all duration-500 ${
+          isHovered ? "scale-[1.035]" : "scale-100"
         }`}
         style={{
           filter: isHovered
-            ? "drop-shadow(0 0 12px rgba(221, 182, 43, 0.85)) drop-shadow(0 0 24px rgba(221, 182, 43, 0.45))"
-            : spiderLines.length > 0
-            ? "drop-shadow(0 0 8px rgba(221, 182, 43, 0.4))"
-            : undefined,
+            ? "drop-shadow(0 6px 18px rgba(221, 182, 43, 0.45))"
+            : "drop-shadow(0 3px 10px rgba(0,0,0,0.12))",
         }}
       >
         <defs>
-          {/* Gold Metallic Gradients */}
-          <linearGradient id="intiossGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+          {/* Subtle Brushed Antique Gold Rim Gradient */}
+          <linearGradient id={`goldRimGrad-${uniqueId}`} x1="15%" y1="0%" x2="85%" y2="100%">
             <stop offset="0%" stopColor="#F9E28C" />
-            <stop offset="35%" stopColor="#DDB62B" />
-            <stop offset="70%" stopColor="#B38A18" />
+            <stop offset="40%" stopColor="#DDB62B" />
+            <stop offset="75%" stopColor="#A88118" />
             <stop offset="100%" stopColor="#F3D368" />
           </linearGradient>
 
-          <linearGradient id="intiossSpiderLaser" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="40%" stopColor="#F5DF88" />
-            <stop offset="100%" stopColor="#DDB62B" />
+          {/* Silky Specular Sheen (Sweeps smoothly across facets on hover) */}
+          <linearGradient
+            id={`specularSweep-${uniqueId}`}
+            x1={isHovered ? "120%" : "-60%"}
+            y1={isHovered ? "120%" : "-60%"}
+            x2={isHovered ? "180%" : "0%"}
+            y2={isHovered ? "180%" : "0%"}
+          >
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0" />
+            <stop offset="45%" stopColor="#FFF4D0" stopOpacity="0.45" />
+            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.75" />
+            <stop offset="55%" stopColor="#FFF4D0" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
           </linearGradient>
 
-          {/* Facet clip path to contain lattice lines strictly inside the inner hexagon */}
-          <clipPath id="innerHexClip">
-            <polygon points={innerPoints} />
+          {/* Inner Hexagon Clip Path */}
+          <clipPath id={`innerClip-${uniqueId}`}>
+            <polygon points={innerPointsString} />
           </clipPath>
         </defs>
 
-        {/* 1. Outer Hexagon Base Fill (Gold Rim Body) */}
+        {/* 1. Outer Hexagon Solid Rim */}
         <polygon
-          points={outerPoints}
-          fill="url(#intiossGoldRim)"
+          points={outerPointsString}
+          fill={`url(#goldRimGrad-${uniqueId})`}
           stroke={strokeColor}
           strokeWidth={strokeWidth}
           strokeLinejoin="round"
         />
 
-        {/* 2. Inner Hexagon Fill (Maroon Body or Dark Luxury Ground) */}
+        {/* 2. Inner Hexagon Ground (Deep Architectural Burgundy) */}
         <polygon
-          points={innerPoints}
-          fill={fillMaroon ? (isHovered ? "#560E1B" : "#3E0C15") : "transparent"}
+          points={innerPointsString}
+          fill={fillMaroon ? (isHovered ? "#460E18" : "#3E0C15") : "transparent"}
           stroke={strokeColor}
-          strokeWidth={strokeWidth * 0.85}
+          strokeWidth={strokeWidth * 0.8}
           strokeLinejoin="round"
-          className="transition-colors duration-300"
+          className="transition-colors duration-500 ease-out"
         />
 
-        {/* 3. Internal Diamond Facet Lattice (Exact INTIOSS Logo Grid) */}
-        <g clipPath="url(#innerHexClip)">
-          {diagonalLines.map((line, idx) => (
+        {/* 3. Internal Diamond Facet Lattice (Exact INTIOSS Rhombuses) */}
+        <g clipPath={`url(#innerClip-${uniqueId})`}>
+          {DIAGONAL_FACET_LINES.map((line, idx) => (
             <line
               key={idx}
               x1={line.x1}
               y1={line.y1}
               x2={line.x2}
               y2={line.y2}
-              stroke={isHovered ? "#FFEAA7" : strokeColor}
-              strokeWidth={isHovered ? strokeWidth * 1.1 : strokeWidth * 0.75}
-              strokeOpacity={isHovered ? 0.95 : 0.8}
+              stroke={isHovered ? "#FCEEC7" : strokeColor}
+              strokeWidth={isHovered ? strokeWidth * 0.95 : strokeWidth * 0.7}
+              strokeOpacity={isHovered ? 0.9 : 0.72}
               strokeLinecap="round"
-              className="transition-all duration-300"
+              className="transition-all duration-400 ease-out"
             />
           ))}
 
-          {/* Running Laser Lighting Effect when Hovered */}
-          {isHovered && (
-            <g className="animate-pulse" style={{ animationDuration: "1.2s" }}>
-              {diagonalLines.map((line, idx) => (
-                <line
-                  key={`pulse-${idx}`}
-                  x1={line.x1}
-                  y1={line.y1}
-                  x2={line.x2}
-                  y2={line.y2}
-                  stroke="#FFFFFF"
-                  strokeWidth={strokeWidth * 0.9}
-                  strokeDasharray="15 35"
-                  className="animate-dash"
-                  strokeLinecap="round"
-                  opacity={0.8}
-                />
-              ))}
-            </g>
-          )}
+          {/* Silky Specular Glint Sheen across the facets on hover */}
+          <rect
+            x="0"
+            y="0"
+            width="100"
+            height="116"
+            fill={`url(#specularSweep-${uniqueId})`}
+            className="transition-all duration-1000 ease-in-out pointer-events-none"
+            style={{
+              opacity: isHovered ? 1 : 0,
+            }}
+          />
 
-          {/* Diamond Facet Nodes */}
-          {INTIOSS_SYMBOL_NODES.facets.map((node) => (
+          {/* Delicate Gemological Facet Intersection Nodes */}
+          {INTIOSS_SYMBOL_NODES.facets.map((node, nIdx) => (
             <circle
-              key={node.id}
+              key={nIdx}
               cx={node.x}
               cy={node.y}
-              r={isHovered ? 2.2 : 1.4}
+              r={isHovered ? 1.5 : 1.1}
               fill={isHovered ? "#FFFFFF" : strokeColor}
-              className="transition-all duration-200"
-              style={{
-                filter: isHovered ? "drop-shadow(0 0 4px #FFFFFF)" : undefined,
-              }}
+              fillOpacity={isHovered ? 0.95 : 0.75}
+              className="transition-all duration-300"
             />
           ))}
         </g>
 
-        {/* 4. Interactive Spider Web Lightning Effect Lines */}
-        {spiderLines.map((line, idx) => (
-          <g key={`spider-${idx}`}>
-            {/* Soft Outer Web Glow */}
-            <line
-              x1={line.x1}
-              y1={line.y1}
-              x2={line.x2}
-              y2={line.y2}
-              stroke="#DDB62B"
-              strokeWidth="2.5"
-              strokeOpacity={line.opacity * 0.4}
-              strokeLinecap="round"
-            />
-            {/* Core Electric Laser Web Filament */}
-            <line
-              x1={line.x1}
-              y1={line.y1}
-              x2={line.x2}
-              y2={line.y2}
-              stroke="url(#intiossSpiderLaser)"
-              strokeWidth="1.2"
-              strokeOpacity={line.opacity}
-              strokeLinecap="round"
-              strokeDasharray={idx % 2 === 0 ? "none" : "4 2"}
-            />
-            {/* Anchor Spark Dot at Hexagon Node */}
-            <circle
-              cx={line.x2}
-              cy={line.y2}
-              r={line.opacity * 2.8}
-              fill="#FFFFFF"
-              style={{ filter: "drop-shadow(0 0 3px #F3D368)" }}
-            />
-          </g>
-        ))}
-
-        {/* 5. Outer Laser Perimeter Tracer on Hover (Lighting Effect) */}
+        {/* 4. Elegant Hairline Golden Highlight Accent on Hover */}
         {isHovered && (
           <polygon
-            points={outerPoints}
+            points={outerPointsString}
             fill="none"
-            stroke="#FFF2A8"
-            strokeWidth={strokeWidth * 1.5}
-            strokeDasharray="25 60"
-            strokeLinecap="round"
-            className="animate-spin-slow"
-            style={{
-              transformOrigin: "50% 58%",
-              filter: "drop-shadow(0 0 6px #FFFFFF)",
-            }}
+            stroke="#FFF5C2"
+            strokeWidth="0.8"
+            strokeOpacity="0.6"
+            strokeLinejoin="round"
+            className="transition-opacity duration-500"
           />
         )}
       </svg>
-    </div>
+    </motion.div>
   );
 }

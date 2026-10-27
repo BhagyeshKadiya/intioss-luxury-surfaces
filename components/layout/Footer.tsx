@@ -21,14 +21,12 @@ export function Footer() {
 
   return (
     <footer className="relative bg-maroon-deep text-ivory pt-20 pb-28 sm:pb-14 overflow-hidden border-t border-gold/30">
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
       <HexagonBackground
         theme="dark"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
-        enableSpiderEffect={true}
-        spiderDistance={260}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,7 +55,7 @@ export function Footer() {
               <IntiossHexagon
                 size={72}
                 useVector={true}
-                enableSpiderEffect={true}
+                enablePrismaticGlint={true}
                 className="drop-shadow-[0_4px_20px_rgba(221,182,43,0.35)]"
               />
             </Link>

@@ -14,13 +14,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-28 sm:pt-36 pb-24 sm:pb-32 relative overflow-hidden">
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
       <HexagonBackground
         theme="light"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
-        enableSpiderEffect={true}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

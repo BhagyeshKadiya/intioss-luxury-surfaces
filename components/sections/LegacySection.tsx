@@ -166,13 +166,12 @@ export function LegacySection() {
       ref={containerRef}
       className="py-24 sm:py-32 bg-white text-maroon-deep relative overflow-hidden border-y border-gold/20"
     >
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbol with Spider & Lighting Effects */}
+      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
       <HexagonBackground
         theme="light"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
-        enableSpiderEffect={true}
       />
 
       {/* Subtle luxury ambient background nuance */}

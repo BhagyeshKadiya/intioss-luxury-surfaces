@@ -13,7 +13,7 @@ interface HexagonProps {
   strokeColor?: string;
   strokeWidth?: number;
   useVector?: boolean;
-  enableSpiderEffect?: boolean;
+  enablePrismaticGlint?: boolean;
 }
 
 export function IntiossHexagon({
@@ -22,15 +22,15 @@ export function IntiossHexagon({
   animated = false,
   fillMaroon = true,
   strokeColor = "#DDB62B",
-  strokeWidth = 1.6,
+  strokeWidth = 1.3,
   useVector = false,
-  enableSpiderEffect = false,
+  enablePrismaticGlint = false,
 }: HexagonProps) {
   const [isHovered, setIsHovered] = useState(false);
   const numSize = typeof size === "number" ? size : parseInt(size as string, 10) || 32;
   const sz = typeof size === "number" ? `${size}px` : size;
 
-  if (useVector || enableSpiderEffect) {
+  if (useVector || enablePrismaticGlint) {
     return (
       <IntiossExactHexagon
         size={numSize}
@@ -38,8 +38,8 @@ export function IntiossHexagon({
         fillMaroon={fillMaroon}
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
-        enableSpiderEffect={enableSpiderEffect}
         animated={animated}
+        interactive={true}
       />
     );
   }
@@ -48,14 +48,14 @@ export function IntiossHexagon({
     <div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative inline-flex items-center justify-center transition-transform duration-300 ${
+      className={`relative inline-flex items-center justify-center transition-all duration-300 ${
         isHovered ? "scale-105" : "scale-100"
       } ${className}`}
       style={{
         width: sz,
         height: sz,
         filter: isHovered
-          ? "drop-shadow(0 0 12px rgba(221, 182, 43, 0.85)) drop-shadow(0 0 24px rgba(221, 182, 43, 0.4))"
+          ? "drop-shadow(0 0 14px rgba(221, 182, 43, 0.6))"
           : undefined,
       }}
     >
@@ -73,7 +73,7 @@ export function IntiossHexagon({
   if (animated) {
     return (
       <motion.div
-        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+        initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
         transition={{
           duration: 1.2,
@@ -82,9 +82,9 @@ export function IntiossHexagon({
         className="inline-flex"
       >
         <motion.div
-          animate={{ y: [0, -6, 0] }}
+          animate={{ y: [0, -5, 0] }}
           transition={{
-            duration: 4,
+            duration: 4.5,
             repeat: Infinity,
             ease: "easeInOut",
           }}
