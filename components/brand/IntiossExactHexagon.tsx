@@ -45,7 +45,7 @@ export const INTIOSS_SYMBOL_NODES = {
 const outerPointsString = INTIOSS_SYMBOL_NODES.outer.map((p) => `${p.x},${p.y}`).join(" ");
 const innerPointsString = INTIOSS_SYMBOL_NODES.inner.map((p) => `${p.x},${p.y}`).join(" ");
 
-const DIAGONAL_FACET_LINES = [
+export const DIAGONAL_FACET_LINES = [
   // Down-Right lines
   { x1: 30.5, y1: 23, x2: 89, y2: 58 },
   { x1: 11, y1: 34, x2: 89, y2: 82 },
