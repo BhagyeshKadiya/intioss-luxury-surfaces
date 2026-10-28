@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
-import { HexagonBackground } from "@/components/brand/HexagonBackground";
+import { IntiossPattern } from "@/components/brand/IntiossPattern";
 import { SITE_CONFIG } from "@/lib/config";
 import { Instagram, Linkedin, Youtube, ExternalLink, Check } from "lucide-react";
 
@@ -21,13 +21,8 @@ export function Footer() {
 
   return (
     <footer className="relative bg-maroon-deep text-ivory pt-20 pb-28 sm:pb-14 overflow-hidden border-t border-gold/30">
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
-      <HexagonBackground
-        theme="dark"
-        intensity="subtle"
-        showPattern={true}
-        showFloating={true}
-      />
+      {/* Faint Hexagon Watermark Pattern (Simple, No Animation, No Motion) */}
+      <IntiossPattern opacity={0.05} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Grid: 4 Columns */}
@@ -54,8 +49,6 @@ export function Footer() {
             >
               <IntiossHexagon
                 size={72}
-                useVector={true}
-                enablePrismaticGlint={true}
                 className="drop-shadow-[0_4px_20px_rgba(221,182,43,0.35)]"
               />
             </Link>

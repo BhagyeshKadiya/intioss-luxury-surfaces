@@ -1,7 +1,4 @@
-"use client";
-
-import React, { useRef, useState, useCallback } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
+import React, { useState } from "react";
 
 interface IntiossExactHexagonProps {
   size?: number;
@@ -65,54 +62,21 @@ export function IntiossExactHexagon({
   fillMaroon = true,
   strokeColor = "#DDB62B",
   strokeWidth = 1.3,
-  interactive = true,
+  interactive = false,
   animated = false,
   onClick,
 }: IntiossExactHexagonProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
-
-  // Subtle 3D Gyroscopic Tilt on cursor interaction
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-  const springTiltX = useSpring(rotateX, { damping: 20, stiffness: 180 });
-  const springTiltY = useSpring(rotateY, { damping: 20, stiffness: 180 });
-
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!interactive || shouldReduceMotion || !containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-      const py = (e.clientY - rect.top) / rect.height - 0.5;
-
-      rotateX.set(-py * 16); // subtle tilt up to 8 deg
-      rotateY.set(px * 16);
-    },
-    [interactive, shouldReduceMotion, rotateX, rotateY]
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    rotateX.set(0);
-    rotateY.set(0);
-  }, [rotateX, rotateY]);
-
   const uniqueId = React.useId().replace(/:/g, "_");
 
   return (
-    <motion.div
-      ref={containerRef}
+    <div
       onMouseEnter={() => setIsHovered(true)}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
       style={{
         width: size,
         height: (size * 116) / 100,
-        rotateX: springTiltX,
-        rotateY: springTiltY,
-        transformStyle: "preserve-3d",
       }}
       className={`relative inline-block select-none transition-transform duration-300 ${
         interactive ? "cursor-pointer" : ""
@@ -246,6 +210,6 @@ export function IntiossExactHexagon({
           />
         )}
       </svg>
-    </motion.div>
+    </div>
   );
 }

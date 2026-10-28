@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
 import { IntiossExactHexagon } from "./IntiossExactHexagon";
 
 interface HexagonProps {
@@ -38,8 +37,8 @@ export function IntiossHexagon({
         fillMaroon={fillMaroon}
         strokeColor={strokeColor}
         strokeWidth={strokeWidth}
-        animated={animated}
-        interactive={true}
+        animated={false}
+        interactive={false}
       />
     );
   }
@@ -69,31 +68,6 @@ export function IntiossHexagon({
       />
     </div>
   );
-
-  if (animated) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85, rotate: -6 }}
-        animate={{ opacity: 1, scale: 1, rotate: 0 }}
-        transition={{
-          duration: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="inline-flex"
-      >
-        <motion.div
-          animate={{ y: [0, -5, 0] }}
-          transition={{
-            duration: 4.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          {imageElement}
-        </motion.div>
-      </motion.div>
-    );
-  }
 
   return imageElement;
 }
