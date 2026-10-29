@@ -19,6 +19,7 @@ import {
 import { motion, AnimatePresence } from "motion/react";
 import { PRODUCTS } from "@/data/products";
 import { getWhatsAppUrl } from "@/lib/config";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 // Active status to display all curated realisations
 const GALLERY_STATUS: "active" | "pending" = "active";
@@ -240,7 +241,15 @@ export default function GalleryPage() {
   }, [activeItem, handlePrev, handleNext]);
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 md:pt-32 pb-32 select-none">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 md:pt-32 pb-32 select-none relative overflow-hidden">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="double"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">

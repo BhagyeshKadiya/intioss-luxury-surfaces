@@ -9,9 +9,9 @@ import { ProductHouzezGallery } from "@/components/products/ProductHouzezGallery
 import { ProductTopCarousel } from "@/components/products/ProductTopCarousel";
 import { ProductAeoGeoSection } from "@/components/products/ProductAeoGeoSection";
 import { ProductUseCasesShowcase } from "@/components/products/ProductUseCasesShowcase";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { ArrowLeft, Layers, ShieldCheck, Check } from "lucide-react";
 import type { Metadata } from "next";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export async function generateStaticParams() {
   return PRODUCTS.map((product) => ({
@@ -204,7 +204,15 @@ export default function ProductDetailPage({
   ].includes(product.category);
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 md:pt-32 pb-28 overflow-x-hidden">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 md:pt-32 pb-28 overflow-x-hidden relative">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="triple"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdGraph) }}

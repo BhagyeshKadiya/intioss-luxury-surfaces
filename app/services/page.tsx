@@ -6,6 +6,7 @@ import { Placeholder } from "@/components/ui/Placeholder";
 import { Calendar, MessageSquare } from "lucide-react";
 import { getWhatsAppUrl } from "@/lib/config";
 import type { Metadata } from "next";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export const metadata: Metadata = {
   title: "Stone Services & Architectural Execution | INTIOSS",
@@ -15,7 +16,15 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32 relative overflow-hidden">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="triple"
+      />
       {/* Intro Header Strip */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         <div className="text-center max-w-3xl mx-auto">

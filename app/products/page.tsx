@@ -13,6 +13,7 @@ import { MoodboardDrawer } from "@/components/products/MoodboardDrawer";
 import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
 import { getWhatsAppUrl } from "@/lib/config";
 import { motion, AnimatePresence } from "motion/react";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 import {
   SlidersHorizontal,
   Grid3X3,
@@ -288,7 +289,17 @@ function ProductsContent() {
 
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative overflow-hidden">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="double"
+        leftTop="220px"
+        rightTop="640px"
+      />
       {/* Editorial Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gold/30 pb-6">

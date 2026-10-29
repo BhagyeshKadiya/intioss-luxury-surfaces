@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { BLOG_POSTS } from "@/data/blogs";
 import { ArrowLeft, Clock, Calendar, User, Share2 } from "lucide-react";
 import type { Metadata } from "next";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export async function generateStaticParams() {
   return BLOG_POSTS.map((post) => ({
@@ -40,7 +41,15 @@ export default function BlogPostDetailPage({
   if (!post) notFound();
 
   return (
-    <article className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">
+    <article className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32 relative overflow-hidden">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="double"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <Link

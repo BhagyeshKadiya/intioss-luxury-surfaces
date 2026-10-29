@@ -7,18 +7,20 @@ interface HexagonBackgroundProps {
   theme?: "light" | "dark" | "gold";
   intensity?: "subtle" | "medium" | "prominent";
   showPattern?: boolean;
-  showFloating?: boolean; // Kept for API backward compatibility; renders static half-hexagons with NO animation
+  showFloating?: boolean;
   className?: string;
   layout?: "flanks" | "left-only" | "right-only" | "staggered" | "minimal";
   leftTop?: string;
   rightTop?: string;
+  density?: "single" | "double" | "triple";
 }
 
 /**
  * HexagonBackground
  * 
  * Luxury architectural background system with ZERO animation and ZERO motion.
- * Elegantly anchors precision half-hexagons into the natural blank spaces & side margins.
+ * Elegantly anchors precision half-hexagons (with the exact INTIOSS logo diamond pattern)
+ * into natural blank spaces & side margins across the entire website.
  */
 export function HexagonBackground({
   theme = "light",
@@ -29,6 +31,7 @@ export function HexagonBackground({
   layout = "flanks",
   leftTop = "18%",
   rightTop = "58%",
+  density = "single",
 }: HexagonBackgroundProps) {
   const patternId = useId().replace(/:/g, "_");
 
@@ -55,11 +58,26 @@ export function HexagonBackground({
   const halfHexOpacity =
     theme === "light"
       ? intensity === "prominent"
-        ? 0.22
-        : 0.15
+        ? 0.24
+        : 0.16
       : intensity === "prominent"
-      ? 0.28
-      : 0.20;
+      ? 0.30
+      : 0.22;
+
+  // Position configurations according to density
+  const leftPositions =
+    density === "triple"
+      ? ["12%", "48%", "82%"]
+      : density === "double"
+      ? [leftTop, "68%"]
+      : [leftTop];
+
+  const rightPositions =
+    density === "triple"
+      ? ["28%", "64%", "92%"]
+      : density === "double"
+      ? ["38%", rightTop]
+      : [rightTop];
 
   const showLeft = layout === "flanks" || layout === "staggered" || layout === "left-only";
   const showRight = layout === "flanks" || layout === "staggered" || layout === "right-only";
@@ -143,50 +161,54 @@ export function HexagonBackground({
         </div>
       )}
 
-      {/* 2. Static Architectural Half Hexagons Properly Set in Blank Spaces (Zero Motion) */}
+      {/* 2. Static Architectural Half Hexagons with EXACT INTIOSS Logo Diamond Pattern in Blank Spaces */}
       {showFloating && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Left Flank Half Hexagon (Docks flush to the left screen boundary, extending into blank space) */}
-          {showLeft && (
-            <div
-              className="absolute left-0 pointer-events-none hidden sm:block"
-              style={{
-                top: leftTop,
-                transform: "translateY(-50%)",
-              }}
-            >
-              <IntiossHalfHexagon
-                side="left-dock"
-                size={240}
-                theme={theme}
-                opacity={halfHexOpacity}
-                strokeWidth={1.2}
-                fillMaroon={theme === "dark"}
-                className="drop-shadow-[0_2px_12px_rgba(201,160,32,0.12)]"
-              />
-            </div>
-          )}
+          {/* Left Flank Half Hexagons (Docks flush to the left boundary, extending into blank space) */}
+          {showLeft &&
+            leftPositions.map((pos, idx) => (
+              <div
+                key={`left-half-${idx}`}
+                className="absolute left-0 pointer-events-none hidden sm:block"
+                style={{
+                  top: pos,
+                  transform: "translateY(-50%)",
+                }}
+              >
+                <IntiossHalfHexagon
+                  side="left-dock"
+                  size={idx % 2 === 0 ? 240 : 210}
+                  theme={theme}
+                  opacity={halfHexOpacity}
+                  strokeWidth={1.2}
+                  fillMaroon={theme === "dark"}
+                  className="drop-shadow-[0_2px_12px_rgba(201,160,32,0.12)]"
+                />
+              </div>
+            ))}
 
-          {/* Right Flank Half Hexagon (Docks flush to the right screen boundary, extending into blank space) */}
-          {showRight && (
-            <div
-              className="absolute right-0 pointer-events-none hidden sm:block"
-              style={{
-                top: rightTop,
-                transform: "translateY(-50%)",
-              }}
-            >
-              <IntiossHalfHexagon
-                side="right-dock"
-                size={270}
-                theme={theme}
-                opacity={halfHexOpacity}
-                strokeWidth={1.2}
-                fillMaroon={theme === "dark"}
-                className="drop-shadow-[0_2px_12px_rgba(201,160,32,0.12)]"
-              />
-            </div>
-          )}
+          {/* Right Flank Half Hexagons (Docks flush to the right boundary, extending into blank space) */}
+          {showRight &&
+            rightPositions.map((pos, idx) => (
+              <div
+                key={`right-half-${idx}`}
+                className="absolute right-0 pointer-events-none hidden sm:block"
+                style={{
+                  top: pos,
+                  transform: "translateY(-50%)",
+                }}
+              >
+                <IntiossHalfHexagon
+                  side="right-dock"
+                  size={idx % 2 === 0 ? 260 : 230}
+                  theme={theme}
+                  opacity={halfHexOpacity}
+                  strokeWidth={1.2}
+                  fillMaroon={theme === "dark"}
+                  className="drop-shadow-[0_2px_12px_rgba(201,160,32,0.12)]"
+                />
+              </div>
+            ))}
         </div>
       )}
     </div>

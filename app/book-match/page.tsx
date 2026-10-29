@@ -7,6 +7,7 @@ import { PRODUCTS } from "@/data/products";
 import { getProductWhatsAppUrl } from "@/lib/config";
 import { MessageSquare, RefreshCw, Sparkles, Layers, Sliders } from "lucide-react";
 import { motion } from "motion/react";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 const BOOKMATCH_STONES = PRODUCTS.filter(
   (p) =>
@@ -90,7 +91,15 @@ function BookMatchContent() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-32 relative overflow-hidden">
+      {/* Precision Static Half Hexagons in Blank Spaces */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+        density="double"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
