@@ -235,6 +235,27 @@ function ProductsContent() {
     }
   };
 
+  const handleApplicationPillClick = (app: string) => {
+    setFilterState((prev) => {
+      const exists = prev.applications.includes(app);
+      return {
+        ...prev,
+        applications: exists ? prev.applications.filter((a) => a !== app) : [...prev.applications, app],
+      };
+    });
+  };
+
+  const APPLICATION_PILLS = [
+    "Flooring",
+    "Bathroom",
+    "Kitchen Countertop",
+    "Table Top",
+    "Wall Cladding — Interior",
+    "Wall Cladding — Exterior",
+    "Exterior Flooring",
+    "Feature Wall",
+  ];
+
   const handleSubCategoryPillClick = (subCat: string) => {
     setFilterState((prev) => {
       const exists = prev.subCategory.includes(subCat);
@@ -302,31 +323,43 @@ function ProductsContent() {
       />
       {/* Editorial Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gold/30 pb-6">
-          <div>
-            <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 mb-2 font-medium">
-              <span>Home</span>
-              <span>/</span>
-              <span className="text-gold-dark font-semibold">Surface Catalog</span>
-            </div>
-            <h1 className="font-marcellus text-3xl sm:text-5xl text-maroon">
-              Luxury Surfaces & Bespoke Stones
-            </h1>
-            <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-2 max-w-2xl leading-relaxed">
-              From rare Italian marble and Brazilian quartzites to luminescent semi-precious slabs, artisan mosaics, flexible stone veneers, and monumental hand-carved artefacts.
-            </p>
+        <div className="flex flex-row items-center justify-between gap-3 border-b border-gold/30 pb-4">
+          <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 font-medium">
+            <Link href="/" className="hover:text-gold-dark transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-gold-dark font-semibold">Surface Catalog</span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {/* Desktop Filters Toggle Button */}
             <button
+              type="button"
               onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
-              className="hidden lg:inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold shadow-sm transition-all"
+              className={`hidden lg:inline-flex items-center justify-center gap-2 h-9 px-4 border text-xs font-montserrat font-medium transition-all shadow-sm ${
+                isFilterSidebarOpen
+                  ? "bg-maroon text-gold border-gold"
+                  : "bg-white text-maroon border-gold/40 hover:border-gold hover:bg-gold/5"
+              }`}
             >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-gold" />
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
               <span>{isFilterSidebarOpen ? "Hide Filters" : "Show Filters"}</span>
               {activeFiltersCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center">
+                <span className="min-w-4 h-4 px-1 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center shrink-0">
+                  {activeFiltersCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Filter Button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileFilterOpen(true)}
+              className="lg:hidden inline-flex items-center justify-center gap-2 h-9 px-3.5 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm transition-all"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span>Filters</span>
+              {activeFiltersCount > 0 && (
+                <span className="min-w-4 h-4 px-1 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center shrink-0">
                   {activeFiltersCount}
                 </span>
               )}
@@ -335,24 +368,14 @@ function ProductsContent() {
             {/* Book Match Studio Button */}
             <Link
               href="/book-match"
-              className="inline-flex items-center gap-2 bg-white px-3.5 py-2 border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/10 shadow-sm transition-all whitespace-nowrap shrink-0"
+              className="inline-flex items-center justify-center gap-2 h-9 px-4 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm transition-all whitespace-nowrap shrink-0"
             >
               <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="font-medium whitespace-nowrap">Book Match</span>
+              <span>Book Match</span>
             </Link>
-
-            {/* Mobile Filter Button */}
-            <button
-              onClick={() => setIsMobileFilterOpen(true)}
-              className="lg:hidden inline-flex items-center gap-2 bg-maroon text-white px-3.5 py-2 text-xs font-montserrat uppercase tracking-wider font-semibold border border-gold"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-gold" />
-              <span>Filters {activeFiltersCount > 0 ? `(${activeFiltersCount})` : ""}</span>
-            </button>
           </div>
         </div>
-
-        {/* Top Horizontal Primary Category Pills Carousel */}
+{/* Top Horizontal Primary Category Pills Carousel */}
         <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center gap-2 sm:gap-3">
           {CATEGORY_PILLS.map((pill) => {
             const isActive =
@@ -407,7 +430,43 @@ function ProductsContent() {
         )}
 
 
-        {/* Toolbar: Search, Result count, Sort & Density */}
+        
+        {/* Application Area Pills Bar */}
+        <div className="mt-2.5 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
+          <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-700 font-semibold flex-shrink-0 mr-1">
+            Application Area:
+          </span>
+          {APPLICATION_PILLS.map((app) => {
+            const isActive = filterState.applications.includes(app);
+            const count = PRODUCTS.filter((p) => {
+              if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
+                return false;
+              }
+              return p.applications.some(
+                (a) => a.toLowerCase() === app.toLowerCase() || a.toLowerCase().includes(app.toLowerCase())
+              );
+            }).length;
+            if (count === 0 && filterState.category.length > 0) return null;
+            return (
+              <button
+                key={app}
+                onClick={() => handleApplicationPillClick(app)}
+                className={`flex-none inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-montserrat tracking-wide transition-all border rounded-full ${
+                  isActive
+                    ? "bg-gold text-maroon border-maroon font-semibold shadow-sm"
+                    : "bg-white/80 text-maroon border-gold/25 hover:border-gold"
+                }`}
+              >
+                <span>{app}</span>
+                <span className={`text-[10px] ${isActive ? "text-maroon/75 font-semibold" : "text-stone-500"}`}>
+                  ({count})
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+{/* Toolbar: Search, Result count, Sort & Density */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
           <div className="w-full sm:w-80 relative">
             <Search className="w-4 h-4 text-grey absolute left-3 top-2.5" />

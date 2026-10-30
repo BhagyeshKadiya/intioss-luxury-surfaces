@@ -42,6 +42,16 @@ const COLOR_SWATCHES: Record<string, { bg: string; border: string }> = {
   },
 };
 
+export const APPLICATION_OPTIONS = [
+  "Flooring",
+  "Bathroom",
+  "Table Top",
+  "Kitchen Countertop",
+  "Wall Cladding — Interior",
+  "Wall Cladding — Exterior",
+  "Exterior Flooring",
+];
+
 export function ProductFilters({
   filterState,
   onFilterChange,
@@ -96,17 +106,7 @@ export function ProductFilters({
     "Antique",
   ];
 
-  const APPLICATION_OPTIONS = [
-    "Flooring",
-    "Bathroom",
-    "Table Top",
-    "Kitchen Countertop",
-    "Wall Cladding — Interior",
-    "Wall Cladding — Exterior",
-    "Exterior Flooring",
-  ];
-
-  const VEINING_OPTIONS = [
+const VEINING_OPTIONS = [
     "Bookmatch-ready",
     "Dramatic",
     "Intricate Inlay",
@@ -302,53 +302,7 @@ export function ProductFilters({
         )}
       </div>
 
-      {/* 4. Architectural Application (Tactile Chips) */}
-      <div className="border-b border-gold/20 pb-4">
-        <button
-          onClick={() => toggleGroup("applications")}
-          className="w-full flex items-center justify-between py-1 text-left"
-        >
-          <div className="flex items-center gap-2">
-            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
-              Application Area
-            </span>
-            {filterState.applications.length > 0 && (
-              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
-            )}
-          </div>
-          {collapsedGroups["applications"] ? (
-            <ChevronDown className="w-4 h-4 text-gold" />
-          ) : (
-            <ChevronUp className="w-4 h-4 text-gold" />
-          )}
-        </button>
-
-        {!collapsedGroups["applications"] && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {APPLICATION_OPTIONS.map((app) => {
-              const checked = filterState.applications.includes(app);
-              const count = getCount("applications", app);
-              if (count === 0) return null;
-              return (
-                <button
-                  key={app}
-                  onClick={() => handleToggle("applications", app)}
-                  className={`px-2.5 py-1 text-xs font-montserrat transition-all border ${
-                    checked
-                      ? "bg-maroon text-gold border-gold font-medium shadow-sm"
-                      : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
-                  }`}
-                >
-                  <span>{app}</span>
-                  <span className="ml-1 text-[9px] opacity-70">({count})</span>
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      {/* 5. Pattern & Veining */}
+{/* 5. Pattern & Veining */}
       <div className="border-b border-gold/20 pb-4">
         <button
           onClick={() => toggleGroup("veining")}
