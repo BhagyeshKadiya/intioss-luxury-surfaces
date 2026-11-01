@@ -200,8 +200,7 @@ export const SERVICES: ExtendedServiceItem[] = [
       "Direct sourcing of rare marbles, quartzites, and exotic stones on your behalf from global quarries.",
     fullDesc:
       "Through long-standing relationships with quarries around the world, and with premium marble suppliers in Italy, we source stone on your behalf. You buy through INTIOSS.",
-    image: "",
-    photoPlaceholder: "PHOTO — Indian faces",
+    image: "/images/services/international-stone-sourcing.jpg",
     status: "active",
     highlightsStatus: "pending",
     protocolStatus: "pending",
