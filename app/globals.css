@@ -186,3 +186,83 @@ body.lightbox-active .fixed-dock,
 body.lightbox-active .whatsapp-btn {
   display: none !important;
 }
+
+
+/* =========================================================================
+   INTIOSS ENTERPRISE ASSET PROTECTION & ANTI-DOWNLOAD SECURITY PROTOCOLS
+   ========================================================================= */
+
+/* 1. Global Image & Media Drag/Select Prevention */
+img,
+picture,
+video,
+canvas,
+svg,
+[data-protected-image] {
+  -webkit-user-drag: none !important;
+  -khtml-user-drag: none !important;
+  -moz-user-drag: none !important;
+  -o-user-drag: none !important;
+  user-drag: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  -webkit-touch-callout: none !important; /* Disables iOS Safari context popup ("Save Image", "Share") */
+}
+
+/* 2. Dynamic Screenshot Shield (Activated during screen-grab / print / tab defocus) */
+body.content-shielded img,
+body.content-shielded video,
+body.content-shielded canvas,
+body.content-shielded .stone-display-shield {
+  filter: blur(35px) brightness(0.6) grayscale(100%) !important;
+  opacity: 0.15 !important;
+  transition: filter 0.08s ease, opacity 0.08s ease !important;
+}
+
+/* 3. Invisible Security Glass Shield Overlay for High-Value Images */
+.secure-glass-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* 4. Strict Print & Save-to-PDF Countermeasure */
+@media print {
+  html, body {
+    background: #541B2A !important;
+    color: #FAF7F2 !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+    display: none !important;
+  }
+
+  body::after {
+    visibility: visible !important;
+    display: flex !important;
+    content: "INTIOSS LUXURY SURFACES \A CONFIDENTIAL ARCHITECTURAL SPECIFICATION & ASSET PORTFOLIO \A \A Direct printing, screen recording, or digital reproduction of rare stone imagery is strictly restricted under international intellectual property laws. \A \A For verified physical architectural slab viewings, contact concierge@intioss.com or +91 99301 71094." !important;
+    white-space: pre-wrap !important;
+    position: fixed !important;
+    inset: 50px !important;
+    background: #300C16 !important;
+    color: #DDB62B !important;
+    border: 3pt solid #DDB62B !important;
+    padding: 40pt !important;
+    font-family: serif !important;
+    font-size: 16pt !important;
+    line-height: 1.8 !important;
+    text-align: center !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 9999999 !important;
+  }
+}

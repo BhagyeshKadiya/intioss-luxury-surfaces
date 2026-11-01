@@ -7,6 +7,7 @@ import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { SITE_CONFIG } from "@/lib/config";
+import { ContentSecurityShield } from "@/components/security/ContentSecurityShield";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://intioss.com"),
@@ -102,6 +103,9 @@ export default function RootLayout({
 
           {/* Global Footer */}
           <Footer />
+
+          {/* Global Content & Image Protection Shield */}
+          <ContentSecurityShield />
         </SmoothScrollProvider>
       </body>
     </html>
