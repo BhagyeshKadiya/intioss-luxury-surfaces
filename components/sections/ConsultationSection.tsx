@@ -5,7 +5,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Check, ArrowRight, MessageSquare } from "lucide-react";
 
 const SURFACE_OPTIONS = [
@@ -109,16 +108,20 @@ export function ConsultationSection() {
               </h3>
             </div>
 
-            <div className="my-8 flex-1 flex items-center justify-center min-h-[220px]">
-              <Placeholder
-                kind="PHOTO"
-                label="[PHOTO]"
-                className="w-full h-full min-h-[220px] bg-black/25 border-gold/30 text-ivory flex-col"
-              >
-                <span className="text-[11px] text-ivory/60 mt-1 max-w-xs block">
-                  Private studio & consultation photography waiting for INTIOSS supply/approval.
-                </span>
-              </Placeholder>
+            <div className="my-6 flex-1 relative min-h-[260px] sm:min-h-[300px] w-full overflow-hidden border border-gold/30 shadow-lg group">
+              <Image
+                src="/images/consultation/private-consultation-studio.jpg"
+                alt="INTIOSS Private Stone Viewing Studio & Consultation Lounge in Mumbai, Silvassa and Kishangarh"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/80 via-transparent to-black/20 pointer-events-none" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-maroon-deep/85 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm">
+                <span className="font-semibold">Private Viewing Lounge</span>
+                <span>Mumbai · Silvassa · Kishangarh</span>
+              </div>
             </div>
 
             <p className="font-jost text-xs text-ivory/70 leading-relaxed border-t border-gold/20 pt-4">
