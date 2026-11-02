@@ -8,10 +8,12 @@ const consultSchema = z.object({
     .regex(/^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$/, "Please enter a valid 10-digit Indian phone number"),
   email: z.string().email("Please enter a valid email address"),
   city: z.string().min(2, "City is required"),
+  consultationMode: z.enum(["Online", "Offline"]).optional().default("Offline"),
   projectType: z.enum(["Residential", "Commercial", "Hospitality", "Architect-Designer"]),
   interestedIn: z.array(z.string()).min(1, "Select at least one surface category"),
   approxArea: z.string().optional(),
   preferredDate: z.string().optional(),
+  preferredTime: z.string().optional(),
   message: z.string().optional(),
   honeypot: z.string().max(0, "Spam detected"), // Honeypot spam trap
 });
@@ -36,10 +38,20 @@ export async function POST(request: Request) {
     }
 
     // Stubbed CRM / Webhook sync
-    console.log("[CRM Webhook Stub] Lead logged:", validatedData.fullName, validatedData.city);
+    console.log(
+      "[CRM Webhook Stub] Lead logged:",
+      validatedData.fullName,
+      validatedData.city,
+      validatedData.consultationMode
+    );
 
     // Pre-calculate prefilled WhatsApp link for direct concierge handoff
-    const waText = `New Private Consultation Request:\n• Name: ${validatedData.fullName}\n• Phone: ${validatedData.phone}\n• City: ${validatedData.city}\n• Type: ${validatedData.projectType}\n• Surfaces: ${validatedData.interestedIn.join(", ")}\n• Area: ${validatedData.approxArea || "TBD"} sq ft`;
+    const modeLabel =
+      validatedData.consultationMode === "Online"
+        ? "Virtual Video Concierge (Online)"
+        : "In-Person Studio Visit (Offline)";
+
+    const waText = `New Private Consultation Request:\n• Consultation Mode: ${modeLabel}\n• Name: ${validatedData.fullName}\n• Phone: ${validatedData.phone}\n• Email: ${validatedData.email}\n• Location / Studio: ${validatedData.city}\n• Preferred Date: ${validatedData.preferredDate || "Flexible"}\n• Preferred Time: ${validatedData.preferredTime || "Flexible"}\n• Project Type: ${validatedData.projectType}\n• Surfaces: ${validatedData.interestedIn.join(", ")}\n• Approx Area: ${validatedData.approxArea ? `${validatedData.approxArea} sq ft` : "Not specified"}${validatedData.message ? `\n• Notes: ${validatedData.message}` : ""}`;
 
     return NextResponse.json({
       success: true,

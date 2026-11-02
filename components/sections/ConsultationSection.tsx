@@ -5,7 +5,14 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
-import { Check, ArrowRight, MessageSquare } from "lucide-react";
+import {
+  Check,
+  ArrowRight,
+  MessageSquare,
+  Building2,
+  Video,
+  ChevronDown,
+} from "lucide-react";
 
 const SURFACE_OPTIONS = [
   "Natural Stone",
@@ -25,16 +32,45 @@ const PROJECT_TYPES = [
   "Architect-Designer",
 ];
 
+const APPROX_AREA_OPTIONS = [
+  "1 - 500",
+  "501 - 2000",
+  "2001 - 5000",
+  "5001 & above",
+];
+
+const TIME_SLOTS = [
+  "10:00 am - 10:30 am",
+  "10:31 am - 11:00 am",
+  "11:01 am - 11:30 am",
+  "11:31 am - 12:00 pm",
+  "12:01 pm - 12:30 pm",
+  "12:31 pm - 1:00 pm",
+  "1:01 pm - 1:30 pm",
+  "1:31 pm - 2:00 pm",
+  "2:01 pm - 2:30 pm",
+  "2:31 pm - 3:00 pm",
+  "3:01 pm - 3:30 pm",
+  "3:31 pm - 4:00 pm",
+  "4:01 pm - 4:30 pm",
+  "4:31 pm - 5:00 pm",
+  "5:01 pm - 5:30 pm",
+  "5:31 pm - 6:00 pm",
+  "6:01 pm - 6:30 pm",
+];
+
 export function ConsultationSection() {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
     email: "",
-    city: "",
+    city: "Mumbai",
+    consultationMode: "Offline" as "Offline" | "Online",
     projectType: "Residential",
     interestedIn: ["Natural Stone"],
     approxArea: "",
     preferredDate: "",
+    preferredTime: "",
     message: "",
     honeypot: "",
   });
@@ -104,7 +140,9 @@ export function ConsultationSection() {
                 Private Consultation
               </span>
               <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory leading-snug">
-                Private viewings by appointment in Mumbai, Silvassa and Kishangarh.
+                {formData.consultationMode === "Online"
+                  ? "Virtual Stone Concierge consultations with live HD slab viewing & floor plan specifications."
+                  : "Private viewings by appointment in Mumbai, Silvassa and Kishangarh."}
               </h3>
             </div>
 
@@ -119,13 +157,15 @@ export function ConsultationSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/80 via-transparent to-black/20 pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-maroon-deep/85 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm">
-                <span className="font-semibold">Private Viewing Lounge</span>
+                <span className="font-semibold">
+                  {formData.consultationMode === "Online" ? "Online Video Concierge" : "Private Viewing Lounge"}
+                </span>
                 <span>Mumbai · Silvassa · Kishangarh</span>
               </div>
             </div>
 
             <p className="font-jost text-xs text-ivory/70 leading-relaxed border-t border-gold/20 pt-4">
-              Dedicated architectural stone consultation for private residences, estates, and commercial spaces.
+              Dedicated architectural stone consultation for private residences, luxury estates, and commercial landmarks.
             </p>
           </div>
 
@@ -202,6 +242,40 @@ export function ConsultationSection() {
                     autoComplete="off"
                   />
 
+                  {/* Two Tabs: ONLINE vs OFFLINE Consultation Format */}
+                  <div>
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
+                      Consultation Format *
+                    </label>
+                    <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#FAF7F2] border border-gold/40 rounded-lg">
+                      <button
+                        type="button"
+                        onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Offline" }))}
+                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded transition-all flex items-center justify-center gap-2 ${
+                          formData.consultationMode === "Offline"
+                            ? "bg-maroon-deep text-ivory shadow-md border border-gold"
+                            : "text-stone-700 hover:text-maroon hover:bg-white/80"
+                        }`}
+                      >
+                        <Building2 className="w-4 h-4 text-gold flex-shrink-0" />
+                        <span className="truncate">Offline (Studio Visit)</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Online" }))}
+                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded transition-all flex items-center justify-center gap-2 ${
+                          formData.consultationMode === "Online"
+                            ? "bg-maroon-deep text-ivory shadow-md border border-gold"
+                            : "text-stone-700 hover:text-maroon hover:bg-white/80"
+                        }`}
+                      >
+                        <Video className="w-4 h-4 text-gold flex-shrink-0" />
+                        <span className="truncate">Online (Virtual Video)</span>
+                      </button>
+                    </div>
+                  </div>
+
                   {/* Row 1: Full Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
@@ -239,7 +313,7 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* Row 2: Email & City */}
+                  {/* Row 2: Email & City (3 Presence Options) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
@@ -260,16 +334,26 @@ export function ConsultationSection() {
 
                     <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
-                        City *
+                        City (Where We Are Present) *
                       </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        placeholder="Mumbai, Silvassa, Kishangarh..."
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
-                      />
+                      <div className="relative">
+                        <select
+                          required
+                          value={formData.city}
+                          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                        >
+                          <option value="Mumbai">Mumbai (Studio & Experience Gallery)</option>
+                          <option value="Silvassa">Silvassa (Processing Works & Slab Hub)</option>
+                          <option value="Kishangarh">Kishangarh (Architectural Stone Center)</option>
+                          {formData.consultationMode === "Online" && (
+                            <option value="Other City (Online Consultation)">
+                              Other City (Online Virtual Meeting)
+                            </option>
+                          )}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                      </div>
                       {errors.city && (
                         <span className="text-[10px] text-red-600 mt-1 block">{errors.city}</span>
                       )}
@@ -329,31 +413,66 @@ export function ConsultationSection() {
                     )}
                   </div>
 
-                  {/* Row 3: Approx Area & Preferred Date */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Row 3: Approx Area (Dropdown) */}
+                  <div className="grid grid-cols-1 gap-6">
                     <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
-                        Approx. Area (Sq Ft)
+                        Approx. Area (Sq Ft) *
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.approxArea}
+                          onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
+                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                        >
+                          <option value="">Select Approx Area...</option>
+                          {APPROX_AREA_OPTIONS.map((area) => (
+                            <option key={area} value={area}>
+                              {area} sq ft
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Row 4: Preferred Date & Preferred Time Slots */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="relative">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1 flex items-center justify-between">
+                        <span>Preferred Date</span>
+                        <span className="text-[10px] text-stone-400 font-normal lowercase">(optional)</span>
                       </label>
                       <input
-                        type="text"
-                        value={formData.approxArea}
-                        onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
-                        placeholder="e.g. 5,000 sq ft"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
+                        type="date"
+                        min={new Date().toISOString().split("T")[0]}
+                        value={formData.preferredDate}
+                        onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                        className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors cursor-pointer"
                       />
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
-                        Preferred Date
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1 flex items-center justify-between">
+                        <span>Preferred Time Slot</span>
+                        <span className="text-[10px] text-stone-400 font-normal lowercase">(optional)</span>
                       </label>
-                      <input
-                        type="date"
-                        value={formData.preferredDate}
-                        onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
-                      />
+                      <div className="relative">
+                        <select
+                          value={formData.preferredTime}
+                          onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                        >
+                          <option value="">Select Time Slot...</option>
+                          {TIME_SLOTS.map((slot) => (
+                            <option key={slot} value={slot}>
+                              {slot}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                      </div>
                     </div>
                   </div>
 
