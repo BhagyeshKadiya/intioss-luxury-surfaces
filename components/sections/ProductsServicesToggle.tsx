@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
@@ -313,14 +313,113 @@ export function ProductsServicesToggle() {
     setCurrentIndex(0);
   };
 
-  // Auto-advance every 6.5s when idle
+  // Auto-advance every 5.5s when idle
   useEffect(() => {
     if (isHovered) return;
     const interval = setInterval(() => {
       handleNext();
-    }, 6500);
+    }, 5500);
     return () => clearInterval(interval);
   }, [handleNext, isHovered]);
+
+  // SCROLLER WORK ON MOUSE HOVER: Wheel scrolling, edge hover auto-scroll, and gesture support
+  const carouselContainerRef = useRef<HTMLDivElement>(null);
+  const hoverScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isHoverScrollingRef = useRef<"next" | "prev" | null>(null);
+
+  const startHoverScroll = useCallback(
+    (direction: "next" | "prev") => {
+      if (isHoverScrollingRef.current === direction) return;
+      isHoverScrollingRef.current = direction;
+
+      if (hoverScrollTimerRef.current) clearInterval(hoverScrollTimerRef.current);
+
+      // Immediately advance once on hover edge
+      if (direction === "next") {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+
+      // Then continuously advance while hovering over the edge zone
+      hoverScrollTimerRef.current = setInterval(() => {
+        if (direction === "next") {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }, 1400);
+    },
+    [handleNext, handlePrev]
+  );
+
+  const stopHoverScroll = useCallback(() => {
+    if (hoverScrollTimerRef.current) {
+      clearInterval(hoverScrollTimerRef.current);
+      hoverScrollTimerRef.current = null;
+    }
+    isHoverScrollingRef.current = null;
+  }, []);
+
+  // Native mouse wheel listener with passive: false to smoothly translate vertical wheel into horizontal carousel scroll
+  useEffect(() => {
+    const el = carouselContainerRef.current;
+    if (!el) return;
+
+    let lastWheelTime = 0;
+    const onWheel = (e: WheelEvent) => {
+      const dominantDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(dominantDelta) < 12) return;
+
+      // Prevent page jump while mouse is hovering and wheeling over the carousel
+      e.preventDefault();
+
+      const now = performance.now();
+      if (now - lastWheelTime > 230) {
+        lastWheelTime = now;
+        if (dominantDelta > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [handleNext, handlePrev]);
+
+  // Clean up hover interval on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverScrollTimerRef.current) clearInterval(hoverScrollTimerRef.current);
+    };
+  }, []);
+
+  // Handle mouse move across the carousel stage to detect left/right hover zones
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const el = carouselContainerRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const width = rect.width;
+
+      // Left 16% zone triggers smooth backward scroll on hover
+      if (x < width * 0.16) {
+        startHoverScroll("prev");
+      }
+      // Right 16% zone triggers smooth forward scroll on hover
+      else if (x > width * 0.84) {
+        startHoverScroll("next");
+      }
+      // Center zone (safe for reading & clicking without movement)
+      else {
+        stopHoverScroll();
+      }
+    },
+    [startHoverScroll, stopHoverScroll]
+  );
 
   // Filter categories with live counts
   const filterCategories = useMemo(() => {
@@ -490,7 +589,7 @@ export function ProductsServicesToggle() {
                 : "Architectural Disciplines (6 Services)"}
             </span>
             <p className="font-jost text-xs sm:text-sm text-stone-500 mt-0.5">
-              Swipe or click arrows to explore INTIOSS signature surfaces
+              Scroll on mouse hover & wheel, swipe or use arrows to explore
             </p>
           </div>
 
@@ -537,12 +636,42 @@ export function ProductsServicesToggle() {
           </div>
         </div>
 
-        {/* Carousel Stage: Full-Bleed Modern Tall Architectural Cards */}
+        {/* Carousel Stage: Full-Bleed Modern Tall Architectural Cards with Mouse Hover & Wheel Scrolling */}
         <div
-          className="relative overflow-hidden py-3"
+          ref={carouselContainerRef}
+          className="relative overflow-hidden py-3 group/stage"
           onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            stopHoverScroll();
+          }}
+          onMouseMove={handleMouseMove}
         >
+          {/* Left Hover Scroller Hotzone */}
+          <div
+            onMouseEnter={() => startHoverScroll("prev")}
+            onMouseLeave={stopHoverScroll}
+            onClick={handlePrev}
+            className="absolute top-3 bottom-3 left-0 w-16 sm:w-20 z-30 hidden sm:flex items-center justify-start pl-3 cursor-pointer group/hoveredge"
+            aria-label="Hover or click to scroll left"
+          >
+            <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-gold/50 text-gold flex items-center justify-center opacity-0 group-hover/hoveredge:opacity-100 group-hover/hoveredge:scale-105 transition-all duration-300 shadow-xl">
+              <ChevronLeft className="w-5 h-5 text-gold group-hover/hoveredge:-translate-x-0.5 transition-transform" />
+            </div>
+          </div>
+
+          {/* Right Hover Scroller Hotzone */}
+          <div
+            onMouseEnter={() => startHoverScroll("next")}
+            onMouseLeave={stopHoverScroll}
+            onClick={handleNext}
+            className="absolute top-3 bottom-3 right-0 w-16 sm:w-20 z-30 hidden sm:flex items-center justify-end pr-3 cursor-pointer group/hoveredge"
+            aria-label="Hover or click to scroll right"
+          >
+            <div className="w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-gold/50 text-gold flex items-center justify-center opacity-0 group-hover/hoveredge:opacity-100 group-hover/hoveredge:scale-105 transition-all duration-300 shadow-xl">
+              <ChevronRight className="w-5 h-5 text-gold group-hover/hoveredge:translate-x-0.5 transition-transform" />
+            </div>
+          </div>
           <AnimatePresence mode="wait">
             {activeTab === "products" ? (
               <motion.div
