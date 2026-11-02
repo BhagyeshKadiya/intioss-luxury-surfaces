@@ -12,7 +12,6 @@ interface MilestoneItem {
   tag?: string;
   logo?: string;
   logoAspect?: "wide" | "square";
-  standardTitle?: string;
 }
 
 const MILESTONES: MilestoneItem[] = [
@@ -23,7 +22,6 @@ const MILESTONES: MilestoneItem[] = [
     tag: "Foundation",
     logo: "/images/legacy/gandhi-civil-decor-logo.png",
     logoAspect: "wide",
-    standardTitle: "Gandhi Civil Decor Standard",
   },
   {
     year: "1982",
@@ -44,7 +42,6 @@ const MILESTONES: MilestoneItem[] = [
     tag: "Stock Yard",
     logo: "/images/legacy/quality-marble-logo.jpg",
     logoAspect: "square",
-    standardTitle: "Quality Marble Standard",
   },
   {
     year: "2007",
@@ -53,7 +50,6 @@ const MILESTONES: MilestoneItem[] = [
     tag: "Manufacturing",
     logo: "/images/legacy/mgi-logo.png",
     logoAspect: "wide",
-    standardTitle: "MGI International Standard",
   },
   {
     year: "2014",
@@ -68,7 +64,6 @@ const MILESTONES: MilestoneItem[] = [
     tag: "The Brand",
     logo: "/images/legacy/intioss-logo.png",
     logoAspect: "wide",
-    standardTitle: "INTIOSS Maison Standard",
   },
 ];
 
@@ -76,149 +71,119 @@ interface HeritageBrandFlagProps {
   logo: string;
   title: string;
   year: string;
-  standardTitle?: string;
   aspect?: "wide" | "square";
-  isDarkCard: boolean;
-  isLeftDesktop: boolean;
   delay?: number;
 }
 
 /**
  * HeritageBrandFlag
- * Renders an archival brand standard flag on a polished golden flagpole with
- * fluid, physics-based undulating silk wave motion and dynamic light shimmer.
+ * Renders an archival brand flag on a polished golden flagpole with
+ * fluid undulating silk wave physics, positioned strictly on the opposite side of the year.
  */
 function HeritageBrandFlag({
   logo,
   title,
   year,
-  standardTitle,
   aspect = "wide",
-  isDarkCard,
-  isLeftDesktop,
   delay = 0,
 }: HeritageBrandFlagProps) {
   const isSquare = aspect === "square";
 
   return (
-    <div
-      className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 ${
-        !isLeftDesktop ? "md:flex-row-reverse md:items-center" : ""
-      }`}
-    >
-      {/* Flagpole & Waving Flag Unit */}
-      <div className="relative flex items-center select-none py-1">
-        {/* Vertical Golden Flagpole */}
-        <div className="relative flex flex-col items-center mr-1 z-20 flex-shrink-0">
-          {/* Top Brass Finial Sphere */}
-          <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-[0_1px_4px_rgba(0,0,0,0.35)] ring-1 ring-gold/40 relative flex items-center justify-center">
-            <span className="w-1 h-1 rounded-full bg-white/80 absolute top-0.5 left-0.5" />
-          </div>
-          {/* Top Collar */}
-          <div className="w-2 h-0.5 bg-[#8C6D14] -mt-px mb-0.5" />
+    <div className="relative flex items-center select-none flex-shrink-0">
+      {/* Vertical Golden Flagpole */}
+      <div className="relative flex flex-col items-center mr-0.5 sm:mr-1 z-20 flex-shrink-0">
+        {/* Top Brass Finial Sphere */}
+        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-[0_1px_3px_rgba(0,0,0,0.35)] ring-1 ring-gold/40 relative flex items-center justify-center">
+          <span className="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white/80 absolute top-0.5 left-0.5" />
+        </div>
+        {/* Collar */}
+        <div className="w-1.5 h-0.5 bg-[#8C6D14] -mt-px mb-0.5" />
 
-          {/* Golden Mast Shaft */}
-          <div
-            className={`w-[3px] bg-gradient-to-b from-[#F3E5AB] via-[#DDB62B] to-[#8C6D14] shadow-[0_0_6px_rgba(221,182,43,0.35)] rounded-full relative ${
-              isSquare ? "h-[62px] sm:h-[70px]" : "h-[58px] sm:h-[66px]"
-            }`}
-          >
-            {/* Upper Halyard Ring / Grommet */}
-            <div className="absolute -right-1 top-2 w-1.5 h-1.5 rounded-full border border-gold/80 bg-white shadow-xs" />
-            {/* Lower Halyard Ring / Grommet */}
-            <div className="absolute -right-1 bottom-2 w-1.5 h-1.5 rounded-full border border-gold/80 bg-white shadow-xs" />
-          </div>
-
-          {/* Bottom Pedestal Cap */}
-          <div className="w-2.5 h-1 rounded-full bg-gradient-to-b from-gold via-gold-dark to-[#554006] shadow-sm -mt-0.5" />
+        {/* Golden Mast Shaft */}
+        <div
+          className={`w-[2.5px] bg-gradient-to-b from-[#F3E5AB] via-[#DDB62B] to-[#8C6D14] shadow-[0_0_4px_rgba(221,182,43,0.35)] rounded-full relative ${
+            isSquare
+              ? "h-[40px] sm:h-[44px] md:h-[48px]"
+              : "h-[38px] sm:h-[42px] md:h-[46px]"
+          }`}
+        >
+          {/* Upper Halyard Grommet */}
+          <div className="absolute -right-[3px] top-1.5 w-1 h-1 rounded-full border border-gold/80 bg-white" />
+          {/* Lower Halyard Grommet */}
+          <div className="absolute -right-[3px] bottom-1.5 w-1 h-1 rounded-full border border-gold/80 bg-white" />
         </div>
 
-        {/* Animated Waving Silk Flag Banner */}
+        {/* Bottom Pedestal Cap */}
+        <div className="w-2 h-0.5 bg-gradient-to-b from-gold via-gold-dark to-[#554006] shadow-sm -mt-0.5" />
+      </div>
+
+      {/* Animated Waving Silk Flag Banner */}
+      <motion.div
+        className={`relative origin-left overflow-hidden rounded-r-md border border-gold/45 border-r-2 border-r-gold/80 shadow-[0_6px_16px_-3px_rgba(48,12,22,0.2)] bg-gradient-to-r from-white via-[#FCFAF7] to-[#F5EFEB] flex items-center justify-center ${
+          isSquare
+            ? "w-[44px] sm:w-[50px] md:w-[56px] h-[32px] sm:h-[36px] md:h-[40px] p-1"
+            : "w-[110px] sm:w-[130px] md:w-[150px] h-[32px] sm:h-[36px] md:h-[40px] p-1 sm:p-1.5"
+        }`}
+        animate={{
+          rotateZ: [0, 2.2, -1.8, 1.4, 0],
+          skewY: [0, -2.0, 2.4, -1.2, 0],
+          y: [0, -2.5, 1.8, -1.2, 0],
+          scaleX: [1, 0.985, 1.012, 0.99, 1],
+        }}
+        transition={{
+          duration: 4.8,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay,
+        }}
+        whileHover={{
+          scale: 1.05,
+          rotateZ: 2.5,
+          transition: { duration: 0.25 },
+        }}
+      >
+        {/* Logo Graphic inside Flag */}
+        <div className="relative w-full h-full flex items-center justify-center z-10">
+          <NextImage
+            src={logo}
+            alt={`${title} Flag`}
+            fill
+            sizes="(max-width: 640px) 110px, 150px"
+            className="object-contain"
+            priority={year === "1970"}
+          />
+        </div>
+
+        {/* Dynamic Silk Shimmer Sheen Wave */}
         <motion.div
-          className={`relative origin-left overflow-hidden rounded-r-md border border-gold/45 border-r-2 border-r-gold/80 shadow-[0_8px_20px_-4px_rgba(48,12,22,0.22)] bg-gradient-to-r from-white via-[#FCFAF7] to-[#F5EFEB] flex items-center justify-center ${
-            isSquare
-              ? "w-[68px] sm:w-[78px] h-[52px] sm:h-[58px] p-1.5"
-              : "w-[170px] sm:w-[210px] h-[48px] sm:h-[54px] p-2"
-          }`}
+          className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/60 to-transparent -skew-x-12 z-20"
           animate={{
-            rotateZ: [0, 2.2, -1.8, 1.4, 0],
-            skewY: [0, -2.0, 2.4, -1.2, 0],
-            y: [0, -3.0, 2.2, -1.5, 0],
-            scaleX: [1, 0.985, 1.012, 0.99, 1],
+            x: ["-130%", "230%"],
+            opacity: [0.1, 0.6, 0.1],
           }}
           transition={{
             duration: 4.8,
             repeat: Infinity,
             ease: "easeInOut",
+            delay: delay + 0.25,
+          }}
+        />
+
+        {/* Cloth Fold Depth Shadow */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/[0.04] via-transparent to-black/[0.08] mix-blend-multiply z-20"
+          animate={{
+            opacity: [0.25, 0.6, 0.25],
+          }}
+          transition={{
+            duration: 2.4,
+            repeat: Infinity,
+            ease: "easeInOut",
             delay,
           }}
-          whileHover={{
-            scale: 1.04,
-            rotateZ: 3,
-            transition: { duration: 0.25 },
-          }}
-        >
-          {/* Logo Graphic inside Flag */}
-          <div className="relative w-full h-full flex items-center justify-center z-10">
-            <NextImage
-              src={logo}
-              alt={`${title} Archival Flag`}
-              fill
-              sizes="(max-width: 640px) 170px, 210px"
-              className="object-contain"
-              priority={year === "1970"}
-            />
-          </div>
-
-          {/* Dynamic Silk Shimmer Sheen Wave (Sweeping light reflecting off folds) */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/60 to-transparent -skew-x-12 z-20"
-            animate={{
-              x: ["-130%", "230%"],
-              opacity: [0.1, 0.6, 0.1],
-            }}
-            transition={{
-              duration: 4.8,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: delay + 0.25,
-            }}
-          />
-
-          {/* Cloth Fold Depth Shadow */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/[0.04] via-transparent to-black/[0.08] mix-blend-multiply z-20"
-            animate={{
-              opacity: [0.25, 0.6, 0.25],
-            }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay,
-            }}
-          />
-        </motion.div>
-      </div>
-
-      {/* Archival Standard Caption */}
-      <div
-        className={`flex flex-col ${
-          !isLeftDesktop ? "md:items-end md:text-right" : "items-start text-left"
-        }`}
-      >
-        <span className="text-[9px] sm:text-[10px] font-montserrat tracking-[0.18em] uppercase text-gold font-semibold flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse flex-shrink-0" />
-          Heritage Standard
-        </span>
-        <span
-          className={`text-[11px] sm:text-xs font-marcellus tracking-wide ${
-            isDarkCard ? "text-ivory/80" : "text-maroon-deep/80"
-          }`}
-        >
-          {standardTitle || `${title} Flag`}
-        </span>
-      </div>
+        />
+      </motion.div>
     </div>
   );
 }
@@ -270,29 +235,47 @@ function TimelineCard({
               : "bg-maroon-deep text-ivory border-gold/50 shadow-[0_12px_32px_rgba(48,12,22,0.25)] hover:border-gold"
           }`}
         >
-          {/* Year and category tag */}
+          {/* Header Row: Year & Tag on one side, Animated Logo Flag strictly on the opposite side */}
           <div
-            className={`flex items-center gap-3 mb-3 ${
-              !isLeftDesktop ? "md:justify-end" : "justify-start"
+            className={`flex items-center justify-between gap-3 mb-4 ${
+              !isLeftDesktop ? "md:flex-row-reverse" : "flex-row"
             }`}
           >
-            <span
-              className={`text-3xl md:text-4xl font-marcellus font-normal ${
-                isEvenIndex ? "text-gold-dark" : "text-gold"
+            {/* Year and category tag */}
+            <div
+              className={`flex items-center gap-2.5 sm:gap-3 ${
+                !isLeftDesktop ? "md:flex-row-reverse" : ""
               }`}
             >
-              {item.year}
-            </span>
-            {item.tag && (
               <span
-                className={`px-2.5 py-0.5 rounded-full text-[10px] font-montserrat uppercase font-semibold tracking-wider border ${
-                  isEvenIndex
-                    ? "bg-maroon-deep/5 text-maroon-deep border-gold/40"
-                    : "bg-white/10 text-ivory border-gold/50"
+                className={`text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal ${
+                  isEvenIndex ? "text-gold-dark" : "text-gold"
                 }`}
               >
-                {item.tag}
+                {item.year}
               </span>
+              {item.tag && (
+                <span
+                  className={`px-2 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border ${
+                    isEvenIndex
+                      ? "bg-maroon-deep/5 text-maroon-deep border-gold/40"
+                      : "bg-white/10 text-ivory border-gold/50"
+                  }`}
+                >
+                  {item.tag}
+                </span>
+              )}
+            </div>
+
+            {/* Heritage Brand Flag - positioned on the opposite side of Year without any extra text */}
+            {item.logo && (
+              <HeritageBrandFlag
+                logo={item.logo}
+                title={item.title}
+                year={item.year}
+                aspect={item.logoAspect || "wide"}
+                delay={index * 0.35}
+              />
             )}
           </div>
 
@@ -313,28 +296,6 @@ function TimelineCard({
               {item.desc}
             </p>
           ) : null}
-
-          {/* Heritage Brand Flag Banner (for milestones with historical brand standards) */}
-          {item.logo && (
-            <div
-              className={`mt-5 pt-4 border-t ${
-                isEvenIndex ? "border-gold/20" : "border-gold/30"
-              } flex items-center ${
-                !isLeftDesktop ? "md:justify-end" : "justify-start"
-              }`}
-            >
-              <HeritageBrandFlag
-                logo={item.logo}
-                title={item.title}
-                year={item.year}
-                standardTitle={item.standardTitle}
-                aspect={item.logoAspect || "wide"}
-                isDarkCard={!isEvenIndex}
-                isLeftDesktop={isLeftDesktop}
-                delay={index * 0.35}
-              />
-            </div>
-          )}
         </div>
       </div>
     </motion.div>
