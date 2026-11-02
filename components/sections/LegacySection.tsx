@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import NextImage from "next/image";
 import { motion, useScroll, useTransform } from "motion/react";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
@@ -9,6 +10,9 @@ interface MilestoneItem {
   title: string;
   desc: string;
   tag?: string;
+  logo?: string;
+  logoAspect?: "wide" | "square";
+  standardTitle?: string;
 }
 
 const MILESTONES: MilestoneItem[] = [
@@ -17,6 +21,9 @@ const MILESTONES: MilestoneItem[] = [
     title: "Gandhi Civil Decor",
     desc: "Establishment of Civil Interior Business",
     tag: "Foundation",
+    logo: "/images/legacy/gandhi-civil-decor-logo.png",
+    logoAspect: "wide",
+    standardTitle: "Gandhi Civil Decor Standard",
   },
   {
     year: "1982",
@@ -35,12 +42,18 @@ const MILESTONES: MilestoneItem[] = [
     title: "Quality Marble",
     desc: "Setup of Quality Marble Stock Yard in Vile Parle, Mumbai",
     tag: "Stock Yard",
+    logo: "/images/legacy/quality-marble-logo.jpg",
+    logoAspect: "square",
+    standardTitle: "Quality Marble Standard",
   },
   {
     year: "2007",
     title: "MGI Factory",
     desc: "Setup of Marmo Granite International factory at Silvassa",
     tag: "Manufacturing",
+    logo: "/images/legacy/mgi-logo.png",
+    logoAspect: "wide",
+    standardTitle: "MGI International Standard",
   },
   {
     year: "2014",
@@ -53,8 +66,162 @@ const MILESTONES: MilestoneItem[] = [
     title: "INTIOSS Luxury Surfaces",
     desc: "A dedicated luxury brand for rare marbles and exotic stones, finished with exceptional craftsmanship.",
     tag: "The Brand",
+    logo: "/images/legacy/intioss-logo.png",
+    logoAspect: "wide",
+    standardTitle: "INTIOSS Maison Standard",
   },
 ];
+
+interface HeritageBrandFlagProps {
+  logo: string;
+  title: string;
+  year: string;
+  standardTitle?: string;
+  aspect?: "wide" | "square";
+  isDarkCard: boolean;
+  isLeftDesktop: boolean;
+  delay?: number;
+}
+
+/**
+ * HeritageBrandFlag
+ * Renders an archival brand standard flag on a polished golden flagpole with
+ * fluid, physics-based undulating silk wave motion and dynamic light shimmer.
+ */
+function HeritageBrandFlag({
+  logo,
+  title,
+  year,
+  standardTitle,
+  aspect = "wide",
+  isDarkCard,
+  isLeftDesktop,
+  delay = 0,
+}: HeritageBrandFlagProps) {
+  const isSquare = aspect === "square";
+
+  return (
+    <div
+      className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 ${
+        !isLeftDesktop ? "md:flex-row-reverse md:items-center" : ""
+      }`}
+    >
+      {/* Flagpole & Waving Flag Unit */}
+      <div className="relative flex items-center select-none py-1">
+        {/* Vertical Golden Flagpole */}
+        <div className="relative flex flex-col items-center mr-1 z-20 flex-shrink-0">
+          {/* Top Brass Finial Sphere */}
+          <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-[0_1px_4px_rgba(0,0,0,0.35)] ring-1 ring-gold/40 relative flex items-center justify-center">
+            <span className="w-1 h-1 rounded-full bg-white/80 absolute top-0.5 left-0.5" />
+          </div>
+          {/* Top Collar */}
+          <div className="w-2 h-0.5 bg-[#8C6D14] -mt-px mb-0.5" />
+
+          {/* Golden Mast Shaft */}
+          <div
+            className={`w-[3px] bg-gradient-to-b from-[#F3E5AB] via-[#DDB62B] to-[#8C6D14] shadow-[0_0_6px_rgba(221,182,43,0.35)] rounded-full relative ${
+              isSquare ? "h-[62px] sm:h-[70px]" : "h-[58px] sm:h-[66px]"
+            }`}
+          >
+            {/* Upper Halyard Ring / Grommet */}
+            <div className="absolute -right-1 top-2 w-1.5 h-1.5 rounded-full border border-gold/80 bg-white shadow-xs" />
+            {/* Lower Halyard Ring / Grommet */}
+            <div className="absolute -right-1 bottom-2 w-1.5 h-1.5 rounded-full border border-gold/80 bg-white shadow-xs" />
+          </div>
+
+          {/* Bottom Pedestal Cap */}
+          <div className="w-2.5 h-1 rounded-full bg-gradient-to-b from-gold via-gold-dark to-[#554006] shadow-sm -mt-0.5" />
+        </div>
+
+        {/* Animated Waving Silk Flag Banner */}
+        <motion.div
+          className={`relative origin-left overflow-hidden rounded-r-md border border-gold/45 border-r-2 border-r-gold/80 shadow-[0_8px_20px_-4px_rgba(48,12,22,0.22)] bg-gradient-to-r from-white via-[#FCFAF7] to-[#F5EFEB] flex items-center justify-center ${
+            isSquare
+              ? "w-[68px] sm:w-[78px] h-[52px] sm:h-[58px] p-1.5"
+              : "w-[170px] sm:w-[210px] h-[48px] sm:h-[54px] p-2"
+          }`}
+          animate={{
+            rotateZ: [0, 2.2, -1.8, 1.4, 0],
+            skewY: [0, -2.0, 2.4, -1.2, 0],
+            y: [0, -3.0, 2.2, -1.5, 0],
+            scaleX: [1, 0.985, 1.012, 0.99, 1],
+          }}
+          transition={{
+            duration: 4.8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay,
+          }}
+          whileHover={{
+            scale: 1.04,
+            rotateZ: 3,
+            transition: { duration: 0.25 },
+          }}
+        >
+          {/* Logo Graphic inside Flag */}
+          <div className="relative w-full h-full flex items-center justify-center z-10">
+            <NextImage
+              src={logo}
+              alt={`${title} Archival Flag`}
+              fill
+              sizes="(max-width: 640px) 170px, 210px"
+              className="object-contain"
+              priority={year === "1970"}
+            />
+          </div>
+
+          {/* Dynamic Silk Shimmer Sheen Wave (Sweeping light reflecting off folds) */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/60 to-transparent -skew-x-12 z-20"
+            animate={{
+              x: ["-130%", "230%"],
+              opacity: [0.1, 0.6, 0.1],
+            }}
+            transition={{
+              duration: 4.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: delay + 0.25,
+            }}
+          />
+
+          {/* Cloth Fold Depth Shadow */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none bg-gradient-to-r from-black/[0.04] via-transparent to-black/[0.08] mix-blend-multiply z-20"
+            animate={{
+              opacity: [0.25, 0.6, 0.25],
+            }}
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay,
+            }}
+          />
+        </motion.div>
+      </div>
+
+      {/* Archival Standard Caption */}
+      <div
+        className={`flex flex-col ${
+          !isLeftDesktop ? "md:items-end md:text-right" : "items-start text-left"
+        }`}
+      >
+        <span className="text-[9px] sm:text-[10px] font-montserrat tracking-[0.18em] uppercase text-gold font-semibold flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse flex-shrink-0" />
+          Heritage Standard
+        </span>
+        <span
+          className={`text-[11px] sm:text-xs font-marcellus tracking-wide ${
+            isDarkCard ? "text-ivory/80" : "text-maroon-deep/80"
+          }`}
+        >
+          {standardTitle || `${title} Flag`}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function TimelineCard({
   item,
@@ -146,6 +313,28 @@ function TimelineCard({
               {item.desc}
             </p>
           ) : null}
+
+          {/* Heritage Brand Flag Banner (for milestones with historical brand standards) */}
+          {item.logo && (
+            <div
+              className={`mt-5 pt-4 border-t ${
+                isEvenIndex ? "border-gold/20" : "border-gold/30"
+              } flex items-center ${
+                !isLeftDesktop ? "md:justify-end" : "justify-start"
+              }`}
+            >
+              <HeritageBrandFlag
+                logo={item.logo}
+                title={item.title}
+                year={item.year}
+                standardTitle={item.standardTitle}
+                aspect={item.logoAspect || "wide"}
+                isDarkCard={!isEvenIndex}
+                isLeftDesktop={isLeftDesktop}
+                delay={index * 0.35}
+              />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
