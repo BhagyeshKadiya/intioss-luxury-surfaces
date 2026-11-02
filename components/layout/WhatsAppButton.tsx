@@ -1,23 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import { getWhatsAppUrl, getProductWhatsAppUrl } from "@/lib/config";
-import { PRODUCTS } from "@/data/products";
+import { motion } from "motion/react";
+import { getWhatsAppUrl } from "@/lib/config";
 
 export function WhatsAppButton() {
   const pathname = usePathname();
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    // Tooltip appears after 4s automatically
-    const timer = setTimeout(() => {
-      setShowTooltip(true);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Hide the global floating button on the product detail page 
   // to prevent overlapping with the sticky Enquire Bar
@@ -31,31 +20,11 @@ export function WhatsAppButton() {
 
   return (
     <div
-      className="fixed bottom-20 right-3.5 sm:bottom-6 sm:right-6 z-[87] flex items-center gap-3 select-none"
+      className="fixed bottom-20 right-3.5 sm:bottom-6 sm:right-6 z-[87] flex items-center select-none pointer-events-auto"
       style={{
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Tooltip: Chat with us */}
-      <AnimatePresence>
-        {(showTooltip || isHovered) && (
-          <motion.div
-            initial={{ opacity: 0, x: 10, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 10, scale: 0.95 }}
-            transition={{ duration: 0.25 }}
-            className="hidden sm:flex items-center gap-2 bg-maroon-deep text-ivory px-3.5 py-2 rounded-sm border border-gold/40 shadow-xl backdrop-blur-md"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-            <span className="font-montserrat text-xs tracking-wider uppercase font-medium">
-              Chat with us
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Floating Button Container with Idle Float */}
       <motion.div
         animate={{ y: [0, -4, 0] }}
