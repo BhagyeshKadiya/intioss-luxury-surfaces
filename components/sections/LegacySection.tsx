@@ -77,8 +77,8 @@ interface HeritageBrandFlagProps {
 
 /**
  * HeritageBrandFlag
- * Renders an archival brand flag on a polished golden flagpole with
- * fluid undulating silk wave physics, positioned strictly on the opposite side of the year.
+ * Pure animated brand flag on a golden mast with realistic undulating silk wave physics.
+ * No extra text or badges — pure archival standard.
  */
 function HeritageBrandFlag({
   logo,
@@ -94,7 +94,7 @@ function HeritageBrandFlag({
       {/* Vertical Golden Flagpole */}
       <div className="relative flex flex-col items-center mr-0.5 sm:mr-1 z-20 flex-shrink-0">
         {/* Top Brass Finial Sphere */}
-        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-[0_1px_3px_rgba(0,0,0,0.35)] ring-1 ring-gold/40 relative flex items-center justify-center">
+        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-[0_1px_3px_rgba(0,0,0,0.35)] ring-1 ring-gold/40 relative flex items-center justify-center">
           <span className="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full bg-white/80 absolute top-0.5 left-0.5" />
         </div>
         {/* Collar */}
@@ -104,8 +104,8 @@ function HeritageBrandFlag({
         <div
           className={`w-[2.5px] bg-gradient-to-b from-[#F3E5AB] via-[#DDB62B] to-[#8C6D14] shadow-[0_0_4px_rgba(221,182,43,0.35)] rounded-full relative ${
             isSquare
-              ? "h-[40px] sm:h-[44px] md:h-[48px]"
-              : "h-[38px] sm:h-[42px] md:h-[46px]"
+              ? "h-[44px] sm:h-[50px] md:h-[56px]"
+              : "h-[42px] sm:h-[48px] md:h-[54px]"
           }`}
         >
           {/* Upper Halyard Grommet */}
@@ -122,8 +122,8 @@ function HeritageBrandFlag({
       <motion.div
         className={`relative origin-left overflow-hidden rounded-r-md border border-gold/45 border-r-2 border-r-gold/80 shadow-[0_6px_16px_-3px_rgba(48,12,22,0.2)] bg-gradient-to-r from-white via-[#FCFAF7] to-[#F5EFEB] flex items-center justify-center ${
           isSquare
-            ? "w-[44px] sm:w-[50px] md:w-[56px] h-[32px] sm:h-[36px] md:h-[40px] p-1"
-            : "w-[110px] sm:w-[130px] md:w-[150px] h-[32px] sm:h-[36px] md:h-[40px] p-1 sm:p-1.5"
+            ? "w-[48px] sm:w-[56px] md:w-[68px] h-[34px] sm:h-[40px] md:h-[46px] p-1"
+            : "w-[125px] sm:w-[155px] md:w-[185px] h-[34px] sm:h-[40px] md:h-[46px] p-1 sm:p-1.5"
         }`}
         animate={{
           rotateZ: [0, 2.2, -1.8, 1.4, 0],
@@ -149,7 +149,7 @@ function HeritageBrandFlag({
             src={logo}
             alt={`${title} Flag`}
             fill
-            sizes="(max-width: 640px) 110px, 150px"
+            sizes="(max-width: 640px) 125px, 185px"
             className="object-contain"
             priority={year === "1970"}
           />
@@ -210,17 +210,33 @@ function TimelineCard({
     <motion.div
       ref={ref}
       style={{ opacity, y }}
-      className={`relative flex flex-col md:flex-row items-start md:items-center ${
+      className={`relative flex flex-col md:flex-row items-start ${
         !isLeftDesktop ? "md:flex-row-reverse" : ""
       }`}
     >
-      {/* Center node with gold outline and inner dot */}
-      <div className="absolute left-6 md:left-1/2 top-6 md:top-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold -translate-x-1/2 md:-translate-y-1/2 z-10 shadow-sm flex items-center justify-center">
+      {/* Center node with gold outline and inner dot, aligned horizontally with Year and Flag */}
+      <div className="absolute left-6 md:left-1/2 top-10 md:top-[52px] w-4 h-4 rounded-full bg-white border-2 border-gold -translate-x-1/2 -translate-y-1/2 z-10 shadow-sm flex items-center justify-center">
         <div className={`w-1.5 h-1.5 rounded-full ${isEvenIndex ? "bg-maroon-deep" : "bg-gold"}`} />
       </div>
 
-      {/* Empty half for desktop alternating layout */}
-      <div className="hidden md:block md:w-1/2" />
+      {/* Opposite half across timeline on desktop: renders brand flag directly opposite the Year */}
+      <div
+        className={`hidden md:flex md:w-1/2 pt-4 md:pt-6 ${
+          isLeftDesktop ? "justify-end pr-12" : "justify-start pl-12"
+        }`}
+      >
+        {item.logo ? (
+          <HeritageBrandFlag
+            logo={item.logo}
+            title={item.title}
+            year={item.year}
+            aspect={item.logoAspect || "wide"}
+            delay={index * 0.35}
+          />
+        ) : (
+          <div className="w-full h-8" />
+        )}
+      </div>
 
       {/* Card content container with alternating background colors */}
       <div
@@ -235,10 +251,10 @@ function TimelineCard({
               : "bg-maroon-deep text-ivory border-gold/50 shadow-[0_12px_32px_rgba(48,12,22,0.25)] hover:border-gold"
           }`}
         >
-          {/* Header Row: Year & Tag on one side, Animated Logo Flag strictly on the opposite side */}
+          {/* Header Row: Year & Tag (On mobile only: flag displayed opposite to Year inside card) */}
           <div
-            className={`flex items-center justify-between gap-3 mb-4 ${
-              !isLeftDesktop ? "md:flex-row-reverse" : "flex-row"
+            className={`flex items-center justify-between gap-3 mb-3 ${
+              !isLeftDesktop ? "md:justify-end" : "justify-start"
             }`}
           >
             {/* Year and category tag */}
@@ -267,15 +283,17 @@ function TimelineCard({
               )}
             </div>
 
-            {/* Heritage Brand Flag - positioned on the opposite side of Year without any extra text */}
+            {/* Mobile-only flag on opposite side of year (on desktop it displays across the timeline) */}
             {item.logo && (
-              <HeritageBrandFlag
-                logo={item.logo}
-                title={item.title}
-                year={item.year}
-                aspect={item.logoAspect || "wide"}
-                delay={index * 0.35}
-              />
+              <div className="block md:hidden">
+                <HeritageBrandFlag
+                  logo={item.logo}
+                  title={item.title}
+                  year={item.year}
+                  aspect={item.logoAspect || "wide"}
+                  delay={index * 0.35}
+                />
+              </div>
             )}
           </div>
 
