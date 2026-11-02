@@ -261,7 +261,7 @@ export function ServicesShowcaseCarousel() {
               <ChevronRight className="w-5 h-5 text-gold group-hover/hoveredge:translate-x-0.5 transition-transform" />
             </div>
           </div>
-        <motion.div
+        <div
           className="flex transition-transform duration-500 ease-out -mx-3"
           style={{
             transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
@@ -358,7 +358,7 @@ export function ServicesShowcaseCarousel() {
               </motion.div>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

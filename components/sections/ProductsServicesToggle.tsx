@@ -676,15 +676,18 @@ export function ProductsServicesToggle() {
             {activeTab === "products" ? (
               <motion.div
                 key={`products-${activeProductFilter}`}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="flex transition-transform duration-500 ease-out -mx-3"
-                style={{
-                  transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
-                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full"
               >
+                <div
+                  className="flex transition-transform duration-500 ease-out -mx-3"
+                  style={{
+                    transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
+                  }}
+                >
                 {filteredProducts.map((item, idx) => (
                   <motion.div
                     key={item.id}
@@ -767,19 +770,23 @@ export function ProductsServicesToggle() {
                     </Link>
                   </motion.div>
                 ))}
+                </div>
               </motion.div>
             ) : (
               <motion.div
                 key="services-carousel"
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="flex transition-transform duration-500 ease-out -mx-3"
-                style={{
-                  transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
-                }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full"
               >
+                <div
+                  className="flex transition-transform duration-500 ease-out -mx-3"
+                  style={{
+                    transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
+                  }}
+                >
                 {SERVICE_CAROUSEL_ITEMS.map((item, idx) => (
                   <motion.div
                     key={item.id}
@@ -849,6 +856,7 @@ export function ProductsServicesToggle() {
                     </Link>
                   </motion.div>
                 ))}
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
