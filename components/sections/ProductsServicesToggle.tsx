@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
@@ -9,94 +9,154 @@ import {
   ChevronRight,
   ArrowRight,
   ArrowUpRight,
-  Sparkles,
   Layers,
   Wrench,
+  Sparkles,
 } from "lucide-react";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+
+export type ProductFilterCategory =
+  | "all"
+  | "natural-stone"
+  | "semi-precious"
+  | "table-tops"
+  | "stone-veneers"
+  | "artefacts";
 
 interface ProductCarouselItem {
   id: string;
   title: string;
   category: string;
+  categoryFilter: ProductFilterCategory;
   subtitle: string;
   image: string;
   badge: string;
   href: string;
   specs: string;
+  origin?: string;
 }
 
-const PRODUCT_CAROUSEL_ITEMS: ProductCarouselItem[] = [
+const TOP_10_PRODUCTS: ProductCarouselItem[] = [
   {
     id: "paunazo-quartzite",
     title: "Paunazo Quartzite",
-    category: "Exotic Quartzite",
-    subtitle: "Monolithic 20mm Slabs · Consecutive Bookmatch Alignment",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "Exotic Multicolor Quartzite · Mohs 7 Scratch & Acid Immunity",
     image: "/images/stones/paunazo/paunazo-slab.png",
     badge: "Mohs 7 · Acid Immune",
     href: "/products/paunazo-quartzite",
-    specs: "302 × 195 cm · Heat Tolerant to 260°C",
+    specs: "302 × 195 cm · Heat Proof 260°C",
+    origin: "Exotic Quarry",
   },
   {
     id: "golden-statuario",
     title: "Golden Statuario Marble",
-    category: "Italian Calcite Marble",
-    subtitle: "Warm Amber Gold Veins on Pure White Calcite Matrix",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "Warm Amber-Honey Gold Veins on Pure White Calcite Matrix",
     image: "/images/stones/golden-statuario/golden-statuario-slab.png",
     badge: "Carrara, Italy",
     href: "/products/golden-statuario-marble",
     specs: "284 × 178 cm · Mirror Bookmatch",
+    origin: "Carrara, Italy",
   },
   {
     id: "thassos-white",
     title: "Thassos White Marble",
-    category: "Crystalline Greek Marble",
-    subtitle: "The Purest Snow-White Crystalline Marble on Earth",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "The Purest Snow-White Crystalline Marble on Earth · Light Refracting",
     image: "/images/stones/thassos/thassos-slab.png",
-    badge: "Thassos Island, Greece",
+    badge: "Greece · Snow-White",
     href: "/products/thassos-white-marble",
     specs: "290 × 173 cm · Zero Veining Purity",
+    origin: "Thassos Island, Greece",
   },
   {
-    id: "semi-precious",
+    id: "statuario-classic",
+    title: "Statuario Classic Marble",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant Milk-White Marble",
+    image: "/images/stones/statuario/statuario-slab.png",
+    badge: "Carrara, Italy · Lot 6415A",
+    href: "/products/statuario-marble",
+    specs: "292 × 191 cm · 18mm Profile",
+    origin: "Carrara, Tuscany, Italy",
+  },
+  {
+    id: "statuario-rb599a",
+    title: "Statuario Marble (Lot RB599A)",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "Monumental Monolithic Dimensions with High-Contrast Raven Veins",
+    image: "/images/stones/statuario-rb599a/statuario-rb599a-slab.png",
+    badge: "Monumental 125\" Format",
+    href: "/products/statuario-rb599a-marble",
+    specs: "318 × 196 cm · 20mm Profile",
+    origin: "Carrara, Tuscany, Italy",
+  },
+  {
+    id: "statuario-rb4384",
+    title: "Statuario Marble (Lot RB-4384)",
+    category: "Natural Stone",
+    categoryFilter: "natural-stone",
+    subtitle: "High-Contrast Charcoal Ribbons across Crystalline Carrara Base",
+    image: "/images/stones/statuario-rb4384/statuario-rb4384-slab.png",
+    badge: "Consecutive Block Pair",
+    href: "/products/statuario-rb4384-marble",
+    specs: "254 × 180 cm · 20mm Profile",
+    origin: "Carrara, Tuscany, Italy",
+  },
+  {
+    id: "semi-precious-amethyst",
     title: "Semi-Precious Gemstones",
-    category: "Luminescent Slabs",
-    subtitle: "Handcrafted Amethyst, Blue Agate & Malachite Inlays",
+    category: "Semi-Precious Stone",
+    categoryFilter: "semi-precious",
+    subtitle: "Handcrafted Purple Amethyst, Blue Agate & Malachite Inlays",
     image: "/images/products/amethyst_slab_1791259421373.jpg",
     badge: "Backlit Gemstone Slabs",
     href: "/products?category=Semi-Precious%20Stones",
-    specs: "Bespoke Cut-to-Size · Translucent Depth",
+    specs: "Bespoke Cut-to-Size · Translucent Matrix",
+    origin: "Exotic Gemstone Mines",
   },
   {
-    id: "table-tops",
+    id: "exclusive-table-tops",
     title: "Exclusive Table Tops — Stone",
-    category: "Bespoke Monoliths",
-    subtitle: "Dining, Center & Executive Conference Centerpieces",
+    category: "Table Tops",
+    categoryFilter: "table-tops",
+    subtitle: "Monolithic Dining, Executive Conference & Sculptural Salon Slabs",
     image: "/images/stones/paunazo/paunazo-table-top.png",
     badge: "Crafted on Request",
     href: "/products?category=Exclusive%20Table%20Tops%20%E2%80%94%20Stone",
     specs: "Custom Chamfer & Bullnose Edging",
+    origin: "INTIOSS Studio Atelier",
   },
   {
     id: "stone-veneers",
     title: "Flexible Stone Veneers",
-    category: "Architectural Sheets",
-    subtitle: "Ultra-Thin Flexible Slate & Translucent Backlit Quartzite",
+    category: "Stone Veneers",
+    categoryFilter: "stone-veneers",
+    subtitle: "Ultra-Thin Flexible Slate & Translucent Backlit Quartzite Panels",
     image: "/images/services/stone-facades.jpg",
     badge: "Curvature & Facades",
     href: "/products?category=Stone%20Veneers",
     specs: "Lightweight 2mm Profile · Backlight Ready",
+    origin: "Architectural Grade",
   },
   {
-    id: "artefacts-mosaics",
+    id: "artisan-mosaics-artefacts",
     title: "Artisan Mosaics & Artefacts",
-    category: "Master Sculpting",
-    subtitle: "Monolithic Fluted Basins, Bathtubs & Waterjet Inlays",
+    category: "Mosaics & Artefacts",
+    categoryFilter: "artefacts",
+    subtitle: "Monolithic Fluted Basins, Bathtubs & Waterjet Medallion Inlays",
     image: "/images/services/cnc-waterjet.jpg",
     badge: "5-Axis CNC & Hand-Carved",
     href: "/products?category=Artefacts",
     specs: "Custom Mandirs & Architectural Sculpture",
+    origin: "Master Artisans",
   },
 ];
 
@@ -182,6 +242,8 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
 
 export function ProductsServicesToggle() {
   const [activeTab, setActiveTab] = useState<"products" | "services">("products");
+  const [activeProductFilter, setActiveProductFilter] =
+    useState<ProductFilterCategory>("all");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsVisible, setItemsVisible] = useState(3);
   const [isHovered, setIsHovered] = useState(false);
@@ -202,9 +264,17 @@ export function ProductsServicesToggle() {
     return () => window.removeEventListener("resize", updateItemsVisible);
   }, []);
 
+  // Filtered Products for the Carousel
+  const filteredProducts = useMemo(() => {
+    if (activeProductFilter === "all") return TOP_10_PRODUCTS;
+    return TOP_10_PRODUCTS.filter(
+      (p) => p.categoryFilter === activeProductFilter
+    );
+  }, [activeProductFilter]);
+
   const totalItems =
     activeTab === "products"
-      ? PRODUCT_CAROUSEL_ITEMS.length
+      ? filteredProducts.length
       : SERVICE_CAROUSEL_ITEMS.length;
 
   const maxIndex = Math.max(0, totalItems - itemsVisible);
@@ -223,14 +293,46 @@ export function ProductsServicesToggle() {
     setCurrentIndex(0);
   };
 
-  // Subtle auto-advance when idle (every 6s)
+  // Auto-advance every 6.5s when idle
   useEffect(() => {
     if (isHovered) return;
     const interval = setInterval(() => {
       handleNext();
-    }, 6000);
+    }, 6500);
     return () => clearInterval(interval);
   }, [handleNext, isHovered]);
+
+  // Filter categories with live counts
+  const filterCategories = useMemo(() => {
+    return [
+      { value: "all" as ProductFilterCategory, label: "All Stones", count: TOP_10_PRODUCTS.length },
+      {
+        value: "natural-stone" as ProductFilterCategory,
+        label: "Natural Stone",
+        count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "natural-stone").length,
+      },
+      {
+        value: "semi-precious" as ProductFilterCategory,
+        label: "Semi-Precious",
+        count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "semi-precious").length,
+      },
+      {
+        value: "table-tops" as ProductFilterCategory,
+        label: "Table Tops",
+        count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "table-tops").length,
+      },
+      {
+        value: "stone-veneers" as ProductFilterCategory,
+        label: "Stone Veneers",
+        count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "stone-veneers").length,
+      },
+      {
+        value: "artefacts" as ProductFilterCategory,
+        label: "Mosaics & Artefacts",
+        count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "artefacts").length,
+      },
+    ];
+  }, []);
 
   return (
     <section className="relative py-20 sm:py-28 bg-[#FAF8F5] text-maroon overflow-hidden border-b border-gold/20">
@@ -244,7 +346,7 @@ export function ProductsServicesToggle() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading & Segmented Tab Pill */}
-        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+        <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
           {/* Hexagon Eyebrow Badge */}
           <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold/30 shadow-xs backdrop-blur-xs transition-all hover:border-gold hover:shadow-[0_0_15px_rgba(221,182,43,0.25)]">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
@@ -267,7 +369,7 @@ export function ProductsServicesToggle() {
             <button
               type="button"
               onClick={() => handleTabChange("products")}
-              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 ${
+              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 cursor-pointer ${
                 activeTab === "products"
                   ? "text-maroon shadow-sm"
                   : "text-stone-600 hover:text-maroon"
@@ -287,7 +389,7 @@ export function ProductsServicesToggle() {
             <button
               type="button"
               onClick={() => handleTabChange("services")}
-              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 ${
+              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 cursor-pointer ${
                 activeTab === "services"
                   ? "text-maroon shadow-sm"
                   : "text-stone-600 hover:text-maroon"
@@ -306,16 +408,69 @@ export function ProductsServicesToggle() {
           </div>
         </div>
 
+        {/* UPPER SIDE CATEGORY FILTER BAR (Shown when PRODUCTS tab is active) */}
+        {activeTab === "products" && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+            className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none justify-start sm:justify-center px-1"
+          >
+            {filterCategories.map((filter) => {
+              const isSelected = activeProductFilter === filter.value;
+              return (
+                <button
+                  key={filter.value}
+                  type="button"
+                  onClick={() => {
+                    setActiveProductFilter(filter.value);
+                    setCurrentIndex(0);
+                  }}
+                  className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 flex-shrink-0 cursor-pointer active:scale-95 ${
+                    isSelected
+                      ? "text-maroon-deep shadow-sm"
+                      : "text-stone-600 hover:text-maroon bg-white/70 border border-stone-200 hover:border-gold/50"
+                  }`}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    {isSelected && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                    )}
+                    <span>{filter.label}</span>
+                    <span
+                      className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                        isSelected
+                          ? "bg-maroon-deep/10 text-maroon-deep"
+                          : "bg-stone-100 text-stone-500"
+                      }`}
+                    >
+                      {filter.count}
+                    </span>
+                  </span>
+                  {isSelected && (
+                    <motion.div
+                      layoutId="activeFilterPill"
+                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                      className="absolute inset-0 bg-white rounded-full border border-gold shadow-md"
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </motion.div>
+        )}
+
         {/* Carousel Header Bar: Slide Title & Navigation Arrows */}
         <div className="flex items-center justify-between mb-6 px-1">
           <div>
             <span className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-gold-dark font-semibold block">
               {activeTab === "products"
-                ? "Interactive Product Showcase"
-                : "Architectural Services Showcase"}
+                ? `Top 10 Curated Products (${filteredProducts.length} Showing)`
+                : "Architectural Services Showcase (6 Disciplines)"}
             </span>
             <span className="font-jost text-xs sm:text-sm text-stone-500">
-              Showing {currentIndex + 1} to {Math.min(currentIndex + itemsVisible, totalItems)} of {totalItems} {activeTab}
+              Showing {currentIndex + 1} to {Math.min(currentIndex + itemsVisible, totalItems)} of {totalItems}
             </span>
           </div>
 
@@ -349,21 +504,22 @@ export function ProductsServicesToggle() {
           <AnimatePresence mode="wait">
             {activeTab === "products" ? (
               <motion.div
-                key="products-carousel"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
+                key={`products-${activeProductFilter}`}
+                initial={{ opacity: 0, scale: 0.99 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.99 }}
                 transition={{ duration: 0.35 }}
                 className="flex transition-transform duration-500 ease-out -mx-3"
                 style={{
                   transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
                 }}
               >
-                {PRODUCT_CAROUSEL_ITEMS.map((item) => (
-                  <div
+                {filteredProducts.map((item) => (
+                  <motion.div
                     key={item.id}
                     className="flex-shrink-0 px-3"
                     style={{ width: `${100 / itemsVisible}%` }}
+                    whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   >
                     <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
                       {/* Image Header with Badge & Hover Zoom */}
@@ -373,7 +529,7 @@ export function ProductsServicesToggle() {
                           alt={item.title}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-maroon-deep/20 to-transparent pointer-events-none" />
 
@@ -398,6 +554,10 @@ export function ProductsServicesToggle() {
                       {/* Content Body */}
                       <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
                         <div>
+                          <div className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-widest text-gold-dark mb-1 font-semibold">
+                            <Sparkles className="w-3 h-3 text-gold" />
+                            <span>{item.origin || "Curated Monolith"}</span>
+                          </div>
                           <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors line-clamp-1">
                             {item.title}
                           </h3>
@@ -421,15 +581,15 @@ export function ProductsServicesToggle() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             ) : (
               <motion.div
                 key="services-carousel"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
+                initial={{ opacity: 0, scale: 0.99 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.99 }}
                 transition={{ duration: 0.35 }}
                 className="flex transition-transform duration-500 ease-out -mx-3"
                 style={{
@@ -437,10 +597,11 @@ export function ProductsServicesToggle() {
                 }}
               >
                 {SERVICE_CAROUSEL_ITEMS.map((item) => (
-                  <div
+                  <motion.div
                     key={item.id}
                     className="flex-shrink-0 px-3"
                     style={{ width: `${100 / itemsVisible}%` }}
+                    whileHover={{ y: -6, transition: { duration: 0.25 } }}
                   >
                     <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
                       {/* Image Header with Badge & Hover Zoom */}
@@ -450,7 +611,7 @@ export function ProductsServicesToggle() {
                           alt={item.title}
                           fill
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-maroon-deep/20 to-transparent pointer-events-none" />
 
@@ -491,7 +652,7 @@ export function ProductsServicesToggle() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             )}
