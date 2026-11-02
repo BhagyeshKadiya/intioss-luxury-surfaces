@@ -4,7 +4,13 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { ChevronLeft, ChevronRight, ArrowUpRight, Sparkles } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpRight,
+  Sparkles,
+} from "lucide-react";
+import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 
 export type ProductFilterCategory =
   | "all"
@@ -25,6 +31,7 @@ interface ProductItem {
   href: string;
   specs: string;
   origin?: string;
+  highlight: string;
 }
 
 const TOP_10_PRODUCTS: ProductItem[] = [
@@ -37,8 +44,9 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/stones/paunazo/paunazo-slab.png",
     badge: "Mohs 7 · Acid Immune",
     href: "/products/paunazo-quartzite",
-    specs: "302 × 195 cm · Heat Proof 260°C",
+    specs: "302 × 195 cm · 20mm Profile",
     origin: "Exotic Quarry",
+    highlight: "Consecutive Bookmatch Alignment",
   },
   {
     id: "golden-statuario",
@@ -49,32 +57,35 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/stones/golden-statuario/golden-statuario-slab.png",
     badge: "Carrara, Italy",
     href: "/products/golden-statuario-marble",
-    specs: "284 × 178 cm · Mirror Bookmatch",
+    specs: "284 × 178 cm · 20mm Profile",
     origin: "Carrara, Italy",
+    highlight: "Mirror-Image Bookmatch Flow",
   },
   {
     id: "thassos-white",
     title: "Thassos White Marble",
     category: "Natural Stone",
     categoryFilter: "natural-stone",
-    subtitle: "The Purest Snow-White Crystalline Marble on Earth · Light Refracting",
+    subtitle: "The Purest Snow-White Crystalline Marble on Earth",
     image: "/images/stones/thassos/thassos-slab.png",
     badge: "Greece · Snow-White",
     href: "/products/thassos-white-marble",
-    specs: "290 × 173 cm · Zero Veining Purity",
-    origin: "Thassos Island, Greece",
+    specs: "290 × 173 cm · 20mm Profile",
+    origin: "Island of Thassos, Greece",
+    highlight: "Light-Refracting Sugar Crystals",
   },
   {
     id: "statuario-classic",
     title: "Statuario Classic Marble",
     category: "Natural Stone",
     categoryFilter: "natural-stone",
-    subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant Milk-White Marble",
+    subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant White Calcite",
     image: "/images/stones/statuario/statuario-slab.png",
     badge: "Carrara, Italy · Lot 6415A",
     href: "/products/statuario-marble",
     specs: "292 × 191 cm · 18mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Timeless Monochromatic Grandeur",
   },
   {
     id: "statuario-rb599a",
@@ -87,6 +98,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     href: "/products/statuario-rb599a-marble",
     specs: "318 × 196 cm · 20mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Double-Height Atrium Scale",
   },
   {
     id: "statuario-rb4384",
@@ -99,6 +111,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     href: "/products/statuario-rb4384-marble",
     specs: "254 × 180 cm · 20mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Precision Planar Calibration",
   },
   {
     id: "semi-precious-amethyst",
@@ -109,8 +122,9 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/products/amethyst_slab_1791259421373.jpg",
     badge: "Backlit Gemstone Slabs",
     href: "/products?category=Semi-Precious%20Stones",
-    specs: "Bespoke Cut-to-Size · Translucent Matrix",
+    specs: "Bespoke Cut-to-Size Profile",
     origin: "Exotic Gemstone Mines",
+    highlight: "Translucent Deep Luminescence",
   },
   {
     id: "exclusive-table-tops",
@@ -121,8 +135,9 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/stones/paunazo/paunazo-table-top.png",
     badge: "Crafted on Request",
     href: "/products?category=Exclusive%20Table%20Tops%20%E2%80%94%20Stone",
-    specs: "Custom Chamfer & Bullnose Edging",
-    origin: "INTIOSS Studio Atelier",
+    specs: "Bespoke Edge Chamfers",
+    origin: "INTIOSS Atelier",
+    highlight: "Monolithic Sculpture Precision",
   },
   {
     id: "stone-veneers",
@@ -133,8 +148,9 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/services/stone-facades.jpg",
     badge: "Curvature & Facades",
     href: "/products?category=Stone%20Veneers",
-    specs: "Lightweight 2mm Profile · Backlight Ready",
+    specs: "Lightweight 2mm Profile",
     origin: "Architectural Grade",
+    highlight: "Curvilinear Cladding Flexibility",
   },
   {
     id: "artisan-mosaics-artefacts",
@@ -145,8 +161,9 @@ const TOP_10_PRODUCTS: ProductItem[] = [
     image: "/images/services/cnc-waterjet.jpg",
     badge: "5-Axis CNC & Hand-Carved",
     href: "/products?category=Artefacts",
-    specs: "Custom Mandirs & Architectural Sculpture",
-    origin: "Master Artisans",
+    specs: "Bespoke Architectural Sculpture",
+    origin: "Master Stone Artisans",
+    highlight: "Sub-Millimeter CNC Execution",
   },
 ];
 
@@ -231,8 +248,8 @@ export function ServicesProductsCarousel() {
 
   return (
     <section className="mt-28 sm:mt-36 pt-16 sm:pt-20 border-t border-gold/25">
-      {/* Section Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 gap-4 px-1">
+      {/* Section Header & Interactive Dial Navigation */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-5 px-1">
         <div>
           <div className="inline-flex items-center gap-2 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
@@ -240,37 +257,57 @@ export function ServicesProductsCarousel() {
               Materials Transformed Through Our Services
             </span>
           </div>
-          <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon">
+          <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon leading-tight">
             Top 10 Curated Surfaces & Exotic Slabs
           </h2>
-          <p className="font-jost text-xs sm:text-sm text-stone-600 mt-1 max-w-xl">
+          <p className="font-jost text-xs sm:text-sm text-stone-600 mt-1.5 max-w-xl leading-relaxed">
             From rare Italian marbles to monolithic quartzites, explore the surfaces specified, sourced, and fabricated through our architectural disciplines.
           </p>
         </div>
 
-        {/* Navigation Arrow Controls */}
-        <div className="flex items-center gap-2.5 shrink-0">
-          <button
-            type="button"
-            onClick={handlePrev}
-            aria-label="Previous product"
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <ChevronLeft className="w-5 h-5 text-maroon" />
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            aria-label="Next product"
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <ChevronRight className="w-5 h-5 text-maroon" />
-          </button>
+        {/* Liquid Progress Bar + Circular Glass Controls */}
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <span className="font-montserrat text-xs font-bold text-maroon tracking-wider">
+              {String(currentIndex + 1).padStart(2, "0")}
+            </span>
+            <div className="w-24 sm:w-36 h-1.5 bg-stone-200 rounded-full overflow-hidden relative">
+              <motion.div
+                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-gold via-[#F3E5AB] to-gold-dark rounded-full shadow-sm"
+                animate={{
+                  width: `${((currentIndex + 1) / totalItems) * 100}%`,
+                }}
+                transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              />
+            </div>
+            <span className="font-montserrat text-xs font-medium text-stone-400 tracking-wider">
+              {String(totalItems).padStart(2, "0")}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous product"
+              className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5 text-maroon" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next product"
+              className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5 text-maroon" />
+            </button>
+          </div>
         </div>
       </div>
 
       {/* UPPER SIDE CATEGORY FILTER BAR */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none justify-start sm:justify-start px-1">
+      <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-3 mb-9 scrollbar-none justify-start px-1">
         {filterCategories.map((filter) => {
           const isSelected = activeFilter === filter.value;
           return (
@@ -284,7 +321,7 @@ export function ServicesProductsCarousel() {
               className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 flex-shrink-0 cursor-pointer active:scale-95 ${
                 isSelected
                   ? "text-maroon-deep shadow-sm"
-                  : "text-stone-600 hover:text-maroon bg-white/70 border border-stone-200 hover:border-gold/50"
+                  : "text-stone-600 hover:text-maroon bg-white/80 border border-stone-200 hover:border-gold/50"
               }`}
             >
               <span className="relative z-10 flex items-center gap-2">
@@ -304,7 +341,7 @@ export function ServicesProductsCarousel() {
               </span>
               {isSelected && (
                 <motion.div
-                  layoutId="activeServicesFilterPill"
+                  layoutId="activeServicesProdFilterPill"
                   transition={{ type: "spring", stiffness: 420, damping: 32 }}
                   className="absolute inset-0 bg-white rounded-full border border-gold shadow-md"
                 />
@@ -314,115 +351,112 @@ export function ServicesProductsCarousel() {
         })}
       </div>
 
-      {/* Carousel Track */}
+      {/* Modern Tall Architectural Poster Cards Carousel Track */}
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden py-3"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <AnimatePresence mode="wait">
           <motion.div
             key={`services-prod-${activeFilter}`}
-            initial={{ opacity: 0, scale: 0.99 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.99 }}
-            transition={{ duration: 0.35 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="flex transition-transform duration-500 ease-out -mx-3"
             style={{
               transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
             }}
           >
-            {filteredProducts.map((item) => (
+            {filteredProducts.map((item, idx) => (
               <motion.div
                 key={item.id}
                 className="flex-shrink-0 px-3"
                 style={{ width: `${100 / itemsVisible}%` }}
-                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
-                <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
-                  {/* Image Header with Badge & Hover Zoom */}
-                  <div className="relative h-[230px] sm:h-[250px] w-full overflow-hidden bg-stone-100 flex-shrink-0">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-maroon-deep/20 to-transparent pointer-events-none" />
+                {/* Modern Architectural Full-Bleed Tall Poster Card */}
+                <Link
+                  href={item.href}
+                  className="group relative block h-[480px] sm:h-[530px] rounded-3xl overflow-hidden border border-gold/30 hover:border-gold shadow-lg hover:shadow-2xl transition-all duration-500 bg-maroon-deep select-none"
+                >
+                  {/* Full-Bleed High-Res Stone Photography */}
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                  />
 
-                    {/* Top Badges */}
-                    <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                      <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase tracking-wider font-semibold bg-maroon-deep/90 text-ivory border border-gold/40 shadow-xs backdrop-blur-xs">
-                        {item.category}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep shadow-xs">
-                        {item.badge}
-                      </span>
+                  {/* Cinematic Luxury Dark Scrim */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/20 group-hover:from-black/98 group-hover:via-black/50 transition-colors duration-500 pointer-events-none" />
+
+                  {/* Top Floating Glass Badges */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-gold/40 text-gold text-[10px] font-montserrat uppercase tracking-wider font-semibold shadow-sm">
+                      <IntiossHexagon size={12} useVector={true} />
+                      <span>{item.category}</span>
                     </div>
 
-                    <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                      <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold/90 font-medium block">
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep font-bold shadow-sm">
+                      {item.badge}
+                    </span>
+                  </div>
+
+                  {/* Bottom Typographic Card Body */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 z-10 flex flex-col justify-end text-ivory">
+                    {/* Origin & Specs Micro-Header */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold font-semibold flex items-center gap-1">
+                        <Sparkles className="w-3 h-3 text-gold" />
+                        {item.origin || "Curated Monolith"}
+                      </span>
+                      <span className="text-white/40 text-xs">·</span>
+                      <span className="text-[10px] font-montserrat uppercase tracking-wider text-white/70">
                         {item.specs}
                       </span>
                     </div>
-                  </div>
 
-                  {/* Content Body */}
-                  <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
-                    <div>
-                      <div className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-widest text-gold-dark mb-1 font-semibold">
-                        <Sparkles className="w-3 h-3 text-gold" />
-                        <span>{item.origin || "Curated Monolith"}</span>
-                      </div>
-                      <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors line-clamp-1">
-                        {item.title}
-                      </h3>
-                      <p className="font-jost text-xs sm:text-sm text-stone-600 mt-2 line-clamp-2 leading-relaxed">
-                        {item.subtitle}
-                      </p>
+                    {/* Title */}
+                    <h3 className="font-marcellus text-2xl sm:text-3xl text-white group-hover:text-gold transition-colors duration-300 leading-snug">
+                      {item.title}
+                    </h3>
+
+                    {/* Subtitle / Description */}
+                    <p className="font-jost text-xs sm:text-sm text-white/75 mt-2 line-clamp-2 leading-relaxed">
+                      {item.subtitle}
+                    </p>
+
+                    {/* Highlight Feature Chip */}
+                    <div className="mt-3.5 inline-flex items-center gap-1.5 text-[11px] font-montserrat text-gold-dark font-medium">
+                      <span className="w-1 h-1 rounded-full bg-gold" />
+                      <span>{item.highlight}</span>
                     </div>
 
-                    {/* Footer Link */}
-                    <div className="mt-5 pt-3.5 border-t border-gold/15 flex items-center justify-between">
-                      <Link
-                        href={item.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider font-semibold text-maroon group-hover:text-gold-dark transition-colors"
-                      >
-                        <span>Explore Stone</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </Link>
-                      <span className="text-[10px] font-montserrat uppercase tracking-widest text-stone-400">
-                        INTIOSS Archive
+                    {/* Interactive Action Strip */}
+                    <div className="mt-5 pt-4 border-t border-white/15 flex items-center justify-between">
+                      <span className="inline-flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest font-semibold text-gold group-hover:text-white transition-colors">
+                        <span>Explore Slabs</span>
+                        <ArrowUpRight className="w-4 h-4 text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </span>
+
+                      <span className="text-[10px] font-montserrat uppercase tracking-widest text-white/50">
+                        Lot #{idx + 1}
                       </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Pagination Progress Dots */}
-      <div className="flex items-center justify-center gap-2 mt-8">
-        {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setCurrentIndex(idx)}
-            aria-label={`Go to product slide ${idx + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-              currentIndex === idx
-                ? "w-8 bg-gold shadow-sm"
-                : "w-2 bg-stone-300 hover:bg-stone-400"
-            }`}
-          />
-        ))}
-      </div>
-
-      {/* View All Products CTA */}
-      <div className="text-center mt-10">
+      {/* View All Products CTA Link */}
+      <div className="text-center mt-12">
         <Link
           href="/products"
           className="inline-flex items-center gap-2 font-montserrat text-xs uppercase tracking-[0.2em] text-maroon hover:text-gold-dark transition-colors font-semibold border-b border-gold/40 pb-1"

@@ -3,17 +3,27 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import {
   ChevronLeft,
   ChevronRight,
   ArrowRight,
   MessageSquare,
-  Wrench,
-  CheckCircle2,
+  Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import { SERVICES } from "@/data/services";
 import { getWhatsAppUrl } from "@/lib/config";
+import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+
+const SERVICE_HIGHLIGHTS: Record<string, string> = {
+  "luxury-civil-contracting": "Acoustic Decoupling & Subfloor Precision",
+  "marble-block-processing": "Vacuum-Epoxy Resin Curing Lines",
+  "stone-facades": "Seismic Wind Load Certification",
+  "cnc-waterjet-cutting": "Sub-Millimeter Inlay Tolerances",
+  "stone-care-restoration": "Diamond Crystallization & Molecular Sealing",
+  "stone-flooring-installation": "Planar Calibration & Anti-Fracture Screeds",
+};
 
 export function ServicesShowcaseCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,44 +68,67 @@ export function ServicesShowcaseCarousel() {
 
   return (
     <section className="mb-20 sm:mb-28">
-      {/* Carousel Header Bar */}
-      <div className="flex items-center justify-between mb-8 px-1">
+      {/* Carousel Header Bar & Modern Liquid Dial Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 px-1">
         <div>
-          <div className="inline-flex items-center gap-2 mb-1.5">
+          <div className="inline-flex items-center gap-2 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             <span className="font-montserrat text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
               Architectural Disciplines Carousel
             </span>
           </div>
-          <h2 className="font-marcellus text-2xl sm:text-3xl text-maroon">
+          <h2 className="font-marcellus text-2xl sm:text-4xl text-maroon">
             End-to-End Stone Capabilities
           </h2>
+          <p className="font-jost text-xs sm:text-sm text-stone-600 mt-1 max-w-xl">
+            From raw quarry block gang-sawing to precision dry-lay installation and ventilated facade engineering.
+          </p>
         </div>
 
-        {/* Navigation Arrow Controls */}
-        <div className="flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={handlePrev}
-            aria-label="Previous service"
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <ChevronLeft className="w-5 h-5 text-maroon" />
-          </button>
-          <button
-            type="button"
-            onClick={handleNext}
-            aria-label="Next service"
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-          >
-            <ChevronRight className="w-5 h-5 text-maroon" />
-          </button>
+        {/* Liquid Progress Bar + Circular Glass Controls */}
+        <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-2.5">
+            <span className="font-montserrat text-xs font-bold text-maroon tracking-wider">
+              {String(currentIndex + 1).padStart(2, "0")}
+            </span>
+            <div className="w-24 sm:w-36 h-1.5 bg-stone-200 rounded-full overflow-hidden relative">
+              <motion.div
+                className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-gold via-[#F3E5AB] to-gold-dark rounded-full shadow-sm"
+                animate={{
+                  width: `${((currentIndex + 1) / totalItems) * 100}%`,
+                }}
+                transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              />
+            </div>
+            <span className="font-montserrat text-xs font-medium text-stone-400 tracking-wider">
+              {String(totalItems).padStart(2, "0")}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handlePrev}
+              aria-label="Previous service"
+              className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+            >
+              <ChevronLeft className="w-5 h-5 text-maroon" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              aria-label="Next service"
+              className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+            >
+              <ChevronRight className="w-5 h-5 text-maroon" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Carousel Track */}
+      {/* Carousel Track: Modern Architectural Tall Cards */}
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden py-3"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -105,106 +138,99 @@ export function ServicesShowcaseCarousel() {
             transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
           }}
         >
-          {SERVICES.map((service, idx) => (
-            <div
-              key={service.id}
-              className="flex-shrink-0 px-3"
-              style={{ width: `${100 / itemsVisible}%` }}
-            >
-              <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
-                {/* Image Header with Discipline Badge & Zoom */}
-                <div className="relative h-[230px] sm:h-[250px] w-full overflow-hidden bg-stone-100 flex-shrink-0">
+          {SERVICES.map((service, idx) => {
+            const highlight =
+              SERVICE_HIGHLIGHTS[service.slug] ||
+              service.capabilities?.[0] ||
+              "In-House Architectural Execution";
+
+            return (
+              <motion.div
+                key={service.id}
+                className="flex-shrink-0 px-3"
+                style={{ width: `${100 / itemsVisible}%` }}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                {/* Modern Architectural Full-Bleed Tall Poster Card */}
+                <div className="group relative block h-[480px] sm:h-[530px] rounded-3xl overflow-hidden border border-gold/30 hover:border-gold shadow-lg hover:shadow-2xl transition-all duration-500 bg-maroon-deep select-none">
+                  {/* Full-Bleed Architectural Photography */}
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/90 via-maroon-deep/20 to-transparent pointer-events-none" />
 
-                  {/* Top Discipline Number Badge */}
-                  <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                    <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase tracking-wider font-semibold bg-maroon-deep/90 text-ivory border border-gold/40 shadow-xs backdrop-blur-xs">
-                      Discipline 0{idx + 1}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep shadow-xs">
+                  {/* Dynamic Dark Gradient Scrim */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/20 group-hover:from-black/98 group-hover:via-black/50 transition-colors duration-500 pointer-events-none" />
+
+                  {/* Top Floating Glass Badges */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-gold/40 text-gold text-[10px] font-montserrat uppercase tracking-wider font-semibold shadow-sm">
+                      <IntiossHexagon size={12} useVector={true} />
+                      <span>Discipline 0{idx + 1}</span>
+                    </div>
+
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep font-bold shadow-sm">
                       Active
                     </span>
                   </div>
 
-                  <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                    <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold/90 font-medium block">
-                      In-House & Group Capabilities
-                    </span>
-                  </div>
-                </div>
+                  {/* Bottom Typographic Card Body */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 z-10 flex flex-col justify-end text-ivory">
+                    {/* Micro-Header */}
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold font-semibold flex items-center gap-1">
+                        <ShieldCheck className="w-3.5 h-3.5 text-gold" />
+                        In-House & Group Capabilities
+                      </span>
+                    </div>
 
-                {/* Content Body */}
-                <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
-                  <div>
-                    <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors line-clamp-1">
+                    {/* Title */}
+                    <h3 className="font-marcellus text-2xl sm:text-3xl text-white group-hover:text-gold transition-colors duration-300 leading-snug">
                       {service.title}
                     </h3>
-                    <p className="font-jost text-xs sm:text-sm text-stone-600 mt-2 line-clamp-2 leading-relaxed">
+
+                    {/* Short Description */}
+                    <p className="font-jost text-xs sm:text-sm text-white/75 mt-2 line-clamp-2 leading-relaxed">
                       {service.shortDesc}
                     </p>
 
-                    {/* Quick Capabilities */}
-                    <ul className="mt-4 space-y-1.5 border-t border-gold/15 pt-3">
-                      {service.capabilities.slice(0, 2).map((cap, cIdx) => (
-                        <li key={cIdx} className="flex items-center gap-2 text-xs font-jost text-stone-700">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-gold shrink-0" />
-                          <span className="line-clamp-1">{cap}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Highlight Chip */}
+                    <div className="mt-3.5 inline-flex items-center gap-1.5 text-[11px] font-montserrat text-gold-dark font-medium">
+                      <span className="w-1 h-1 rounded-full bg-gold" />
+                      <span>{highlight}</span>
+                    </div>
 
-                  {/* Action Strip */}
-                  <div className="mt-5 pt-3.5 border-t border-gold/15 flex items-center justify-between gap-2">
-                    <Link
-                      href={`#${service.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider font-semibold text-maroon group-hover:text-gold-dark transition-colors"
-                    >
-                      <span>Explore Details</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    {/* Action Strip: Protocol Link + WhatsApp Inquiry */}
+                    <div className="mt-5 pt-4 border-t border-white/15 flex items-center justify-between gap-3">
+                      <Link
+                        href={`#${service.slug}`}
+                        className="inline-flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest font-semibold text-gold group-hover:text-white transition-colors"
+                      >
+                        <span>View Protocol</span>
+                        <ArrowRight className="w-4 h-4 text-gold group-hover:translate-x-1.5 transition-transform" />
+                      </Link>
 
-                    <a
-                      href={getWhatsAppUrl(`Hello INTIOSS, I would like to inquire about ${service.title}.`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[11px] font-montserrat uppercase tracking-wider text-stone-500 hover:text-maroon inline-flex items-center gap-1"
-                    >
-                      <MessageSquare className="w-3 h-3 text-gold" />
-                      <span>WhatsApp</span>
-                    </a>
+                      <a
+                        href={getWhatsAppUrl(`Hello INTIOSS, I would like to inquire regarding ${service.title}.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[11px] font-montserrat uppercase tracking-wider text-white/70 hover:text-gold transition-colors"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5 text-gold" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            );
+          })}
         </motion.div>
-      </div>
-
-      {/* Pagination Progress Dots */}
-      <div className="flex items-center justify-center gap-2 mt-8">
-        {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setCurrentIndex(idx)}
-            aria-label={`Go to service slide ${idx + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-              currentIndex === idx
-                ? "w-8 bg-gold shadow-sm"
-                : "w-2 bg-stone-300 hover:bg-stone-400"
-            }`}
-          />
-        ))}
       </div>
     </section>
   );
 }
-

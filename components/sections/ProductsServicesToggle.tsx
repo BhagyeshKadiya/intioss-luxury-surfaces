@@ -7,11 +7,13 @@ import { motion, AnimatePresence } from "motion/react";
 import {
   ChevronLeft,
   ChevronRight,
-  ArrowRight,
   ArrowUpRight,
+  ArrowRight,
   Layers,
   Wrench,
   Sparkles,
+  ShieldCheck,
+  Compass,
 } from "lucide-react";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
@@ -35,6 +37,7 @@ interface ProductCarouselItem {
   href: string;
   specs: string;
   origin?: string;
+  highlight: string;
 }
 
 const TOP_10_PRODUCTS: ProductCarouselItem[] = [
@@ -47,8 +50,9 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/stones/paunazo/paunazo-slab.png",
     badge: "Mohs 7 · Acid Immune",
     href: "/products/paunazo-quartzite",
-    specs: "302 × 195 cm · Heat Proof 260°C",
+    specs: "302 × 195 cm · 20mm Profile",
     origin: "Exotic Quarry",
+    highlight: "Consecutive Bookmatch Alignment",
   },
   {
     id: "golden-statuario",
@@ -59,32 +63,35 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/stones/golden-statuario/golden-statuario-slab.png",
     badge: "Carrara, Italy",
     href: "/products/golden-statuario-marble",
-    specs: "284 × 178 cm · Mirror Bookmatch",
+    specs: "284 × 178 cm · 20mm Profile",
     origin: "Carrara, Italy",
+    highlight: "Mirror-Image Bookmatch Flow",
   },
   {
     id: "thassos-white",
     title: "Thassos White Marble",
     category: "Natural Stone",
     categoryFilter: "natural-stone",
-    subtitle: "The Purest Snow-White Crystalline Marble on Earth · Light Refracting",
+    subtitle: "The Purest Snow-White Crystalline Marble on Earth",
     image: "/images/stones/thassos/thassos-slab.png",
     badge: "Greece · Snow-White",
     href: "/products/thassos-white-marble",
-    specs: "290 × 173 cm · Zero Veining Purity",
-    origin: "Thassos Island, Greece",
+    specs: "290 × 173 cm · 20mm Profile",
+    origin: "Island of Thassos, Greece",
+    highlight: "Light-Refracting Sugar Crystals",
   },
   {
     id: "statuario-classic",
     title: "Statuario Classic Marble",
     category: "Natural Stone",
     categoryFilter: "natural-stone",
-    subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant Milk-White Marble",
+    subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant White Calcite",
     image: "/images/stones/statuario/statuario-slab.png",
     badge: "Carrara, Italy · Lot 6415A",
     href: "/products/statuario-marble",
     specs: "292 × 191 cm · 18mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Timeless Monochromatic Grandeur",
   },
   {
     id: "statuario-rb599a",
@@ -97,6 +104,7 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     href: "/products/statuario-rb599a-marble",
     specs: "318 × 196 cm · 20mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Double-Height Atrium Scale",
   },
   {
     id: "statuario-rb4384",
@@ -109,6 +117,7 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     href: "/products/statuario-rb4384-marble",
     specs: "254 × 180 cm · 20mm Profile",
     origin: "Carrara, Tuscany, Italy",
+    highlight: "Precision Planar Calibration",
   },
   {
     id: "semi-precious-amethyst",
@@ -119,8 +128,9 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/products/amethyst_slab_1791259421373.jpg",
     badge: "Backlit Gemstone Slabs",
     href: "/products?category=Semi-Precious%20Stones",
-    specs: "Bespoke Cut-to-Size · Translucent Matrix",
+    specs: "Bespoke Cut-to-Size Profile",
     origin: "Exotic Gemstone Mines",
+    highlight: "Translucent Deep Luminescence",
   },
   {
     id: "exclusive-table-tops",
@@ -131,8 +141,9 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/stones/paunazo/paunazo-table-top.png",
     badge: "Crafted on Request",
     href: "/products?category=Exclusive%20Table%20Tops%20%E2%80%94%20Stone",
-    specs: "Custom Chamfer & Bullnose Edging",
-    origin: "INTIOSS Studio Atelier",
+    specs: "Bespoke Edge Chamfers",
+    origin: "INTIOSS Atelier",
+    highlight: "Monolithic Sculpture Precision",
   },
   {
     id: "stone-veneers",
@@ -143,8 +154,9 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/services/stone-facades.jpg",
     badge: "Curvature & Facades",
     href: "/products?category=Stone%20Veneers",
-    specs: "Lightweight 2mm Profile · Backlight Ready",
+    specs: "Lightweight 2mm Profile",
     origin: "Architectural Grade",
+    highlight: "Curved Column & Backlight Ready",
   },
   {
     id: "artisan-mosaics-artefacts",
@@ -155,8 +167,9 @@ const TOP_10_PRODUCTS: ProductCarouselItem[] = [
     image: "/images/services/cnc-waterjet.jpg",
     badge: "5-Axis CNC & Hand-Carved",
     href: "/products?category=Artefacts",
-    specs: "Custom Mandirs & Architectural Sculpture",
-    origin: "Master Artisans",
+    specs: "Bespoke Architectural Sculpture",
+    origin: "Master Stone Artisans",
+    highlight: "Sub-Millimeter CNC Execution",
   },
 ];
 
@@ -169,6 +182,7 @@ interface ServiceCarouselItem {
   image: string;
   href: string;
   badge: string;
+  highlight: string;
 }
 
 const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
@@ -182,6 +196,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/luxury-civil-contracting.jpg",
     href: "/services#luxury-civil-contracting",
     badge: "Civil Contracting",
+    highlight: "Acoustic Decoupling & Subfloor Precision",
   },
   {
     id: "s2",
@@ -193,6 +208,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/marble-block-processing.jpg",
     href: "/services#marble-block-processing",
     badge: "Silvassa Factory",
+    highlight: "Vacuum-Epoxy Resin Curing Lines",
   },
   {
     id: "s3",
@@ -204,6 +220,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/stone-facades.jpg",
     href: "/services#stone-facades",
     badge: "Ventilated Facades",
+    highlight: "Seismic Wind Load Certification",
   },
   {
     id: "s4",
@@ -215,6 +232,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/cnc-waterjet.jpg",
     href: "/services#cnc-waterjet",
     badge: "5-Axis CNC Precision",
+    highlight: "Sub-Millimeter Inlay Tolerances",
   },
   {
     id: "s5",
@@ -226,6 +244,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/international-stone-sourcing.jpg",
     href: "/services#international-stone-sourcing",
     badge: "Global Quarry Alliances",
+    highlight: "Provenance Verification & Ultrasonic Scan",
   },
   {
     id: "s6",
@@ -237,6 +256,7 @@ const SERVICE_CAROUSEL_ITEMS: ServiceCarouselItem[] = [
     image: "/images/services/amc-services.jpg",
     href: "/services#stone-restoration-maintenance",
     badge: "Stone Care & AMC",
+    highlight: "Italian Crystallization Technology",
   },
 ];
 
@@ -335,7 +355,7 @@ export function ProductsServicesToggle() {
   }, []);
 
   return (
-    <section className="relative py-20 sm:py-28 bg-[#FAF8F5] text-maroon overflow-hidden border-b border-gold/20">
+    <section className="relative py-24 sm:py-32 bg-[#FAF8F5] text-maroon overflow-hidden border-b border-gold/20">
       {/* Luxury Animated Hexagon Background */}
       <HexagonBackground
         theme="light"
@@ -345,10 +365,10 @@ export function ProductsServicesToggle() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Heading & Segmented Tab Pill */}
-        <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
-          {/* Hexagon Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-white/80 border border-gold/30 shadow-xs backdrop-blur-xs transition-all hover:border-gold hover:shadow-[0_0_15px_rgba(221,182,43,0.25)]">
+        {/* Section Heading & Mode Switcher */}
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+          {/* Eyebrow Badge */}
+          <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-white/90 border border-gold/40 shadow-sm backdrop-blur-md transition-all hover:border-gold hover:shadow-[0_0_18px_rgba(221,182,43,0.3)]">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             <IntiossHexagon size={16} useVector={true} enablePrismaticGlint={true} />
             <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
@@ -357,19 +377,19 @@ export function ProductsServicesToggle() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           </div>
 
-          <h2 className="font-marcellus text-3xl sm:text-4xl md:text-5xl text-maroon font-normal tracking-wide max-w-3xl leading-tight">
+          <h2 className="font-marcellus text-3xl sm:text-5xl md:text-6xl text-maroon font-normal tracking-wide max-w-4xl leading-tight">
             Gold Standard in Stone Selection.
           </h2>
-          <p className="font-marcellus text-lg sm:text-2xl text-maroon/80 font-normal tracking-wide mt-2 sm:mt-3">
+          <p className="font-marcellus text-lg sm:text-2xl text-maroon/80 font-normal tracking-wide mt-2.5 sm:mt-3.5">
             Beyond the Slabs. Into the Details.
           </p>
 
-          {/* Segmented Toggle Pill (Products vs Services) */}
-          <div className="mt-8 inline-flex items-center p-1 bg-stone-200/70 rounded-full border border-stone-300 shadow-inner">
+          {/* Luxury Segmented Toggle Pill (Products vs Services) */}
+          <div className="mt-8 inline-flex items-center p-1.5 bg-stone-200/80 rounded-full border border-stone-300 shadow-inner backdrop-blur-xs">
             <button
               type="button"
               onClick={() => handleTabChange("products")}
-              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 cursor-pointer ${
+              className={`relative z-10 px-8 sm:px-10 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2.5 cursor-pointer ${
                 activeTab === "products"
                   ? "text-maroon shadow-sm"
                   : "text-stone-600 hover:text-maroon"
@@ -381,7 +401,7 @@ export function ProductsServicesToggle() {
                 <motion.div
                   layoutId="activePillTab"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  className="absolute inset-0 bg-white rounded-full border border-stone-200 shadow-sm -z-10"
+                  className="absolute inset-0 bg-white rounded-full border border-gold/40 shadow-md -z-10"
                 />
               )}
             </button>
@@ -389,7 +409,7 @@ export function ProductsServicesToggle() {
             <button
               type="button"
               onClick={() => handleTabChange("services")}
-              className={`relative z-10 px-7 sm:px-9 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2 cursor-pointer ${
+              className={`relative z-10 px-8 sm:px-10 py-2.5 text-xs sm:text-[13px] font-montserrat uppercase tracking-[0.16em] font-semibold transition-all duration-300 rounded-full flex items-center gap-2.5 cursor-pointer ${
                 activeTab === "services"
                   ? "text-maroon shadow-sm"
                   : "text-stone-600 hover:text-maroon"
@@ -401,21 +421,21 @@ export function ProductsServicesToggle() {
                 <motion.div
                   layoutId="activePillTab"
                   transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  className="absolute inset-0 bg-white rounded-full border border-stone-200 shadow-sm -z-10"
+                  className="absolute inset-0 bg-white rounded-full border border-gold/40 shadow-md -z-10"
                 />
               )}
             </button>
           </div>
         </div>
 
-        {/* UPPER SIDE CATEGORY FILTER BAR (Shown when PRODUCTS tab is active) */}
+        {/* UPPER CATEGORY FILTER BAR (When PRODUCTS tab is active) */}
         {activeTab === "products" && (
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.3 }}
-            className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none justify-start sm:justify-center px-1"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35 }}
+            className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-3 mb-10 scrollbar-none justify-start sm:justify-center px-1"
           >
             {filterCategories.map((filter) => {
               const isSelected = activeProductFilter === filter.value;
@@ -430,7 +450,7 @@ export function ProductsServicesToggle() {
                   className={`relative px-4 sm:px-5 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 flex-shrink-0 cursor-pointer active:scale-95 ${
                     isSelected
                       ? "text-maroon-deep shadow-sm"
-                      : "text-stone-600 hover:text-maroon bg-white/70 border border-stone-200 hover:border-gold/50"
+                      : "text-stone-600 hover:text-maroon bg-white/80 border border-stone-200 hover:border-gold/50"
                   }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
@@ -461,43 +481,65 @@ export function ProductsServicesToggle() {
           </motion.div>
         )}
 
-        {/* Carousel Header Bar: Slide Title & Navigation Arrows */}
-        <div className="flex items-center justify-between mb-6 px-1">
+        {/* Modern Carousel Control Bar: Interactive Progress Dial + Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 px-1">
           <div>
             <span className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-gold-dark font-semibold block">
               {activeTab === "products"
-                ? `Top 10 Curated Products (${filteredProducts.length} Showing)`
-                : "Architectural Services Showcase (6 Disciplines)"}
+                ? `Curated Top 10 Showcase (${filteredProducts.length} Items)`
+                : "Architectural Disciplines (6 Services)"}
             </span>
-            <span className="font-jost text-xs sm:text-sm text-stone-500">
-              Showing {currentIndex + 1} to {Math.min(currentIndex + itemsVisible, totalItems)} of {totalItems}
-            </span>
+            <p className="font-jost text-xs sm:text-sm text-stone-500 mt-0.5">
+              Swipe or click arrows to explore INTIOSS signature surfaces
+            </p>
           </div>
 
-          {/* Navigation Arrow Controls */}
-          <div className="flex items-center gap-2.5">
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label="Previous slide"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5 text-maroon" />
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label="Next slide"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white border border-gold/40 hover:border-gold hover:bg-gold/10 text-maroon shadow-sm flex items-center justify-center transition-all duration-200 active:scale-95 cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5 text-maroon" />
-            </button>
+          {/* Right: Golden Liquid Progress Bar + Glass Round Controls */}
+          <div className="flex items-center gap-4 shrink-0">
+            {/* Liquid Progress Bar */}
+            <div className="flex items-center gap-2.5">
+              <span className="font-montserrat text-xs font-bold text-maroon tracking-wider">
+                {String(currentIndex + 1).padStart(2, "0")}
+              </span>
+              <div className="w-24 sm:w-36 h-1.5 bg-stone-200 rounded-full overflow-hidden relative">
+                <motion.div
+                  className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-gold via-[#F3E5AB] to-gold-dark rounded-full shadow-sm"
+                  animate={{
+                    width: `${((currentIndex + 1) / totalItems) * 100}%`,
+                  }}
+                  transition={{ type: "spring", stiffness: 280, damping: 28 }}
+                />
+              </div>
+              <span className="font-montserrat text-xs font-medium text-stone-400 tracking-wider">
+                {String(totalItems).padStart(2, "0")}
+              </span>
+            </div>
+
+            {/* Circular Glass Navigation Buttons */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label="Previous slide"
+                className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5 text-maroon" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label="Next slide"
+                className="w-11 h-11 rounded-full bg-white/95 backdrop-blur-md border border-gold/40 hover:border-gold hover:bg-gold/15 text-maroon shadow-md flex items-center justify-center transition-all duration-200 active:scale-90 cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5 text-maroon" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Carousel Track Container */}
+        {/* Carousel Stage: Full-Bleed Modern Tall Architectural Cards */}
         <div
-          className="relative overflow-hidden"
+          className="relative overflow-hidden py-3"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -505,153 +547,177 @@ export function ProductsServicesToggle() {
             {activeTab === "products" ? (
               <motion.div
                 key={`products-${activeProductFilter}`}
-                initial={{ opacity: 0, scale: 0.99 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.35 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex transition-transform duration-500 ease-out -mx-3"
                 style={{
                   transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
                 }}
               >
-                {filteredProducts.map((item) => (
+                {filteredProducts.map((item, idx) => (
                   <motion.div
                     key={item.id}
                     className="flex-shrink-0 px-3"
                     style={{ width: `${100 / itemsVisible}%` }}
-                    whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
-                      {/* Image Header with Badge & Hover Zoom */}
-                      <div className="relative h-[240px] sm:h-[260px] w-full overflow-hidden bg-stone-100 flex-shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-maroon-deep/20 to-transparent pointer-events-none" />
+                    {/* Modern Architectural Full-Bleed Tall Poster Card */}
+                    <Link
+                      href={item.href}
+                      className="group relative block h-[480px] sm:h-[530px] rounded-3xl overflow-hidden border border-gold/30 hover:border-gold shadow-lg hover:shadow-2xl transition-all duration-500 bg-maroon-deep select-none"
+                    >
+                      {/* Full-Bleed Stone Photography */}
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                      />
 
-                        {/* Top Badges */}
-                        <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                          <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase tracking-wider font-semibold bg-maroon-deep/90 text-ivory border border-gold/40 shadow-xs backdrop-blur-xs">
-                            {item.category}
-                          </span>
-                          <span className="px-2 py-0.5 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep shadow-xs">
-                            {item.badge}
-                          </span>
+                      {/* Dynamic Luxury Ambient Gradient Scrim */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/20 group-hover:from-black/98 group-hover:via-black/50 transition-colors duration-500 pointer-events-none" />
+
+                      {/* Top Floating Glass Badges */}
+                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-gold/40 text-gold text-[10px] font-montserrat uppercase tracking-wider font-semibold shadow-sm">
+                          <IntiossHexagon size={12} useVector={true} />
+                          <span>{item.category}</span>
                         </div>
 
-                        {/* Bottom Image Caption */}
-                        <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold/90 font-medium block">
+                        <span className="px-2.5 py-1 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep font-bold shadow-sm">
+                          {item.badge}
+                        </span>
+                      </div>
+
+                      {/* Bottom Floating Typographic Card */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 z-10 flex flex-col justify-end text-ivory">
+                        {/* Origin & Specs Micro-Header */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold font-semibold flex items-center gap-1">
+                            <Sparkles className="w-3 h-3 text-gold" />
+                            {item.origin || "Curated Monolith"}
+                          </span>
+                          <span className="text-white/40 text-xs">·</span>
+                          <span className="text-[10px] font-montserrat uppercase tracking-wider text-white/70">
                             {item.specs}
                           </span>
                         </div>
-                      </div>
 
-                      {/* Content Body */}
-                      <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
-                        <div>
-                          <div className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-widest text-gold-dark mb-1 font-semibold">
-                            <Sparkles className="w-3 h-3 text-gold" />
-                            <span>{item.origin || "Curated Monolith"}</span>
-                          </div>
-                          <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors line-clamp-1">
-                            {item.title}
-                          </h3>
-                          <p className="font-jost text-xs sm:text-sm text-stone-600 mt-2 line-clamp-2 leading-relaxed">
-                            {item.subtitle}
-                          </p>
+                        {/* Title */}
+                        <h3 className="font-marcellus text-2xl sm:text-3xl text-white group-hover:text-gold transition-colors duration-300 leading-snug">
+                          {item.title}
+                        </h3>
+
+                        {/* Subtitle / Description */}
+                        <p className="font-jost text-xs sm:text-sm text-white/75 mt-2 line-clamp-2 leading-relaxed">
+                          {item.subtitle}
+                        </p>
+
+                        {/* Highlight Feature Chip */}
+                        <div className="mt-3.5 inline-flex items-center gap-1.5 text-[11px] font-montserrat text-gold-dark font-medium">
+                          <span className="w-1 h-1 rounded-full bg-gold" />
+                          <span>{item.highlight}</span>
                         </div>
 
-                        {/* Footer Action Link */}
-                        <div className="mt-5 pt-3.5 border-t border-gold/15 flex items-center justify-between">
-                          <Link
-                            href={item.href}
-                            className="inline-flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider font-semibold text-maroon group-hover:text-gold-dark transition-colors"
-                          >
-                            <span>Explore Surface</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                          </Link>
-                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-stone-400">
-                            INTIOSS Selection
+                        {/* Interactive Pill CTA */}
+                        <div className="mt-5 pt-4 border-t border-white/15 flex items-center justify-between">
+                          <span className="inline-flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest font-semibold text-gold group-hover:text-white transition-colors">
+                            <span>Explore Slabs</span>
+                            <ArrowUpRight className="w-4 h-4 text-gold group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                          </span>
+
+                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-white/50">
+                            Lot #{idx + 1}
                           </span>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 ))}
               </motion.div>
             ) : (
               <motion.div
                 key="services-carousel"
-                initial={{ opacity: 0, scale: 0.99 }}
+                initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.99 }}
-                transition={{ duration: 0.35 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex transition-transform duration-500 ease-out -mx-3"
                 style={{
                   transform: `translateX(-${currentIndex * (100 / itemsVisible)}%)`,
                 }}
               >
-                {SERVICE_CAROUSEL_ITEMS.map((item) => (
+                {SERVICE_CAROUSEL_ITEMS.map((item, idx) => (
                   <motion.div
                     key={item.id}
                     className="flex-shrink-0 px-3"
                     style={{ width: `${100 / itemsVisible}%` }}
-                    whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                    whileHover={{ y: -8 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                   >
-                    <div className="h-full bg-white rounded-2xl border border-gold/30 shadow-md hover:shadow-xl hover:border-gold transition-all duration-300 overflow-hidden flex flex-col group">
-                      {/* Image Header with Badge & Hover Zoom */}
-                      <div className="relative h-[240px] sm:h-[260px] w-full overflow-hidden bg-stone-100 flex-shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={item.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-106"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-maroon-deep/20 to-transparent pointer-events-none" />
+                    <Link
+                      href={item.href}
+                      className="group relative block h-[480px] sm:h-[530px] rounded-3xl overflow-hidden border border-gold/30 hover:border-gold shadow-lg hover:shadow-2xl transition-all duration-500 bg-maroon-deep select-none"
+                    >
+                      {/* Full-Bleed Discipline Photography */}
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                      />
 
-                        {/* Top Discipline Badge */}
-                        <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                          <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase tracking-wider font-semibold bg-maroon-deep/90 text-ivory border border-gold/40 shadow-xs backdrop-blur-xs">
-                            {item.discipline}
+                      {/* Scrim Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/20 group-hover:from-black/98 group-hover:via-black/50 transition-colors duration-500 pointer-events-none" />
+
+                      {/* Top Badges */}
+                      <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-gold/40 text-gold text-[10px] font-montserrat uppercase tracking-wider font-semibold shadow-sm">
+                          <Compass className="w-3.5 h-3.5 text-gold" />
+                          <span>{item.discipline}</span>
+                        </div>
+
+                        <span className="px-2.5 py-1 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep font-bold shadow-sm">
+                          {item.badge}
+                        </span>
+                      </div>
+
+                      {/* Bottom Floating Info */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-7 z-10 flex flex-col justify-end text-ivory">
+                        <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold font-semibold mb-2 block">
+                          Architectural Execution
+                        </span>
+
+                        <h3 className="font-marcellus text-2xl sm:text-3xl text-white group-hover:text-gold transition-colors duration-300 leading-snug">
+                          {item.title}
+                        </h3>
+
+                        <p className="font-jost text-xs sm:text-sm text-white/75 mt-2 line-clamp-2 leading-relaxed">
+                          {item.shortDesc}
+                        </p>
+
+                        <div className="mt-3.5 inline-flex items-center gap-1.5 text-[11px] font-montserrat text-gold-dark font-medium">
+                          <span className="w-1 h-1 rounded-full bg-gold" />
+                          <span>{item.highlight}</span>
+                        </div>
+
+                        <div className="mt-5 pt-4 border-t border-white/15 flex items-center justify-between">
+                          <span className="inline-flex items-center gap-2 text-xs font-montserrat uppercase tracking-widest font-semibold text-gold group-hover:text-white transition-colors">
+                            <span>View Protocol</span>
+                            <ArrowRight className="w-4 h-4 text-gold group-hover:translate-x-1.5 transition-transform" />
                           </span>
-                          <span className="px-2 py-0.5 rounded-full text-[9px] font-montserrat uppercase tracking-wider font-medium bg-gold text-maroon-deep shadow-xs">
-                            {item.badge}
+
+                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-white/50">
+                            Service 0{idx + 1}
                           </span>
                         </div>
                       </div>
-
-                      {/* Content Body */}
-                      <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 bg-white">
-                        <div>
-                          <h3 className="font-marcellus text-xl sm:text-2xl text-maroon group-hover:text-gold-dark transition-colors line-clamp-1">
-                            {item.title}
-                          </h3>
-                          <p className="font-jost text-xs sm:text-sm text-stone-600 mt-2 line-clamp-2 leading-relaxed">
-                            {item.shortDesc}
-                          </p>
-                        </div>
-
-                        {/* Footer Action Link */}
-                        <div className="mt-5 pt-3.5 border-t border-gold/15 flex items-center justify-between">
-                          <Link
-                            href={item.href}
-                            className="inline-flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider font-semibold text-maroon group-hover:text-gold-dark transition-colors"
-                          >
-                            <span>View Execution Details</span>
-                            <ArrowRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-1 transition-transform" />
-                          </Link>
-                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-stone-400">
-                            In-House & Group
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    </Link>
                   </motion.div>
                 ))}
               </motion.div>
@@ -659,25 +725,8 @@ export function ProductsServicesToggle() {
           </AnimatePresence>
         </div>
 
-        {/* Carousel Pagination Progress Dots */}
-        <div className="flex items-center justify-center gap-2 mt-8">
-          {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => setCurrentIndex(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                currentIndex === idx
-                  ? "w-8 bg-gold shadow-sm"
-                  : "w-2 bg-stone-300 hover:bg-stone-400"
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* Bottom Comprehensive Link CTA */}
-        <div className="text-center mt-10">
+        {/* Bottom Link CTA */}
+        <div className="text-center mt-12">
           <Link
             href={activeTab === "products" ? "/products" : "/services"}
             className="inline-flex items-center gap-2 font-montserrat text-xs uppercase tracking-[0.2em] text-maroon hover:text-gold-dark transition-colors font-semibold border-b border-gold/40 pb-1"
