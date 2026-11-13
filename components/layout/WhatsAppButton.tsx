@@ -31,7 +31,7 @@ export function WhatsAppButton() {
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="relative"
       >
-        {/* Soft Pulsing Gold Ring */}
+        {/* Soft Pulsing Green Ring */}
         <motion.div
           animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
           transition={{
@@ -39,7 +39,7 @@ export function WhatsAppButton() {
             repeat: Infinity,
             ease: "easeOut",
           }}
-          className="absolute inset-0 rounded-full border border-gold pointer-events-none"
+          className="absolute inset-0 rounded-full border border-[#25D366] pointer-events-none"
         />
 
         {/* WhatsApp Link Button */}
@@ -48,7 +48,7 @@ export function WhatsAppButton() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Direct WhatsApp Concierge"
-          className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-maroon text-white border border-gold shadow-2xl transition-transform hover:scale-105 active:scale-90 backdrop-blur-md"
+          className="relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white border border-white/30 shadow-[0_4px_20px_rgba(37,211,102,0.45)] transition-all duration-300 hover:scale-105 active:scale-95"
         >
           {/* White WhatsApp SVG Glyph */}
           <svg
