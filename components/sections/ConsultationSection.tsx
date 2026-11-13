@@ -12,17 +12,37 @@ import {
   Building2,
   Video,
   ChevronDown,
+  Layers,
+  Wrench,
+  X,
 } from "lucide-react";
 
-const SURFACE_OPTIONS = [
-  "Natural Stone",
-  "Semi-Precious",
-  "Table Tops",
-  "Mosaics",
-  "Stone Veneers",
-  "Artefacts",
-  "Stone Facade",
-  "Civil Contracting",
+export const PRODUCT_INTEREST_OPTIONS = [
+  "Paunazo Quartzite",
+  "Thassos White Marble",
+  "Golden Statuario Marble",
+  "Statuario Marble",
+  "Statuario Marble (Lot RB-4384)",
+  "Statuario Marble (Lot RB599A)",
+  "Super Spider Marble",
+  "Montano Pulchiano Marble (Lot 87206)",
+  "Montano Pulchiano Marble (Lot 86978)",
+  "Michael Angelo Marble",
+  "White Crystal Quartzite (Lot JNC-01)",
+  "Semi-Precious Stones & Backlit Gems",
+  "Exclusive Stone Table Tops",
+  "Stone Veneers (Flexible 2mm)",
+  "Artisan Mosaics",
+  "Stone Artefacts & Sculptures",
+];
+
+export const SERVICE_INTEREST_OPTIONS = [
+  "Luxury Civil Contracting",
+  "Marble Block Processing & Slabbing",
+  "Stone Facades & Exterior Cladding",
+  "CNC & Waterjet Precision Inlay",
+  "International Stone Sourcing",
+  "Stone Restoration, Polishing & AMC",
 ];
 
 const PROJECT_TYPES = [
@@ -383,31 +403,110 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* Interested In Multi-Select Chips */}
-                  <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
+                  {/* Surfaces & Disciplines of Interest: Dedicated Products & Services Dropdowns */}
+                  <div className="space-y-4">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold">
                       Surfaces & Disciplines of Interest *
                     </label>
-                    <div className="flex flex-wrap gap-2">
-                      {SURFACE_OPTIONS.map((item) => {
-                        const isSelected = formData.interestedIn.includes(item);
-                        return (
-                          <button
-                            key={item}
-                            type="button"
-                            onClick={() => toggleInterest(item)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat transition-all border active:scale-95 ${
-                              isSelected
-                                ? "bg-maroon-deep text-ivory border-gold font-semibold"
-                                : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:text-maroon font-medium"
-                            }`}
+
+                    {/* Dual Dropdowns Grid: Select Products & Select Services */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Products Dropdown */}
+                      <div className="relative">
+                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold-dark font-semibold mb-1">
+                          <Layers className="w-3 h-3 text-gold" />
+                          <span>Select Product / Surface</span>
+                        </label>
+                        <div className="relative">
+                          <select
+                            defaultValue=""
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              if (val) {
+                                if (!formData.interestedIn.includes(val)) {
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    interestedIn: [...prev.interestedIn, val],
+                                  }));
+                                }
+                                e.target.value = "";
+                              }
+                            }}
+                            className="w-full bg-white border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-none shadow-xs"
                           >
-                            {isSelected && <Check className="w-3.5 h-3.5 text-gold" />}
-                            <span>{item}</span>
-                          </button>
-                        );
-                      })}
+                            <option value="">Choose from All Products...</option>
+                            {PRODUCT_INTEREST_OPTIONS.map((prod) => (
+                              <option key={prod} value={prod}>
+                                {formData.interestedIn.includes(prod) ? `✓ ${prod}` : prod}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className="w-4 h-4 text-gold-dark absolute right-2.5 top-3 pointer-events-none" />
+                        </div>
+                      </div>
+
+                      {/* Services Dropdown */}
+                      <div className="relative">
+                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold-dark font-semibold mb-1">
+                          <Wrench className="w-3 h-3 text-gold" />
+                          <span>Select Architectural Service</span>
+                        </label>
+                        <div className="relative">
+                          <select
+                            defaultValue=""
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              if (val) {
+                                if (!formData.interestedIn.includes(val)) {
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    interestedIn: [...prev.interestedIn, val],
+                                  }));
+                                }
+                                e.target.value = "";
+                              }
+                            }}
+                            className="w-full bg-white border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-none shadow-xs"
+                          >
+                            <option value="">Choose from All Services...</option>
+                            {SERVICE_INTEREST_OPTIONS.map((serv) => (
+                              <option key={serv} value={serv}>
+                                {formData.interestedIn.includes(serv) ? `✓ ${serv}` : serv}
+                              </option>
+                            ))}
+                          </select>
+                          <ChevronDown className="w-4 h-4 text-gold-dark absolute right-2.5 top-3 pointer-events-none" />
+                        </div>
+                      </div>
                     </div>
+
+                    {/* Selected Tags Display with Remove Badge */}
+                    {formData.interestedIn.length > 0 && (
+                      <div className="pt-1">
+                        <span className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 font-medium block mb-1.5">
+                          Selected Choices ({formData.interestedIn.length}):
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {formData.interestedIn.map((item) => (
+                            <span
+                              key={item}
+                              className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-[11px] font-montserrat bg-maroon-deep text-ivory border border-gold shadow-xs"
+                            >
+                              <span>{item}</span>
+                              <button
+                                type="button"
+                                onClick={() => toggleInterest(item)}
+                                aria-label={`Remove ${item}`}
+                                className="w-4 h-4 rounded-full hover:bg-gold/30 flex items-center justify-center text-gold transition-colors cursor-pointer"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
                     {errors.interestedIn && (
                       <span className="text-[10px] text-red-600 mt-1 block">{errors.interestedIn}</span>
                     )}
