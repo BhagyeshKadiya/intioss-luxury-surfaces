@@ -215,23 +215,28 @@ export function Footer() {
               </div>
             </form>
 
-            {/* Social Icons positioned directly underneath the Subscribe form in their authentic brand colors */}
-            <div className="pt-5">
-              <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gold/90 block mb-2.5 font-semibold">
+            {/* Social Icons positioned vertically underneath the Subscribe form in their authentic brand colors */}
+            <div className="pt-6">
+              <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gold/90 block mb-3 font-semibold">
                 Follow INTIOSS
               </span>
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-col gap-2.5">
                 {/* Instagram: Authentic Gradient Brand Colors */}
                 <a
                   href={SITE_CONFIG.socials.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow INTIOSS on Instagram"
-                  className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4] p-[1.5px] shadow-[0_4px_14px_rgba(225,48,108,0.35)] hover:scale-110 hover:shadow-[0_6px_20px_rgba(225,48,108,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center group"
+                  className="group inline-flex items-center gap-3 py-1 text-ivory/80 hover:text-ivory transition-colors w-fit"
                 >
-                  <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4] flex items-center justify-center text-white">
-                    <Instagram className="w-4 h-4 text-white drop-shadow-xs" />
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4] p-[1.5px] shadow-[0_4px_14px_rgba(225,48,108,0.35)] group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(225,48,108,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center shrink-0">
+                    <div className="w-full h-full rounded-full bg-gradient-to-tr from-[#FD1D1D] via-[#E1306C] to-[#833AB4] flex items-center justify-center text-white">
+                      <Instagram className="w-4 h-4 text-white drop-shadow-xs" />
+                    </div>
                   </div>
+                  <span className="font-montserrat text-xs tracking-wider group-hover:text-gold transition-colors">
+                    Instagram
+                  </span>
                 </a>
 
                 {/* LinkedIn: Authentic #0077B5 Brand Color */}
@@ -240,9 +245,14 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Connect with INTIOSS on LinkedIn"
-                  className="w-9 h-9 rounded-full bg-[#0077B5] hover:bg-[#006097] text-white shadow-[0_4px_14px_rgba(0,119,181,0.35)] hover:scale-110 hover:shadow-[0_6px_20px_rgba(0,119,181,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center"
+                  className="group inline-flex items-center gap-3 py-1 text-ivory/80 hover:text-ivory transition-colors w-fit"
                 >
-                  <Linkedin className="w-4 h-4 fill-white text-white drop-shadow-xs" />
+                  <div className="w-8 h-8 rounded-full bg-[#0077B5] group-hover:bg-[#006097] text-white shadow-[0_4px_14px_rgba(0,119,181,0.35)] group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(0,119,181,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center shrink-0">
+                    <Linkedin className="w-4 h-4 fill-white text-white drop-shadow-xs" />
+                  </div>
+                  <span className="font-montserrat text-xs tracking-wider group-hover:text-gold transition-colors">
+                    LinkedIn
+                  </span>
                 </a>
 
                 {/* YouTube: Authentic #FF0000 Brand Color */}
@@ -251,9 +261,14 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Watch INTIOSS on YouTube"
-                  className="w-9 h-9 rounded-full bg-[#FF0000] hover:bg-[#D90000] text-white shadow-[0_4px_14px_rgba(255,0,0,0.35)] hover:scale-110 hover:shadow-[0_6px_20px_rgba(255,0,0,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center"
+                  className="group inline-flex items-center gap-3 py-1 text-ivory/80 hover:text-ivory transition-colors w-fit"
                 >
-                  <Youtube className="w-4 h-4 fill-white text-white drop-shadow-xs" />
+                  <div className="w-8 h-8 rounded-full bg-[#FF0000] group-hover:bg-[#D90000] text-white shadow-[0_4px_14px_rgba(255,0,0,0.35)] group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(255,0,0,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center shrink-0">
+                    <Youtube className="w-4 h-4 fill-white text-white drop-shadow-xs" />
+                  </div>
+                  <span className="font-montserrat text-xs tracking-wider group-hover:text-gold transition-colors">
+                    YouTube
+                  </span>
                 </a>
 
                 {/* WhatsApp: Authentic #25D366 Brand Color */}
@@ -262,11 +277,16 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Connect with INTIOSS Concierge on WhatsApp"
-                  className="w-9 h-9 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-[0_4px_14px_rgba(37,211,102,0.35)] hover:scale-110 hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center"
+                  className="group inline-flex items-center gap-3 py-1 text-ivory/80 hover:text-ivory transition-colors w-fit"
                 >
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" className="text-white drop-shadow-xs">
-                    <path d="M12.031 2C6.495 2 2 6.495 2 12.031c0 1.954.563 3.784 1.536 5.334L2 22l4.809-1.503c1.488.895 3.228 1.411 5.222 1.411 5.536 0 10.031-4.495 10.031-10.031C22.062 6.495 17.567 2 12.031 2zm0 18.283c-1.748 0-3.37-.532-4.717-1.442l-.338-.228-2.852.891.907-2.776-.251-.37c-1.026-1.512-1.569-3.284-1.569-5.127 0-4.57 3.717-8.287 8.287-8.287 4.57 0 8.287 3.717 8.287 8.287 0 4.57-3.717 8.287-8.287 8.287zm4.542-6.208c-.249-.125-1.472-.727-1.7-.81-.228-.083-.395-.125-.561.125-.166.25-.644.81-.789.977-.146.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.236-.74-.66-1.24-1.476-1.385-1.725-.146-.249-.016-.384.108-.508.112-.112.249-.291.374-.437.125-.145.166-.25.25-.415.083-.166.042-.312-.021-.437-.062-.125-.561-1.352-.769-1.852-.202-.486-.407-.42-.561-.428-.145-.008-.312-.008-.478-.008-.166 0-.437.062-.665.312-.228.25-.873.853-.873 2.079 0 1.227.894 2.412 1.019 2.578.125.166 1.758 2.685 4.26 3.766.595.257 1.06.41 1.423.525.599.19 1.144.163 1.575.099.48-.072 1.472-.602 1.68-1.184.208-.582.208-1.081.145-1.185-.062-.104-.228-.166-.477-.291z" />
-                  </svg>
+                  <div className="w-8 h-8 rounded-full bg-[#25D366] group-hover:bg-[#20bd5a] text-white shadow-[0_4px_14px_rgba(37,211,102,0.35)] group-hover:scale-110 group-hover:shadow-[0_6px_20px_rgba(37,211,102,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center shrink-0">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" className="text-white drop-shadow-xs">
+                      <path d="M12.031 2C6.495 2 2 6.495 2 12.031c0 1.954.563 3.784 1.536 5.334L2 22l4.809-1.503c1.488.895 3.228 1.411 5.222 1.411 5.536 0 10.031-4.495 10.031-10.031C22.062 6.495 17.567 2 12.031 2zm0 18.283c-1.748 0-3.37-.532-4.717-1.442l-.338-.228-2.852.891.907-2.776-.251-.37c-1.026-1.512-1.569-3.284-1.569-5.127 0-4.57 3.717-8.287 8.287-8.287 4.57 0 8.287 3.717 8.287 8.287 0 4.57-3.717 8.287-8.287 8.287zm4.542-6.208c-.249-.125-1.472-.727-1.7-.81-.228-.083-.395-.125-.561.125-.166.25-.644.81-.789.977-.146.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.236-.74-.66-1.24-1.476-1.385-1.725-.146-.249-.016-.384.108-.508.112-.112.249-.291.374-.437.125-.145.166-.25.25-.415.083-.166.042-.312-.021-.437-.062-.125-.561-1.352-.769-1.852-.202-.486-.407-.42-.561-.428-.145-.008-.312-.008-.478-.008-.166 0-.437.062-.665.312-.228.25-.873.853-.873 2.079 0 1.227.894 2.412 1.019 2.578.125.166 1.758 2.685 4.26 3.766.595.257 1.06.41 1.423.525.599.19 1.144.163 1.575.099.48-.072 1.472-.602 1.68-1.184.208-.582.208-1.081.145-1.185-.062-.104-.228-.166-.477-.291z" />
+                    </svg>
+                  </div>
+                  <span className="font-montserrat text-xs tracking-wider group-hover:text-gold transition-colors">
+                    WhatsApp Concierge
+                  </span>
                 </a>
               </div>
             </div>
