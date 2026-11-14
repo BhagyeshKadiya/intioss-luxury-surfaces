@@ -306,6 +306,9 @@ export function LegacySection() {
       {/* Subtle paper nuance */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#FAF7F2] via-white to-[#FAF7F2] pointer-events-none" />
 
+      {/* Top subtle transitional bridge from dark obsidian to ivory atelier */}
+      <div className="absolute top-0 inset-x-0 h-16 sm:h-24 bg-gradient-to-b from-[#140409]/8 via-transparent to-transparent pointer-events-none z-10" />
+
       <div className="max-w-[1024px] mx-auto px-6 relative z-10">
         {/* Section Heading */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 sm:mb-20">

@@ -151,7 +151,7 @@ export function ColorStoneSelector() {
               <Link
                 href={`/products?color=${palette.query}`}
                 aria-label={`Explore all ${palette.name} stones and marbles`}
-                className={`group relative flex flex-col items-center justify-between p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-black/60 hover:bg-black/85 border border-white/10 hover:border-gold/70 transition-all duration-300 shadow-lg hover:shadow-[0_16px_36px_rgba(0,0,0,0.6)] cursor-pointer overflow-hidden text-center h-[240px] sm:h-[260px] lg:h-[280px]`}
+                className={`group relative flex flex-col items-center justify-between p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#120307]/80 hover:bg-[#1A050B]/95 border border-gold/20 hover:border-gold/70 transition-all duration-300 shadow-lg hover:shadow-[0_16px_36px_rgba(0,0,0,0.75)] cursor-pointer overflow-hidden text-center h-[240px] sm:h-[260px] lg:h-[280px]`}
               >
                 {/* Radial Glow on Hover */}
                 <div

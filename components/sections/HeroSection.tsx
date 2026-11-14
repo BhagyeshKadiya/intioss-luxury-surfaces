@@ -278,12 +278,12 @@ export function HeroSection() {
         />
       </AnimatePresence>
 
-      {/* Scrim Overlay: Maroon-deep to transparent scrim */}
+      {/* Scrim Overlay: Maroon-deep to #140409 seamless gradient scrim */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(20, 8, 14, 0.42) 0%, rgba(20, 8, 14, 0.12) 40%, rgba(20, 8, 14, 0.62) 100%)",
+            "linear-gradient(180deg, rgba(20, 4, 9, 0.38) 0%, rgba(20, 4, 9, 0.10) 40%, rgba(20, 4, 9, 0.75) 85%, #140409 100%)",
         }}
       />
 

@@ -15,7 +15,7 @@ export function FaqSection() {
   };
 
   return (
-    <section className="relative py-20 sm:py-28 bg-[#FAF7F2] text-maroon-deep overflow-hidden border-t border-gold/30">
+    <section className="relative py-20 sm:py-28 bg-[#FAF7F2] text-maroon-deep overflow-hidden">
       {/* Luxury Animated Hexagon Background in Light Mode */}
       <HexagonBackground
         theme="light"
