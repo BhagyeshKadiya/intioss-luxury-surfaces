@@ -11,7 +11,6 @@ export interface ColorPaletteItem {
   name: string;
   query: string;
   descriptor: string;
-  count: string;
   swatchGradient: string;
   swatchBorder: string;
   glowColor: string;
@@ -24,7 +23,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "White",
     query: "White",
     descriptor: "Crystalline & Calcite",
-    count: "6+ Slabs",
     swatchGradient: "from-[#FFFFFF] via-[#F8F9FA] to-[#E2E8F0]",
     swatchBorder: "border-white/90 ring-white/40",
     glowColor: "rgba(255, 255, 255, 0.45)",
@@ -35,7 +33,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Beige",
     query: "Beige",
     descriptor: "Travertine & Warm Crema",
-    count: "5+ Slabs",
     swatchGradient: "from-[#FDFBF7] via-[#EADBCE] to-[#CBB499]",
     swatchBorder: "border-[#EADBCE] ring-[#D4BA9E]/40",
     glowColor: "rgba(224, 195, 163, 0.45)",
@@ -46,7 +43,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Grey",
     query: "Grey",
     descriptor: "Silver & Charcoal Mist",
-    count: "6+ Slabs",
     swatchGradient: "from-[#9CA3AF] via-[#6B7280] to-[#374151]",
     swatchBorder: "border-[#9CA3AF] ring-[#9CA3AF]/40",
     glowColor: "rgba(156, 163, 175, 0.45)",
@@ -57,7 +53,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Black",
     query: "Black",
     descriptor: "Cosmic Obsidian & Noir",
-    count: "5+ Slabs",
     swatchGradient: "from-[#374151] via-[#1F2937] to-[#0A0A0D]",
     swatchBorder: "border-[#4B5563] ring-[#374151]/50",
     glowColor: "rgba(55, 65, 81, 0.55)",
@@ -68,7 +63,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Gold",
     query: "Gold",
     descriptor: "Amber Honey & Vegas Gold",
-    count: "5+ Slabs",
     swatchGradient: "from-[#FDE047] via-[#DDB62B] to-[#92400E]",
     swatchBorder: "border-[#DDB62B] ring-[#DDB62B]/50",
     glowColor: "rgba(221, 182, 43, 0.55)",
@@ -79,7 +73,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Blue",
     query: "Blue",
     descriptor: "Celestial Azure & Lapis",
-    count: "4+ Slabs",
     swatchGradient: "from-[#60A5FA] via-[#2563EB] to-[#1E3A8A]",
     swatchBorder: "border-[#3B82F6] ring-[#2563EB]/40",
     glowColor: "rgba(37, 99, 235, 0.5)",
@@ -90,7 +83,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Green",
     query: "Green",
     descriptor: "Emerald & Serpentine Onyx",
-    count: "4+ Slabs",
     swatchGradient: "from-[#34D399] via-[#059669] to-[#064E3B]",
     swatchBorder: "border-[#10B981] ring-[#059669]/40",
     glowColor: "rgba(5, 150, 105, 0.5)",
@@ -101,7 +93,6 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     name: "Pink",
     query: "Pink",
     descriptor: "Blush Rose & Michael Angelo",
-    count: "4+ Slabs",
     swatchGradient: "from-[#FDA4AF] via-[#E11D48] to-[#9F1239]",
     swatchBorder: "border-[#F43F5E] ring-[#E11D48]/40",
     glowColor: "rgba(225, 29, 72, 0.5)",
@@ -170,12 +161,9 @@ export function ColorStoneSelector() {
                   }}
                 />
 
-                {/* Top Subtle Variety Badge */}
-                <div className="relative z-10 w-full flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat uppercase tracking-wider text-ivory/50 group-hover:text-gold transition-colors font-medium">
-                    {palette.count}
-                  </span>
-                  <div className="w-6 h-6 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-ivory/60 group-hover:text-gold group-hover:border-gold group-hover:bg-gold/15 transition-all">
+                {/* Top Subtle Action Indicator */}
+                <div className="relative z-10 w-full flex items-center justify-end">
+                  <div className="w-6 h-6 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-ivory/60 group-hover:text-gold group-hover:border-gold group-hover:bg-gold/15 transition-all shadow-sm">
                     <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>

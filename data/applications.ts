@@ -32,7 +32,7 @@ export const APPLICATION_SPACES: ApplicationSpace[] = [
     slug: "kitchen-countertop",
     title: "Kitchen Countertop",
     tagline: "Chef's monolithic waterfall islands & backsplashes",
-    image: "/images/stones/paunazo/paunazo-kitchen-countertop.png",
+    image: "/images/applications/kitchen-countertop.jpg",
     recommendedStones: [
       { name: "Paunazo Quartzite", slug: "paunazo-quartzite" },
       { name: "Statuario Marble", slug: "statuario-marble" },
