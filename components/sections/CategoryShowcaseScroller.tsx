@@ -324,37 +324,35 @@ export function CategoryShowcaseScroller() {
       </div>
 
       <div className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
-        {/* Header Block: Luxury Eyebrow & Marcellus Heading */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8 sm:mb-12">
-          <div>
-            {/* Tag / Eyebrow */}
-            <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-white/5 border border-gold/40 shadow-sm backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-              <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
-              <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">
-                Curated Surfaces & Solutions
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-            </div>
-
-            {/* Main Heading */}
-            <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal tracking-wide leading-tight">
-              Gold Standard in Stone Selection.
-            </h2>
-
-            {/* Subtitle */}
-            <p className="font-jost text-base sm:text-lg lg:text-xl text-ivory/80 mt-2 max-w-2xl leading-relaxed">
-              Beyond the Slabs. Into the Details.
-            </p>
+        {/* Centered Header Block: Luxury Eyebrow, Marcellus Heading & Subtitle */}
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-10 sm:mb-14">
+          {/* Tag / Eyebrow - Centered */}
+          <div className="inline-flex items-center gap-2 mb-3 px-4 py-1.5 rounded-full bg-white/5 border border-gold/40 shadow-[0_2px_12px_rgba(221,182,43,0.15)] backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
+            <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">
+              Curated Surfaces & Solutions
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           </div>
 
-          {/* Interactive Controls Bar: Segmented Switcher & Nav Buttons */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 shrink-0">
+          {/* Main Heading - Centered */}
+          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal tracking-wide leading-tight text-center">
+            Gold Standard in Stone Selection.
+          </h2>
+
+          {/* Subtitle - Centered */}
+          <p className="font-jost text-base sm:text-lg lg:text-xl text-ivory/80 mt-3 max-w-2xl leading-relaxed text-center">
+            Beyond the Slabs. Into the Details.
+          </p>
+
+          {/* Centered Interactive Controls Bar: Segmented Switcher & Navigation */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {/* Segmented Switcher: Surfaces vs Services */}
             <div
               role="tablist"
               aria-label="Select Curated Surfaces or Architectural Services"
-              className="inline-flex p-1 rounded-full bg-black/60 border border-gold/40 backdrop-blur-md shadow-lg"
+              className="inline-flex p-1 rounded-full bg-black/70 border border-gold/40 backdrop-blur-md shadow-xl"
             >
               <button
                 type="button"
