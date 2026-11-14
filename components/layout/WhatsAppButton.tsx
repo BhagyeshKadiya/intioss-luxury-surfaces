@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { SITE_CONFIG, getWhatsAppUrl } from "@/lib/config";
-import { Instagram, Linkedin, Youtube, ChevronDown, ChevronUp } from "lucide-react";
+import { Instagram, Linkedin, ChevronDown, ChevronUp } from "lucide-react";
 
 export function WhatsAppButton() {
   const pathname = usePathname();
@@ -39,7 +39,26 @@ export function WhatsAppButton() {
       name: "YouTube",
       href: SITE_CONFIG.socials.youtube,
       bgClass: "bg-[#FF0000] hover:bg-[#D90000] shadow-[0_4px_16px_rgba(255,0,0,0.45)] hover:shadow-[0_6px_22px_rgba(255,0,0,0.7)]",
-      icon: <Youtube className="w-5 h-5 fill-white text-white drop-shadow-xs sm:w-6 sm:h-6" />,
+      icon: (
+        <svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          className="w-6 h-6 sm:w-7 sm:h-7 drop-shadow-sm"
+          aria-hidden="true"
+        >
+          {/* Authentic YouTube badge outline & shape */}
+          <path
+            fill="#FFFFFF"
+            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"
+          />
+          {/* High-contrast Red YouTube Play Triangle */}
+          <polygon
+            fill="#FF0000"
+            points="9.545 15.568 15.818 12 9.545 8.432"
+          />
+        </svg>
+      ),
       ringColor: "border-[#FF0000]/40",
     },
   ];

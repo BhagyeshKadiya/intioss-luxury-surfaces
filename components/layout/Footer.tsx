@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 import { IntiossPattern } from "@/components/brand/IntiossPattern";
 import { SITE_CONFIG } from "@/lib/config";
-import { Instagram, Linkedin, Youtube, ExternalLink, Check } from "lucide-react";
+import { ExternalLink, Check } from "lucide-react";
 
 export function Footer() {
   const [email, setEmail] = useState("");
