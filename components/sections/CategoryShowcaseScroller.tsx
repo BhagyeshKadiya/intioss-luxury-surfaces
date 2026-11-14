@@ -347,28 +347,38 @@ export function CategoryShowcaseScroller() {
           </p>
 
           {/* Centered Interactive Controls Bar: Segmented Switcher & Navigation */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {/* Segmented Switcher: Surfaces vs Services */}
+          <div className="mt-8 flex items-center justify-center gap-2.5 sm:gap-4">
+            {/* Prev Item Arrow */}
+            <button
+              type="button"
+              onClick={prevItem}
+              aria-label="Previous Item"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-gold/40 hover:border-gold flex items-center justify-center text-ivory transition-all duration-200 active:scale-90 cursor-pointer shadow-md shrink-0"
+            >
+              <ChevronLeft className="w-4 h-4 text-gold" />
+            </button>
+
+            {/* Segmented Switcher: Products vs Services */}
             <div
               role="tablist"
-              aria-label="Select Curated Surfaces or Architectural Services"
-              className="inline-flex p-1 rounded-full bg-black/70 border border-gold/40 backdrop-blur-md shadow-xl"
+              aria-label="Select Products or Services"
+              className="inline-flex p-1 sm:p-1.5 rounded-full bg-black/75 border border-gold/40 backdrop-blur-md shadow-2xl"
             >
               <button
                 type="button"
                 role="tab"
                 aria-selected={activeTab === "surfaces"}
                 onClick={() => handleTabChange("surfaces")}
-                className={`relative flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full font-montserrat text-xs sm:text-[13px] uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer ${
+                className={`relative flex items-center gap-2 px-5 sm:px-7 py-2 sm:py-2.5 rounded-full font-montserrat text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === "surfaces"
-                    ? "bg-gold text-maroon-deep shadow-[0_2px_12px_rgba(221,182,43,0.4)]"
+                    ? "bg-gold text-maroon-deep shadow-[0_2px_14px_rgba(221,182,43,0.45)]"
                     : "text-ivory/70 hover:text-ivory hover:bg-white/5"
                 }`}
               >
                 <Layers className="w-3.5 h-3.5" />
-                <span>Curated Surfaces</span>
+                <span>Products</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
                     activeTab === "surfaces"
                       ? "bg-maroon-deep/20 text-maroon-deep font-bold"
                       : "bg-white/10 text-gold"
@@ -383,16 +393,16 @@ export function CategoryShowcaseScroller() {
                 role="tab"
                 aria-selected={activeTab === "services"}
                 onClick={() => handleTabChange("services")}
-                className={`relative flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full font-montserrat text-xs sm:text-[13px] uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer ${
+                className={`relative flex items-center gap-2 px-5 sm:px-7 py-2 sm:py-2.5 rounded-full font-montserrat text-xs sm:text-[13px] uppercase tracking-[0.16em] font-bold transition-all duration-300 cursor-pointer ${
                   activeTab === "services"
-                    ? "bg-gold text-maroon-deep shadow-[0_2px_12px_rgba(221,182,43,0.4)]"
+                    ? "bg-gold text-maroon-deep shadow-[0_2px_14px_rgba(221,182,43,0.45)]"
                     : "text-ivory/70 hover:text-ivory hover:bg-white/5"
                 }`}
               >
                 <Wrench className="w-3.5 h-3.5" />
-                <span>Disciplines & Services</span>
+                <span>Services</span>
                 <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                  className={`text-[10px] px-1.5 py-0.2 rounded-full font-semibold ${
                     activeTab === "services"
                       ? "bg-maroon-deep/20 text-maroon-deep font-bold"
                       : "bg-white/10 text-gold"
@@ -403,35 +413,15 @@ export function CategoryShowcaseScroller() {
               </button>
             </div>
 
-            {/* View All & Cycle Arrows */}
-            <div className="flex items-center gap-2">
-              <Link
-                href={activeTab === "surfaces" ? "/products" : "/services"}
-                className="group inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-white/5 hover:bg-gold/15 border border-gold/40 hover:border-gold text-xs font-montserrat uppercase tracking-[0.14em] font-semibold text-ivory transition-all duration-300"
-              >
-                <span>{activeTab === "surfaces" ? "All Surfaces" : "All Services"}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-gold group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Link>
-
-              <div className="hidden sm:flex items-center gap-1.5">
-                <button
-                  type="button"
-                  onClick={prevItem}
-                  aria-label="Previous Item"
-                  className="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 border border-gold/40 hover:border-gold flex items-center justify-center text-ivory transition-all active:scale-90 cursor-pointer"
-                >
-                  <ChevronLeft className="w-4 h-4 text-gold" />
-                </button>
-                <button
-                  type="button"
-                  onClick={nextItem}
-                  aria-label="Next Item"
-                  className="w-9 h-9 rounded-full bg-white/5 hover:bg-gold/20 border border-gold/40 hover:border-gold flex items-center justify-center text-ivory transition-all active:scale-90 cursor-pointer"
-                >
-                  <ChevronRight className="w-4 h-4 text-gold" />
-                </button>
-              </div>
-            </div>
+            {/* Next Item Arrow */}
+            <button
+              type="button"
+              onClick={nextItem}
+              aria-label="Next Item"
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-gold/40 hover:border-gold flex items-center justify-center text-ivory transition-all duration-200 active:scale-90 cursor-pointer shadow-md shrink-0"
+            >
+              <ChevronRight className="w-4 h-4 text-gold" />
+            </button>
           </div>
         </div>
 
@@ -649,20 +639,20 @@ export function CategoryShowcaseScroller() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-gold" />
             <span className="tracking-wider uppercase">
-              Hover over or click any {activeTab === "surfaces" ? "category" : "discipline"} to expand details & curation
+              Hover over or click any {activeTab === "surfaces" ? "product" : "service"} to expand details & curation
             </span>
           </div>
 
           <div className="flex items-center gap-4">
             <span className="tracking-wider uppercase text-gold font-semibold">
-              6 {activeTab === "surfaces" ? "Curated Categories" : "Master Disciplines"}
+              6 {activeTab === "surfaces" ? "Signature Products" : "Specialized Services"}
             </span>
             <span className="text-white/20">|</span>
             <Link
               href={activeTab === "surfaces" ? "/products" : "/services"}
               className="text-ivory hover:text-gold transition-colors tracking-wider uppercase font-semibold underline underline-offset-4 decoration-gold/50"
             >
-              Browse Complete {activeTab === "surfaces" ? "Inventory" : "Services"} →
+              Browse Complete {activeTab === "surfaces" ? "Products Catalogue" : "Services"} →
             </Link>
           </div>
         </div>
