@@ -18,22 +18,12 @@ import {
 } from "lucide-react";
 
 export const PRODUCT_INTEREST_OPTIONS = [
-  "Paunazo Quartzite",
-  "Thassos White Marble",
-  "Golden Statuario Marble",
-  "Statuario Marble",
-  "Statuario Marble (Lot RB-4384)",
-  "Statuario Marble (Lot RB599A)",
-  "Super Spider Marble",
-  "Montano Pulchiano Marble (Lot 87206)",
-  "Montano Pulchiano Marble (Lot 86978)",
-  "Michael Angelo Marble",
-  "White Crystal Quartzite (Lot JNC-01)",
-  "Semi-Precious Stones & Backlit Gems",
-  "Exclusive Stone Table Tops",
-  "Stone Veneers (Flexible 2mm)",
-  "Artisan Mosaics",
-  "Stone Artefacts & Sculptures",
+  "Natural Stone",
+  "Semi-Precious Stone",
+  "Table Tops",
+  "Stone Veneers",
+  "Mosaics",
+  "Artefacts",
 ];
 
 export const SERVICE_INTEREST_OPTIONS = [
@@ -434,7 +424,7 @@ export function ConsultationSection() {
                             }}
                             className="w-full bg-white border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-none shadow-xs"
                           >
-                            <option value="">Choose from All Products...</option>
+                            <option value="">Select Product Category...</option>
                             {PRODUCT_INTEREST_OPTIONS.map((prod) => (
                               <option key={prod} value={prod}>
                                 {formData.interestedIn.includes(prod) ? `✓ ${prod}` : prod}
