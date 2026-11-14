@@ -371,56 +371,50 @@ function ProductsContent() {
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative overflow-hidden">
       {/* Editorial Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
-        <div className="flex flex-row items-center justify-between gap-3 border-b border-gold/30 pb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gold/30 pb-4">
           <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 font-medium">
             <Link href="/" className="hover:text-gold-dark transition-colors">Home</Link>
             <span>/</span>
             <span className="text-gold-dark font-semibold">Surface Catalog</span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Desktop Filters Toggle Button */}
-            <button
-              type="button"
-              onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
-              className={`hidden lg:inline-flex items-center justify-center gap-2 h-9 px-4 border text-xs font-montserrat font-medium transition-all shadow-sm ${
-                isFilterSidebarOpen
-                  ? "bg-maroon text-gold border-gold"
-                  : "bg-white text-maroon border-gold/40 hover:border-gold hover:bg-gold/5"
-              }`}
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span>{isFilterSidebarOpen ? "Hide Filters" : "Show Filters"}</span>
-              {activeFiltersCount > 0 && (
-                <span className="min-w-4 h-4 px-1 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center shrink-0">
-                  {activeFiltersCount}
-                </span>
+          {/* Right Header Area: Search Bar (shifted from lower toolbar) & Mobile Filter Trigger */}
+          <div className="w-full sm:w-auto flex items-center gap-2 sm:gap-3">
+            <div className="w-full sm:w-72 md:w-80 relative">
+              <Search className="w-4 h-4 text-stone-500 absolute left-3 top-2.5 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search stone, origin, type, or vein..."
+                className="w-full bg-white border border-gold/40 hover:border-gold pl-9 pr-8 py-2 text-xs font-montserrat text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold/30 transition-all rounded-full shadow-xs"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  aria-label="Clear search"
+                  className="absolute right-2.5 top-2.5 text-stone-400 hover:text-maroon transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
               )}
-            </button>
+            </div>
 
             {/* Mobile Filter Button */}
             <button
               type="button"
               onClick={() => setIsMobileFilterOpen(true)}
-              className="lg:hidden inline-flex items-center justify-center gap-2 h-9 px-3.5 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm transition-all"
+              className="lg:hidden inline-flex items-center justify-center gap-1.5 h-9 px-3.5 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm rounded-full transition-all shrink-0"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span>Filters</span>
+              <span className="hidden xs:inline">Filters</span>
               {activeFiltersCount > 0 && (
                 <span className="min-w-4 h-4 px-1 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center shrink-0">
                   {activeFiltersCount}
                 </span>
               )}
             </button>
-
-            {/* Book Match Studio Button */}
-            <Link
-              href="/book-match"
-              className="inline-flex items-center justify-center gap-2 h-9 px-4 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm transition-all whitespace-nowrap shrink-0"
-            >
-              <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span>Book Match</span>
-            </Link>
           </div>
         </div>
 {/* Top Horizontal Primary Category Pills Carousel with Animated Spring Slider */}
@@ -469,85 +463,87 @@ function ProductsContent() {
                   <span>Filter by Type:</span>
                 </span>
 
-                {/* Animated Dropdown Trigger */}
-                <button
-                  type="button"
-                  onClick={() => setIsTypesDropdownOpen(!isTypesDropdownOpen)}
-                  aria-expanded={isTypesDropdownOpen}
-                  aria-label="Filter stone type"
-                  className="w-full sm:w-64 inline-flex items-center justify-between px-3.5 py-2 bg-white border border-gold/50 hover:border-gold rounded-xl text-xs font-montserrat uppercase tracking-wider text-maroon font-semibold shadow-xs transition-all hover:shadow-[0_2px_12px_rgba(221,182,43,0.25)] active:scale-[0.98] cursor-pointer"
-                >
-                  <span className="truncate">
-                    {filterState.subCategory.length > 0
-                      ? filterState.subCategory[0]
-                      : `All Types (${activeCategoryLabel})`}
-                  </span>
-                  <motion.div
-                    animate={{ rotate: isTypesDropdownOpen ? 180 : 0 }}
-                    transition={{ duration: 0.22, ease: "easeInOut" }}
-                    className="shrink-0 ml-2"
+                <div className="relative w-full sm:w-64">
+                  {/* Animated Dropdown Trigger */}
+                  <button
+                    type="button"
+                    onClick={() => setIsTypesDropdownOpen(!isTypesDropdownOpen)}
+                    aria-expanded={isTypesDropdownOpen}
+                    aria-label="Filter stone type"
+                    className="w-full inline-flex items-center justify-between px-3.5 py-2 bg-white border border-gold/50 hover:border-gold rounded-xl text-xs font-montserrat uppercase tracking-wider text-maroon font-semibold shadow-xs transition-all hover:shadow-[0_2px_12px_rgba(221,182,43,0.25)] active:scale-[0.98] cursor-pointer"
                   >
-                    <ChevronDown className="w-4 h-4 text-gold-dark" />
-                  </motion.div>
-                </button>
-              </div>
-
-              {/* Floating Animated Dropdown Menu */}
-              <AnimatePresence>
-                {isTypesDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.97 }}
-                    transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute left-0 sm:left-[108px] top-full mt-2 w-full sm:w-64 bg-white/95 backdrop-blur-xl border border-gold/50 shadow-[0_16px_40px_rgba(48,12,22,0.2)] rounded-xl overflow-hidden z-50 py-1.5 luxury-scrollbar max-h-72 overflow-y-auto"
-                  >
-                    {/* All Types option */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFilterState((prev) => ({ ...prev, subCategory: [] }));
-                        setIsTypesDropdownOpen(false);
-                      }}
-                      className={`w-full px-3.5 py-2 text-left text-xs font-montserrat uppercase tracking-wider flex items-center justify-between transition-colors ${
-                        filterState.subCategory.length === 0
-                          ? "bg-maroon text-gold font-bold"
-                          : "text-maroon hover:bg-gold/10 hover:text-gold-dark"
-                      }`}
+                    <span className="truncate">
+                      {filterState.subCategory.length > 0
+                        ? filterState.subCategory[0]
+                        : `All Types (${activeCategoryLabel})`}
+                    </span>
+                    <motion.div
+                      animate={{ rotate: isTypesDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.22, ease: "easeInOut" }}
+                      className="shrink-0 ml-2"
                     >
-                      <span>All {activeCategoryLabel} Types</span>
-                      {filterState.subCategory.length === 0 && (
-                        <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
-                      )}
-                    </button>
+                      <ChevronDown className="w-4 h-4 text-gold-dark" />
+                    </motion.div>
+                  </button>
 
-                    {/* Specific types list */}
-                    {activeTypes.map((typeOption) => {
-                      const isSelected = filterState.subCategory.includes(typeOption);
-                      return (
+                  {/* Floating Animated Dropdown Menu directly aligned beneath trigger */}
+                  <AnimatePresence>
+                    {isTypesDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 4, scale: 0.97 }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-gold/50 shadow-[0_20px_50px_rgba(48,12,22,0.25)] rounded-xl overflow-hidden z-[100] py-1.5 luxury-scrollbar max-h-72 overflow-y-auto"
+                      >
+                        {/* All Types option */}
                         <button
-                          key={typeOption}
                           type="button"
                           onClick={() => {
-                            setFilterState((prev) => ({ ...prev, subCategory: [typeOption] }));
+                            setFilterState((prev) => ({ ...prev, subCategory: [] }));
                             setIsTypesDropdownOpen(false);
                           }}
-                          className={`w-full px-3.5 py-2 text-left text-xs font-montserrat uppercase tracking-wider flex items-center justify-between transition-colors border-t border-gold/10 ${
-                            isSelected
+                          className={`w-full px-3.5 py-2 text-left text-xs font-montserrat uppercase tracking-wider flex items-center justify-between transition-colors ${
+                            filterState.subCategory.length === 0
                               ? "bg-maroon text-gold font-bold"
                               : "text-maroon hover:bg-gold/10 hover:text-gold-dark"
                           }`}
                         >
-                          <span>{typeOption}</span>
-                          {isSelected && (
+                          <span>All {activeCategoryLabel} Types</span>
+                          {filterState.subCategory.length === 0 && (
                             <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
                           )}
                         </button>
-                      );
-                    })}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
+                        {/* Specific types list */}
+                        {activeTypes.map((typeOption) => {
+                          const isSelected = filterState.subCategory.includes(typeOption);
+                          return (
+                            <button
+                              key={typeOption}
+                              type="button"
+                              onClick={() => {
+                                setFilterState((prev) => ({ ...prev, subCategory: [typeOption] }));
+                                setIsTypesDropdownOpen(false);
+                              }}
+                              className={`w-full px-3.5 py-2 text-left text-xs font-montserrat uppercase tracking-wider flex items-center justify-between transition-colors border-t border-gold/10 ${
+                                isSelected
+                              ? "bg-maroon text-gold font-bold"
+                              : "text-maroon hover:bg-gold/10 hover:text-gold-dark"
+                              }`}
+                            >
+                              <span>{typeOption}</span>
+                              {isSelected && (
+                                <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
+                              )}
+                            </button>
+                          );
+                        })}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
 
             <div className="hidden md:block w-px h-6 bg-gold/30 shrink-0" />
@@ -633,39 +629,21 @@ function ProductsContent() {
           })}
         </div>
 
-{/* Toolbar: Search, Result count, Sort & Density */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
-          <div className="w-full sm:w-80 relative">
-            <Search className="w-4 h-4 text-grey absolute left-3 top-2.5" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search stone, origin, type, or vein..."
-              className="w-full bg-white border border-gold/30 pl-9 pr-3 py-2 text-xs text-maroon placeholder:text-grey/50 rounded-none focus:outline-none focus:border-gold"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-2.5 text-grey hover:text-maroon"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
+{/* Toolbar: Result count, Sort & Density */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 pt-2">
+          <span className="text-xs font-montserrat text-stone-600">
+            Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
+          </span>
 
           <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
-            <span className="text-xs font-montserrat text-grey">
-              Showing <strong className="text-maroon">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
-            </span>
-
             {/* Sort Select */}
             <div className="flex items-center gap-2">
+              <span className="text-[11px] font-montserrat text-stone-500 uppercase tracking-wider">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 aria-label="Sort stones"
-                className="bg-white border border-gold/30 text-xs font-montserrat text-maroon py-1.5 px-2 rounded-none focus:outline-none focus:border-gold"
+                className="bg-white border border-gold/40 text-xs font-montserrat text-maroon py-1.5 px-3 rounded-full focus:outline-none focus:border-gold cursor-pointer"
               >
                 <option value="featured">Featured Curation</option>
                 <option value="name-asc">Name (A – Z)</option>
