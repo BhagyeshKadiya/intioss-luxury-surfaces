@@ -155,11 +155,15 @@ export function ContentSecurityShield() {
       }
     };
 
-    // 4. Window Blur / Tab Switch Protection
-    // When third-party Snipping Tool or screenshot software takes focus, shield content
+    // 4. Window Blur Recovery & Print Protection
     const handleWindowBlur = () => {
-      // Temporarily blur images to prevent screen sniffers
+      // Quick shield protection with guaranteed automatic recovery
       document.body.classList.add("content-shielded");
+      setTimeout(() => {
+        if (typeof document !== "undefined") {
+          document.body.classList.remove("content-shielded");
+        }
+      }, 800);
     };
 
     const handleWindowFocus = () => {
