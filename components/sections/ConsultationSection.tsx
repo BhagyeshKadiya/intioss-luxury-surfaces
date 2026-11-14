@@ -15,6 +15,7 @@ import {
   Layers,
   Wrench,
   X,
+  Sparkles,
 } from "lucide-react";
 
 export const PRODUCT_INTEREST_OPTIONS = [
@@ -50,23 +51,9 @@ const APPROX_AREA_OPTIONS = [
 ];
 
 const TIME_SLOTS = [
-  "10:00 am - 10:30 am",
-  "10:31 am - 11:00 am",
-  "11:01 am - 11:30 am",
-  "11:31 am - 12:00 pm",
-  "12:01 pm - 12:30 pm",
-  "12:31 pm - 1:00 pm",
-  "1:01 pm - 1:30 pm",
-  "1:31 pm - 2:00 pm",
-  "2:01 pm - 2:30 pm",
-  "2:31 pm - 3:00 pm",
-  "3:01 pm - 3:30 pm",
-  "3:31 pm - 4:00 pm",
-  "4:01 pm - 4:30 pm",
-  "4:31 pm - 5:00 pm",
-  "5:01 pm - 5:30 pm",
-  "5:31 pm - 6:00 pm",
-  "6:01 pm - 6:30 pm",
+  "Morning (10:00 AM - 1:00 PM)",
+  "Afternoon (1:00 PM - 4:00 PM)",
+  "Evening (4:00 PM - 7:00 PM)",
 ];
 
 export function ConsultationSection() {
@@ -77,7 +64,7 @@ export function ConsultationSection() {
     city: "Mumbai",
     consultationMode: "Offline" as "Offline" | "Online",
     projectType: "Residential",
-    interestedIn: ["Natural Stone"],
+    interestedIn: [] as string[],
     approxArea: "",
     preferredDate: "",
     preferredTime: "",
@@ -92,16 +79,42 @@ export function ConsultationSection() {
   const toggleInterest = (item: string) => {
     setFormData((prev) => {
       const exists = prev.interestedIn.includes(item);
-      if (exists) {
-        if (prev.interestedIn.length === 1) return prev; // keep at least one
-        return { ...prev, interestedIn: prev.interestedIn.filter((i) => i !== item) };
-      }
-      return { ...prev, interestedIn: [...prev.interestedIn, item] };
+      return {
+        ...prev,
+        interestedIn: exists
+          ? prev.interestedIn.filter((i) => i !== item)
+          : [...prev.interestedIn, item],
+      };
     });
+  };
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!formData.fullName.trim()) errs.fullName = "Full Name is required";
+    if (!formData.phone.trim()) {
+      errs.phone = "Phone number is required";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\D/g, "").slice(-10))) {
+      errs.phone = "Valid 10-digit Indian phone number required";
+    }
+    if (!formData.email.trim()) {
+      errs.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errs.email = "Valid email address required";
+    }
+    if (!formData.city) errs.city = "City is required";
+    return errs;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.honeypot) return;
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     setErrors({});
     setIsSubmitting(true);
 
@@ -113,6 +126,7 @@ export function ConsultationSection() {
       });
 
       const data = await res.json();
+
       if (res.ok && data.success) {
         setSubmittedWhatsAppUrl(data.whatsAppUrl);
       } else if (data.errors) {
@@ -132,23 +146,33 @@ export function ConsultationSection() {
   };
 
   return (
-    <section id="consultation" className="relative py-24 sm:py-32 bg-ivory text-maroon overflow-hidden">
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
+    <section id="consultation" className="relative py-20 sm:py-28 bg-[#140409] text-ivory overflow-hidden border-b border-gold/25">
+      {/* Luxury Animated Hexagon Background */}
       <HexagonBackground
-        theme="light"
+        theme="dark"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
       />
 
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] bg-gold/10 rounded-full blur-[180px]" />
+        <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-maroon-deep/50 rounded-full blur-[160px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#DDB62B_1px,transparent_1px)] [background-size:36px_36px] opacity-10" />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
-          {/* Left Column: Placeholder & Appointment Info (5 cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[420px] bg-maroon-deep p-8 sm:p-10 border border-gold/40 shadow-xl text-ivory">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+          {/* Left Column: Studio & Appointment Info (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col justify-between h-full min-h-[420px] bg-black/60 backdrop-blur-md p-8 sm:p-10 border border-gold/40 shadow-2xl text-ivory rounded-2xl sm:rounded-3xl">
             <div>
-              <span className="font-jost text-xs uppercase tracking-[0.25em] text-gold block mb-3 font-semibold">
-                Private Consultation
-              </span>
+              <div className="inline-flex items-center gap-2 mb-3.5 px-3.5 py-1 rounded-full bg-white/5 border border-gold/40">
+                <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                <span className="font-montserrat text-[10px] uppercase tracking-[0.22em] text-gold font-semibold">
+                  Private Consultation
+                </span>
+              </div>
               <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory leading-snug">
                 {formData.consultationMode === "Online"
                   ? "Virtual Stone Concierge consultations with live HD slab viewing & floor plan specifications."
@@ -156,7 +180,7 @@ export function ConsultationSection() {
               </h3>
             </div>
 
-            <div className="my-6 flex-1 relative min-h-[260px] sm:min-h-[300px] w-full overflow-hidden border border-gold/30 shadow-lg group">
+            <div className="my-6 flex-1 relative min-h-[260px] sm:min-h-[300px] w-full overflow-hidden border border-gold/30 shadow-lg group rounded-xl">
               <Image
                 src="/images/consultation/private-consultation-studio.jpg"
                 alt="INTIOSS Private Stone Viewing Studio & Consultation Lounge in Mumbai, Silvassa and Kishangarh"
@@ -165,8 +189,8 @@ export function ConsultationSection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/80 via-transparent to-black/20 pointer-events-none" />
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-maroon-deep/85 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20 pointer-events-none" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-black/80 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm rounded-lg">
                 <span className="font-semibold">
                   {formData.consultationMode === "Online" ? "Online Video Concierge" : "Private Viewing Lounge"}
                 </span>
@@ -179,8 +203,8 @@ export function ConsultationSection() {
             </p>
           </div>
 
-          {/* Right Column: Form Container (7 cols) */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-12 border border-gold/30 shadow-lg relative">
+          {/* Right Column: Form Container (7 cols) in Dark Glass Atelier Design */}
+          <div className="lg:col-span-7 bg-black/60 backdrop-blur-md p-8 sm:p-12 border border-gold/30 shadow-2xl relative rounded-2xl sm:rounded-3xl text-ivory">
             <AnimatePresence mode="wait">
               {submittedWhatsAppUrl ? (
                 // Success State with Hexagon Animation & WhatsApp Continue Button
@@ -193,10 +217,10 @@ export function ConsultationSection() {
                 >
                   <IntiossHexagon size={64} animated fillMaroon strokeColor="#DDB62B" strokeWidth={2.5} />
 
-                  <h3 className="font-marcellus text-2xl sm:text-3xl text-maroon mt-6">
+                  <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory mt-6">
                     Consultation Request Confirmed
                   </h3>
-                  <p className="font-poppins text-xs sm:text-sm text-grey mt-2 max-w-md">
+                  <p className="font-jost text-sm text-ivory/80 mt-2 max-w-md">
                     Thank you. Our senior technical stone curator will review your floor plans and reach out within 2 business hours.
                   </p>
 
@@ -204,15 +228,15 @@ export function ConsultationSection() {
                     href={submittedWhatsAppUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-8 inline-flex items-center gap-2 bg-maroon hover:bg-maroon-deep text-white px-8 py-4 font-montserrat text-xs uppercase tracking-[0.2em] font-medium border border-gold shadow-md transition-colors"
+                    className="mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-[#140409] px-8 py-4 font-montserrat text-xs uppercase tracking-[0.2em] font-bold rounded-xl shadow-lg transition-transform hover:scale-105"
                   >
-                    <MessageSquare className="w-4 h-4 text-gold" />
+                    <MessageSquare className="w-4 h-4" />
                     <span>Continue on WhatsApp with Details</span>
                   </a>
 
                   <button
                     onClick={() => setSubmittedWhatsAppUrl(null)}
-                    className="mt-6 text-xs font-raleway text-grey hover:text-maroon underline uppercase tracking-wider"
+                    className="mt-6 text-xs font-montserrat text-gold hover:text-white underline uppercase tracking-wider"
                   >
                     Submit Another Request
                   </button>
@@ -227,16 +251,16 @@ export function ConsultationSection() {
                   animate={{ opacity: 1 }}
                 >
                   <div>
-                    <span className="font-raleway font-light text-xs uppercase tracking-[0.25em] text-grey block">
+                    <span className="font-montserrat font-semibold text-[10px] uppercase tracking-[0.25em] text-gold block">
                       Private Appointment
                     </span>
-                    <h3 className="font-marcellus text-2xl sm:text-3xl text-maroon mt-1">
+                    <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory mt-1">
                       Book a Private Consultation
                     </h3>
                   </div>
 
                   {errors.general && (
-                    <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs font-poppins">
+                    <div className="p-3 bg-red-950/60 border border-red-500/50 text-red-200 text-xs font-poppins rounded-lg">
                       {errors.general}
                     </div>
                   )}
@@ -254,33 +278,33 @@ export function ConsultationSection() {
 
                   {/* Two Tabs: ONLINE vs OFFLINE Consultation Format */}
                   <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-2">
                       Consultation Format *
                     </label>
-                    <div className="grid grid-cols-2 gap-3 p-1.5 bg-[#FAF7F2] border border-gold/40 rounded-lg">
+                    <div className="grid grid-cols-2 gap-3 p-1.5 bg-black/50 border border-gold/40 rounded-xl">
                       <button
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Offline" }))}
-                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded transition-all flex items-center justify-center gap-2 ${
+                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                           formData.consultationMode === "Offline"
-                            ? "bg-maroon-deep text-ivory shadow-md border border-gold"
-                            : "text-stone-700 hover:text-maroon hover:bg-white/80"
+                            ? "bg-gold text-[#140409] shadow-md font-bold"
+                            : "text-ivory/70 hover:text-gold hover:bg-white/5"
                         }`}
                       >
-                        <Building2 className="w-4 h-4 text-gold flex-shrink-0" />
+                        <Building2 className="w-4 h-4 flex-shrink-0" />
                         <span className="truncate">Offline (Studio Visit)</span>
                       </button>
 
                       <button
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Online" }))}
-                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded transition-all flex items-center justify-center gap-2 ${
+                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
                           formData.consultationMode === "Online"
-                            ? "bg-maroon-deep text-ivory shadow-md border border-gold"
-                            : "text-stone-700 hover:text-maroon hover:bg-white/80"
+                            ? "bg-gold text-[#140409] shadow-md font-bold"
+                            : "text-ivory/70 hover:text-gold hover:bg-white/5"
                         }`}
                       >
-                        <Video className="w-4 h-4 text-gold flex-shrink-0" />
+                        <Video className="w-4 h-4 flex-shrink-0" />
                         <span className="truncate">Online (Virtual Video)</span>
                       </button>
                     </div>
@@ -289,7 +313,7 @@ export function ConsultationSection() {
                   {/* Row 1: Full Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                         Full Name *
                       </label>
                       <input
@@ -298,15 +322,15 @@ export function ConsultationSection() {
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         placeholder="e.g. Rahul Mehta"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-white/5 border-b border-gold/40 py-2.5 px-2 text-sm text-ivory placeholder:text-ivory/35 focus:outline-none focus:border-gold focus:bg-white/10 transition-colors"
                       />
                       {errors.fullName && (
-                        <span className="text-[10px] text-red-600 mt-1 block">{errors.fullName}</span>
+                        <span className="text-[10px] text-red-400 mt-1 block">{errors.fullName}</span>
                       )}
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                         Phone (+91) *
                       </label>
                       <input
@@ -315,10 +339,10 @@ export function ConsultationSection() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+91 98200 XXXXX"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-white/5 border-b border-gold/40 py-2.5 px-2 text-sm text-ivory placeholder:text-ivory/35 focus:outline-none focus:border-gold focus:bg-white/10 transition-colors"
                       />
                       {errors.phone && (
-                        <span className="text-[10px] text-red-600 mt-1 block">{errors.phone}</span>
+                        <span className="text-[10px] text-red-400 mt-1 block">{errors.phone}</span>
                       )}
                     </div>
                   </div>
@@ -326,7 +350,7 @@ export function ConsultationSection() {
                   {/* Row 2: Email & City (3 Presence Options) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                         Email Address *
                       </label>
                       <input
@@ -335,15 +359,15 @@ export function ConsultationSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="rahul@example.com"
-                        className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors"
+                        className="w-full bg-white/5 border-b border-gold/40 py-2.5 px-2 text-sm text-ivory placeholder:text-ivory/35 focus:outline-none focus:border-gold focus:bg-white/10 transition-colors"
                       />
                       {errors.email && (
-                        <span className="text-[10px] text-red-600 mt-1 block">{errors.email}</span>
+                        <span className="text-[10px] text-red-400 mt-1 block">{errors.email}</span>
                       )}
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                         City (Where We Are Present) *
                       </label>
                       <div className="relative">
@@ -351,28 +375,28 @@ export function ConsultationSection() {
                           required
                           value={formData.city}
                           onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                          className="w-full bg-[#1A060D] border-b border-gold/40 py-2.5 px-2 text-sm text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
                         >
-                          <option value="Mumbai">Mumbai (Studio & Experience Gallery)</option>
-                          <option value="Silvassa">Silvassa (Processing Works & Slab Hub)</option>
-                          <option value="Kishangarh">Kishangarh (Architectural Stone Center)</option>
+                          <option value="Mumbai" className="bg-[#1A060D] text-ivory">Mumbai (Studio & Experience Gallery)</option>
+                          <option value="Silvassa" className="bg-[#1A060D] text-ivory">Silvassa (Processing Works & Slab Hub)</option>
+                          <option value="Kishangarh" className="bg-[#1A060D] text-ivory">Kishangarh (Architectural Stone Center)</option>
                           {formData.consultationMode === "Online" && (
-                            <option value="Other City (Online Consultation)">
+                            <option value="Other City (Online Consultation)" className="bg-[#1A060D] text-ivory">
                               Other City (Online Virtual Meeting)
                             </option>
                           )}
                         </select>
-                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                        <ChevronDown className="w-4 h-4 text-gold absolute right-1 top-3 pointer-events-none" />
                       </div>
                       {errors.city && (
-                        <span className="text-[10px] text-red-600 mt-1 block">{errors.city}</span>
+                        <span className="text-[10px] text-red-400 mt-1 block">{errors.city}</span>
                       )}
                     </div>
                   </div>
 
                   {/* Project Type */}
                   <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-2">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-2">
                       Project Type
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -381,10 +405,10 @@ export function ConsultationSection() {
                           key={type}
                           type="button"
                           onClick={() => setFormData({ ...formData, projectType: type })}
-                          className={`py-2 px-3 text-xs font-montserrat text-center border transition-all active:scale-95 ${
+                          className={`py-2 px-3 text-xs font-montserrat text-center border rounded-lg transition-all active:scale-95 ${
                             formData.projectType === type
-                              ? "bg-maroon text-white border-gold font-semibold shadow-sm"
-                              : "border-gold/30 text-stone-700 hover:border-gold hover:text-maroon font-medium"
+                              ? "bg-gold text-[#140409] border-gold font-bold shadow-md"
+                              : "bg-white/5 border-gold/30 text-ivory/80 hover:border-gold hover:text-gold hover:bg-white/10 font-medium"
                           }`}
                         >
                           {type}
@@ -393,9 +417,9 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* Surfaces & Disciplines of Interest: Dedicated Products & Services Dropdowns */}
+                  {/* Surfaces & Disciplines of Interest */}
                   <div className="space-y-4">
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold">
                       Surfaces & Disciplines of Interest *
                     </label>
 
@@ -403,7 +427,7 @@ export function ConsultationSection() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Products Dropdown */}
                       <div className="relative">
-                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold-dark font-semibold mb-1">
+                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold font-semibold mb-1">
                           <Layers className="w-3 h-3 text-gold" />
                           <span>Select Product / Surface</span>
                         </label>
@@ -422,22 +446,22 @@ export function ConsultationSection() {
                                 e.target.value = "";
                               }
                             }}
-                            className="w-full bg-white border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-none shadow-xs"
+                            className="w-full bg-[#1A060D] border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-lg shadow-sm"
                           >
-                            <option value="">Select Product Category...</option>
+                            <option value="" className="bg-[#1A060D] text-ivory">Select Product Category...</option>
                             {PRODUCT_INTEREST_OPTIONS.map((prod) => (
-                              <option key={prod} value={prod}>
+                              <option key={prod} value={prod} className="bg-[#1A060D] text-ivory">
                                 {formData.interestedIn.includes(prod) ? `✓ ${prod}` : prod}
                               </option>
                             ))}
                           </select>
-                          <ChevronDown className="w-4 h-4 text-gold-dark absolute right-2.5 top-3 pointer-events-none" />
+                          <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3 pointer-events-none" />
                         </div>
                       </div>
 
                       {/* Services Dropdown */}
                       <div className="relative">
-                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold-dark font-semibold mb-1">
+                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold font-semibold mb-1">
                           <Wrench className="w-3 h-3 text-gold" />
                           <span>Select Architectural Service</span>
                         </label>
@@ -456,16 +480,16 @@ export function ConsultationSection() {
                                 e.target.value = "";
                               }
                             }}
-                            className="w-full bg-white border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-none shadow-xs"
+                            className="w-full bg-[#1A060D] border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-lg shadow-sm"
                           >
-                            <option value="">Choose from All Services...</option>
+                            <option value="" className="bg-[#1A060D] text-ivory">Choose from All Services...</option>
                             {SERVICE_INTEREST_OPTIONS.map((serv) => (
-                              <option key={serv} value={serv}>
+                              <option key={serv} value={serv} className="bg-[#1A060D] text-ivory">
                                 {formData.interestedIn.includes(serv) ? `✓ ${serv}` : serv}
                               </option>
                             ))}
                           </select>
-                          <ChevronDown className="w-4 h-4 text-gold-dark absolute right-2.5 top-3 pointer-events-none" />
+                          <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3 pointer-events-none" />
                         </div>
                       </div>
                     </div>
@@ -473,14 +497,14 @@ export function ConsultationSection() {
                     {/* Selected Tags Display with Remove Badge */}
                     {formData.interestedIn.length > 0 && (
                       <div className="pt-1">
-                        <span className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 font-medium block mb-1.5">
+                        <span className="text-[10px] font-montserrat uppercase tracking-wider text-ivory/60 font-medium block mb-1.5">
                           Selected Choices ({formData.interestedIn.length}):
                         </span>
                         <div className="flex flex-wrap gap-1.5">
                           {formData.interestedIn.map((item) => (
                             <span
                               key={item}
-                              className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-[11px] font-montserrat bg-maroon-deep text-ivory border border-gold shadow-xs"
+                              className="inline-flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-[11px] font-montserrat bg-gold/15 text-gold border border-gold/40 rounded-md shadow-xs"
                             >
                               <span>{item}</span>
                               <button
@@ -498,30 +522,30 @@ export function ConsultationSection() {
                     )}
 
                     {errors.interestedIn && (
-                      <span className="text-[10px] text-red-600 mt-1 block">{errors.interestedIn}</span>
+                      <span className="text-[10px] text-red-400 mt-1 block">{errors.interestedIn}</span>
                     )}
                   </div>
 
                   {/* Row 3: Approx Area (Dropdown) */}
                   <div className="grid grid-cols-1 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                         Approx. Area (Sq Ft) *
                       </label>
                       <div className="relative">
                         <select
                           value={formData.approxArea}
                           onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
-                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                          className="w-full bg-[#1A060D] border-b border-gold/40 py-2.5 px-2 text-sm text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
                         >
-                          <option value="">Select Approx Area...</option>
+                          <option value="" className="bg-[#1A060D] text-ivory">Select Approx Area...</option>
                           {APPROX_AREA_OPTIONS.map((area) => (
-                            <option key={area} value={area}>
+                            <option key={area} value={area} className="bg-[#1A060D] text-ivory">
                               {area} sq ft
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                        <ChevronDown className="w-4 h-4 text-gold absolute right-1 top-3 pointer-events-none" />
                       </div>
                     </div>
                   </div>
@@ -529,45 +553,45 @@ export function ConsultationSection() {
                   {/* Row 4: Preferred Date & Preferred Time Slots */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1 flex items-center justify-between">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1 flex items-center justify-between">
                         <span>Preferred Date</span>
-                        <span className="text-[10px] text-stone-400 font-normal lowercase">(optional)</span>
+                        <span className="text-[10px] text-ivory/50 font-normal lowercase">(optional)</span>
                       </label>
                       <input
                         type="date"
                         min={new Date().toISOString().split("T")[0]}
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors cursor-pointer"
+                        className="w-full bg-white/5 border-b border-gold/40 py-2.5 px-2 text-sm text-ivory placeholder:text-ivory/35 focus:outline-none focus:border-gold transition-colors cursor-pointer"
                       />
                     </div>
 
                     <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1 flex items-center justify-between">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1 flex items-center justify-between">
                         <span>Preferred Time Slot</span>
-                        <span className="text-[10px] text-stone-400 font-normal lowercase">(optional)</span>
+                        <span className="text-[10px] text-ivory/50 font-normal lowercase">(optional)</span>
                       </label>
                       <div className="relative">
                         <select
                           value={formData.preferredTime}
                           onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                          className="w-full bg-white border-b border-gold/40 py-2 text-sm text-maroon focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
+                          className="w-full bg-[#1A060D] border-b border-gold/40 py-2.5 px-2 text-sm text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8"
                         >
-                          <option value="">Select Time Slot...</option>
+                          <option value="" className="bg-[#1A060D] text-ivory">Select Time Slot...</option>
                           {TIME_SLOTS.map((slot) => (
-                            <option key={slot} value={slot}>
+                            <option key={slot} value={slot} className="bg-[#1A060D] text-ivory">
                               {slot}
                             </option>
                           ))}
                         </select>
-                        <ChevronDown className="w-4 h-4 text-gold-dark absolute right-1 top-2.5 pointer-events-none" />
+                        <ChevronDown className="w-4 h-4 text-gold absolute right-1 top-3 pointer-events-none" />
                       </div>
                     </div>
                   </div>
 
                   {/* Message */}
                   <div className="relative">
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-stone-800 font-semibold mb-1">
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-ivory/80 font-semibold mb-1">
                       Project Notes or Specific Stones Needed
                     </label>
                     <textarea
@@ -575,7 +599,7 @@ export function ConsultationSection() {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="e.g. Looking for continuous bookmatched Statuario for living room flooring..."
-                      className="w-full bg-transparent border-b border-gold/40 py-2 text-sm text-maroon placeholder:text-stone-400 focus:outline-none focus:border-gold transition-colors resize-none"
+                      className="w-full bg-white/5 border-b border-gold/40 py-2.5 px-2 text-sm text-ivory placeholder:text-ivory/35 focus:outline-none focus:border-gold focus:bg-white/10 transition-colors resize-none"
                     />
                   </div>
 
@@ -583,14 +607,14 @@ export function ConsultationSection() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-maroon hover:bg-maroon-deep text-white py-4 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold border border-gold shadow-md flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                    className="w-full bg-gold hover:bg-gold-light text-[#140409] py-4 font-montserrat text-xs uppercase tracking-[0.2em] font-bold rounded-xl shadow-[0_4px_20px_rgba(221,182,43,0.35)] flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Reserving Consultation...</span>
                     ) : (
                       <>
                         <span>Submit Private Consultation Request</span>
-                        <ArrowRight className="w-4 h-4 text-gold" />
+                        <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                       </>
                     )}
                   </button>

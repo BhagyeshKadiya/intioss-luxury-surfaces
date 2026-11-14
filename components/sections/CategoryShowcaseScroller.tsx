@@ -313,7 +313,7 @@ export function CategoryShowcaseScroller() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#18060B] text-ivory py-16 sm:py-24 overflow-hidden border-b border-gold/25"
+      className="relative w-full bg-[#140409] text-ivory py-16 sm:py-24 overflow-hidden border-b border-gold/25"
       aria-label="Curated Surfaces and Solutions"
     >
       {/* Ambient background glows */}

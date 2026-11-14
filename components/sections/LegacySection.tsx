@@ -3,6 +3,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
+import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 
 interface MilestoneItem {
   year: string;
@@ -279,11 +280,7 @@ function TimelineCard({
         }`}
       >
         <div
-          className={`p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-md ${
-            isEvenIndex
-              ? "bg-[#FAF7F2] text-maroon-deep border-gold/40 hover:shadow-lg"
-              : "bg-maroon-deep text-ivory border-gold/50 shadow-[0_12px_32px_rgba(48,12,22,0.25)] hover:border-gold"
-          }`}
+          className="p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-xl bg-black/60 hover:bg-black/85 backdrop-blur-md border-white/10 hover:border-gold/60 text-ivory group"
         >
           {/* Header Row: Year & Tag */}
           <div
@@ -297,21 +294,11 @@ function TimelineCard({
                 !isLeftDesktop ? "md:flex-row-reverse" : ""
               }`}
             >
-              <span
-                className={`text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal ${
-                  isEvenIndex ? "text-gold-dark" : "text-gold"
-                }`}
-              >
+              <span className="text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal text-gold">
                 {item.year}
               </span>
               {item.tag && (
-                <span
-                  className={`px-2 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border ${
-                    isEvenIndex
-                      ? "bg-maroon-deep/5 text-maroon-deep border-gold/40"
-                      : "bg-white/10 text-ivory border-gold/50"
-                  }`}
-                >
+                <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border bg-gold/15 text-gold border-gold/40">
                   {item.tag}
                 </span>
               )}
@@ -331,20 +318,12 @@ function TimelineCard({
             )}
           </div>
 
-          <h3
-            className={`text-xl sm:text-2xl font-marcellus mb-2 font-normal ${
-              isEvenIndex ? "text-maroon-deep" : "text-ivory"
-            }`}
-          >
+          <h3 className="text-xl sm:text-2xl font-marcellus mb-2 font-normal text-ivory group-hover:text-gold transition-colors">
             {item.title}
           </h3>
 
           {item.desc ? (
-            <p
-              className={`font-jost text-sm md:text-base leading-relaxed ${
-                isEvenIndex ? "text-grey-dark" : "text-ivory/85"
-              }`}
-            >
+            <p className="font-jost text-sm md:text-base leading-relaxed text-ivory/80">
               {item.desc}
             </p>
           ) : null}
@@ -366,28 +345,42 @@ export function LegacySection() {
     <section
       id="legacy"
       ref={containerRef}
-      className="py-24 sm:py-32 bg-white text-maroon-deep relative overflow-hidden border-y border-gold/20"
+      className="py-20 sm:py-28 bg-[#140409] text-ivory relative overflow-hidden border-b border-gold/25"
     >
-      {/* Luxury Animated Hexagon Background: Exact INTIOSS Logo Symbols with Quiet Luxury Prismatic Sheen */}
+      {/* Luxury Animated Hexagon Background */}
       <HexagonBackground
-        theme="light"
+        theme="dark"
         intensity="subtle"
         showPattern={true}
         showFloating={true}
       />
 
-      {/* Subtle luxury ambient background nuance */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#FCFAF7] to-white pointer-events-none" />
+      {/* Ambient background glows */}
+      <div className="absolute inset-0 pointer-events-none opacity-40">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-gold/10 rounded-full blur-[170px]" />
+        <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-maroon-deep/50 rounded-full blur-[160px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#DDB62B_1px,transparent_1px)] [background-size:36px_36px] opacity-10" />
+      </div>
 
       <div className="max-w-[1024px] mx-auto px-6 relative z-10">
         {/* Section Heading */}
-        <div className="text-center mb-16 sm:mb-20">
-          <span className="font-jost text-xs sm:text-sm uppercase tracking-[0.25em] text-gold font-semibold block mb-3">
-            Our Legacy
-          </span>
-          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon-deep font-normal tracking-wide leading-tight">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+          {/* Eyebrow Pill */}
+          <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-white/5 border border-gold/40 shadow-[0_2px_12px_rgba(221,182,43,0.18)] backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
+            <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">
+              Our Legacy • 55+ Years of Mastery
+            </span>
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          </div>
+
+          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal tracking-wide leading-tight">
             Born from the Legacy of 55 Years of Experience
           </h2>
+          <p className="font-jost text-base sm:text-lg text-ivory/80 mt-3 max-w-xl leading-relaxed">
+            From pioneering Italian marble installations in 1982 to international manufacturing and rare stone curation.
+          </p>
         </div>
 
         {/* Vertical Timeline Track */}
@@ -398,7 +391,7 @@ export function LegacySection() {
           {/* Animated gold progress fill line */}
           <motion.div
             style={{ height: lineHeight }}
-            className="absolute left-6 md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-gold via-gold-dark to-gold -translate-x-1/2 origin-top shadow-[0_0_8px_rgba(221,182,43,0.35)]"
+            className="absolute left-6 md:left-1/2 top-0 w-[2px] bg-gradient-to-b from-gold via-[#F3E5AB] to-gold -translate-x-1/2 origin-top shadow-[0_0_12px_rgba(221,182,43,0.5)]"
           />
 
           {/* Timeline cards list */}
