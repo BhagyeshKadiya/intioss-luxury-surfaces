@@ -175,7 +175,7 @@ const VEINING_OPTIONS = [
                 "Exclusive Table Tops — Stone",
                 "Mosaics",
                 "Stone Veneers",
-                "Artefacts",
+                "Stone Art",
               ].map((cat) => {
                 const checked = filterState.category.includes(cat);
                 const count = getCount("category", cat);

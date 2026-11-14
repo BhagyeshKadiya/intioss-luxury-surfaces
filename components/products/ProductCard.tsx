@@ -32,6 +32,7 @@ export function ProductCard({
     "Exclusive Table Tops — Stone",
     "Mosaics",
     "Stone Veneers",
+    "Stone Art",
     "Artefacts",
   ].includes(product.category);
 

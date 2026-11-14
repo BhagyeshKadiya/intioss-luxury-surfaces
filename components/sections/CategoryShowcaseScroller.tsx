@@ -117,20 +117,20 @@ export const SURFACE_CATEGORIES: ShowcaseItem[] = [
     ctaSecondaryHref: "/contact?interest=mosaics",
   },
   {
-    id: "artefacts",
-    title: "Artefacts",
+    id: "stone-art",
+    title: "Stone Art",
     subtitle: "Hand-Carved Mandirs, Basins & Sculptures",
     description:
       "Museum-grade hand-carved stone basins, monolithic bathtubs, sacred mandirs, and bespoke statues.",
     image: "/images/categories/artefacts.jpg",
     tag: "Master Sculptures",
-    href: "/products?category=Artefacts",
+    href: "/products?category=Stone+Art",
     stats: "Hand-Crafted",
     accent: "from-amber-600/20 via-gold/15 to-transparent",
     highlights: ["Carved Mandirs", "Sculpted Basins", "Solid Bathtubs", "Artisan Columns"],
-    ctaText: "Explore Artefacts",
+    ctaText: "Explore Stone Art",
     ctaSecondaryText: "Commission Piece",
-    ctaSecondaryHref: "/contact?interest=artefacts",
+    ctaSecondaryHref: "/contact?interest=stone-art",
   },
 ];
 

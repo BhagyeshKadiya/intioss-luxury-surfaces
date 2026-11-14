@@ -154,13 +154,13 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   },
   {
     id: "artisan-mosaics-artefacts",
-    title: "Artisan Mosaics & Artefacts",
-    category: "Mosaics & Artefacts",
+    title: "Artisan Mosaics & Stone Art",
+    category: "Mosaics & Stone Art",
     categoryFilter: "artefacts",
     subtitle: "Monolithic Fluted Basins, Bathtubs & Waterjet Medallion Inlays",
     image: "/images/services/cnc-waterjet.jpg",
     badge: "5-Axis CNC & Hand-Carved",
-    href: "/products?category=Artefacts",
+    href: "/products?category=Stone+Art",
     specs: "Bespoke Architectural Sculpture",
     origin: "Master Stone Artisans",
     highlight: "Sub-Millimeter CNC Execution",
@@ -339,7 +339,7 @@ export function ServicesProductsCarousel() {
       },
       {
         value: "artefacts" as ProductFilterCategory,
-        label: "Mosaics & Artefacts",
+        label: "Mosaics & Stone Art",
         count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "artefacts").length,
       },
     ];

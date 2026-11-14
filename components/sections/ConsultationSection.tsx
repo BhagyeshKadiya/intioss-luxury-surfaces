@@ -23,7 +23,7 @@ export const PRODUCT_INTEREST_OPTIONS = [
   "Table Tops",
   "Stone Veneers",
   "Mosaics",
-  "Artefacts",
+  "Stone Art",
 ];
 
 export const SERVICE_INTEREST_OPTIONS = [

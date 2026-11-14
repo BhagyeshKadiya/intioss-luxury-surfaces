@@ -4,6 +4,7 @@ export type StoneCategory =
   | "Exclusive Table Tops — Stone"
   | "Mosaics"
   | "Stone Veneers"
+  | "Stone Art"
   | "Artefacts"
   // Legacy & specific sub-type aliases for flexible filtering:
   | "Marble"

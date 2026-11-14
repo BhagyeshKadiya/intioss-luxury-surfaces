@@ -270,6 +270,7 @@ function ProductsContent() {
     "Exclusive Table Tops — Stone",
     "Mosaics",
     "Stone Veneers",
+    "Stone Art",
     "Artefacts",
   ];
 
@@ -280,7 +281,7 @@ function ProductsContent() {
     { id: "Exclusive Table Tops — Stone", label: "Exclusive Table Tops", count: "On Request" },
     { id: "Mosaics", label: "Mosaics", count: "On Request" },
     { id: "Stone Veneers", label: "Stone Veneers", count: "On Request" },
-    { id: "Artefacts", label: "Artefacts", count: "On Request" },
+    { id: "Stone Art", label: "Stone Art", count: "On Request" },
   ];
 
   // Derive active secondary sub-category pills depending on selected category
@@ -298,8 +299,8 @@ function ProductsContent() {
     if (activeCat === "Stone Veneers") {
       return ["Flexible Slate", "Translucent Backlit", "Stone Veneers"];
     }
-    if (activeCat === "Artefacts") {
-      return ["Artefacts"];
+    if (activeCat === "Stone Art" || activeCat === "Artefacts") {
+      return ["Stone Art", "Mandirs", "Sculptures", "Monolithic Basins"];
     }
     // Default when ALL or multiple categories
     return ["Marble", "Quartzite", "Travertine", "Onyx", "Granite", "Slabs", "Inlays", "Custom tops & furniture"];

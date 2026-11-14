@@ -111,8 +111,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/products?category=Artefacts" className="hover:text-gold transition-colors">
-                  Artefacts
+                <Link href="/products?category=Stone+Art" className="hover:text-gold transition-colors">
+                  Stone Art
                 </Link>
               </li>
               <li>
