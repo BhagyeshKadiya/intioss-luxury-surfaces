@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Search, X, RotateCcw } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
+import { getTypesForCategory } from "@/data/categoryTypes";
 
 export interface FilterState {
   category: string[];
@@ -64,6 +65,9 @@ export function ProductFilters({
     priceTier: true,
   });
   const [originSearch, setOriginSearch] = useState("");
+
+  const activeCategory = filterState.category[0] || "Natural Stones";
+  const sidebarTypes = getTypesForCategory(activeCategory);
 
   const toggleGroup = (group: string) => {
     setCollapsedGroups((prev) => ({ ...prev, [group]: !prev[group] }));
@@ -198,6 +202,77 @@ const VEINING_OPTIONS = [
           )}
         </div>
       )}
+
+      {/* Types Filter Dropdown & Quick-Tap Chips */}
+      <div className="border-b border-gold/20 pb-4">
+        <button
+          onClick={() => toggleGroup("types")}
+          className="w-full flex items-center justify-between py-1 text-left"
+        >
+          <div className="flex items-center gap-2">
+            <span className="font-marcellus text-sm text-maroon uppercase tracking-wider">
+              Types
+            </span>
+            {filterState.subCategory.length > 0 && (
+              <span className="w-2 h-2 rounded-full bg-gold inline-block" />
+            )}
+          </div>
+          {collapsedGroups["types"] ? (
+            <ChevronDown className="w-4 h-4 text-gold" />
+          ) : (
+            <ChevronUp className="w-4 h-4 text-gold" />
+          )}
+        </button>
+
+        {!collapsedGroups["types"] && (
+          <div className="mt-3 space-y-2.5">
+            {/* Filter Dropdown */}
+            <div className="relative">
+              <select
+                aria-label="Select stone type"
+                value={filterState.subCategory[0] || ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  onFilterChange({
+                    ...filterState,
+                    subCategory: val ? [val] : [],
+                  });
+                }}
+                className="w-full bg-white border border-gold/40 hover:border-gold text-xs font-montserrat uppercase tracking-wider text-maroon font-medium py-2 pl-2.5 pr-7 focus:outline-none focus:border-gold cursor-pointer appearance-none"
+              >
+                <option value="">All Types</option>
+                {sidebarTypes.map((t) => (
+                  <option key={t} value={t}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-gold-dark absolute right-2 top-2.5 pointer-events-none" />
+            </div>
+
+            {/* Quick-tap Type Chips */}
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {sidebarTypes.map((t) => {
+                const checked = filterState.subCategory.includes(t);
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => handleToggle("subCategory", t)}
+                    className={`px-2 py-0.5 text-[11px] font-montserrat transition-all border ${
+                      checked
+                        ? "bg-maroon text-gold border-gold font-medium shadow-sm"
+                        : "bg-white text-maroon/80 border-gold/25 hover:border-gold"
+                    }`}
+                  >
+                    <span>{t}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* 2. Color Palette Swatches */}
       <div className="border-b border-gold/20 pb-4">

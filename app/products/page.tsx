@@ -21,13 +21,17 @@ import {
   MessageSquare,
   Layers,
   X,
+  ChevronDown,
+  Check,
 } from "lucide-react";
+
+import { CATEGORY_TYPES_MAP, getTypesForCategory } from "@/data/categoryTypes";
 
 function ProductsContent() {
   const searchParams = useSearchParams();
 
   // Initial filter state from URL params
-  const initialCategory = searchParams.get("category");
+  const initialCategory = searchParams.get("category") || "Natural Stones";
   const initialApp = searchParams.get("application");
   const rawColor = searchParams.get("color") || searchParams.get("colorFamily");
   const initialColor = rawColor
@@ -37,7 +41,7 @@ function ProductsContent() {
     : null;
 
   const [filterState, setFilterState] = useState<FilterState>({
-    category: initialCategory ? [initialCategory] : [],
+    category: [initialCategory],
     subCategory: [],
     colorFamily: initialColor ? [initialColor] : [],
     origin: [],
@@ -146,16 +150,23 @@ function ProductsContent() {
       );
     }
 
-    // Filter by subCategory
+    // Filter by subCategory / Types
     if (filterState.subCategory.length > 0) {
-      list = list.filter((p) =>
-        p.subCategory &&
-        filterState.subCategory.some(
-          (sub) =>
-            p.subCategory!.toLowerCase().includes(sub.toLowerCase()) ||
-            sub.toLowerCase().includes(p.subCategory!.toLowerCase())
-        )
-      );
+      list = list.filter((p) => {
+        return filterState.subCategory.some((sub) => {
+          const s = sub.toLowerCase().replace(/[\s-]/g, "");
+          const prodSub = (p.subCategory || "").toLowerCase().replace(/[\s-]/g, "");
+          const prodName = p.name.toLowerCase().replace(/[\s-]/g, "");
+          const prodDesc = (p.description || "").toLowerCase().replace(/[\s-]/g, "");
+
+          return (
+            prodSub.includes(s) ||
+            s.includes(prodSub) ||
+            prodName.includes(s) ||
+            prodDesc.includes(s)
+          );
+        });
+      });
     }
 
     // Filter by color family
@@ -221,7 +232,7 @@ function ProductsContent() {
 
   const clearAllFilters = () => {
     setFilterState({
-      category: [],
+      category: ["Natural Stones"],
       subCategory: [],
       colorFamily: [],
       origin: [],
@@ -256,18 +267,11 @@ function ProductsContent() {
   }, [filterState, searchQuery]);
 
   const handleCategoryPillClick = (cat: string) => {
-    if (cat === "ALL") {
-      setFilterState((prev) => ({ ...prev, category: [], subCategory: [] }));
-    } else {
-      setFilterState((prev) => {
-        const isSelected = prev.category.length === 1 && prev.category[0] === cat;
-        return {
-          ...prev,
-          category: isSelected ? [] : [cat],
-          subCategory: [], // Reset subcategory when switching top category
-        };
-      });
-    }
+    setFilterState((prev) => ({
+      ...prev,
+      category: [cat],
+      subCategory: [], // Reset types when switching top category
+    }));
   };
 
   const handleApplicationPillClick = (app: string) => {
@@ -301,7 +305,6 @@ function ProductsContent() {
     });
   };
 
-
   const ORDER_BASIS_CATEGORIES = [
     "Exclusive Table Tops — Stone",
     "Mosaics",
@@ -311,38 +314,42 @@ function ProductsContent() {
   ];
 
   const CATEGORY_PILLS = [
-    { id: "ALL", label: "All Collections", count: PRODUCTS.length },
-    { id: "Natural Stones", label: "Natural Stones", count: PRODUCTS.filter((p) => p.category === "Natural Stones").length },
-    { id: "Semi-Precious Stones", label: "Semi-Precious Stones", count: PRODUCTS.filter((p) => p.category === "Semi-Precious Stones").length },
-    { id: "Exclusive Table Tops — Stone", label: "Exclusive Table Tops", count: "On Request" },
-    { id: "Mosaics", label: "Mosaics", count: "On Request" },
-    { id: "Stone Veneers", label: "Stone Veneers", count: "On Request" },
-    { id: "Stone Art", label: "Stone Art", count: "On Request" },
+    {
+      id: "Natural Stones",
+      label: "Natural Stones",
+      count: PRODUCTS.filter((p) => p.category === "Natural Stones").length,
+    },
+    {
+      id: "Semi-Precious Stones",
+      label: "Semi-Precious Stones",
+      count: PRODUCTS.filter((p) => p.category === "Semi-Precious Stones").length,
+    },
+    {
+      id: "Exclusive Table Tops — Stone",
+      label: "Table Tops",
+      count: "On Request",
+    },
+    {
+      id: "Stone Veneers",
+      label: "Stone Veneers",
+      count: "On Request",
+    },
+    {
+      id: "Stone Art",
+      label: "Stone Art",
+      count: "On Request",
+    },
+    {
+      id: "Mosaics",
+      label: "Mosaics",
+      count: "On Request",
+    },
   ];
 
-  // Derive active secondary sub-category pills depending on selected category
-  const getSubCategoryPills = () => {
-    const activeCat = filterState.category.length === 1 ? filterState.category[0] : null;
-    if (activeCat === "Natural Stones") {
-      return ["Marble", "Quartzite", "Travertine", "Onyx", "Granite"];
-    }
-    if (activeCat === "Semi-Precious Stones") {
-      return ["Slabs", "Inlays", "Custom tops & furniture"];
-    }
-    if (activeCat === "Mosaics") {
-      return ["Marble", "Semi-precious gemstone", "Hand-cut glass"];
-    }
-    if (activeCat === "Stone Veneers") {
-      return ["Flexible Slate", "Translucent Backlit", "Stone Veneers"];
-    }
-    if (activeCat === "Stone Art" || activeCat === "Artefacts") {
-      return ["Stone Art", "Mandirs", "Sculptures", "Monolithic Basins"];
-    }
-    // Default when ALL or multiple categories
-    return ["Marble", "Quartzite", "Travertine", "Onyx", "Granite", "Slabs", "Inlays", "Custom tops & furniture"];
-  };
-
-  const subCategoryPills = getSubCategoryPills();
+  const activeCategory = filterState.category[0] || "Natural Stones";
+  const activeTypes = getTypesForCategory(activeCategory);
+  const activeCategoryLabel =
+    CATEGORY_PILLS.find((p) => p.id === activeCategory)?.label || "Natural Stones";
 
 
   return (
@@ -404,9 +411,7 @@ function ProductsContent() {
 {/* Top Horizontal Primary Category Pills Carousel */}
         <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center gap-2 sm:gap-3">
           {CATEGORY_PILLS.map((pill) => {
-            const isActive =
-              (pill.id === "ALL" && filterState.category.length === 0) ||
-              (filterState.category.length === 1 && filterState.category[0] === pill.id);
+            const isActive = filterState.category.length === 1 && filterState.category[0] === pill.id;
             return (
               <button
                 key={pill.id}
@@ -423,37 +428,65 @@ function ProductsContent() {
           })}
         </div>
 
-        {/* Secondary Sub-Category Pills Bar */}
-        {subCategoryPills.length > 0 && (
-          <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-700 font-semibold flex-shrink-0 mr-1">
-              Stone Variety:
+        {/* Types Filter Dropdown & Quick-Tap Pills Bar */}
+        <div className="mt-4 flex flex-col md:flex-row md:items-center gap-3 bg-white/70 p-3 rounded-none border border-gold/30 shadow-xs">
+          {/* Dropdown Selector for Active Category Types */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-maroon font-bold flex-shrink-0">
+              Filter Types:
             </span>
-            {subCategoryPills.map((subCat) => {
+            <div className="relative min-w-[200px] sm:min-w-[240px]">
+              <select
+                id="types-filter-dropdown"
+                aria-label="Filter by stone type"
+                value={filterState.subCategory[0] || ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setFilterState((prev) => ({
+                    ...prev,
+                    subCategory: val ? [val] : [],
+                  }));
+                }}
+                className="w-full bg-white border border-gold/40 hover:border-gold py-2 pl-3 pr-8 text-xs font-montserrat uppercase tracking-wider text-maroon font-semibold focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none shadow-xs rounded-none"
+              >
+                <option value="">All {activeCategoryLabel} Types</option>
+                {activeTypes.map((typeOption) => (
+                  <option key={typeOption} value={typeOption}>
+                    {typeOption}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-4 h-4 text-gold-dark absolute right-2.5 top-2.5 pointer-events-none" />
+            </div>
+          </div>
+
+          <div className="hidden md:block w-px h-6 bg-gold/30" />
+
+          {/* Quick-Select Types Pills Bar */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-hide flex-1">
+            <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-700 font-semibold flex-shrink-0 mr-1">
+              Types:
+            </span>
+            {activeTypes.map((subCat) => {
               const isActive = filterState.subCategory.includes(subCat);
-              const count = PRODUCTS.filter((p) => {
-                if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
-                  return false;
-                }
-                return p.subCategory === subCat;
-              }).length;
-              if (count === 0 && filterState.category.length > 0) return null;
               return (
                 <button
                   key={subCat}
+                  type="button"
                   onClick={() => handleSubCategoryPillClick(subCat)}
                   className={`flex-none inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-montserrat tracking-wide transition-all border rounded-full ${
                     isActive
                       ? "bg-gold text-maroon border-maroon font-semibold shadow-sm"
-                      : "bg-white/80 text-maroon border-gold/25 hover:border-gold"
+                      : "bg-white text-maroon/90 border-gold/30 hover:border-gold hover:bg-gold/10"
                   }`}
                 >
                   <span>{subCat}</span>
+                  {isActive && <Check className="w-3 h-3 text-maroon stroke-[2.5]" />}
                 </button>
               );
             })}
           </div>
-        )}
+        </div>
 
 
         
@@ -594,7 +627,7 @@ function ProductsContent() {
                 key={`sub-${sub}`}
                 className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gold text-maroon font-semibold border border-maroon/20 shadow-sm"
               >
-                <span>{sub}</span>
+                <span>Type: {sub}</span>
                 <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon/70">
                   <X className="w-3 h-3" />
                 </button>
