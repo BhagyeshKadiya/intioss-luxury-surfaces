@@ -29,11 +29,17 @@ function ProductsContent() {
   // Initial filter state from URL params
   const initialCategory = searchParams.get("category");
   const initialApp = searchParams.get("application");
+  const rawColor = searchParams.get("color") || searchParams.get("colorFamily");
+  const initialColor = rawColor
+    ? rawColor.toLowerCase() === "gold"
+      ? "Gold-Yellow"
+      : rawColor
+    : null;
 
   const [filterState, setFilterState] = useState<FilterState>({
     category: initialCategory ? [initialCategory] : [],
     subCategory: [],
-    colorFamily: [],
+    colorFamily: initialColor ? [initialColor] : [],
     origin: [],
     finishes: [],
     applications: initialApp ? [initialApp] : [],
@@ -42,6 +48,27 @@ function ProductsContent() {
     priceTier: [],
     availability: [],
   });
+
+  // Sync filters whenever searchParams update
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    const app = searchParams.get("application");
+    const rawCol = searchParams.get("color") || searchParams.get("colorFamily");
+    const col = rawCol
+      ? rawCol.toLowerCase() === "gold"
+        ? "Gold-Yellow"
+        : rawCol
+      : null;
+
+    if (cat || app || col) {
+      setFilterState((prev) => ({
+        ...prev,
+        ...(cat ? { category: [cat] } : {}),
+        ...(app ? { applications: [app] } : {}),
+        ...(col ? { colorFamily: [col] } : {}),
+      }));
+    }
+  }, [searchParams]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "name-asc" | "name-desc">("featured");
@@ -134,14 +161,23 @@ function ProductsContent() {
     // Filter by color family
     if (filterState.colorFamily.length > 0) {
       list = list.filter((p) => {
-        if (filterState.colorFamily.includes(p.colorFamily)) return true;
-        if (
-          (filterState.colorFamily.includes("Black") || filterState.colorFamily.includes("White")) &&
-          p.description?.toLowerCase().includes("black and white")
-        ) {
-          return true;
-        }
-        return false;
+        return filterState.colorFamily.some((c) => {
+          const query = c.toLowerCase();
+          const prodColor = (p.colorFamily || "").toLowerCase();
+          if (prodColor === query || prodColor.includes(query) || query.includes(prodColor)) {
+            return true;
+          }
+          if (
+            (query.includes("black") || query.includes("white")) &&
+            p.description?.toLowerCase().includes("black and white")
+          ) {
+            return true;
+          }
+          if (p.description?.toLowerCase().includes(query) || p.name.toLowerCase().includes(query)) {
+            return true;
+          }
+          return false;
+        });
       });
     }
 
