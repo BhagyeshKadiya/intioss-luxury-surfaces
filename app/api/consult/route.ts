@@ -6,11 +6,11 @@ const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 5;
 
-// Periodic cleanup of rate limit map using forEach for universal TS target compatibility
+// Periodic cleanup of rate limit map (using forEach with explicit types to satisfy TS targets without downlevelIteration)
 setInterval(() => {
   const now = Date.now();
-  rateLimitMap.forEach((timestamps, ip) => {
-    const valid = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  rateLimitMap.forEach((timestamps: number[], ip: string) => {
+    const valid = timestamps.filter((t: number) => now - t < RATE_LIMIT_WINDOW_MS);
     if (valid.length === 0) {
       rateLimitMap.delete(ip);
     } else {
