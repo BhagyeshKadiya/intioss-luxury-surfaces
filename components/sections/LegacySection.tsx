@@ -87,13 +87,13 @@ function MilestoneLogo({
 
   if (isMobile) {
     return (
-      <div className="shrink-0 flex items-center justify-center">
+      <div className="shrink-0 flex items-center justify-center ml-2.5 sm:ml-3.5">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={logo}
           alt={`${title} Logo`}
           className={`object-contain select-none filter drop-shadow-xs transition-transform duration-300 ${
-            isSquare ? "h-10 w-10 sm:h-12 sm:w-12" : "h-7 sm:h-8 max-w-[110px]"
+            isSquare ? "h-9 w-9 sm:h-10 sm:w-10" : "h-6 sm:h-7 max-w-[100px]"
           }`}
           loading="eager"
         />
@@ -103,18 +103,18 @@ function MilestoneLogo({
 
   return (
     <motion.div
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: 1.04 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="relative flex items-center justify-center w-full max-w-[360px] h-full max-h-[170px] select-none"
+      className="relative flex items-center justify-center w-full max-w-[290px] h-full max-h-[140px] px-4 py-2 select-none"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logo}
         alt={`${title} Logo`}
-        className={`w-full h-full object-contain filter drop-shadow-sm select-none transition-transform duration-300 ${
+        className={`w-full h-auto object-contain filter drop-shadow-sm select-none transition-transform duration-300 ${
           isSquare
-            ? "max-h-[140px] max-w-[140px] lg:max-h-[160px] lg:max-w-[160px]"
-            : "max-h-[110px] max-w-[300px] lg:max-h-[135px] lg:max-w-[340px]"
+            ? "max-h-[120px] max-w-[120px] lg:max-h-[135px] lg:max-w-[135px]"
+            : "max-h-[85px] max-w-[240px] lg:max-h-[95px] lg:max-w-[260px]"
         }`}
         loading="eager"
       />
@@ -152,11 +152,11 @@ function TimelineCard({
         <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
       </div>
 
-      {/* Opposite Column (Desktop): ONLY LOGO - NO flag, NO text, NO background */}
+      {/* Opposite Column (Desktop): Centered with generous breathing room from the center line & box */}
       <div
         className={`hidden md:flex w-1/2 ${
-          isLeftDesktop ? "pr-12 justify-end" : "pl-12 justify-start"
-        } items-center`}
+          isLeftDesktop ? "pr-16 lg:pr-20" : "pl-16 lg:pl-20"
+        } justify-center items-center`}
       >
         {item.logo ? (
           <MilestoneLogo
