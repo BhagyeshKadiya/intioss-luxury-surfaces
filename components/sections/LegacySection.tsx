@@ -77,12 +77,14 @@ function HeritageWavingFlag({
   aspect = "wide",
   delay = 0,
   isMobile = false,
+  isFullBox = false,
 }: {
   logo: string;
   title: string;
   aspect?: "wide" | "square";
   delay?: number;
   isMobile?: boolean;
+  isFullBox?: boolean;
 }) {
   const isSquare = aspect === "square";
 
@@ -92,7 +94,11 @@ function HeritageWavingFlag({
       <div className="relative flex flex-col items-center mr-1.5 sm:mr-2 z-20 flex-shrink-0">
         <div
           className={`rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-md ring-1 ring-gold/70 relative flex items-center justify-center ${
-            isMobile ? "w-3 h-3" : "w-4 h-4 lg:w-4.5 lg:h-4.5"
+            isMobile
+              ? "w-3 h-3"
+              : isFullBox
+              ? "w-4.5 h-4.5 lg:w-5 lg:h-5"
+              : "w-4 h-4 lg:w-4.5 lg:h-4.5"
           }`}
         >
           <span
@@ -110,6 +116,10 @@ function HeritageWavingFlag({
               ? isSquare
                 ? "w-[2.5px] h-[52px]"
                 : "w-[2.5px] h-[46px]"
+              : isFullBox
+              ? isSquare
+                ? "w-[4px] h-[105px] lg:h-[120px]"
+                : "w-[4px] h-[92px] lg:h-[105px]"
               : isSquare
               ? "w-[3.5px] h-[92px] lg:h-[102px]"
               : "w-[3.5px] h-[78px] lg:h-[88px]"
@@ -119,11 +129,15 @@ function HeritageWavingFlag({
 
       {/* Waving Silk Flag Fabric */}
       <motion.div
-        className={`relative overflow-hidden shadow-lg border border-gold/40 rounded-sm bg-white p-2.5 flex items-center justify-center ${
+        className={`relative overflow-hidden shadow-lg border border-gold/40 rounded-sm bg-white p-2.5 sm:p-3 flex items-center justify-center ${
           isMobile
             ? isSquare
               ? "w-[56px] h-[48px]"
               : "w-[80px] h-[44px]"
+            : isFullBox
+            ? isSquare
+              ? "w-[130px] h-[100px] lg:w-[150px] lg:h-[115px]"
+              : "w-[185px] h-[88px] lg:w-[220px] lg:h-[100px]"
             : isSquare
             ? "w-[104px] h-[88px] lg:w-[114px] lg:h-[98px]"
             : "w-[145px] h-[74px] lg:w-[165px] lg:h-[84px]"
@@ -195,32 +209,57 @@ function TimelineCard({
     <motion.div
       ref={ref}
       style={{ opacity, y }}
-      className={`relative flex items-center justify-between md:justify-normal w-full ${
+      className={`relative flex md:items-stretch items-center justify-between md:justify-normal w-full ${
         isLeftDesktop ? "md:flex-row-reverse" : ""
       }`}
     >
       {/* Center Golden Milestone Node */}
-      <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] z-30 flex items-center justify-center">
+      <div className="absolute left-6 md:left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] z-30 flex items-center justify-center">
         <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
       </div>
 
-      {/* Flag Column (Desktop) */}
+      {/* Flag Column (Desktop) - Symmetrical & matching size to opposite container box */}
       <div
         className={`hidden md:flex w-1/2 ${
-          isLeftDesktop ? "pr-12 justify-end" : "pl-12 justify-start"
+          isLeftDesktop ? "pr-12" : "pl-12"
         }`}
       >
         {item.logo ? (
-          <div className="hover:scale-105 transition-transform duration-300">
-            <HeritageWavingFlag
-              logo={item.logo}
-              title={item.title}
-              aspect={item.logoAspect || "wide"}
-              delay={index}
-            />
+          <div className="w-full h-full p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group flex flex-col justify-between items-center overflow-hidden">
+            {/* Header Row: Year & Tag matching the opposite card */}
+            <div
+              className={`w-full flex items-center justify-between gap-3 mb-3 ${
+                isLeftDesktop ? "flex-row text-left" : "flex-row-reverse text-right"
+              }`}
+            >
+              <span className="text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal text-gold-dark">
+                {item.year}
+              </span>
+              <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border bg-maroon-deep/5 text-maroon border-gold/40">
+                Heritage Flag
+              </span>
+            </div>
+
+            {/* Centered Realistic Waving Flag */}
+            <div className="my-auto py-2 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+              <HeritageWavingFlag
+                logo={item.logo}
+                title={item.title}
+                aspect={item.logoAspect || "wide"}
+                delay={index}
+                isFullBox={true}
+              />
+            </div>
+
+            {/* Bottom Brand Title */}
+            <div className="w-full pt-3 border-t border-gold/20 text-center">
+              <h4 className="text-sm sm:text-base font-marcellus font-normal text-maroon-deep group-hover:text-gold-dark transition-colors tracking-wide">
+                {item.title}
+              </h4>
+            </div>
           </div>
         ) : (
-          <div className="w-full h-8" />
+          <div className="w-full h-full" />
         )}
       </div>
 
@@ -230,7 +269,7 @@ function TimelineCard({
           !isLeftDesktop ? "md:pr-12 md:text-right" : "md:pl-12 text-left"
         }`}
       >
-        <div className="p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group">
+        <div className="h-full p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group flex flex-col justify-center">
           {/* Header Row: Year & Tag */}
           <div
             className={`flex items-center justify-between gap-3 mb-3 ${
