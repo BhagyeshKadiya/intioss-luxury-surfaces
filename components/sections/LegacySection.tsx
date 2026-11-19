@@ -138,6 +138,7 @@ function TimelineCard({
   const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
 
   const isLeftDesktop = index % 2 === 0;
+  const isEven = index % 2 === 0; // Box 1, 3, 5, 7 -> Beige ("badge color"); Box 2, 4, 6 -> Brand Magenta
 
   return (
     <motion.div
@@ -149,7 +150,11 @@ function TimelineCard({
     >
       {/* Center Golden Milestone Node */}
       <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] z-30 flex items-center justify-center">
-        <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+        <div
+          className={`w-1.5 h-1.5 rounded-full ${
+            isEven ? "bg-maroon-deep" : "bg-gold"
+          } animate-pulse`}
+        />
       </div>
 
       {/* Opposite Column (Desktop): Centered with generous breathing room from the center line & box */}
@@ -169,13 +174,19 @@ function TimelineCard({
         )}
       </div>
 
-      {/* Card Content Container in Pristine White Luxury Style */}
+      {/* Card Content Container in Alternating Beige & Brand Magenta Style */}
       <div
         className={`w-full md:w-1/2 pl-16 md:pl-0 ${
           !isLeftDesktop ? "md:pr-12 md:text-right" : "md:pl-12 text-left"
         }`}
       >
-        <div className="p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group">
+        <div
+          className={`p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 group ${
+            isEven
+              ? "bg-[#FAF7F2] border-gold/40 hover:border-gold text-maroon-deep shadow-lg hover:shadow-2xl"
+              : "bg-gradient-to-br from-maroon-deep via-maroon to-maroon-deep border-gold/50 hover:border-gold text-ivory shadow-[0_12px_36px_rgba(48,12,22,0.3)] hover:shadow-[0_18px_48px_rgba(48,12,22,0.45)]"
+          }`}
+        >
           {/* Header Row: Year & Tag */}
           <div
             className={`flex items-center justify-between gap-3 mb-3 ${
@@ -187,11 +198,21 @@ function TimelineCard({
                 !isLeftDesktop ? "md:flex-row-reverse" : ""
               }`}
             >
-              <span className="text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal text-gold-dark">
+              <span
+                className={`text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal ${
+                  isEven ? "text-gold-dark" : "text-gold drop-shadow-xs"
+                }`}
+              >
                 {item.year}
               </span>
               {item.tag && (
-                <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border bg-maroon-deep/5 text-maroon border-gold/40">
+                <span
+                  className={`px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border ${
+                    isEven
+                      ? "bg-maroon-deep/5 text-maroon border-gold/40"
+                      : "bg-white/10 text-gold-light border-gold/50 backdrop-blur-xs"
+                  }`}
+                >
                   {item.tag}
                 </span>
               )}
@@ -210,12 +231,22 @@ function TimelineCard({
             )}
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-marcellus mb-2 font-normal text-maroon-deep group-hover:text-gold-dark transition-colors">
+          <h3
+            className={`text-xl sm:text-2xl font-marcellus mb-2 font-normal transition-colors ${
+              isEven
+                ? "text-maroon-deep group-hover:text-gold-dark"
+                : "text-ivory group-hover:text-gold"
+            }`}
+          >
             {item.title}
           </h3>
 
           {item.desc ? (
-            <p className="font-jost text-sm md:text-base leading-relaxed text-stone-700">
+            <p
+              className={`font-jost text-sm md:text-base leading-relaxed ${
+                isEven ? "text-stone-700" : "text-ivory/90"
+              }`}
+            >
               {item.desc}
             </p>
           ) : null}
