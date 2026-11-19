@@ -68,123 +68,57 @@ const MILESTONES: MilestoneItem[] = [
 ];
 
 /**
- * HeritageWavingFlag
- * Realistic waving silk flag banner on an ornate golden architectural flagpole.
+ * MilestoneLogo
+ * Pure brand logo presentation: NO flag, NO text, NO background.
+ * Beautifully scaled to match the visual presence of the opposite container box.
  */
-function HeritageWavingFlag({
+function MilestoneLogo({
   logo,
   title,
   aspect = "wide",
-  delay = 0,
   isMobile = false,
-  isFullBox = false,
 }: {
   logo: string;
   title: string;
   aspect?: "wide" | "square";
-  delay?: number;
   isMobile?: boolean;
-  isFullBox?: boolean;
 }) {
   const isSquare = aspect === "square";
 
-  return (
-    <div className="relative flex items-center select-none flex-shrink-0">
-      {/* Vertical Golden Architectural Flagpole */}
-      <div className="relative flex flex-col items-center mr-1.5 sm:mr-2 z-20 flex-shrink-0">
-        <div
-          className={`rounded-full bg-gradient-to-tr from-[#8C6D14] via-[#F3E5AB] to-[#FFFBE8] shadow-md ring-1 ring-gold/70 relative flex items-center justify-center ${
-            isMobile
-              ? "w-3 h-3"
-              : isFullBox
-              ? "w-4.5 h-4.5 lg:w-5 lg:h-5"
-              : "w-4 h-4 lg:w-4.5 lg:h-4.5"
+  if (isMobile) {
+    return (
+      <div className="shrink-0 flex items-center justify-center">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logo}
+          alt={`${title} Logo`}
+          className={`object-contain select-none filter drop-shadow-xs transition-transform duration-300 ${
+            isSquare ? "h-10 w-10 sm:h-12 sm:w-12" : "h-7 sm:h-8 max-w-[110px]"
           }`}
-        >
-          <span
-            className={`rounded-full bg-white/95 absolute top-0.5 left-0.5 ${
-              isMobile ? "w-0.5 h-0.5" : "w-1 h-1"
-            }`}
-          />
-        </div>
-
-        <div className={`bg-[#8C6D14] -mt-px mb-0.5 ${isMobile ? "w-2 h-0.5" : "w-2.5 h-0.5"}`} />
-
-        <div
-          className={`bg-gradient-to-b from-[#F3E5AB] via-[#DDB62B] to-[#8C6D14] shadow-[0_0_10px_rgba(221,182,43,0.4)] rounded-full relative ${
-            isMobile
-              ? isSquare
-                ? "w-[2.5px] h-[52px]"
-                : "w-[2.5px] h-[46px]"
-              : isFullBox
-              ? isSquare
-                ? "w-[4px] h-[105px] lg:h-[120px]"
-                : "w-[4px] h-[92px] lg:h-[105px]"
-              : isSquare
-              ? "w-[3.5px] h-[92px] lg:h-[102px]"
-              : "w-[3.5px] h-[78px] lg:h-[88px]"
-          }`}
+          loading="eager"
         />
       </div>
+    );
+  }
 
-      {/* Waving Silk Flag Fabric */}
-      <motion.div
-        className={`relative overflow-hidden shadow-lg border border-gold/40 rounded-sm bg-white p-2.5 sm:p-3 flex items-center justify-center ${
-          isMobile
-            ? isSquare
-              ? "w-[56px] h-[48px]"
-              : "w-[80px] h-[44px]"
-            : isFullBox
-            ? isSquare
-              ? "w-[130px] h-[100px] lg:w-[150px] lg:h-[115px]"
-              : "w-[185px] h-[88px] lg:w-[220px] lg:h-[100px]"
-            : isSquare
-            ? "w-[104px] h-[88px] lg:w-[114px] lg:h-[98px]"
-            : "w-[145px] h-[74px] lg:w-[165px] lg:h-[84px]"
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="relative flex items-center justify-center w-full max-w-[360px] h-full max-h-[170px] select-none"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={logo}
+        alt={`${title} Logo`}
+        className={`w-full h-full object-contain filter drop-shadow-sm select-none transition-transform duration-300 ${
+          isSquare
+            ? "max-h-[140px] max-w-[140px] lg:max-h-[160px] lg:max-w-[160px]"
+            : "max-h-[110px] max-w-[300px] lg:max-h-[135px] lg:max-w-[340px]"
         }`}
-        animate={{
-          rotateZ: [0, -1.8, 1.2, -0.6, 0],
-          skewY: [0, -1.2, 0.9, -0.4, 0],
-          y: [0, -2, 1, -1, 0],
-        }}
-        transition={{
-          duration: 5.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: delay * 0.4,
-        }}
-        whileHover={{
-          scale: 1.06,
-          rotateZ: 2,
-          transition: { duration: 0.25 },
-        }}
-      >
-        <div className="relative w-full h-full flex items-center justify-center z-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={logo}
-            alt={`${title} Flag`}
-            className="w-full h-full object-contain filter drop-shadow-sm transition-transform duration-300"
-            loading="eager"
-          />
-        </div>
-
-        {/* Dynamic Silk Shimmer */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none bg-gradient-to-r from-transparent via-white/60 to-transparent -skew-x-12 z-20"
-          animate={{
-            x: ["-130%", "230%"],
-            opacity: [0.1, 0.6, 0.1],
-          }}
-          transition={{
-            duration: 4.8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: delay * 0.4 + 0.3,
-          }}
-        />
-      </motion.div>
-    </div>
+        loading="eager"
+      />
+    </motion.div>
   );
 }
 
@@ -209,57 +143,29 @@ function TimelineCard({
     <motion.div
       ref={ref}
       style={{ opacity, y }}
-      className={`relative flex md:items-stretch items-center justify-between md:justify-normal w-full ${
+      className={`relative flex items-center justify-between md:justify-normal w-full ${
         isLeftDesktop ? "md:flex-row-reverse" : ""
       }`}
     >
       {/* Center Golden Milestone Node */}
-      <div className="absolute left-6 md:left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] z-30 flex items-center justify-center">
+      <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-gold shadow-[0_0_10px_rgba(221,182,43,0.5)] z-30 flex items-center justify-center">
         <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
       </div>
 
-      {/* Flag Column (Desktop) - Symmetrical & matching size to opposite container box */}
+      {/* Opposite Column (Desktop): ONLY LOGO - NO flag, NO text, NO background */}
       <div
         className={`hidden md:flex w-1/2 ${
-          isLeftDesktop ? "pr-12" : "pl-12"
-        }`}
+          isLeftDesktop ? "pr-12 justify-end" : "pl-12 justify-start"
+        } items-center`}
       >
         {item.logo ? (
-          <div className="w-full h-full p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group flex flex-col justify-between items-center overflow-hidden">
-            {/* Header Row: Year & Tag matching the opposite card */}
-            <div
-              className={`w-full flex items-center justify-between gap-3 mb-3 ${
-                isLeftDesktop ? "flex-row text-left" : "flex-row-reverse text-right"
-              }`}
-            >
-              <span className="text-2xl sm:text-3xl md:text-4xl font-marcellus font-normal text-gold-dark">
-                {item.year}
-              </span>
-              <span className="px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-montserrat uppercase font-semibold tracking-wider border bg-maroon-deep/5 text-maroon border-gold/40">
-                Heritage Flag
-              </span>
-            </div>
-
-            {/* Centered Realistic Waving Flag */}
-            <div className="my-auto py-2 flex items-center justify-center hover:scale-105 transition-transform duration-300">
-              <HeritageWavingFlag
-                logo={item.logo}
-                title={item.title}
-                aspect={item.logoAspect || "wide"}
-                delay={index}
-                isFullBox={true}
-              />
-            </div>
-
-            {/* Bottom Brand Title */}
-            <div className="w-full pt-3 border-t border-gold/20 text-center">
-              <h4 className="text-sm sm:text-base font-marcellus font-normal text-maroon-deep group-hover:text-gold-dark transition-colors tracking-wide">
-                {item.title}
-              </h4>
-            </div>
-          </div>
+          <MilestoneLogo
+            logo={item.logo}
+            title={item.title}
+            aspect={item.logoAspect || "wide"}
+          />
         ) : (
-          <div className="w-full h-full" />
+          <div className="w-full h-8" />
         )}
       </div>
 
@@ -269,7 +175,7 @@ function TimelineCard({
           !isLeftDesktop ? "md:pr-12 md:text-right" : "md:pl-12 text-left"
         }`}
       >
-        <div className="h-full p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group flex flex-col justify-center">
+        <div className="p-6 md:p-8 rounded-2xl border transition-all duration-300 relative z-20 shadow-lg hover:shadow-2xl bg-white border-gold/30 hover:border-gold text-maroon-deep group">
           {/* Header Row: Year & Tag */}
           <div
             className={`flex items-center justify-between gap-3 mb-3 ${
@@ -291,14 +197,13 @@ function TimelineCard({
               )}
             </div>
 
-            {/* Mobile-only flag inside card header */}
+            {/* Mobile-only clean logo: ONLY LOGO - NO flag, NO text, NO background */}
             {item.logo && (
               <div className="block md:hidden">
-                <HeritageWavingFlag
+                <MilestoneLogo
                   logo={item.logo}
                   title={item.title}
                   aspect={item.logoAspect || "wide"}
-                  delay={index}
                   isMobile={true}
                 />
               </div>
