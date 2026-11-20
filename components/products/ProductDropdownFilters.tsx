@@ -400,8 +400,8 @@ export function ProductDropdownFilters({
         />
       )}
 
-      {/* 99acres-Style Responsive Dropdown Buttons Bar */}
-      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl border border-gold/40 shadow-xs">
+      {/* 99acres-Style Responsive Dropdown Buttons Bar (Inside Branded Box) */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 py-1">
         
         {/* ======================================================== */}
         {/* FILTER 1: ALL PRODUCTS + 6 COLLECTIONS (MULTI-SELECT) */}

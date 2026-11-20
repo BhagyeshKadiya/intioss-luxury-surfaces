@@ -444,173 +444,203 @@ function ProductsContent() {
             </div>
           </div>
         </div>
-        {/* Luxury Horizontal Dropdown Filter Bar */}
-        <div className="mt-5">
+        {/* INTIOSS ATELIER PROPER BRANDED FILTER BOX */}
+        <div className="mt-6 bg-white/95 backdrop-blur-xl border border-gold/40 rounded-3xl p-4 sm:p-6 shadow-[0_12px_45px_rgba(48,12,22,0.06)] ring-1 ring-gold/20 relative overflow-visible">
+          {/* Box Branding Header */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3.5 mb-3.5 border-b border-gold/25">
+            <div className="flex items-center gap-2.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_rgba(221,182,43,0.8)] shrink-0" />
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold-dark font-bold">
+                    INTIOSS ATELIER
+                  </span>
+                  <span className="text-stone-300 font-light">|</span>
+                  <span className="font-marcellus text-sm text-maroon-deep font-semibold tracking-tight">
+                    Surface & Curation Selector
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Live Count & Reset */}
+            <div className="flex items-center gap-3 text-xs font-montserrat">
+              <span className="text-stone-500 text-[11px]">
+                Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated slabs
+              </span>
+              {activeFiltersCount > 0 && (
+                <button
+                  type="button"
+                  onClick={clearAllFilters}
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-gold-dark hover:text-maroon underline cursor-pointer"
+                >
+                  <RotateCcw className="w-3 h-3" />
+                  <span>Reset All ({activeFiltersCount})</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Filter Dropdown Pills Row */}
           <ProductDropdownFilters
             filterState={filterState}
             onFilterChange={setFilterState}
             onClearAll={clearAllFilters}
             allProducts={PRODUCTS}
           />
-        </div>
 
-        {/* Active Filter Dismissible Badges Bar */}
-        {activeFiltersCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-3.5 pb-2 border-t border-gold/20 mt-3.5">
-            <span className="text-[11px] font-raleway uppercase tracking-[0.2em] text-stone-500 mr-1 font-semibold">
-              Active:
-            </span>
-            {searchQuery.trim() && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white border border-gold/40 text-maroon rounded-full shadow-xs">
-                <span>&ldquo;{searchQuery}&rdquo;</span>
-                <button onClick={() => setSearchQuery("")} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
+          {/* Active Filter Dismissible Badges Bar (Inside the Branded Box) */}
+          {activeFiltersCount > 0 && (
+            <div className="flex flex-wrap items-center gap-2 pt-3 mt-3.5 border-t border-gold/20">
+              <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-500 mr-1 font-semibold">
+                Active Selection:
               </span>
-            )}
-            {filterState.category.map((cat) => (
-              <span
-                key={`cat-${cat}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-maroon-deep text-ivory border border-gold rounded-full shadow-xs font-medium"
-              >
-                <span>{cat.replace(" — Stone", "")}</span>
-                <button onClick={() => removeFilter("category", cat)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.subCategory.map((sub) => (
-              <span
-                key={`sub-${sub}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-gold text-maroon font-bold border border-maroon/20 rounded-full shadow-xs"
-              >
-                <span>{sub}</span>
-                <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon-deep cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.colorFamily.map((col) => (
-              <span
-                key={`col-${col}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
-              >
-                <span>{col}</span>
-                <button onClick={() => removeFilter("colorFamily", col)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.finishes.map((f) => (
-              <span
-                key={`f-${f}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
-              >
-                <span>{f}</span>
-                <button onClick={() => removeFilter("finishes", f)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.applications.map((app) => (
-              <span
-                key={`app-${app}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
-              >
-                <span>{app}</span>
-                <button onClick={() => removeFilter("applications", app)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.veining.map((v) => (
-              <span
-                key={`v-${v}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
-              >
-                <span>{v}</span>
-                <button onClick={() => removeFilter("veining", v)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.origin.map((orig) => (
-              <span
-                key={`orig-${orig}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
-              >
-                <span>{orig}</span>
-                <button onClick={() => removeFilter("origin", orig)} className="hover:text-gold cursor-pointer">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            <button
-              onClick={clearAllFilters}
-              className="inline-flex items-center gap-1 text-xs font-montserrat text-stone-600 hover:text-maroon underline ml-2 cursor-pointer font-semibold"
-            >
-              Clear All ({activeFiltersCount})
-            </button>
-          </div>
-        )}
-
-        {/* Toolbar: Result count, Sort, Sidebar Toggle & Density */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 pt-2">
-          <span className="text-xs font-montserrat text-stone-600">
-            Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
-          </span>
-
-          <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
-            {/* Sort Select */}
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-montserrat text-stone-500 uppercase tracking-wider">Sort:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
-                aria-label="Sort stones"
-                className="bg-white border border-gold/40 text-xs font-montserrat text-maroon py-1.5 px-3 rounded-full focus:outline-none focus:border-gold cursor-pointer"
-              >
-                <option value="featured">Featured Curation</option>
-                <option value="name-asc">Name (A – Z)</option>
-                <option value="name-desc">Name (Z – A)</option>
-              </select>
+              {searchQuery.trim() && (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white border border-gold/40 text-maroon rounded-full shadow-xs">
+                  <span>&ldquo;{searchQuery}&rdquo;</span>
+                  <button onClick={() => setSearchQuery("")} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+              {filterState.category.map((cat) => (
+                <span
+                  key={`cat-${cat}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-maroon-deep text-ivory border border-gold rounded-full shadow-xs font-medium"
+                >
+                  <span>{cat.replace(" — Stone", "")}</span>
+                  <button onClick={() => removeFilter("category", cat)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.subCategory.map((sub) => (
+                <span
+                  key={`sub-${sub}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-gold text-maroon font-bold border border-maroon/20 rounded-full shadow-xs"
+                >
+                  <span>{sub}</span>
+                  <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon-deep cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.colorFamily.map((col) => (
+                <span
+                  key={`col-${col}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+                >
+                  <span>{col}</span>
+                  <button onClick={() => removeFilter("colorFamily", col)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.finishes.map((f) => (
+                <span
+                  key={`f-${f}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+                >
+                  <span>{f}</span>
+                  <button onClick={() => removeFilter("finishes", f)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.applications.map((app) => (
+                <span
+                  key={`app-${app}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+                >
+                  <span>{app}</span>
+                  <button onClick={() => removeFilter("applications", app)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.veining.map((v) => (
+                <span
+                  key={`v-${v}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+                >
+                  <span>{v}</span>
+                  <button onClick={() => removeFilter("veining", v)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
+              {filterState.origin.map((orig) => (
+                <span
+                  key={`orig-${orig}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+                >
+                  <span>{orig}</span>
+                  <button onClick={() => removeFilter("origin", orig)} className="hover:text-gold cursor-pointer">
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              ))}
             </div>
+          )}
 
-            {/* Density Toggle (Desktop) */}
-            <div className="hidden sm:flex items-center border border-gold/30 bg-white rounded-lg overflow-hidden">
-              <button
-                onClick={() => setDensity("comfortable")}
-                aria-label="2 Columns Showcase"
-                title="2 Columns Luxury Showcase"
-                className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 ${
-                  density === "comfortable"
-                    ? "bg-maroon text-gold font-semibold"
-                    : "text-grey hover:text-maroon"
-                }`}
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>2 Col</span>
-              </button>
-              <button
-                onClick={() => setDensity("compact")}
-                aria-label="3 Columns Compact"
-                title="3 Columns Compact"
-                className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 ${
-                  density === "compact"
-                    ? "bg-maroon text-gold font-semibold"
-                    : "text-grey hover:text-maroon"
-                }`}
-              >
-                <Grid3X3 className="w-3.5 h-3.5" />
-                <span>3 Col</span>
-              </button>
+          {/* Box Bottom Toolbar: Sort & Layout Density Controls */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 mt-3.5 border-t border-gold/20">
+            <span className="text-[11px] font-montserrat text-stone-500">
+              Interactive Atelier Controls
+            </span>
+
+            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+              {/* Sort Select */}
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-montserrat text-stone-500 uppercase tracking-wider">Sort:</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  aria-label="Sort stones"
+                  className="bg-white border border-gold/40 text-xs font-montserrat text-maroon py-1.5 px-3 rounded-full focus:outline-none focus:border-gold cursor-pointer shadow-2xs"
+                >
+                  <option value="featured">Featured Curation</option>
+                  <option value="name-asc">Name (A – Z)</option>
+                  <option value="name-desc">Name (Z – A)</option>
+                </select>
+              </div>
+
+              {/* Density Toggle (Desktop) */}
+              <div className="hidden sm:flex items-center border border-gold/30 bg-white rounded-lg overflow-hidden shadow-2xs">
+                <button
+                  onClick={() => setDensity("comfortable")}
+                  aria-label="2 Columns Showcase"
+                  title="2 Columns Luxury Showcase"
+                  className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 transition-colors ${
+                    density === "comfortable"
+                      ? "bg-maroon text-gold font-semibold"
+                      : "text-grey hover:text-maroon"
+                  }`}
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>2 Col</span>
+                </button>
+                <button
+                  onClick={() => setDensity("compact")}
+                  aria-label="3 Columns Compact"
+                  title="3 Columns Compact"
+                  className={`p-1.5 flex items-center gap-1.5 text-xs font-montserrat uppercase tracking-wider px-3 transition-colors ${
+                    density === "compact"
+                      ? "bg-maroon text-gold font-semibold"
+                      : "text-grey hover:text-maroon"
+                  }`}
+                >
+                  <Grid3X3 className="w-3.5 h-3.5" />
+                  <span>3 Col</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Catalog Layout */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Catalog Layout with Generous Distance */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14 lg:mt-16">
         {/* Full-width Product Grid */}
         <div className="w-full">
           {filterState.category.length === 1 &&
