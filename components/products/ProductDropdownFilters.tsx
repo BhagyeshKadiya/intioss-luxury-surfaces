@@ -1184,17 +1184,6 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* Global Reset Button if active filters */}
-        {totalActive > 0 && (
-          <button
-            type="button"
-            onClick={onClearAll}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-montserrat text-stone-600 hover:text-maroon hover:bg-gold/10 transition-colors cursor-pointer border border-transparent hover:border-gold/30 shrink-0 ml-auto"
-          >
-            <RotateCcw className="w-3 h-3 text-gold-dark" />
-            <span className="font-semibold">Reset ({totalActive})</span>
-          </button>
-        )}
       </div>
     </div>
   );

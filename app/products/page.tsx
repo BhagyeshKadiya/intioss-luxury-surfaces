@@ -451,11 +451,11 @@ function ProductsContent() {
             <div className="flex items-center gap-2.5">
               <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_rgba(221,182,43,0.8)] shrink-0" />
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                   <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold-dark font-bold">
                     INTIOSS ATELIER
                   </span>
-                  <span className="text-stone-300 font-light">|</span>
+                  <span className="text-stone-300 font-light hidden xs:inline">|</span>
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold tracking-tight">
                     Surface & Curation Selector
                   </span>
@@ -464,7 +464,7 @@ function ProductsContent() {
             </div>
 
             {/* Live Count & Reset */}
-            <div className="flex items-center gap-3 text-xs font-montserrat">
+            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 text-xs font-montserrat">
               <span className="text-stone-500 text-[11px]">
                 Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated slabs
               </span>
