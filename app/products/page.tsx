@@ -248,10 +248,21 @@ function ProductsContent() {
   };
 
   const removeFilter = (key: keyof FilterState, val: string) => {
-    setFilterState((prev) => ({
-      ...prev,
-      [key]: prev[key].filter((v) => v !== val),
-    }));
+    setFilterState((prev) => {
+      if (key === "category") {
+        const childTypes = CATEGORY_TYPES_MAP[val] || [];
+        const nextSubs = prev.subCategory.filter((s) => !childTypes.includes(s));
+        return {
+          ...prev,
+          category: prev.category.filter((c) => c !== val),
+          subCategory: nextSubs,
+        };
+      }
+      return {
+        ...prev,
+        [key]: prev[key].filter((v) => v !== val),
+      };
+    });
   };
 
   const activeFiltersCount = useMemo(() => {

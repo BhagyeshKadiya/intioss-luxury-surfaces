@@ -14,6 +14,7 @@ import {
   Building2,
   Wrench,
   Globe,
+  SlidersHorizontal,
 } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
 import { CATEGORY_TYPES_MAP } from "@/data/categoryTypes";
@@ -25,6 +26,52 @@ interface ProductDropdownFiltersProps {
   onClearAll: () => void;
   allProducts: StoneProduct[];
 }
+
+// 6 Primary Products as defined in catalogue
+export const PRIMARY_PRODUCTS = [
+  {
+    id: "Natural Stones",
+    name: "Natural Stones",
+    shortName: "Natural Stone",
+    subtitle: "Marble, Quartzite, Granite, Onyx, Travertine, Basalt",
+    icon: "🏛️",
+  },
+  {
+    id: "Semi-Precious Stones",
+    name: "Semi-Precious Stones",
+    shortName: "Semi-Precious",
+    subtitle: "Gemstones, Agate, Quartz, Jasper, Mother of Pearl",
+    icon: "💎",
+  },
+  {
+    id: "Exclusive Table Tops — Stone",
+    name: "Exclusive Table Tops",
+    shortName: "Table Tops",
+    subtitle: "Bespoke stone dining, coffee & conference tables",
+    icon: "🪑",
+  },
+  {
+    id: "Stone Veneers",
+    name: "Stone Veneers",
+    shortName: "Stone Veneer",
+    subtitle: "Ultra-thin flexible natural stone veneer sheets",
+    icon: "📄",
+  },
+  {
+    id: "Stone Art",
+    name: "Stone Art & Sculptures",
+    shortName: "Stone Art",
+    subtitle: "Inlays, murals, 3D hand-carved statues & artefacts",
+    icon: "🎨",
+  },
+  {
+    id: "Mosaics",
+    name: "Mosaics & Medallions",
+    shortName: "Mosaics",
+    subtitle: "Hand-cut gemstone mosaics & waterjet floor medallions",
+    icon: "✨",
+  },
+];
 
 const COLOR_SWATCHES: Record<string, { bg: string; border: string }> = {
   White: { bg: "#FFFFFF", border: "#D1D5DB" },
@@ -80,14 +127,12 @@ function DropdownTickItem({
   onChange,
   label,
   count,
-  isIndented = false,
   badgeText,
 }: {
   checked: boolean;
   onChange: () => void;
   label: React.ReactNode;
   count?: number | string;
-  isIndented?: boolean;
   badgeText?: string;
 }) {
   return (
@@ -96,12 +141,10 @@ function DropdownTickItem({
       role="checkbox"
       aria-checked={checked}
       onClick={onChange}
-      className={`group w-full flex items-center justify-between py-1.5 px-2.5 rounded-lg text-left transition-all duration-200 cursor-pointer ${
-        isIndented ? "pl-4 text-xs" : "text-xs"
-      } ${
+      className={`group w-full flex items-center justify-between py-2 px-2.5 rounded-xl text-left transition-all duration-200 cursor-pointer ${
         checked
-          ? "bg-gold/15 text-maroon-deep font-semibold"
-          : "hover:bg-gold/10 text-stone-700 hover:text-maroon-deep"
+          ? "bg-gold/15 text-maroon-deep font-semibold border border-gold/40 shadow-xs"
+          : "hover:bg-gold/10 text-stone-700 hover:text-maroon-deep border border-transparent"
       }`}
     >
       <div className="flex items-center gap-2.5 min-w-0">
@@ -131,7 +174,7 @@ function DropdownTickItem({
             />
           </motion.svg>
         </div>
-        <span className="truncate font-montserrat">{label}</span>
+        <div className="truncate font-montserrat text-xs">{label}</div>
       </div>
 
       <div className="flex items-center gap-1.5 shrink-0 ml-2">
@@ -164,12 +207,6 @@ export function ProductDropdownFilters({
 }: ProductDropdownFiltersProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Expanded categories inside Collections dropdown
-  const [expandedCats, setExpandedCats] = useState<Record<string, boolean>>({
-    "Natural Stones": true,
-    "Semi-Precious Stones": true,
-  });
 
   // Close on outside click
   useEffect(() => {
@@ -220,19 +257,19 @@ export function ProductDropdownFilters({
     }).length;
   };
 
-  // Category Multi-toggle
-  const handleCategoryToggle = (cat: string) => {
-    const exists = filterState.category.includes(cat);
+  // 1. Primary Product Multi-toggle (Filter 1)
+  const handleProductToggle = (prodId: string) => {
+    const exists = filterState.category.includes(prodId);
     let nextCategories: string[];
     let nextSubCategories = [...filterState.subCategory];
 
     if (exists) {
-      nextCategories = filterState.category.filter((c) => c !== cat);
-      const childTypes = CATEGORY_TYPES_MAP[cat] || [];
+      // Deselecting product -> also prune sub-products that belonged to it
+      nextCategories = filterState.category.filter((c) => c !== prodId);
+      const childTypes = CATEGORY_TYPES_MAP[prodId] || [];
       nextSubCategories = nextSubCategories.filter((s) => !childTypes.includes(s));
     } else {
-      nextCategories = [...filterState.category, cat];
-      setExpandedCats((prev) => ({ ...prev, [cat]: true }));
+      nextCategories = [...filterState.category, prodId];
     }
 
     onFilterChange({
@@ -242,16 +279,17 @@ export function ProductDropdownFilters({
     });
   };
 
-  // SubCategory Multi-toggle
-  const handleSubCategoryToggle = (parentCat: string, subCat: string) => {
-    const exists = filterState.subCategory.includes(subCat);
+  // 2. Sub-Product Multi-toggle (Filter 2)
+  const handleSubProductToggle = (parentProdId: string, subProduct: string) => {
+    const exists = filterState.subCategory.includes(subProduct);
     const nextSubCategories = exists
-      ? filterState.subCategory.filter((s) => s !== subCat)
-      : [...filterState.subCategory, subCat];
+      ? filterState.subCategory.filter((s) => s !== subProduct)
+      : [...filterState.subCategory, subProduct];
 
+    // If subcategory is selected and its parent wasn't in category filter, optionally keep or add
     let nextCategories = filterState.category;
-    if (!exists && !filterState.category.includes(parentCat)) {
-      nextCategories = [...filterState.category, parentCat];
+    if (!exists && filterState.category.length > 0 && !filterState.category.includes(parentProdId)) {
+      nextCategories = [...filterState.category, parentProdId];
     }
 
     onFilterChange({
@@ -261,7 +299,7 @@ export function ProductDropdownFilters({
     });
   };
 
-  // Generic multi-toggle
+  // Generic multi-toggle for Color, Finish, Origin, etc.
   const handleToggle = (key: keyof FilterState, value: string) => {
     const current = filterState[key];
     const exists = current.includes(value);
@@ -269,27 +307,13 @@ export function ProductDropdownFilters({
     onFilterChange({ ...filterState, [key]: updated });
   };
 
-  // All unique available types for Stone Types dropdown
-  const uniqueAvailableTypes = useMemo(() => {
-    const catsToQuery =
-      filterState.category.length > 0
-        ? filterState.category
-        : Object.keys(CATEGORY_TYPES_MAP);
-
-    const seen = new Set<string>();
-    const res: { type: string; category: string }[] = [];
-
-    catsToQuery.forEach((cat) => {
-      const types = CATEGORY_TYPES_MAP[cat] || [];
-      types.forEach((t) => {
-        if (!seen.has(t)) {
-          seen.add(t);
-          res.push({ type: t, category: cat });
-        }
-      });
-    });
-
-    return res;
+  // Categories currently active to populate Filter 2
+  const activeProductCategories = useMemo(() => {
+    if (filterState.category.length > 0) {
+      return filterState.category;
+    }
+    // If no category selected, show all 6 categories' sub-products
+    return Object.keys(CATEGORY_TYPES_MAP);
   }, [filterState.category]);
 
   const totalActive = Object.values(filterState).flat().length;
@@ -304,36 +328,41 @@ export function ProductDropdownFilters({
         />
       )}
 
-      {/* Responsive Flex-Wrap Dropdown Buttons Bar (NO overflow clipping) */}
+      {/* Responsive Flex-Wrap Dropdown Buttons Bar */}
       <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl border border-gold/40 shadow-xs">
-        {/* 1. Category & Collection Dropdown */}
+        
+        {/* ======================================================== */}
+        {/* FILTER 1: ONLY 6 PRODUCTS (MULTIPLE SELECTION) */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
-            onClick={() => toggleDropdown("category")}
+            onClick={() => toggleDropdown("products")}
             className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
-              filterState.category.length > 0 || openDropdown === "category"
+              filterState.category.length > 0 || openDropdown === "products"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
             }`}
           >
             <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
             <span>
-              {filterState.category.length > 0
-                ? `Collection (${filterState.category.length})`
-                : "Collection"}
+              {filterState.category.length === 0
+                ? "Products"
+                : filterState.category.length === 1
+                ? filterState.category[0].replace(" — Stone", "")
+                : `Products (${filterState.category.length})`}
             </span>
             <motion.div
-              animate={{ rotate: openDropdown === "category" ? 180 : 0 }}
+              animate={{ rotate: openDropdown === "products" ? 180 : 0 }}
               transition={{ duration: 0.2 }}
             >
               <ChevronDown className="w-3.5 h-3.5 text-gold shrink-0" />
             </motion.div>
           </button>
 
-          {/* Category Dropdown Popover */}
+          {/* Filter 1 Popover: The 6 Primary Products */}
           <AnimatePresence>
-            {openDropdown === "category" && (
+            {openDropdown === "products" && (
               <motion.div
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -342,11 +371,16 @@ export function ProductDropdownFilters({
                 className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <Layers className="w-4 h-4 text-gold-dark" />
-                    <span className="font-marcellus text-sm text-maroon-deep font-semibold">
-                      Collections & Subcategories
-                    </span>
+                    <div>
+                      <span className="font-marcellus text-sm text-maroon-deep font-semibold block">
+                        Primary Products (6)
+                      </span>
+                      <span className="text-[10px] font-montserrat text-stone-500">
+                        Select one or multiple collections
+                      </span>
+                    </div>
                   </div>
                   {filterState.category.length > 0 && (
                     <button
@@ -365,89 +399,40 @@ export function ProductDropdownFilters({
                   )}
                 </div>
 
-                <div className="max-h-72 overflow-y-auto luxury-scrollbar pr-1 space-y-2">
-                  {Object.entries(CATEGORY_TYPES_MAP).map(([catName, subCats]) => {
-                    const isChecked = filterState.category.includes(catName);
-                    const isExpanded = expandedCats[catName];
-                    const count = getCount("category", catName);
-                    const activeSubsInCat = subCats.filter((s) =>
-                      filterState.subCategory.includes(s)
-                    ).length;
+                {/* 6 Products List with Spring Checkboxes */}
+                <div className="max-h-80 overflow-y-auto luxury-scrollbar pr-1 space-y-1.5">
+                  {PRIMARY_PRODUCTS.map((prod) => {
+                    const isChecked = filterState.category.includes(prod.id);
+                    const count = getCount("category", prod.id);
 
                     return (
                       <div
-                        key={catName}
-                        className="bg-white rounded-xl border border-gold/30 hover:border-gold/60 transition-all overflow-hidden shadow-2xs"
+                        key={prod.id}
+                        className={`rounded-xl transition-all ${
+                          isChecked
+                            ? "bg-gold/10 border border-gold/50 shadow-2xs"
+                            : "bg-[#FAF7F2]/40 hover:bg-[#FAF7F2] border border-gold/20"
+                        }`}
                       >
-                        <div className="flex items-center justify-between pr-2 bg-gradient-to-r from-white via-[#FAF7F2]/50 to-white">
-                          <div className="flex-1 min-w-0">
-                            <DropdownTickItem
-                              checked={isChecked}
-                              onChange={() => handleCategoryToggle(catName)}
-                              label={
-                                <span className="font-semibold text-maroon-deep">
-                                  {catName.replace(" — Stone", "")}
+                        <DropdownTickItem
+                          checked={isChecked}
+                          onChange={() => handleProductToggle(prod.id)}
+                          label={
+                            <div className="py-0.5">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-sm">{prod.icon}</span>
+                                <span className="font-semibold text-maroon-deep text-xs">
+                                  {prod.name}
                                 </span>
-                              }
-                              count={count > 0 ? count : undefined}
-                              badgeText={count === 0 ? "Bespoke" : undefined}
-                            />
-                          </div>
-
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setExpandedCats((prev) => ({
-                                ...prev,
-                                [catName]: !prev[catName],
-                              }));
-                            }}
-                            className="p-1 rounded-md hover:bg-gold/15 text-gold-dark hover:text-maroon transition-all cursor-pointer flex items-center gap-1"
-                          >
-                            {activeSubsInCat > 0 && (
-                              <span className="text-[10px] font-bold text-gold-dark bg-gold/20 px-1 rounded">
-                                {activeSubsInCat}
-                              </span>
-                            )}
-                            <motion.div
-                              animate={{ rotate: isExpanded ? 90 : 0 }}
-                              transition={{ duration: 0.18 }}
-                            >
-                              <ChevronRight className="w-3.5 h-3.5" />
-                            </motion.div>
-                          </button>
-                        </div>
-
-                        {/* Indented Subcategory Tick Boxes */}
-                        <AnimatePresence initial={false}>
-                          {isExpanded && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
-                              className="overflow-hidden bg-[#FAF7F2]/60 border-t border-gold/20 p-2 space-y-0.5 border-l-2 border-gold/30 ml-2"
-                            >
-                              {subCats.map((sub) => {
-                                const isSubChecked = filterState.subCategory.includes(sub);
-                                const subCount = getCount("subCategory", sub);
-                                return (
-                                  <DropdownTickItem
-                                    key={sub}
-                                    checked={isSubChecked}
-                                    onChange={() =>
-                                      handleSubCategoryToggle(catName, sub)
-                                    }
-                                    label={sub}
-                                    count={subCount > 0 ? subCount : undefined}
-                                    isIndented={true}
-                                  />
-                                );
-                              })}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                              </div>
+                              <p className="text-[10px] text-stone-500 font-normal line-clamp-1 mt-0.5">
+                                {prod.subtitle}
+                              </p>
+                            </div>
+                          }
+                          count={count > 0 ? count : undefined}
+                          badgeText={count === 0 ? "Bespoke" : undefined}
+                        />
                       </div>
                     );
                   })}
@@ -455,7 +440,9 @@ export function ProductDropdownFilters({
 
                 <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
                   <span className="text-[10px] font-montserrat text-stone-500">
-                    Multi-selection active
+                    {filterState.category.length === 0
+                      ? "Showing all 6 products"
+                      : `${filterState.category.length} of 6 selected`}
                   </span>
                   <button
                     type="button"
@@ -470,77 +457,128 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 2. Stone Type Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 2: SUB-PRODUCTS OF SELECTED PRODUCT(S) */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
-            onClick={() => toggleDropdown("types")}
+            onClick={() => toggleDropdown("subProducts")}
             className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
-              filterState.subCategory.length > 0 || openDropdown === "types"
+              filterState.subCategory.length > 0 || openDropdown === "subProducts"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5 text-gold shrink-0" />
             <span>
-              {filterState.subCategory.length > 0
-                ? `Stone Type (${filterState.subCategory.length})`
-                : "Stone Type"}
+              {filterState.subCategory.length === 0
+                ? "Sub-Products"
+                : filterState.subCategory.length === 1
+                ? filterState.subCategory[0]
+                : `Sub-Products (${filterState.subCategory.length})`}
             </span>
             <motion.div
-              animate={{ rotate: openDropdown === "types" ? 180 : 0 }}
+              animate={{ rotate: openDropdown === "subProducts" ? 180 : 0 }}
               transition={{ duration: 0.2 }}
             >
               <ChevronDown className="w-3.5 h-3.5 text-gold shrink-0" />
             </motion.div>
           </button>
 
-          {/* Stone Types Popover */}
+          {/* Filter 2 Popover: Sub-Products & Varieties */}
           <AnimatePresence>
-            {openDropdown === "types" && (
+            {openDropdown === "subProducts" && (
               <motion.div
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-72 sm:w-84 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
-                  <span className="font-marcellus text-sm text-maroon-deep font-semibold">
-                    Stone Types & Varieties
-                  </span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Sparkles className="w-4 h-4 text-gold-dark shrink-0" />
+                    <div className="min-w-0">
+                      <span className="font-marcellus text-sm text-maroon-deep font-semibold block truncate">
+                        Sub-Products & Varieties
+                      </span>
+                      <span className="text-[10px] font-montserrat text-gold-dark block truncate">
+                        {filterState.category.length === 0
+                          ? "All categories (Select products in Filter 1 to narrow)"
+                          : filterState.category.length === 1
+                          ? `Varieties for ${filterState.category[0].replace(" — Stone", "")}`
+                          : `Varieties for ${filterState.category.length} selected products`}
+                      </span>
+                    </div>
+                  </div>
                   {filterState.subCategory.length > 0 && (
                     <button
                       type="button"
                       onClick={() =>
                         onFilterChange({ ...filterState, subCategory: [] })
                       }
-                      className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
+                      className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer shrink-0 ml-2"
                     >
                       Clear
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
-                  {uniqueAvailableTypes.map(({ type, category }) => {
-                    const isChecked = filterState.subCategory.includes(type);
-                    const count = getCount("subCategory", type);
+                {/* Sub-Products List Grouped by Selected Product */}
+                <div className="max-h-80 overflow-y-auto luxury-scrollbar pr-1 space-y-3">
+                  {activeProductCategories.map((parentCat) => {
+                    const subProducts = CATEGORY_TYPES_MAP[parentCat] || [];
+                    if (subProducts.length === 0) return null;
+
+                    const activeSubsInGroup = subProducts.filter((s) =>
+                      filterState.subCategory.includes(s)
+                    ).length;
+
                     return (
-                      <DropdownTickItem
-                        key={type}
-                        checked={isChecked}
-                        onChange={() => handleSubCategoryToggle(category, type)}
-                        label={type}
-                        count={count > 0 ? count : undefined}
-                      />
+                      <div
+                        key={parentCat}
+                        className="bg-[#FAF7F2]/60 rounded-xl p-2.5 border border-gold/30"
+                      >
+                        {/* Parent Product Header */}
+                        <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-gold/20 px-1">
+                          <span className="text-[11px] font-raleway uppercase tracking-[0.15em] text-maroon-deep font-bold">
+                            {parentCat.replace(" — Stone", "")}
+                          </span>
+                          {activeSubsInGroup > 0 && (
+                            <span className="text-[9px] font-mono font-bold bg-gold text-maroon px-1.5 py-0.5 rounded-full">
+                              {activeSubsInGroup} selected
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Sub-product Checkboxes */}
+                        <div className="space-y-1">
+                          {subProducts.map((sub) => {
+                            const isChecked = filterState.subCategory.includes(sub);
+                            const count = getCount("subCategory", sub);
+
+                            return (
+                              <DropdownTickItem
+                                key={sub}
+                                checked={isChecked}
+                                onChange={() =>
+                                  handleSubProductToggle(parentCat, sub)
+                                }
+                                label={sub}
+                                count={count > 0 ? count : undefined}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
 
                 <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
                   <span className="text-[10px] font-montserrat text-stone-500">
-                    {filterState.subCategory.length} selected
+                    {filterState.subCategory.length} varieties selected
                   </span>
                   <button
                     type="button"
@@ -555,7 +593,9 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 3. Color Palette Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 3: COLOR PALETTE */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
@@ -607,54 +647,48 @@ export function ProductDropdownFilters({
                   )}
                 </div>
 
-                <div className="grid grid-cols-4 gap-2 py-1">
-                  {Object.entries(COLOR_SWATCHES).map(
-                    ([color, { bg, border }]) => {
-                      const checked = filterState.colorFamily.includes(color);
-                      const count = getCount("colorFamily", color);
-                      const disabled = count === 0;
+                <div className="grid grid-cols-4 gap-2">
+                  {Object.entries(COLOR_SWATCHES).map(([color, swatch]) => {
+                    const isSelected = filterState.colorFamily.includes(color);
+                    const count = getCount("colorFamily", color);
 
-                      return (
-                        <button
-                          key={color}
-                          type="button"
-                          disabled={disabled}
-                          onClick={() => handleToggle("colorFamily", color)}
-                          className={`group relative flex flex-col items-center p-2 rounded-xl transition-all border ${
-                            checked
-                              ? "border-maroon-deep bg-gold/15 ring-2 ring-gold shadow-md"
-                              : "border-gold/30 hover:border-gold bg-white"
-                          } ${
-                            disabled
-                              ? "opacity-25 cursor-not-allowed"
-                              : "cursor-pointer"
-                          }`}
+                    return (
+                      <button
+                        key={color}
+                        type="button"
+                        onClick={() => handleToggle("colorFamily", color)}
+                        className={`flex flex-col items-center p-2 rounded-xl border transition-all cursor-pointer ${
+                          isSelected
+                            ? "bg-maroon-deep text-gold border-gold shadow-sm scale-105"
+                            : "bg-[#FAF7F2]/60 hover:bg-gold/15 text-stone-700 border-gold/30 hover:border-gold"
+                        }`}
+                      >
+                        <div
+                          className="w-6 h-6 rounded-full border shadow-xs relative flex items-center justify-center transition-transform"
+                          style={{
+                            background: swatch.bg,
+                            borderColor: swatch.border,
+                          }}
                         >
-                          <div
-                            className="w-5 h-5 rounded-full shadow-inner border relative flex items-center justify-center"
-                            style={{
-                              background: bg,
-                              borderColor: border,
-                            }}
-                          >
-                            {checked && (
-                              <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="w-2 h-2 rounded-full bg-gold shadow-xs"
-                              />
-                            )}
-                          </div>
-                          <span className="text-[10px] font-montserrat text-stone-700 mt-1 truncate max-w-full">
-                            {color}
-                          </span>
-                          <span className="text-[9px] font-mono text-stone-400">
-                            ({count})
-                          </span>
-                        </button>
-                      );
-                    }
-                  )}
+                          {isSelected && (
+                            <Check
+                              className={`w-3.5 h-3.5 stroke-[3] ${
+                                color === "White" || color === "Beige"
+                                  ? "text-maroon-deep"
+                                  : "text-white"
+                              }`}
+                            />
+                          )}
+                        </div>
+                        <span className="text-[10px] font-montserrat mt-1.5 truncate max-w-full font-medium">
+                          {color}
+                        </span>
+                        <span className="text-[8px] font-mono text-stone-400">
+                          ({count})
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
@@ -674,14 +708,15 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 4. Application Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 4: APPLICATIONS */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
-            onClick={() => toggleDropdown("applications")}
+            onClick={() => toggleDropdown("application")}
             className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
-              filterState.applications.length > 0 ||
-              openDropdown === "applications"
+              filterState.applications.length > 0 || openDropdown === "application"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
             }`}
@@ -693,7 +728,7 @@ export function ProductDropdownFilters({
                 : "Application"}
             </span>
             <motion.div
-              animate={{ rotate: openDropdown === "applications" ? 180 : 0 }}
+              animate={{ rotate: openDropdown === "application" ? 180 : 0 }}
               transition={{ duration: 0.2 }}
             >
               <ChevronDown className="w-3.5 h-3.5 text-gold shrink-0" />
@@ -702,7 +737,7 @@ export function ProductDropdownFilters({
 
           {/* Application Popover */}
           <AnimatePresence>
-            {openDropdown === "applications" && (
+            {openDropdown === "application" && (
               <motion.div
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -712,7 +747,7 @@ export function ProductDropdownFilters({
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
-                    Architectural Applications
+                    Applications
                   </span>
                   {filterState.applications.length > 0 && (
                     <button
@@ -731,15 +766,13 @@ export function ProductDropdownFilters({
                   {APPLICATION_OPTIONS.map((app) => {
                     const isChecked = filterState.applications.includes(app);
                     const count = getCount("applications", app);
-                    if (count === 0) return null;
-
                     return (
                       <DropdownTickItem
                         key={app}
                         checked={isChecked}
                         onChange={() => handleToggle("applications", app)}
                         label={app}
-                        count={count}
+                        count={count > 0 ? count : undefined}
                       />
                     );
                   })}
@@ -762,13 +795,15 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 5. Surface Finish Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 5: FINISH */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
-            onClick={() => toggleDropdown("finishes")}
+            onClick={() => toggleDropdown("finish")}
             className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
-              filterState.finishes.length > 0 || openDropdown === "finishes"
+              filterState.finishes.length > 0 || openDropdown === "finish"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
             }`}
@@ -780,7 +815,7 @@ export function ProductDropdownFilters({
                 : "Finish"}
             </span>
             <motion.div
-              animate={{ rotate: openDropdown === "finishes" ? 180 : 0 }}
+              animate={{ rotate: openDropdown === "finish" ? 180 : 0 }}
               transition={{ duration: 0.2 }}
             >
               <ChevronDown className="w-3.5 h-3.5 text-gold shrink-0" />
@@ -789,7 +824,7 @@ export function ProductDropdownFilters({
 
           {/* Finish Popover */}
           <AnimatePresence>
-            {openDropdown === "finishes" && (
+            {openDropdown === "finish" && (
               <motion.div
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -815,18 +850,16 @@ export function ProductDropdownFilters({
                 </div>
 
                 <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
-                  {FINISH_OPTIONS.map((fin) => {
-                    const isChecked = filterState.finishes.includes(fin);
-                    const count = getCount("finishes", fin);
-                    if (count === 0) return null;
-
+                  {FINISH_OPTIONS.map((f) => {
+                    const isChecked = filterState.finishes.includes(f);
+                    const count = getCount("finishes", f);
                     return (
                       <DropdownTickItem
-                        key={fin}
+                        key={f}
                         checked={isChecked}
-                        onChange={() => handleToggle("finishes", fin)}
-                        label={fin}
-                        count={count}
+                        onChange={() => handleToggle("finishes", f)}
+                        label={f}
+                        count={count > 0 ? count : undefined}
                       />
                     );
                   })}
@@ -849,7 +882,9 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 6. Quarry Origin Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 6: ORIGIN */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
@@ -902,18 +937,16 @@ export function ProductDropdownFilters({
                 </div>
 
                 <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
-                  {ORIGIN_COUNTRIES.map((orig) => {
-                    const isChecked = filterState.origin.includes(orig);
-                    const count = getCount("origin", orig);
-                    if (count === 0) return null;
-
+                  {ORIGIN_COUNTRIES.map((country) => {
+                    const isChecked = filterState.origin.includes(country);
+                    const count = getCount("origin", country);
                     return (
                       <DropdownTickItem
-                        key={orig}
+                        key={country}
                         checked={isChecked}
-                        onChange={() => handleToggle("origin", orig)}
-                        label={orig}
-                        count={count}
+                        onChange={() => handleToggle("origin", country)}
+                        label={country}
+                        count={count > 0 ? count : undefined}
                       />
                     );
                   })}
@@ -936,7 +969,9 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 7. Veining & Pattern Dropdown */}
+        {/* ======================================================== */}
+        {/* FILTER 7: PATTERN & VEINING */}
+        {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
@@ -992,15 +1027,13 @@ export function ProductDropdownFilters({
                   {VEINING_OPTIONS.map((v) => {
                     const isChecked = filterState.veining.includes(v);
                     const count = getCount("veining", v);
-                    if (count === 0) return null;
-
                     return (
                       <DropdownTickItem
                         key={v}
                         checked={isChecked}
                         onChange={() => handleToggle("veining", v)}
                         label={v}
-                        count={count}
+                        count={count > 0 ? count : undefined}
                       />
                     );
                   })}
@@ -1023,15 +1056,15 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* Reset All Action Button */}
+        {/* Global Reset Button if active filters */}
         {totalActive > 0 && (
           <button
             type="button"
             onClick={onClearAll}
-            className="flex-none inline-flex items-center gap-1.5 px-3 py-2 text-xs font-montserrat text-stone-600 hover:text-maroon-deep transition-colors cursor-pointer border border-transparent hover:border-gold/30 rounded-full font-medium"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-montserrat text-stone-500 hover:text-maroon hover:bg-gold/10 transition-colors cursor-pointer border border-transparent hover:border-gold/30 shrink-0 ml-auto"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-gold-dark" />
-            <span className="underline">Reset ({totalActive})</span>
+            <RotateCcw className="w-3 h-3 text-gold-dark" />
+            <span className="font-medium">Reset ({totalActive})</span>
           </button>
         )}
       </div>
