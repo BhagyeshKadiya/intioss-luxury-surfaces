@@ -8,6 +8,7 @@ import { PRODUCTS } from "@/data/products";
 import { StoneProduct } from "@/lib/types";
 import { ProductCard } from "@/components/products/ProductCard";
 import { ProductFilters, FilterState } from "@/components/products/ProductFilters";
+import { ProductDropdownFilters } from "@/components/products/ProductDropdownFilters";
 import { CompareDrawer } from "@/components/products/CompareDrawer";
 import { MoodboardDrawer } from "@/components/products/MoodboardDrawer";
 import { BespokeOrderForm } from "@/components/products/BespokeOrderForm";
@@ -449,209 +450,133 @@ function ProductsContent() {
             </button>
           </div>
         </div>
-        {/* Top Horizontal Primary Category Multi-Select Carousel */}
-        <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-gold/35 shadow-[0_4px_24px_rgba(48,12,22,0.06)]">
-            {/* All Collections Button */}
-            <button
-              type="button"
-              onClick={() => {
-                setFilterState((prev) => ({ ...prev, category: [], subCategory: [] }));
-              }}
-              className={`relative flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-montserrat uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer ${
-                filterState.category.length === 0
-                  ? "bg-maroon-deep text-ivory border border-gold shadow-md font-bold"
-                  : "text-maroon/75 hover:text-maroon hover:bg-gold/10"
-              }`}
-            >
-              <span>All Collections</span>
-            </button>
+        {/* Luxury Horizontal Dropdown Filter Bar */}
+        <div className="mt-5">
+          <ProductDropdownFilters
+            filterState={filterState}
+            onFilterChange={setFilterState}
+            onClearAll={clearAllFilters}
+            allProducts={PRODUCTS}
+          />
+        </div>
 
-            {/* Individual Multi-Select Category Pills */}
-            {CATEGORY_PILLS.map((pill) => {
-              const isSelected = filterState.category.includes(pill.id);
-              return (
-                <button
-                  key={pill.id}
-                  type="button"
-                  onClick={() => handleCategoryToggle(pill.id)}
-                  className={`relative flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-montserrat uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer flex items-center gap-2 ${
-                    isSelected
-                      ? "bg-gradient-to-r from-maroon-deep via-maroon to-maroon-deep text-ivory border border-gold shadow-md font-bold"
-                      : "bg-white/60 text-maroon/80 border border-gold/25 hover:border-gold hover:text-maroon hover:bg-gold/10"
-                  }`}
-                >
-                  <span>{pill.label}</span>
-                  {isSelected ? (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="w-4 h-4 rounded-full bg-gold text-maroon-deep flex items-center justify-center text-[10px] font-bold shrink-0"
-                    >
-                      ✓
-                    </motion.span>
-                  ) : (
-                    <span className="text-[10px] text-stone-400 font-normal">
-                      ({pill.count})
-                    </span>
-                  )}
+        {/* Active Filter Dismissible Badges Bar */}
+        {activeFiltersCount > 0 && (
+          <div className="flex flex-wrap items-center gap-2 pt-3.5 pb-2 border-t border-gold/20 mt-3.5">
+            <span className="text-[11px] font-raleway uppercase tracking-[0.2em] text-stone-500 mr-1 font-semibold">
+              Active:
+            </span>
+            {searchQuery.trim() && (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white border border-gold/40 text-maroon rounded-full shadow-xs">
+                <span>&ldquo;{searchQuery}&rdquo;</span>
+                <button onClick={() => setSearchQuery("")} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
                 </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Subcategories / Types Multi-Select Command Strip */}
-        <div className="mt-3.5 bg-gradient-to-r from-white/95 via-[#FAF7F2]/95 to-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-gold/40 shadow-[0_4px_20px_rgba(48,12,22,0.06)]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2.5 border-b border-gold/20">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse shrink-0" />
-              <span className="text-[11px] font-montserrat uppercase tracking-[0.18em] font-bold text-maroon-deep">
-                Filter by Surface Type / Subcategory:
               </span>
-              {filterState.subCategory.length > 0 && (
-                <motion.span
-                  initial={{ scale: 0.8 }}
-                  animate={{ scale: 1 }}
-                  className="text-[10px] font-bold text-gold bg-maroon-deep px-2 py-0.5 rounded-full border border-gold/40 shadow-xs"
-                >
-                  {filterState.subCategory.length} Selected
-                </motion.span>
-              )}
-            </div>
-
-            {filterState.subCategory.length > 0 && (
-              <button
-                type="button"
-                onClick={() => setFilterState((prev) => ({ ...prev, subCategory: [] }))}
-                className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer flex items-center gap-1 self-start sm:self-auto"
-              >
-                <RotateCcw className="w-3 h-3 text-gold-dark" />
-                <span>Clear All Types</span>
-              </button>
             )}
-          </div>
-
-          {/* Multi-Select Type Pills with animated tick indicators */}
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-3 max-h-40 overflow-y-auto luxury-scrollbar pr-1">
-            <button
-              type="button"
-              onClick={() => setFilterState((prev) => ({ ...prev, subCategory: [] }))}
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
-                filterState.subCategory.length === 0
-                  ? "bg-maroon-deep text-gold font-bold border-gold shadow-sm"
-                  : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:bg-gold/10"
-              }`}
-            >
-              <span>All Types</span>
-              {filterState.subCategory.length === 0 && (
-                <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
-              )}
-            </button>
-
-            {uniqueAvailableTypes.map(({ type, category }) => {
-              const isSelected = filterState.subCategory.includes(type);
-              const count = PRODUCTS.filter((p) => {
-                if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
-                  return false;
-                }
-                const s = type.toLowerCase().replace(/[\s-]/g, "");
-                const prodSub = (p.subCategory || "").toLowerCase().replace(/[\s-]/g, "");
-                const prodName = p.name.toLowerCase().replace(/[\s-]/g, "");
-                const prodDesc = (p.description || "").toLowerCase().replace(/[\s-]/g, "");
-                return (
-                  prodSub.includes(s) ||
-                  s.includes(prodSub) ||
-                  prodName.includes(s) ||
-                  prodDesc.includes(s)
-                );
-              }).length;
-
-              return (
-                <motion.button
-                  key={type}
-                  type="button"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSubCategoryToggle(type, category)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
-                    isSelected
-                      ? "bg-maroon-deep text-gold font-bold border-gold shadow-md ring-1 ring-gold/40"
-                      : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:text-maroon hover:bg-gold/5"
-                  }`}
-                >
-                  {/* Animated mini-tick indicator */}
-                  <div
-                    className={`w-3.5 h-3.5 rounded-[3px] flex items-center justify-center border transition-all ${
-                      isSelected
-                        ? "bg-gold border-gold text-maroon-deep"
-                        : "border-stone-300 bg-stone-50"
-                    }`}
-                  >
-                    {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
-                  </div>
-                  <span>{type}</span>
-                  {count > 0 && (
-                    <span
-                      className={`text-[10px] font-mono px-1 rounded-full ${
-                        isSelected ? "text-gold/90 font-bold" : "text-stone-400"
-                      }`}
-                    >
-                      ({count})
-                    </span>
-                  )}
-                </motion.button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Application Area Pills Bar */}
-        <div className="mt-3 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide">
-          <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-700 font-semibold flex-shrink-0 mr-1 flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold/60" />
-            <span>Applications:</span>
-          </span>
-          {APPLICATION_PILLS.map((app) => {
-            const isActive = filterState.applications.includes(app);
-            const count = PRODUCTS.filter((p) => {
-              if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
-                return false;
-              }
-              return p.applications.some(
-                (a) => a.toLowerCase() === app.toLowerCase() || a.toLowerCase().includes(app.toLowerCase())
-              );
-            }).length;
-            if (count === 0 && filterState.category.length > 0) return null;
-            return (
-              <motion.button
-                key={app}
-                type="button"
-                whileHover={{ scale: 1.04, y: -1 }}
-                whileTap={{ scale: 0.96 }}
-                onClick={() => handleApplicationPillClick(app)}
-                className={`flex-none inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-montserrat tracking-wide transition-all border rounded-full cursor-pointer ${
-                  isActive
-                    ? "bg-maroon text-gold border-gold font-semibold shadow-sm"
-                    : "bg-white/80 text-maroon border-gold/25 hover:border-gold hover:bg-gold/5"
-                }`}
+            {filterState.category.map((cat) => (
+              <span
+                key={`cat-${cat}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-maroon-deep text-ivory border border-gold rounded-full shadow-xs font-medium"
+              >
+                <span>{cat.replace(" — Stone", "")}</span>
+                <button onClick={() => removeFilter("category", cat)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.subCategory.map((sub) => (
+              <span
+                key={`sub-${sub}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs bg-gold text-maroon font-bold border border-maroon/20 rounded-full shadow-xs"
+              >
+                <span>{sub}</span>
+                <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon-deep cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.colorFamily.map((col) => (
+              <span
+                key={`col-${col}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+              >
+                <span>{col}</span>
+                <button onClick={() => removeFilter("colorFamily", col)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.finishes.map((f) => (
+              <span
+                key={`f-${f}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+              >
+                <span>{f}</span>
+                <button onClick={() => removeFilter("finishes", f)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.applications.map((app) => (
+              <span
+                key={`app-${app}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
               >
                 <span>{app}</span>
-                <span className={`text-[10px] ${isActive ? "text-gold/90 font-semibold" : "text-stone-500"}`}>
-                  ({count})
-                </span>
-              </motion.button>
-            );
-          })}
-        </div>
+                <button onClick={() => removeFilter("applications", app)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.veining.map((v) => (
+              <span
+                key={`v-${v}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+              >
+                <span>{v}</span>
+                <button onClick={() => removeFilter("veining", v)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            {filterState.origin.map((orig) => (
+              <span
+                key={`orig-${orig}`}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 rounded-full shadow-xs"
+              >
+                <span>{orig}</span>
+                <button onClick={() => removeFilter("origin", orig)} className="hover:text-gold cursor-pointer">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            ))}
+            <button
+              onClick={clearAllFilters}
+              className="inline-flex items-center gap-1 text-xs font-montserrat text-stone-600 hover:text-maroon underline ml-2 cursor-pointer font-semibold"
+            >
+              Clear All ({activeFiltersCount})
+            </button>
+          </div>
+        )}
 
-{/* Toolbar: Result count, Sort & Density */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 pt-2">
+        {/* Toolbar: Result count, Sort, Sidebar Toggle & Density */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-4 pt-2">
           <span className="text-xs font-montserrat text-stone-600">
             Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated products
           </span>
 
           <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+            {/* Sidebar Toggle (Desktop) */}
+            <button
+              type="button"
+              onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
+              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/5 transition-all cursor-pointer shadow-xs"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
+              <span>{isFilterSidebarOpen ? "Compact Layout" : "Sidebar Filters"}</span>
+            </button>
+
             {/* Sort Select */}
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-montserrat text-stone-500 uppercase tracking-wider">Sort:</span>
@@ -668,7 +593,7 @@ function ProductsContent() {
             </div>
 
             {/* Density Toggle (Desktop) */}
-            <div className="hidden sm:flex items-center border border-gold/30 bg-white">
+            <div className="hidden sm:flex items-center border border-gold/30 bg-white rounded-lg overflow-hidden">
               <button
                 onClick={() => setDensity("comfortable")}
                 aria-label="2 Columns Showcase"
@@ -698,106 +623,6 @@ function ProductsContent() {
             </div>
           </div>
         </div>
-
-        {/* Active Filter Dismissible Badges Bar */}
-        {activeFiltersCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 pt-4 pb-2 border-t border-gold/20 mt-4">
-            <span className="text-[11px] font-raleway uppercase tracking-[0.2em] text-grey mr-1">
-              Active Filters:
-            </span>
-            {searchQuery.trim() && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white border border-gold/40 text-maroon shadow-sm">
-                <span>&ldquo;{searchQuery}&rdquo;</span>
-                <button onClick={() => setSearchQuery("")} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            )}
-            {filterState.category.map((cat) => (
-              <span
-                key={`cat-${cat}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-maroon-deep text-ivory border border-gold shadow-sm font-medium"
-              >
-                <span>{cat}</span>
-                <button onClick={() => removeFilter("category", cat)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.subCategory.map((sub) => (
-              <span
-                key={`sub-${sub}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-gold text-maroon font-semibold border border-maroon/20 shadow-sm"
-              >
-                <span>Type: {sub}</span>
-                <button onClick={() => removeFilter("subCategory", sub)} className="hover:text-maroon/70">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.colorFamily.map((col) => (
-              <span
-                key={`col-${col}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
-              >
-                <span>Color: {col}</span>
-                <button onClick={() => removeFilter("colorFamily", col)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.finishes.map((f) => (
-              <span
-                key={`f-${f}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
-              >
-                <span>Finish: {f}</span>
-                <button onClick={() => removeFilter("finishes", f)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.applications.map((app) => (
-              <span
-                key={`app-${app}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
-              >
-                <span>Area: {app}</span>
-                <button onClick={() => removeFilter("applications", app)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.veining.map((v) => (
-              <span
-                key={`v-${v}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
-              >
-                <span>Pattern: {v}</span>
-                <button onClick={() => removeFilter("veining", v)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            {filterState.origin.map((orig) => (
-              <span
-                key={`orig-${orig}`}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs bg-white text-maroon border border-gold/40 shadow-sm"
-              >
-                <span>Origin: {orig}</span>
-                <button onClick={() => removeFilter("origin", orig)} className="hover:text-gold">
-                  <X className="w-3 h-3" />
-                </button>
-              </span>
-            ))}
-            <button
-              onClick={clearAllFilters}
-              className="inline-flex items-center gap-1 text-xs font-montserrat text-grey hover:text-maroon underline ml-2 cursor-pointer font-medium"
-            >
-              Clear All ({activeFiltersCount})
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Main Catalog Layout */}
