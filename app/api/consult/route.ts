@@ -103,12 +103,7 @@ export async function POST(request: Request) {
     );
 
     // 6. Pre-calculate prefilled WhatsApp link for direct concierge handoff
-    const modeLabel =
-      validatedData.consultationMode === "Online"
-        ? "Virtual Video Concierge (Online)"
-        : "In-Person Studio Visit (Offline)";
-
-    const waText = `New Private Consultation Request:\n• Consultation Mode: ${modeLabel}\n• Name: ${validatedData.fullName}\n• Phone: ${validatedData.phone}\n• Email: ${validatedData.email}\n• Location / Studio: ${validatedData.city}\n• Preferred Date: ${validatedData.preferredDate || "Flexible"}\n• Preferred Time: ${validatedData.preferredTime || "Flexible"}\n• Project Type: ${validatedData.projectType}\n• Surfaces: ${validatedData.interestedIn.join(", ")}\n• Approx Area: ${validatedData.approxArea ? `${validatedData.approxArea} sq ft` : "Not specified"}${validatedData.message ? `\n• Notes: ${validatedData.message}` : ""}`;
+    const waText = `New Private Consultation Request:\n• Name: ${validatedData.fullName}\n• Phone: ${validatedData.phone}\n• Email: ${validatedData.email}\n• City / Location: ${validatedData.city}\n• Preferred Date: ${validatedData.preferredDate || "Flexible"}\n• Preferred Time: ${validatedData.preferredTime || "Flexible"}\n• Project Type: ${validatedData.projectType}\n• Surfaces: ${validatedData.interestedIn.join(", ")}\n• Approx Area: ${validatedData.approxArea ? `${validatedData.approxArea} sq ft` : "Not specified"}${validatedData.message ? `\n• Notes: ${validatedData.message}` : ""}`;
 
     return NextResponse.json({
       success: true,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
@@ -10,13 +10,106 @@ import {
   ArrowRight,
   MessageSquare,
   Building2,
-  Video,
+  MapPin,
   ChevronDown,
   Layers,
   Wrench,
   X,
   Sparkles,
 } from "lucide-react";
+
+export const ALL_INDIA_CITIES = [
+  "Mumbai",
+  "Delhi NCR",
+  "Bengaluru",
+  "Hyderabad",
+  "Ahmedabad",
+  "Chennai",
+  "Kolkata",
+  "Pune",
+  "Surat",
+  "Jaipur",
+  "Kishangarh",
+  "Silvassa",
+  "Udaipur",
+  "Vadodara",
+  "Indore",
+  "Nagpur",
+  "Chandigarh",
+  "Lucknow",
+  "Coimbatore",
+  "Kochi",
+  "Goa",
+  "Nashik",
+  "Rajkot",
+  "Bhopal",
+  "Visakhapatnam",
+  "Varanasi",
+  "Dehradun",
+  "Ludhiana",
+  "Agra",
+  "Kanpur",
+  "Patna",
+  "Thane",
+  "Navi Mumbai",
+  "Gurgaon",
+  "Noida",
+  "Faridabad",
+  "Ghaziabad",
+  "Amritsar",
+  "Jodhpur",
+  "Jabalpur",
+  "Gwalior",
+  "Vijayawada",
+  "Madurai",
+  "Raipur",
+  "Kota",
+  "Guwahati",
+  "Mysore",
+  "Mangalore",
+  "Bhubaneswar",
+  "Ranchi",
+  "Jamshedpur",
+  "Aurangabad",
+  "Kolhapur",
+  "Solapur",
+  "Jamnagar",
+  "Bhavnagar",
+  "Morbi",
+  "Vapi",
+  "Daman",
+  "Thiruvananthapuram",
+  "Calicut",
+  "Salem",
+  "Tiruchirappalli",
+  "Puducherry",
+  "Ajmer",
+  "Bikaner",
+  "Alwar",
+  "Haridwar",
+  "Rishikesh",
+  "Shimla",
+  "Jammu",
+  "Srinagar",
+  "Allahabad (Prayagraj)",
+  "Meerut",
+  "Bareilly",
+  "Gorakhpur",
+  "Aligarh",
+  "Moradabad",
+  "Gaya",
+  "Muzaffarpur",
+  "Siliguri",
+  "Asansol",
+  "Durgapur",
+  "Cuttack",
+  "Rourkela",
+  "Bilaspur",
+  "Tirupati",
+  "Warangal",
+  "Hubballi-Dharwad",
+  "Belgaum",
+];
 
 export const PRODUCT_INTEREST_OPTIONS = [
   "Natural Stone",
@@ -61,7 +154,7 @@ export function ConsultationSection() {
     fullName: "",
     phone: "",
     email: "",
-    city: "Mumbai",
+    city: "",
     consultationMode: "Offline" as "Offline" | "Online",
     projectType: "Residential",
     interestedIn: [] as string[],
@@ -75,6 +168,37 @@ export function ConsultationSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = useState<string | null>(null);
+  const [isCitySuggestionsOpen, setIsCitySuggestionsOpen] = useState(false);
+  const cityWrapperRef = useRef<HTMLDivElement>(null);
+
+  // Close city suggestions dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (cityWrapperRef.current && !cityWrapperRef.current.contains(event.target as Node)) {
+        setIsCitySuggestionsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectCity = (city: string) => {
+    setFormData((prev) => ({ ...prev, city }));
+    setIsCitySuggestionsOpen(false);
+    if (errors.city) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.city;
+        return next;
+      });
+    }
+  };
+
+  const filteredCities = formData.city.trim()
+    ? ALL_INDIA_CITIES.filter((c) =>
+        c.toLowerCase().includes(formData.city.toLowerCase())
+      ).slice(0, 8)
+    : ALL_INDIA_CITIES.slice(0, 8);
 
   const toggleInterest = (item: string) => {
     setFormData((prev) => {
@@ -173,9 +297,7 @@ export function ConsultationSection() {
                 </span>
               </div>
               <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory leading-snug">
-                {formData.consultationMode === "Online"
-                  ? "Virtual Stone Concierge consultations with live HD slab viewing & floor plan specifications."
-                  : "Private viewings by appointment in Mumbai, Silvassa and Kishangarh."}
+                Private viewings by appointment in Mumbai, Silvassa and Kishangarh.
               </h3>
             </div>
 
@@ -190,9 +312,7 @@ export function ConsultationSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-transparent to-black/20 pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-maroon-deep/90 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm rounded-lg">
-                <span className="font-semibold">
-                  {formData.consultationMode === "Online" ? "Online Video Concierge" : "Private Viewing Lounge"}
-                </span>
+                <span className="font-semibold">Private Viewing Lounge</span>
                 <span>Mumbai · Silvassa · Kishangarh</span>
               </div>
             </div>
@@ -275,40 +395,6 @@ export function ConsultationSection() {
                     autoComplete="off"
                   />
 
-                  {/* Two Tabs: ONLINE vs OFFLINE Consultation Format */}
-                  <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-2">
-                      Consultation Format *
-                    </label>
-                    <div className="grid grid-cols-2 gap-3 p-1.5 bg-black/30 border border-gold/30 rounded-xl">
-                      <button
-                        type="button"
-                        onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Offline" }))}
-                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
-                          formData.consultationMode === "Offline"
-                            ? "bg-gold text-maroon-deep shadow-md font-bold border border-gold"
-                            : "text-ivory/70 hover:text-ivory hover:bg-white/5"
-                        }`}
-                      >
-                        <Building2 className={`w-4 h-4 flex-shrink-0 ${formData.consultationMode === "Offline" ? "text-maroon-deep" : "text-gold"}`} />
-                        <span className="truncate">Offline (Studio Visit)</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setFormData((prev) => ({ ...prev, consultationMode: "Online" }))}
-                        className={`py-3 px-3 text-xs font-montserrat uppercase tracking-wider font-semibold rounded-lg transition-all flex items-center justify-center gap-2 ${
-                          formData.consultationMode === "Online"
-                            ? "bg-gold text-maroon-deep shadow-md font-bold border border-gold"
-                            : "text-ivory/70 hover:text-ivory hover:bg-white/5"
-                        }`}
-                      >
-                        <Video className={`w-4 h-4 flex-shrink-0 ${formData.consultationMode === "Online" ? "text-maroon-deep" : "text-gold"}`} />
-                        <span className="truncate">Online (Virtual Video)</span>
-                      </button>
-                    </div>
-                  </div>
-
                   {/* Row 1: Full Name & Phone */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
@@ -346,7 +432,7 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* Row 2: Email & City */}
+                  {/* Row 2: Email & City (With All India Autocomplete) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1">
@@ -365,28 +451,64 @@ export function ConsultationSection() {
                       )}
                     </div>
 
-                    <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1">
-                        City (Where We Are Present) *
+                    {/* City Autocomplete Field */}
+                    <div className="relative" ref={cityWrapperRef}>
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1 flex items-center justify-between">
+                        <span>City / Location *</span>
+                        <span className="text-[10px] text-ivory/40 font-normal lowercase">(all india)</span>
                       </label>
                       <div className="relative">
-                        <select
+                        <input
+                          type="text"
                           required
+                          autoComplete="off"
                           value={formData.city}
-                          onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                          className="w-full bg-[#1A030A] border-b border-gold/40 py-2.5 px-3 text-sm text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-t-sm"
-                        >
-                          <option value="Mumbai" className="bg-[#1A030A] text-ivory">Mumbai (Studio & Experience Gallery)</option>
-                          <option value="Silvassa" className="bg-[#1A030A] text-ivory">Silvassa (Processing Works & Slab Hub)</option>
-                          <option value="Kishangarh" className="bg-[#1A030A] text-ivory">Kishangarh (Architectural Stone Center)</option>
-                          {formData.consultationMode === "Online" && (
-                            <option value="Other City (Online Consultation)" className="bg-[#1A030A] text-ivory">
-                              Other City (Online Virtual Meeting)
-                            </option>
-                          )}
-                        </select>
-                        <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3.5 pointer-events-none" />
+                          onChange={(e) => {
+                            setFormData((prev) => ({ ...prev, city: e.target.value }));
+                            setIsCitySuggestionsOpen(true);
+                          }}
+                          onFocus={() => setIsCitySuggestionsOpen(true)}
+                          placeholder="Type city (e.g. Mumbai, Delhi, Surat...)"
+                          className="w-full bg-white/[0.05] border-b border-gold/40 py-2.5 px-3 pr-8 text-sm text-ivory placeholder:text-ivory/30 focus:outline-none focus:border-gold focus:bg-white/[0.08] transition-colors rounded-t-sm"
+                        />
+                        <MapPin className="w-4 h-4 text-gold/70 absolute right-2.5 top-3 pointer-events-none" />
                       </div>
+
+                      {/* Autocomplete Suggestions Dropdown */}
+                      <AnimatePresence>
+                        {isCitySuggestionsOpen && filteredCities.length > 0 && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -4 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -4 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute left-0 right-0 top-full mt-1 bg-[#1F050C] border border-gold/40 shadow-2xl rounded-xl z-50 max-h-56 overflow-y-auto divide-y divide-gold/10 backdrop-blur-lg"
+                          >
+                            {filteredCities.map((city) => (
+                              <button
+                                key={city}
+                                type="button"
+                                onMouseDown={(e) => {
+                                  e.preventDefault();
+                                  selectCity(city);
+                                }}
+                                className="w-full text-left px-3.5 py-2.5 text-xs font-montserrat text-ivory/90 hover:text-gold hover:bg-white/[0.07] flex items-center justify-between transition-colors cursor-pointer group"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <MapPin className="w-3.5 h-3.5 text-gold/60 group-hover:text-gold flex-shrink-0" />
+                                  <span className="font-medium">{city}</span>
+                                </div>
+                                {["Mumbai", "Silvassa", "Kishangarh"].includes(city) && (
+                                  <span className="text-[9px] font-mono uppercase tracking-wider text-gold bg-gold/15 px-1.5 py-0.5 rounded border border-gold/30">
+                                    Studio Hub
+                                  </span>
+                                )}
+                              </button>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
                       {errors.city && (
                         <span className="text-[10px] text-red-400 mt-1 block">{errors.city}</span>
                       )}
