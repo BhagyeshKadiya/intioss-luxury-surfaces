@@ -4,9 +4,7 @@ import React, { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ChevronDown,
-  ChevronRight,
   Check,
-  X,
   RotateCcw,
   Sparkles,
   Layers,
@@ -27,51 +25,53 @@ interface ProductDropdownFiltersProps {
   allProducts: StoneProduct[];
 }
 
-// 6 Primary Products as defined in catalogue
+// 6 Primary Products (clean, luxury naming without emojis)
 export const PRIMARY_PRODUCTS = [
   {
     id: "Natural Stones",
     name: "Natural Stones",
     shortName: "Natural Stone",
+    categoryTag: "NATURAL",
     subtitle: "Marble, Quartzite, Granite, Onyx, Travertine, Basalt",
-    icon: "🏛️",
   },
   {
     id: "Semi-Precious Stones",
     name: "Semi-Precious Stones",
     shortName: "Semi-Precious",
+    categoryTag: "PRECIOUS",
     subtitle: "Gemstones, Agate, Quartz, Jasper, Mother of Pearl",
-    icon: "💎",
   },
   {
     id: "Exclusive Table Tops — Stone",
     name: "Exclusive Table Tops",
     shortName: "Table Tops",
+    categoryTag: "TABLE TOPS",
     subtitle: "Bespoke stone dining, coffee & conference tables",
-    icon: "🪑",
   },
   {
     id: "Stone Veneers",
     name: "Stone Veneers",
     shortName: "Stone Veneer",
+    categoryTag: "VENEERS",
     subtitle: "Ultra-thin flexible natural stone veneer sheets",
-    icon: "📄",
   },
   {
     id: "Stone Art",
     name: "Stone Art & Sculptures",
     shortName: "Stone Art",
+    categoryTag: "ART & 3D",
     subtitle: "Inlays, murals, 3D hand-carved statues & artefacts",
-    icon: "🎨",
   },
   {
     id: "Mosaics",
     name: "Mosaics & Medallions",
     shortName: "Mosaics",
+    categoryTag: "MOSAICS",
     subtitle: "Hand-cut gemstone mosaics & waterjet floor medallions",
-    icon: "✨",
   },
 ];
+
+const ALL_PRODUCT_IDS = PRIMARY_PRODUCTS.map((p) => p.id);
 
 const COLOR_SWATCHES: Record<string, { bg: string; border: string }> = {
   White: { bg: "#FFFFFF", border: "#D1D5DB" },
@@ -121,17 +121,21 @@ const VEINING_OPTIONS = [
   "Uniform",
 ];
 
-// Luxury Tick Box with spring check animation
+// Clean 99acres-Style Luxury Tick Box Item with Mouse-Wheel Safe Container
 function DropdownTickItem({
   checked,
   onChange,
   label,
+  subtitle,
+  categoryTag,
   count,
   badgeText,
 }: {
   checked: boolean;
   onChange: () => void;
   label: React.ReactNode;
+  subtitle?: string;
+  categoryTag?: string;
   count?: number | string;
   badgeText?: string;
 }) {
@@ -141,18 +145,19 @@ function DropdownTickItem({
       role="checkbox"
       aria-checked={checked}
       onClick={onChange}
-      className={`group w-full flex items-center justify-between py-2 px-2.5 rounded-xl text-left transition-all duration-200 cursor-pointer ${
+      className={`group w-full flex items-center justify-between py-2 px-3 rounded-xl text-left transition-all duration-150 cursor-pointer ${
         checked
           ? "bg-gold/15 text-maroon-deep font-semibold border border-gold/40 shadow-xs"
-          : "hover:bg-gold/10 text-stone-700 hover:text-maroon-deep border border-transparent"
+          : "hover:bg-[#FAF7F2] text-stone-700 hover:text-maroon-deep border border-transparent"
       }`}
     >
-      <div className="flex items-center gap-2.5 min-w-0">
+      <div className="flex items-center gap-3 min-w-0">
+        {/* Custom 99acres-style styled checkbox */}
         <div
-          className={`w-4 h-4 rounded-[4px] flex items-center justify-center border transition-all duration-200 shrink-0 ${
+          className={`w-4 h-4 rounded-[4px] flex items-center justify-center border transition-all duration-150 shrink-0 ${
             checked
-              ? "bg-maroon-deep border-gold text-gold shadow-[0_0_8px_rgba(221,182,43,0.35)]"
-              : "bg-white border-gold/40 group-hover:border-gold shadow-xs"
+              ? "bg-maroon-deep border-gold text-gold shadow-[0_0_8px_rgba(221,182,43,0.3)]"
+              : "bg-white border-stone-300 group-hover:border-gold shadow-xs"
           }`}
         >
           <motion.svg
@@ -161,7 +166,7 @@ function DropdownTickItem({
               scale: checked ? 1 : 0,
               opacity: checked ? 1 : 0,
             }}
-            transition={{ type: "spring", stiffness: 450, damping: 25 }}
+            transition={{ type: "spring", stiffness: 500, damping: 28 }}
             className="w-2.5 h-2.5 stroke-[3] text-gold"
             fill="none"
             viewBox="0 0 24 24"
@@ -174,7 +179,24 @@ function DropdownTickItem({
             />
           </motion.svg>
         </div>
-        <div className="truncate font-montserrat text-xs">{label}</div>
+
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="font-montserrat text-xs text-maroon-deep tracking-tight font-medium group-hover:text-maroon">
+              {label}
+            </span>
+            {categoryTag && (
+              <span className="text-[9px] font-mono tracking-wider text-stone-500 bg-stone-100 px-1 py-0.5 rounded uppercase">
+                {categoryTag}
+              </span>
+            )}
+          </div>
+          {subtitle && (
+            <p className="text-[10px] font-montserrat text-stone-500 font-normal truncate mt-0.5">
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex items-center gap-1.5 shrink-0 ml-2">
@@ -185,7 +207,7 @@ function DropdownTickItem({
         )}
         {count !== undefined && (
           <span
-            className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full transition-colors ${
+            className={`text-[10px] font-mono px-2 py-0.5 rounded-full transition-colors ${
               checked
                 ? "bg-maroon-deep text-gold font-bold"
                 : "bg-stone-100 text-stone-500 group-hover:bg-gold/20 group-hover:text-maroon-deep"
@@ -279,6 +301,28 @@ export function ProductDropdownFilters({
     });
   };
 
+  // "All Products" Toggle
+  const isAllProductsSelected =
+    filterState.category.length === 0 ||
+    filterState.category.length === ALL_PRODUCT_IDS.length;
+
+  const handleAllProductsToggle = () => {
+    if (isAllProductsSelected && filterState.category.length > 0) {
+      // Clear all
+      onFilterChange({
+        ...filterState,
+        category: [],
+        subCategory: [],
+      });
+    } else {
+      // Select all 6 products
+      onFilterChange({
+        ...filterState,
+        category: [...ALL_PRODUCT_IDS],
+      });
+    }
+  };
+
   // 2. Sub-Product Multi-toggle (Filter 2)
   const handleSubProductToggle = (parentProdId: string, subProduct: string) => {
     const exists = filterState.subCategory.includes(subProduct);
@@ -286,7 +330,6 @@ export function ProductDropdownFilters({
       ? filterState.subCategory.filter((s) => s !== subProduct)
       : [...filterState.subCategory, subProduct];
 
-    // If subcategory is selected and its parent wasn't in category filter, optionally keep or add
     let nextCategories = filterState.category;
     if (!exists && filterState.category.length > 0 && !filterState.category.includes(parentProdId)) {
       nextCategories = [...filterState.category, parentProdId];
@@ -316,6 +359,35 @@ export function ProductDropdownFilters({
     return Object.keys(CATEGORY_TYPES_MAP);
   }, [filterState.category]);
 
+  // All available sub-products for currently active categories
+  const allCurrentSubProducts = useMemo(() => {
+    const list: string[] = [];
+    activeProductCategories.forEach((cat) => {
+      const subs = CATEGORY_TYPES_MAP[cat] || [];
+      subs.forEach((s) => {
+        if (!list.includes(s)) list.push(s);
+      });
+    });
+    return list;
+  }, [activeProductCategories]);
+
+  const isAllSubProductsSelected =
+    allCurrentSubProducts.length > 0 &&
+    allCurrentSubProducts.every((s) => filterState.subCategory.includes(s));
+
+  const handleAllSubProductsToggle = () => {
+    if (isAllSubProductsSelected) {
+      // Clear sub-products
+      onFilterChange({ ...filterState, subCategory: [] });
+    } else {
+      // Select all available sub-products
+      onFilterChange({
+        ...filterState,
+        subCategory: [...allCurrentSubProducts],
+      });
+    }
+  };
+
   const totalActive = Object.values(filterState).flat().length;
 
   return (
@@ -328,17 +400,17 @@ export function ProductDropdownFilters({
         />
       )}
 
-      {/* Responsive Flex-Wrap Dropdown Buttons Bar */}
+      {/* 99acres-Style Responsive Dropdown Buttons Bar */}
       <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl border border-gold/40 shadow-xs">
         
         {/* ======================================================== */}
-        {/* FILTER 1: ONLY 6 PRODUCTS (MULTIPLE SELECTION) */}
+        {/* FILTER 1: ALL PRODUCTS + 6 COLLECTIONS (MULTI-SELECT) */}
         {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("products")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.category.length > 0 || openDropdown === "products"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -347,7 +419,7 @@ export function ProductDropdownFilters({
             <Layers className="w-3.5 h-3.5 text-gold shrink-0" />
             <span>
               {filterState.category.length === 0
-                ? "Products"
+                ? "All Products"
                 : filterState.category.length === 1
                 ? filterState.category[0].replace(" — Stone", "")
                 : `Products (${filterState.category.length})`}
@@ -360,27 +432,27 @@ export function ProductDropdownFilters({
             </motion.div>
           </button>
 
-          {/* Filter 1 Popover: The 6 Primary Products */}
+          {/* Filter 1 Popover: Mouse-Wheel Safe Container with data-lenis-prevent */}
           <AnimatePresence>
             {openDropdown === "products" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
-                  <div className="flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-gold-dark" />
-                    <div>
-                      <span className="font-marcellus text-sm text-maroon-deep font-semibold block">
-                        Primary Products (6)
-                      </span>
-                      <span className="text-[10px] font-montserrat text-stone-500">
-                        Select one or multiple collections
-                      </span>
-                    </div>
+                {/* 99acres-Style Popover Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
+                  <div>
+                    <span className="font-marcellus text-sm text-maroon-deep font-semibold block">
+                      Product Collections
+                    </span>
+                    <span className="text-[10px] font-montserrat text-stone-500">
+                      Select multiple collections or all products
+                    </span>
                   </div>
                   {filterState.category.length > 0 && (
                     <button
@@ -394,13 +466,32 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                {/* 6 Products List with Spring Checkboxes */}
-                <div className="max-h-80 overflow-y-auto luxury-scrollbar pr-1 space-y-1.5">
+                {/* Mouse-Wheel Enabled Scrollable List with data-lenis-prevent */}
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[340px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-1.5"
+                >
+                  {/* Option 0: "All Products" Master Toggle */}
+                  <div className="bg-[#FAF7F2] rounded-xl border border-gold/30 hover:border-gold/60 transition-all p-0.5">
+                    <DropdownTickItem
+                      checked={filterState.category.length === ALL_PRODUCT_IDS.length || filterState.category.length === 0}
+                      onChange={handleAllProductsToggle}
+                      label="All Products"
+                      categoryTag="ALL 6"
+                      subtitle="Display all stone collections & surfaces"
+                      count={allProducts.length}
+                    />
+                  </div>
+
+                  <div className="w-full h-px bg-gold/20 my-1" />
+
+                  {/* The 6 Primary Products (No Emojis) */}
                   {PRIMARY_PRODUCTS.map((prod) => {
                     const isChecked = filterState.category.includes(prod.id);
                     const count = getCount("category", prod.id);
@@ -411,25 +502,15 @@ export function ProductDropdownFilters({
                         className={`rounded-xl transition-all ${
                           isChecked
                             ? "bg-gold/10 border border-gold/50 shadow-2xs"
-                            : "bg-[#FAF7F2]/40 hover:bg-[#FAF7F2] border border-gold/20"
+                            : "bg-white hover:bg-[#FAF7F2] border border-stone-200 hover:border-gold/30"
                         }`}
                       >
                         <DropdownTickItem
                           checked={isChecked}
                           onChange={() => handleProductToggle(prod.id)}
-                          label={
-                            <div className="py-0.5">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-sm">{prod.icon}</span>
-                                <span className="font-semibold text-maroon-deep text-xs">
-                                  {prod.name}
-                                </span>
-                              </div>
-                              <p className="text-[10px] text-stone-500 font-normal line-clamp-1 mt-0.5">
-                                {prod.subtitle}
-                              </p>
-                            </div>
-                          }
+                          label={prod.name}
+                          categoryTag={prod.categoryTag}
+                          subtitle={prod.subtitle}
                           count={count > 0 ? count : undefined}
                           badgeText={count === 0 ? "Bespoke" : undefined}
                         />
@@ -438,18 +519,19 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                {/* 99acres-Style Sticky Footer with Apply Button */}
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.category.length === 0
-                      ? "Showing all 6 products"
+                      ? "All products active"
                       : `${filterState.category.length} of 6 selected`}
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -458,13 +540,13 @@ export function ProductDropdownFilters({
         </div>
 
         {/* ======================================================== */}
-        {/* FILTER 2: SUB-PRODUCTS OF SELECTED PRODUCT(S) */}
+        {/* FILTER 2: SUB-PRODUCTS (DEPENDENT ON FILTER 1) */}
         {/* ======================================================== */}
         <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("subProducts")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.subCategory.length > 0 || openDropdown === "subProducts"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -486,31 +568,31 @@ export function ProductDropdownFilters({
             </motion.div>
           </button>
 
-          {/* Filter 2 Popover: Sub-Products & Varieties */}
+          {/* Filter 2 Popover: Mouse-Wheel Safe Container with data-lenis-prevent */}
           <AnimatePresence>
             {openDropdown === "subProducts" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
-                  <div className="flex items-center gap-2 min-w-0">
-                    <Sparkles className="w-4 h-4 text-gold-dark shrink-0" />
-                    <div className="min-w-0">
-                      <span className="font-marcellus text-sm text-maroon-deep font-semibold block truncate">
-                        Sub-Products & Varieties
-                      </span>
-                      <span className="text-[10px] font-montserrat text-gold-dark block truncate">
-                        {filterState.category.length === 0
-                          ? "All categories (Select products in Filter 1 to narrow)"
-                          : filterState.category.length === 1
-                          ? `Varieties for ${filterState.category[0].replace(" — Stone", "")}`
-                          : `Varieties for ${filterState.category.length} selected products`}
-                      </span>
-                    </div>
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
+                  <div className="min-w-0">
+                    <span className="font-marcellus text-sm text-maroon-deep font-semibold block truncate">
+                      Sub-Products & Varieties
+                    </span>
+                    <span className="text-[10px] font-montserrat text-gold-dark block truncate">
+                      {filterState.category.length === 0
+                        ? "All collections (Select products in Filter 1 to narrow)"
+                        : filterState.category.length === 1
+                        ? `Varieties for ${filterState.category[0].replace(" — Stone", "")}`
+                        : `Varieties for ${filterState.category.length} selected collections`}
+                    </span>
                   </div>
                   {filterState.subCategory.length > 0 && (
                     <button
@@ -520,13 +602,28 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer shrink-0 ml-2"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                {/* Sub-Products List Grouped by Selected Product */}
-                <div className="max-h-80 overflow-y-auto luxury-scrollbar pr-1 space-y-3">
+                {/* Sub-Products List with data-lenis-prevent and Mouse-Wheel Scrolling */}
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[340px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-3"
+                >
+                  {/* Option: "All Sub-Products" Toggle */}
+                  <div className="bg-[#FAF7F2] rounded-xl border border-gold/30 hover:border-gold/60 transition-all p-0.5">
+                    <DropdownTickItem
+                      checked={isAllSubProductsSelected}
+                      onChange={handleAllSubProductsToggle}
+                      label="All Sub-Products"
+                      subtitle="Select all stone types in current collections"
+                      count={allCurrentSubProducts.length}
+                    />
+                  </div>
+
                   {activeProductCategories.map((parentCat) => {
                     const subProducts = CATEGORY_TYPES_MAP[parentCat] || [];
                     if (subProducts.length === 0) return null;
@@ -538,15 +635,15 @@ export function ProductDropdownFilters({
                     return (
                       <div
                         key={parentCat}
-                        className="bg-[#FAF7F2]/60 rounded-xl p-2.5 border border-gold/30"
+                        className="bg-[#FAF7F2]/50 rounded-xl p-2.5 border border-gold/25"
                       >
-                        {/* Parent Product Header */}
+                        {/* Parent Collection Header */}
                         <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-gold/20 px-1">
                           <span className="text-[11px] font-raleway uppercase tracking-[0.15em] text-maroon-deep font-bold">
                             {parentCat.replace(" — Stone", "")}
                           </span>
                           {activeSubsInGroup > 0 && (
-                            <span className="text-[9px] font-mono font-bold bg-gold text-maroon px-1.5 py-0.5 rounded-full">
+                            <span className="text-[9px] font-mono font-bold bg-gold text-maroon px-2 py-0.5 rounded-full shadow-2xs">
                               {activeSubsInGroup} selected
                             </span>
                           )}
@@ -576,16 +673,17 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
-                    {filterState.subCategory.length} varieties selected
+                {/* 99acres-Style Sticky Footer with Apply Button */}
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
+                    {filterState.subCategory.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -600,7 +698,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={() => toggleDropdown("color")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.colorFamily.length > 0 || openDropdown === "color"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -624,13 +722,15 @@ export function ProductDropdownFilters({
           <AnimatePresence>
             {openDropdown === "color" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
                     Color Palette
                   </span>
@@ -642,12 +742,16 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                <div className="grid grid-cols-4 gap-2">
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[300px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 grid grid-cols-4 gap-2"
+                >
                   {Object.entries(COLOR_SWATCHES).map(([color, swatch]) => {
                     const isSelected = filterState.colorFamily.includes(color);
                     const count = getCount("colorFamily", color);
@@ -691,16 +795,16 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.colorFamily.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -715,7 +819,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={() => toggleDropdown("application")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.applications.length > 0 || openDropdown === "application"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -739,13 +843,15 @@ export function ProductDropdownFilters({
           <AnimatePresence>
             {openDropdown === "application" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
                     Applications
                   </span>
@@ -757,12 +863,16 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[300px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-1"
+                >
                   {APPLICATION_OPTIONS.map((app) => {
                     const isChecked = filterState.applications.includes(app);
                     const count = getCount("applications", app);
@@ -778,16 +888,16 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.applications.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -802,7 +912,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={() => toggleDropdown("finish")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.finishes.length > 0 || openDropdown === "finish"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -826,13 +936,15 @@ export function ProductDropdownFilters({
           <AnimatePresence>
             {openDropdown === "finish" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
                     Surface Finishes
                   </span>
@@ -844,12 +956,16 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[300px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-1"
+                >
                   {FINISH_OPTIONS.map((f) => {
                     const isChecked = filterState.finishes.includes(f);
                     const count = getCount("finishes", f);
@@ -865,16 +981,16 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.finishes.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -889,7 +1005,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={() => toggleDropdown("origin")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.origin.length > 0 || openDropdown === "origin"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -913,13 +1029,15 @@ export function ProductDropdownFilters({
           <AnimatePresence>
             {openDropdown === "origin" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
                     Quarry Origin
                   </span>
@@ -931,12 +1049,16 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[300px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-1"
+                >
                   {ORIGIN_COUNTRIES.map((country) => {
                     const isChecked = filterState.origin.includes(country);
                     const count = getCount("origin", country);
@@ -952,16 +1074,16 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.origin.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -976,7 +1098,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={() => toggleDropdown("veining")}
-            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer border shadow-xs ${
+            className={`inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full text-xs font-montserrat uppercase tracking-wider font-semibold transition-all duration-150 cursor-pointer border shadow-xs ${
               filterState.veining.length > 0 || openDropdown === "veining"
                 ? "bg-maroon-deep text-ivory border-gold shadow-md"
                 : "bg-white text-stone-700 border-gold/40 hover:border-gold hover:bg-gold/10 hover:text-maroon-deep"
@@ -1000,13 +1122,15 @@ export function ProductDropdownFilters({
           <AnimatePresence>
             {openDropdown === "veining" && (
               <motion.div
+                data-lenis-prevent="true"
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, y: 8, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
+                transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
               >
-                <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
                     Veining & Pattern
                   </span>
@@ -1018,12 +1142,16 @@ export function ProductDropdownFilters({
                       }
                       className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer"
                     >
-                      Clear
+                      Reset
                     </button>
                   )}
                 </div>
 
-                <div className="max-h-64 overflow-y-auto luxury-scrollbar pr-1 space-y-1">
+                <div
+                  data-lenis-prevent="true"
+                  onWheel={(e) => e.stopPropagation()}
+                  className="max-h-[300px] overflow-y-auto overscroll-contain luxury-scrollbar pr-1 space-y-1"
+                >
                   {VEINING_OPTIONS.map((v) => {
                     const isChecked = filterState.veining.includes(v);
                     const count = getCount("veining", v);
@@ -1039,16 +1167,16 @@ export function ProductDropdownFilters({
                   })}
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-gold/20 flex items-center justify-between">
-                  <span className="text-[10px] font-montserrat text-stone-500">
+                <div className="mt-3 pt-3 border-t border-gold/20 flex items-center justify-between">
+                  <span className="text-[11px] font-montserrat text-stone-500">
                     {filterState.veining.length} selected
                   </span>
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-5 py-2 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep hover:bg-maroon text-gold font-bold rounded-xl border border-gold shadow transition-all cursor-pointer"
                   >
-                    Done
+                    Apply
                   </button>
                 </div>
               </motion.div>
@@ -1061,10 +1189,10 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={onClearAll}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-montserrat text-stone-500 hover:text-maroon hover:bg-gold/10 transition-colors cursor-pointer border border-transparent hover:border-gold/30 shrink-0 ml-auto"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-montserrat text-stone-600 hover:text-maroon hover:bg-gold/10 transition-colors cursor-pointer border border-transparent hover:border-gold/30 shrink-0 ml-auto"
           >
             <RotateCcw className="w-3 h-3 text-gold-dark" />
-            <span className="font-medium">Reset ({totalActive})</span>
+            <span className="font-semibold">Reset ({totalActive})</span>
           </button>
         )}
       </div>
