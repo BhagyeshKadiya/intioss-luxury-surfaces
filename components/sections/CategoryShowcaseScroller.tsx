@@ -485,21 +485,10 @@ export function CategoryShowcaseScroller() {
                     <div className={`absolute inset-0 bg-gradient-to-tr ${item.accent} pointer-events-none`} />
                   </div>
 
-                  {/* Index Watermark Number */}
-                  <div
-                    className={`absolute top-4 right-5 sm:top-6 sm:right-7 font-marcellus text-3xl sm:text-4xl text-white/20 group-hover:text-gold/40 transition-colors pointer-events-none ${
-                      isExpanded ? "text-gold/60" : ""
-                    }`}
-                  >
-                    0{idx + 1}
-                  </div>
-
                   {/* COLLAPSED VERTICAL TITLE (Desktop Only, when not expanded) */}
                   {!isExpanded && (
                     <div className="hidden lg:flex absolute inset-0 p-6 flex-col justify-between z-10">
-                      <span className="font-marcellus text-sm text-gold/60">
-                        0{idx + 1}
-                      </span>
+                      <div />
 
                       <div className="transform -rotate-90 origin-bottom-left translate-x-12 translate-y-2 whitespace-nowrap">
                         <span className="font-marcellus text-2xl tracking-wider text-ivory/95 group-hover:text-gold transition-colors">
@@ -537,29 +526,15 @@ export function CategoryShowcaseScroller() {
                     </div>
                   )}
 
-                  {/* FULL EXPANDED CONTENT: ONLY THE NAME + EXPLORE BUTTON */}
+                  {/* FULL EXPANDED CONTENT: ONLY THE NAME + EXPLORE BUTTON (ZERO NUMBERS, ZERO TAGS) */}
                   {isExpanded && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.35, delay: 0.08 }}
-                      className="relative z-20 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between"
+                      className="relative z-20 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-end"
                     >
-                      {/* Top Indicator */}
-                      <div className="flex items-center justify-between">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-gold/40 shadow-sm backdrop-blur-md">
-                          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-                          <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
-                            {activeTab === "surfaces" ? "Product Collection" : "Atelier Service"}
-                          </span>
-                        </div>
-
-                        <span className="font-marcellus text-2xl text-gold/60">
-                          0{idx + 1}
-                        </span>
-                      </div>
-
                       {/* Bottom Area: ONLY THE NAME + EXPLORE BUTTON */}
                       <div className="space-y-5 max-w-xl">
                         <h3 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal leading-tight tracking-wide">
