@@ -14,7 +14,6 @@ import {
   Building2,
   Wrench,
   Globe,
-  SlidersHorizontal,
 } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
 import { CATEGORY_TYPES_MAP } from "@/data/categoryTypes";
@@ -166,7 +165,7 @@ export function ProductDropdownFilters({
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Expanded categories inside the Collections dropdown
+  // Expanded categories inside Collections dropdown
   const [expandedCats, setExpandedCats] = useState<Record<string, boolean>>({
     "Natural Stones": true,
     "Semi-Precious Stones": true,
@@ -183,7 +182,7 @@ export function ProductDropdownFilters({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close on Escape
+  // Close on Escape key
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") setOpenDropdown(null);
@@ -270,7 +269,7 @@ export function ProductDropdownFilters({
     onFilterChange({ ...filterState, [key]: updated });
   };
 
-  // All unique available types for the Stone Types dropdown
+  // All unique available types for Stone Types dropdown
   const uniqueAvailableTypes = useMemo(() => {
     const catsToQuery =
       filterState.category.length > 0
@@ -297,10 +296,18 @@ export function ProductDropdownFilters({
 
   return (
     <div ref={containerRef} className="relative w-full z-30 select-none">
-      {/* Horizontal Scrollable Dropdown Filter Buttons Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-hide py-1">
+      {/* Mobile backdrop to dismiss dropdown on outside tap */}
+      {openDropdown !== null && (
+        <div
+          onClick={() => setOpenDropdown(null)}
+          className="fixed inset-0 bg-black/15 z-40 sm:hidden"
+        />
+      )}
+
+      {/* Responsive Flex-Wrap Dropdown Buttons Bar (NO overflow clipping) */}
+      <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 bg-white/95 backdrop-blur-md rounded-2xl border border-gold/40 shadow-xs">
         {/* 1. Category & Collection Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("category")}
@@ -332,7 +339,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <div className="flex items-center gap-1.5">
@@ -453,7 +460,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -463,8 +470,8 @@ export function ProductDropdownFilters({
           </AnimatePresence>
         </div>
 
-        {/* 2. Stone Type / Subcategory Dropdown */}
-        <div className="relative flex-none">
+        {/* 2. Stone Type Dropdown */}
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("types")}
@@ -496,7 +503,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto top-full mt-2 w-72 sm:w-84 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute left-0 top-full mt-2 w-72 sm:w-84 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -538,7 +545,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -549,7 +556,7 @@ export function ProductDropdownFilters({
         </div>
 
         {/* 3. Color Palette Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("color")}
@@ -581,7 +588,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto top-full mt-2 w-72 sm:w-80 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -657,7 +664,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -668,7 +675,7 @@ export function ProductDropdownFilters({
         </div>
 
         {/* 4. Application Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("applications")}
@@ -701,7 +708,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto top-full mt-2 w-72 sm:w-80 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -745,7 +752,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -756,7 +763,7 @@ export function ProductDropdownFilters({
         </div>
 
         {/* 5. Surface Finish Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("finishes")}
@@ -788,7 +795,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto top-full mt-2 w-72 sm:w-80 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -832,7 +839,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -843,7 +850,7 @@ export function ProductDropdownFilters({
         </div>
 
         {/* 6. Quarry Origin Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("origin")}
@@ -875,7 +882,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto top-full mt-2 w-72 sm:w-80 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -919,7 +926,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -930,7 +937,7 @@ export function ProductDropdownFilters({
         </div>
 
         {/* 7. Veining & Pattern Dropdown */}
-        <div className="relative flex-none">
+        <div className="relative">
           <button
             type="button"
             onClick={() => toggleDropdown("veining")}
@@ -962,7 +969,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-0 sm:left-auto top-full mt-2 w-72 sm:w-80 max-w-[92vw] bg-white border border-gold/50 rounded-2xl shadow-[0_16px_48px_rgba(48,12,22,0.2)] p-4 z-50 backdrop-blur-xl"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl"
               >
                 <div className="flex items-center justify-between pb-2.5 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -1006,7 +1013,7 @@ export function ProductDropdownFilters({
                   <button
                     type="button"
                     onClick={() => setOpenDropdown(null)}
-                    className="px-3.5 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
+                    className="px-4 py-1 text-xs font-montserrat uppercase tracking-wider bg-maroon-deep text-gold rounded-lg font-bold border border-gold hover:bg-maroon transition-all cursor-pointer"
                   >
                     Done
                   </button>
@@ -1021,7 +1028,7 @@ export function ProductDropdownFilters({
           <button
             type="button"
             onClick={onClearAll}
-            className="flex-none inline-flex items-center gap-1.5 px-3 py-2 text-xs font-montserrat text-stone-500 hover:text-maroon-deep transition-colors cursor-pointer border border-transparent hover:border-gold/30 rounded-full"
+            className="flex-none inline-flex items-center gap-1.5 px-3 py-2 text-xs font-montserrat text-stone-600 hover:text-maroon-deep transition-colors cursor-pointer border border-transparent hover:border-gold/30 rounded-full font-medium"
           >
             <RotateCcw className="w-3.5 h-3.5 text-gold-dark" />
             <span className="underline">Reset ({totalActive})</span>

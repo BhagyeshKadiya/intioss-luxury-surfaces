@@ -7,7 +7,7 @@ import Fuse from "fuse.js";
 import { PRODUCTS } from "@/data/products";
 import { StoneProduct } from "@/lib/types";
 import { ProductCard } from "@/components/products/ProductCard";
-import { ProductFilters, FilterState } from "@/components/products/ProductFilters";
+import { FilterState } from "@/components/products/ProductFilters";
 import { ProductDropdownFilters } from "@/components/products/ProductDropdownFilters";
 import { CompareDrawer } from "@/components/products/CompareDrawer";
 import { MoodboardDrawer } from "@/components/products/MoodboardDrawer";
@@ -80,8 +80,6 @@ function ProductsContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"featured" | "name-asc" | "name-desc">("featured");
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
-  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(true);
 
   // Compare & Moodboard state
   const [compareList, setCompareList] = useState<StoneProduct[]>([]);
@@ -401,7 +399,7 @@ function ProductsContent() {
 
 
   return (
-    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative">
       {/* Editorial Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gold/30 pb-4">
@@ -411,7 +409,7 @@ function ProductsContent() {
             <span className="text-gold-dark font-semibold">Surface Catalog</span>
           </div>
 
-          {/* Right Header Area: Search Bar (shifted from lower toolbar) & Mobile Filter Trigger */}
+          {/* Right Header Area: Search Bar */}
           <div className="w-full sm:w-auto flex items-center gap-2 sm:gap-3">
             <div className="w-full sm:w-72 md:w-80 relative">
               <Search className="w-4 h-4 text-stone-500 absolute left-3 top-2.5 pointer-events-none" />
@@ -433,21 +431,6 @@ function ProductsContent() {
                 </button>
               )}
             </div>
-
-            {/* Mobile Filter Button */}
-            <button
-              type="button"
-              onClick={() => setIsMobileFilterOpen(true)}
-              className="lg:hidden inline-flex items-center justify-center gap-1.5 h-9 px-3.5 bg-white border border-gold/40 text-xs font-montserrat font-medium text-maroon hover:border-gold hover:bg-gold/5 shadow-sm rounded-full transition-all shrink-0"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span className="hidden xs:inline">Filters</span>
-              {activeFiltersCount > 0 && (
-                <span className="min-w-4 h-4 px-1 rounded-full bg-gold text-maroon font-bold text-[10px] flex items-center justify-center shrink-0">
-                  {activeFiltersCount}
-                </span>
-              )}
-            </button>
           </div>
         </div>
         {/* Luxury Horizontal Dropdown Filter Bar */}
@@ -567,16 +550,6 @@ function ProductsContent() {
           </span>
 
           <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
-            {/* Sidebar Toggle (Desktop) */}
-            <button
-              type="button"
-              onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
-              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gold/40 text-xs font-montserrat text-maroon hover:border-gold hover:bg-gold/5 transition-all cursor-pointer shadow-xs"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-gold shrink-0" />
-              <span>{isFilterSidebarOpen ? "Compact Layout" : "Sidebar Filters"}</span>
-            </button>
-
             {/* Sort Select */}
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-montserrat text-stone-500 uppercase tracking-wider">Sort:</span>
@@ -627,26 +600,9 @@ function ProductsContent() {
 
       {/* Main Catalog Layout */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-8 items-start">
-          {/* Desktop Sticky Filter Sidebar */}
-          {isFilterSidebarOpen && (
-            <aside
-              data-lenis-prevent
-              className="hidden lg:block w-72 flex-shrink-0 sticky top-24 max-h-[calc(100vh-6.5rem)] overflow-y-auto overscroll-contain pr-2 bg-white p-5 border border-gold/30 shadow-sm luxury-scrollbar"
-            >
-              <ProductFilters
-                filterState={filterState}
-                onFilterChange={setFilterState}
-                onClearAll={clearAllFilters}
-                allProducts={PRODUCTS}
-                hideCategorySelectors={false}
-              />
-            </aside>
-          )}
-
-          {/* Product Grid Area */}
-          <div className="flex-1 min-w-0">
-            {filterState.category.length === 1 &&
+        {/* Full-width Product Grid */}
+        <div className="w-full">
+          {filterState.category.length === 1 &&
               ORDER_BASIS_CATEGORIES.includes(filterState.category[0]) && (
                 <BespokeOrderForm
                   categoryName={filterState.category[0]}
@@ -697,9 +653,7 @@ function ProductsContent() {
                 layout
                 className={`grid gap-6 sm:gap-8 ${
                   density === "compact"
-                    ? isFilterSidebarOpen
-                      ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                      : "grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+                    ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                     : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2"
                 }`}
               >
@@ -726,77 +680,8 @@ function ProductsContent() {
                 </AnimatePresence>
               </motion.div>
             )}
-          </div>
         </div>
       </div>
-
-      {/* Mobile Bottom-Sheet Filter Drawer */}
-      <AnimatePresence>
-        {isMobileFilterOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileFilterOpen(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[98]"
-            />
-            <motion.div
-              data-lenis-prevent
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "100%" }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto overscroll-contain luxury-scrollbar bg-ivory text-maroon z-[99] rounded-t-2xl p-6 border-t-2 border-gold shadow-2xl"
-              style={{ paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
-            >
-              {/* iOS Grab Handle */}
-              <div className="w-12 h-1 bg-gold/40 rounded-full mx-auto mb-4" />
-
-              <div className="flex items-center justify-between pb-4 border-b border-gold/30 mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="font-marcellus text-xl text-maroon">Filters</span>
-                  {activeFiltersCount > 0 && (
-                    <span className="bg-maroon text-gold text-xs font-semibold px-2 py-0.5 border border-gold/40">
-                      {activeFiltersCount} Active
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-3">
-                  {activeFiltersCount > 0 && (
-                    <button
-                      onClick={clearAllFilters}
-                      className="text-xs font-montserrat text-stone-700 hover:text-maroon underline font-medium"
-                    >
-                      Reset All
-                    </button>
-                  )}
-                  <button
-                    onClick={() => setIsMobileFilterOpen(false)}
-                    aria-label="Close filters"
-                    className="p-1.5 border border-gold/40 text-maroon hover:border-gold transition-colors active:scale-90"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-              <ProductFilters
-                filterState={filterState}
-                onFilterChange={setFilterState}
-                onClearAll={clearAllFilters}
-                allProducts={PRODUCTS}
-                hideCategorySelectors={false}
-              />
-              <button
-                onClick={() => setIsMobileFilterOpen(false)}
-                className="w-full mt-6 bg-maroon hover:bg-maroon-deep text-white py-3.5 text-xs font-montserrat uppercase tracking-[0.2em] font-semibold border border-gold shadow-md active:scale-[0.98] transition-all"
-              >
-                Apply Filters ({filteredProducts.length} Results)
-              </button>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
       {/* Floating Compare Drawer */}
       <CompareDrawer
