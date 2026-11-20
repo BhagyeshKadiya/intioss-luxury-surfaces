@@ -411,8 +411,8 @@ function ProductsContent() {
 
   return (
     <div className="min-h-screen bg-ivory text-maroon pt-24 sm:pt-28 pb-20 relative">
-      {/* Editorial Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+      {/* Editorial Header & Branded Filter Box */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 relative z-40">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-gold/30 pb-4">
           <div className="flex items-center gap-2 text-[11px] font-raleway uppercase tracking-[0.25em] text-stone-600 font-medium">
             <Link href="/" className="hover:text-gold-dark transition-colors">Home</Link>
@@ -444,37 +444,41 @@ function ProductsContent() {
             </div>
           </div>
         </div>
+
         {/* INTIOSS ATELIER PROPER BRANDED FILTER BOX */}
-        <div className="mt-6 bg-white/95 backdrop-blur-xl border border-gold/40 rounded-3xl p-4 sm:p-6 shadow-[0_12px_45px_rgba(48,12,22,0.06)] ring-1 ring-gold/20 relative overflow-visible">
+        <div className="mt-8 bg-white border border-gold/50 rounded-3xl p-5 sm:p-7 shadow-[0_16px_50px_rgba(48,12,22,0.08)] relative z-40 overflow-visible">
           {/* Box Branding Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3.5 mb-3.5 border-b border-gold/25">
-            <div className="flex items-center gap-2.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_rgba(221,182,43,0.8)] shrink-0" />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-gold/25">
+            <div className="flex items-center gap-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_10px_rgba(221,182,43,0.9)] shrink-0 animate-pulse" />
               <div>
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                  <span className="font-raleway text-[11px] uppercase tracking-[0.25em] text-gold-dark font-bold">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-raleway text-xs uppercase tracking-[0.25em] text-gold-dark font-bold">
                     INTIOSS ATELIER
                   </span>
-                  <span className="text-stone-300 font-light hidden xs:inline">|</span>
-                  <span className="font-marcellus text-sm text-maroon-deep font-semibold tracking-tight">
-                    Surface & Curation Selector
+                  <span className="text-stone-300 font-light hidden xs:inline">•</span>
+                  <span className="font-marcellus text-base text-maroon-deep font-semibold tracking-tight">
+                    Bespoke Surface Selector
                   </span>
                 </div>
+                <p className="text-[11px] font-montserrat text-stone-500 mt-0.5">
+                  Filter by collection, variety, color, application, finish & quarry origin
+                </p>
               </div>
             </div>
 
             {/* Live Count & Reset */}
-            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 text-xs font-montserrat">
-              <span className="text-stone-500 text-[11px]">
-                Showing <strong className="text-maroon-deep font-semibold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated slabs
+            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-3 text-xs font-montserrat pt-1 sm:pt-0">
+              <span className="text-stone-600 text-xs font-medium">
+                Showing <strong className="text-maroon-deep font-bold">{filteredProducts.length}</strong> of {PRODUCTS.length} curated slabs
               </span>
               {activeFiltersCount > 0 && (
                 <button
                   type="button"
                   onClick={clearAllFilters}
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-gold-dark hover:text-maroon underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold text-maroon hover:text-white bg-gold/15 hover:bg-maroon border border-gold/40 transition-all cursor-pointer shadow-2xs"
                 >
-                  <RotateCcw className="w-3 h-3" />
+                  <RotateCcw className="w-3 h-3 text-gold-dark" />
                   <span>Reset All ({activeFiltersCount})</span>
                 </button>
               )}
@@ -639,10 +643,10 @@ function ProductsContent() {
         </div>
       </div>
 
-      {/* Main Catalog Layout with Generous Distance */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14 lg:mt-16">
+      {/* Main Catalog Layout with Generous Luxury Distance */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14 sm:mt-18 lg:mt-24 relative z-10">
         {/* Full-width Product Grid */}
-        <div className="w-full">
+        <div className="w-full relative z-10">
           {filterState.category.length === 1 &&
               ORDER_BASIS_CATEGORIES.includes(filterState.category[0]) && (
                 <BespokeOrderForm

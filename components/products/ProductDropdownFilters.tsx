@@ -391,12 +391,12 @@ export function ProductDropdownFilters({
   const totalActive = Object.values(filterState).flat().length;
 
   return (
-    <div ref={containerRef} className="relative w-full z-30 select-none">
+    <div ref={containerRef} className="relative w-full z-40 select-none">
       {/* Mobile backdrop to dismiss dropdown on outside tap */}
       {openDropdown !== null && (
         <div
           onClick={() => setOpenDropdown(null)}
-          className="fixed inset-0 bg-black/15 z-40 sm:hidden"
+          className="fixed inset-0 bg-black/20 z-[95] sm:hidden"
         />
       )}
 
@@ -442,7 +442,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 {/* 99acres-Style Popover Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
@@ -578,7 +578,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute left-0 top-full mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
@@ -728,7 +728,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -849,7 +849,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute left-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -942,7 +942,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute left-0 sm:left-auto sm:right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -1035,7 +1035,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
@@ -1128,7 +1128,7 @@ export function ProductDropdownFilters({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.98 }}
                 transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border border-gold/50 rounded-2xl shadow-[0_20px_50px_rgba(48,12,22,0.22)] p-4 z-[70] backdrop-blur-xl overscroll-contain"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 max-w-[calc(100vw-2rem)] bg-white border-2 border-gold/60 rounded-2xl shadow-[0_25px_60px_-10px_rgba(48,12,22,0.3),0_10px_20px_-5px_rgba(0,0,0,0.08)] p-4 z-[100] backdrop-blur-xl overscroll-contain"
               >
                 <div className="flex items-center justify-between pb-3 border-b border-gold/25 mb-3">
                   <span className="font-marcellus text-sm text-maroon-deep font-semibold">
