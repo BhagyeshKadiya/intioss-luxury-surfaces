@@ -24,6 +24,7 @@ import {
   ChevronDown,
   Check,
   Sparkles,
+  RotateCcw,
 } from "lucide-react";
 
 import { CATEGORY_TYPES_MAP, getTypesForCategory } from "@/data/categoryTypes";
@@ -80,20 +81,6 @@ function ProductsContent() {
   const [density, setDensity] = useState<"comfortable" | "compact">("comfortable");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(true);
-
-  // Custom Animated Types Dropdown State
-  const [isTypesDropdownOpen, setIsTypesDropdownOpen] = useState(false);
-  const typesDropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (typesDropdownRef.current && !typesDropdownRef.current.contains(e.target as Node)) {
-        setIsTypesDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // Compare & Moodboard state
   const [compareList, setCompareList] = useState<StoneProduct[]>([]);
@@ -281,12 +268,49 @@ function ProductsContent() {
     );
   }, [filterState, searchQuery]);
 
-  const handleCategoryPillClick = (cat: string) => {
-    setFilterState((prev) => ({
-      ...prev,
-      category: [cat],
-      subCategory: [], // Reset types when switching top category
-    }));
+  // Multi-Select Category Toggle
+  const handleCategoryToggle = (cat: string) => {
+    setFilterState((prev) => {
+      const exists = prev.category.includes(cat);
+      if (exists) {
+        // Deselecting category -> remove it and any child types
+        const childTypes = CATEGORY_TYPES_MAP[cat] || [];
+        const nextSubs = prev.subCategory.filter((s) => !childTypes.includes(s));
+        return {
+          ...prev,
+          category: prev.category.filter((c) => c !== cat),
+          subCategory: nextSubs,
+        };
+      } else {
+        // Selecting category
+        return {
+          ...prev,
+          category: [...prev.category, cat],
+        };
+      }
+    });
+  };
+
+  // Multi-Select Subcategory / Type Toggle
+  const handleSubCategoryToggle = (subCat: string, parentCat?: string) => {
+    setFilterState((prev) => {
+      const exists = prev.subCategory.includes(subCat);
+      const nextSubs = exists
+        ? prev.subCategory.filter((s) => s !== subCat)
+        : [...prev.subCategory, subCat];
+
+      // Auto-include parent category if categories are filtered
+      let nextCats = prev.category;
+      if (!exists && parentCat && prev.category.length > 0 && !prev.category.includes(parentCat)) {
+        nextCats = [...prev.category, parentCat];
+      }
+
+      return {
+        ...prev,
+        category: nextCats,
+        subCategory: nextSubs,
+      };
+    });
   };
 
   const handleApplicationPillClick = (app: string) => {
@@ -309,16 +333,6 @@ function ProductsContent() {
     "Exterior Flooring",
     "Feature Wall",
   ];
-
-  const handleSubCategoryPillClick = (subCat: string) => {
-    setFilterState((prev) => {
-      const exists = prev.subCategory.includes(subCat);
-      return {
-        ...prev,
-        subCategory: exists ? prev.subCategory.filter((s) => s !== subCat) : [...prev.subCategory, subCat],
-      };
-    });
-  };
 
   const ORDER_BASIS_CATEGORIES = [
     "Exclusive Table Tops — Stone",
@@ -361,10 +375,28 @@ function ProductsContent() {
     },
   ];
 
-  const activeCategory = filterState.category[0] || "Natural Stones";
-  const activeTypes = getTypesForCategory(activeCategory);
-  const activeCategoryLabel =
-    CATEGORY_PILLS.find((p) => p.id === activeCategory)?.label || "Natural Stones";
+  // Dynamic available types across all selected categories (or all categories if none selected)
+  const uniqueAvailableTypes = useMemo(() => {
+    const catsToQuery =
+      filterState.category.length > 0
+        ? filterState.category
+        : Object.keys(CATEGORY_TYPES_MAP);
+
+    const seen = new Set<string>();
+    const res: { type: string; category: string }[] = [];
+
+    catsToQuery.forEach((cat) => {
+      const types = CATEGORY_TYPES_MAP[cat] || [];
+      types.forEach((t) => {
+        if (!seen.has(t)) {
+          seen.add(t);
+          res.push({ type: t, category: cat });
+        }
+      });
+    });
+
+    return res;
+  }, [filterState.category]);
 
 
   return (
@@ -417,185 +449,161 @@ function ProductsContent() {
             </button>
           </div>
         </div>
-{/* Top Horizontal Primary Category Pills Carousel with Animated Spring Slider */}
+        {/* Top Horizontal Primary Category Multi-Select Carousel */}
         <div className="mt-6 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto pb-2 scrollbar-hide flex items-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 bg-white/70 backdrop-blur-md rounded-full border border-gold/35 shadow-[0_4px_24px_rgba(48,12,22,0.06)]">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-gold/35 shadow-[0_4px_24px_rgba(48,12,22,0.06)]">
+            {/* All Collections Button */}
+            <button
+              type="button"
+              onClick={() => {
+                setFilterState((prev) => ({ ...prev, category: [], subCategory: [] }));
+              }}
+              className={`relative flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-montserrat uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer ${
+                filterState.category.length === 0
+                  ? "bg-maroon-deep text-ivory border border-gold shadow-md font-bold"
+                  : "text-maroon/75 hover:text-maroon hover:bg-gold/10"
+              }`}
+            >
+              <span>All Collections</span>
+            </button>
+
+            {/* Individual Multi-Select Category Pills */}
             {CATEGORY_PILLS.map((pill) => {
-              const isActive = filterState.category.length === 1 && filterState.category[0] === pill.id;
+              const isSelected = filterState.category.includes(pill.id);
               return (
                 <button
                   key={pill.id}
                   type="button"
-                  onClick={() => {
-                    handleCategoryPillClick(pill.id);
-                    setIsTypesDropdownOpen(false);
-                  }}
-                  className={`relative flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-montserrat uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer ${
-                    isActive
-                      ? "text-ivory shadow-md"
-                      : "text-maroon/75 hover:text-maroon hover:bg-gold/10"
+                  onClick={() => handleCategoryToggle(pill.id)}
+                  className={`relative flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-montserrat uppercase tracking-[0.14em] font-semibold transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                    isSelected
+                      ? "bg-gradient-to-r from-maroon-deep via-maroon to-maroon-deep text-ivory border border-gold shadow-md font-bold"
+                      : "bg-white/60 text-maroon/80 border border-gold/25 hover:border-gold hover:text-maroon hover:bg-gold/10"
                   }`}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeCategoryTab"
-                      className="absolute inset-0 bg-gradient-to-r from-maroon-deep via-maroon to-maroon-deep border border-gold rounded-full -z-10 shadow-[0_2px_14px_rgba(48,12,22,0.3)]"
-                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    />
+                  <span>{pill.label}</span>
+                  {isSelected ? (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="w-4 h-4 rounded-full bg-gold text-maroon-deep flex items-center justify-center text-[10px] font-bold shrink-0"
+                    >
+                      ✓
+                    </motion.span>
+                  ) : (
+                    <span className="text-[10px] text-stone-400 font-normal">
+                      ({pill.count})
+                    </span>
                   )}
-                  <span className="relative z-10 flex items-center gap-1.5">
-                    <span>{pill.label}</span>
-                  </span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Types Filter Console with In-Flow Expandable Selector (ZERO Overlap) */}
-        <div
-          ref={typesDropdownRef}
-          className="mt-4 bg-gradient-to-r from-white/95 via-[#FAF7F2]/95 to-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-gold/40 shadow-[0_10px_35px_rgba(48,12,22,0.08)] transition-all duration-300"
-        >
-          {/* Top Row: Dropdown Trigger & Active Filter Summary */}
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-maroon font-bold flex items-center gap-1.5 shrink-0">
-                <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse" />
-                <span>Filter by Type:</span>
-              </span>
-
-              {/* Luxury Dropdown Trigger Button */}
-              <button
-                type="button"
-                onClick={() => setIsTypesDropdownOpen(!isTypesDropdownOpen)}
-                aria-expanded={isTypesDropdownOpen}
-                aria-label="Filter stone type"
-                className={`inline-flex items-center justify-between gap-3 px-4 py-2 bg-white border rounded-xl text-xs font-montserrat uppercase tracking-wider font-semibold shadow-xs transition-all cursor-pointer ${
-                  isTypesDropdownOpen
-                    ? "border-maroon ring-2 ring-gold/40 text-maroon shadow-md bg-gold/5"
-                    : "border-gold/50 hover:border-gold text-maroon hover:shadow-[0_2px_12px_rgba(221,182,43,0.2)]"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <span className="font-bold">
-                    {filterState.subCategory.length > 0
-                      ? filterState.subCategory[0]
-                      : `All ${activeCategoryLabel} Types`}
-                  </span>
-                  <span className="text-[10px] font-normal text-stone-500 lowercase">
-                    ({activeTypes.length} types)
-                  </span>
-                </span>
-                <motion.div
-                  animate={{ rotate: isTypesDropdownOpen ? 180 : 0 }}
-                  transition={{ duration: 0.22, ease: "easeInOut" }}
-                  className="shrink-0"
-                >
-                  <ChevronDown className="w-4 h-4 text-gold-dark" />
-                </motion.div>
-              </button>
-            </div>
-
-            {/* Active SubCategory Clear Action or Status */}
+        {/* Subcategories / Types Multi-Select Command Strip */}
+        <div className="mt-3.5 bg-gradient-to-r from-white/95 via-[#FAF7F2]/95 to-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-gold/40 shadow-[0_4px_20px_rgba(48,12,22,0.06)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2.5 border-b border-gold/20">
             <div className="flex items-center gap-2">
-              {filterState.subCategory.length > 0 ? (
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-montserrat text-stone-500 hidden sm:inline">Active Type:</span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-maroon text-gold text-xs font-montserrat uppercase tracking-wider rounded-full border border-gold font-semibold shadow-sm">
-                    <span>{filterState.subCategory[0]}</span>
-                    <button
-                      type="button"
-                      onClick={() => setFilterState((prev) => ({ ...prev, subCategory: [] }))}
-                      className="hover:text-white transition-colors cursor-pointer"
-                      title="Clear type filter"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  </span>
-                </div>
-              ) : (
-                <span className="text-[11px] font-montserrat text-stone-500 italic hidden sm:inline">
-                  Click dropdown to filter by {activeCategoryLabel.toLowerCase()} variety
-                </span>
+              <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse shrink-0" />
+              <span className="text-[11px] font-montserrat uppercase tracking-[0.18em] font-bold text-maroon-deep">
+                Filter by Surface Type / Subcategory:
+              </span>
+              {filterState.subCategory.length > 0 && (
+                <motion.span
+                  initial={{ scale: 0.8 }}
+                  animate={{ scale: 1 }}
+                  className="text-[10px] font-bold text-gold bg-maroon-deep px-2 py-0.5 rounded-full border border-gold/40 shadow-xs"
+                >
+                  {filterState.subCategory.length} Selected
+                </motion.span>
               )}
             </div>
+
+            {filterState.subCategory.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setFilterState((prev) => ({ ...prev, subCategory: [] }))}
+                className="text-[11px] font-montserrat text-stone-500 hover:text-maroon underline cursor-pointer flex items-center gap-1 self-start sm:self-auto"
+              >
+                <RotateCcw className="w-3 h-3 text-gold-dark" />
+                <span>Clear All Types</span>
+              </button>
+            )}
           </div>
 
-          {/* Smooth In-Flow Expandable Tray — PUSHES CONTENT DOWN GRACEFULLY (ZERO OVERLAPPING) */}
-          <AnimatePresence>
-            {isTypesDropdownOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="pt-3.5 mt-3 border-t border-gold/25">
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-[10px] font-raleway uppercase tracking-[0.2em] text-stone-600 font-bold">
-                      Select {activeCategoryLabel} Type:
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setIsTypesDropdownOpen(false)}
-                      className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 hover:text-maroon flex items-center gap-1 font-semibold cursor-pointer"
-                    >
-                      <span>Close</span>
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
+          {/* Multi-Select Type Pills with animated tick indicators */}
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-3 max-h-40 overflow-y-auto luxury-scrollbar pr-1">
+            <button
+              type="button"
+              onClick={() => setFilterState((prev) => ({ ...prev, subCategory: [] }))}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
+                filterState.subCategory.length === 0
+                  ? "bg-maroon-deep text-gold font-bold border-gold shadow-sm"
+                  : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:bg-gold/10"
+              }`}
+            >
+              <span>All Types</span>
+              {filterState.subCategory.length === 0 && (
+                <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
+              )}
+            </button>
 
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {/* All Types Pill Button */}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFilterState((prev) => ({ ...prev, subCategory: [] }));
-                        setIsTypesDropdownOpen(false);
-                      }}
-                      className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
-                        filterState.subCategory.length === 0
-                          ? "bg-maroon text-gold font-bold border-gold shadow-md"
-                          : "bg-white text-maroon border-gold/40 hover:border-gold hover:bg-gold/10"
+            {uniqueAvailableTypes.map(({ type, category }) => {
+              const isSelected = filterState.subCategory.includes(type);
+              const count = PRODUCTS.filter((p) => {
+                if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
+                  return false;
+                }
+                const s = type.toLowerCase().replace(/[\s-]/g, "");
+                const prodSub = (p.subCategory || "").toLowerCase().replace(/[\s-]/g, "");
+                const prodName = p.name.toLowerCase().replace(/[\s-]/g, "");
+                const prodDesc = (p.description || "").toLowerCase().replace(/[\s-]/g, "");
+                return (
+                  prodSub.includes(s) ||
+                  s.includes(prodSub) ||
+                  prodName.includes(s) ||
+                  prodDesc.includes(s)
+                );
+              }).length;
+
+              return (
+                <motion.button
+                  key={type}
+                  type="button"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSubCategoryToggle(type, category)}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
+                    isSelected
+                      ? "bg-maroon-deep text-gold font-bold border-gold shadow-md ring-1 ring-gold/40"
+                      : "bg-white text-stone-700 border-gold/30 hover:border-gold hover:text-maroon hover:bg-gold/5"
+                  }`}
+                >
+                  {/* Animated mini-tick indicator */}
+                  <div
+                    className={`w-3.5 h-3.5 rounded-[3px] flex items-center justify-center border transition-all ${
+                      isSelected
+                        ? "bg-gold border-gold text-maroon-deep"
+                        : "border-stone-300 bg-stone-50"
+                    }`}
+                  >
+                    {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
+                  </div>
+                  <span>{type}</span>
+                  {count > 0 && (
+                    <span
+                      className={`text-[10px] font-mono px-1 rounded-full ${
+                        isSelected ? "text-gold/90 font-bold" : "text-stone-400"
                       }`}
                     >
-                      <span>All {activeCategoryLabel}</span>
-                      {filterState.subCategory.length === 0 && (
-                        <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
-                      )}
-                    </button>
-
-                    {/* Each Specific Type Option Button */}
-                    {activeTypes.map((typeOption) => {
-                      const isSelected = filterState.subCategory.includes(typeOption);
-                      return (
-                        <button
-                          key={typeOption}
-                          type="button"
-                          onClick={() => {
-                            setFilterState((prev) => ({ ...prev, subCategory: [typeOption] }));
-                            setIsTypesDropdownOpen(false);
-                          }}
-                          className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-montserrat uppercase tracking-wider rounded-xl transition-all cursor-pointer border ${
-                            isSelected
-                              ? "bg-maroon text-gold font-bold border-gold shadow-md"
-                              : "bg-white text-maroon border-gold/40 hover:border-gold hover:bg-gold/10"
-                          }`}
-                        >
-                          <span>{typeOption}</span>
-                          {isSelected && (
-                            <Check className="w-3.5 h-3.5 text-gold stroke-[2.5]" />
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                      ({count})
+                    </span>
+                  )}
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Application Area Pills Bar */}
@@ -806,7 +814,7 @@ function ProductsContent() {
                 onFilterChange={setFilterState}
                 onClearAll={clearAllFilters}
                 allProducts={PRODUCTS}
-                hideCategorySelectors={true}
+                hideCategorySelectors={false}
               />
             </aside>
           )}
@@ -952,7 +960,7 @@ function ProductsContent() {
                 onFilterChange={setFilterState}
                 onClearAll={clearAllFilters}
                 allProducts={PRODUCTS}
-                hideCategorySelectors={true}
+                hideCategorySelectors={false}
               />
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
