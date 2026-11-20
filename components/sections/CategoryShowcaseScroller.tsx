@@ -313,13 +313,13 @@ export function CategoryShowcaseScroller() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full bg-[#140409] text-ivory py-16 sm:py-24 overflow-hidden border-b border-gold/25"
+      className="relative w-full bg-gradient-to-b from-maroon-deep via-[#421422] to-maroon-deep text-ivory py-16 sm:py-24 overflow-hidden border-b border-gold/30"
       aria-label="Curated Surfaces and Solutions"
     >
       {/* Ambient background glows */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[140px]" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-maroon-deep/60 rounded-full blur-[160px]" />
+      <div className="absolute inset-0 pointer-events-none opacity-50">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gold/15 rounded-full blur-[140px]" />
+        <div className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-[#6B2236]/60 rounded-full blur-[160px]" />
         <div className="absolute inset-0 bg-[radial-gradient(#DDB62B_1px,transparent_1px)] [background-size:32px_32px] opacity-10" />
       </div>
 

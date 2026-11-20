@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+import { HexagonBackground } from "@/components/brand/HexagonBackground";
 
 export interface ColorPaletteItem {
   id: string;
@@ -104,36 +105,43 @@ export function ColorStoneSelector() {
   return (
     <section
       id="color-selector"
-      className="relative w-full bg-[#140409] text-ivory py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-gold/25"
+      className="relative w-full bg-[#FAF7F2] text-maroon-deep py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-gold/30"
       aria-label="Select Stones Color Wise"
     >
+      {/* Luxury Animated Hexagon Background in Light Theme */}
+      <HexagonBackground
+        theme="light"
+        intensity="subtle"
+        showPattern={true}
+        showFloating={true}
+      />
+
       {/* Ambient background glows */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-gold/10 rounded-full blur-[170px]" />
-        <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-maroon-deep/50 rounded-full blur-[160px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(#DDB62B_1px,transparent_1px)] [background-size:36px_36px] opacity-10" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[750px] h-[750px] bg-gold/15 rounded-full blur-[170px]" />
+        <div className="absolute bottom-0 right-10 w-[500px] h-[500px] bg-maroon-deep/10 rounded-full blur-[160px]" />
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Centered Header Block */}
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10 sm:mb-14">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-white/5 border border-gold/40 shadow-[0_2px_12px_rgba(221,182,43,0.18)] backdrop-blur-md">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+          <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-maroon-deep/5 border border-gold/40 shadow-xs backdrop-blur-md">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
             <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
-            <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">
+            <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-maroon-deep font-semibold">
               Select Color Wise • Chromatic Stone Palette
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
           </div>
 
           {/* Main Heading */}
-          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal tracking-wide leading-tight text-center">
+          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon-deep font-normal tracking-wide leading-tight text-center">
             Curate by Earth&apos;s Spectrum.
           </h2>
 
           {/* Subtitle */}
-          <p className="font-jost text-base sm:text-lg text-ivory/80 mt-2.5 max-w-xl leading-relaxed text-center">
+          <p className="font-jost text-base sm:text-lg text-stone-600 mt-2.5 max-w-xl leading-relaxed text-center">
             Select any natural shade to explore matching marbles, quartzites, and semi-precious slabs.
           </p>
         </div>
@@ -151,7 +159,7 @@ export function ColorStoneSelector() {
               <Link
                 href={`/products?color=${palette.query}`}
                 aria-label={`Explore all ${palette.name} stones and marbles`}
-                className={`group relative flex flex-col items-center justify-between p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-[#120307]/80 hover:bg-[#1A050B]/95 border border-gold/20 hover:border-gold/70 transition-all duration-300 shadow-lg hover:shadow-[0_16px_36px_rgba(0,0,0,0.75)] cursor-pointer overflow-hidden text-center h-[240px] sm:h-[260px] lg:h-[280px]`}
+                className="group relative flex flex-col items-center justify-between p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-white/95 hover:bg-white border border-gold/30 hover:border-gold transition-all duration-300 shadow-[0_4px_20px_rgba(84,27,42,0.06)] hover:shadow-[0_16px_36px_rgba(84,27,42,0.14)] cursor-pointer overflow-hidden text-center h-[240px] sm:h-[260px] lg:h-[280px]"
               >
                 {/* Radial Glow on Hover */}
                 <div
@@ -163,7 +171,7 @@ export function ColorStoneSelector() {
 
                 {/* Top Subtle Action Indicator */}
                 <div className="relative z-10 w-full flex items-center justify-end">
-                  <div className="w-6 h-6 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-ivory/60 group-hover:text-gold group-hover:border-gold group-hover:bg-gold/15 transition-all shadow-sm">
+                  <div className="w-6 h-6 rounded-full bg-maroon-deep/5 border border-gold/30 flex items-center justify-center text-maroon-deep group-hover:text-gold group-hover:border-maroon-deep group-hover:bg-maroon-deep transition-all shadow-xs">
                     <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
@@ -178,7 +186,7 @@ export function ColorStoneSelector() {
 
                   {/* Big Stone Disc */}
                   <div
-                    className={`relative w-20 h-20 sm:w-22 sm:h-22 lg:w-24 lg:h-24 rounded-full bg-gradient-to-br ${palette.swatchGradient} border-2 border-gold/40 shadow-[0_6px_22px_rgba(0,0,0,0.7)] group-hover:scale-110 group-hover:border-gold transition-all duration-300 flex items-center justify-center`}
+                    className={`relative w-20 h-20 sm:w-22 sm:h-22 lg:w-24 lg:h-24 rounded-full bg-gradient-to-br ${palette.swatchGradient} border-2 border-gold/40 shadow-[0_6px_22px_rgba(84,27,42,0.18)] group-hover:scale-110 group-hover:border-gold transition-all duration-300 flex items-center justify-center`}
                   >
                     {/* Interior Concentric Luxury Ring */}
                     <div className="w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-full border border-black/15 pointer-events-none" />
@@ -190,10 +198,10 @@ export function ColorStoneSelector() {
 
                 {/* Bottom Color Typography & Descriptor */}
                 <div className="relative z-10 w-full space-y-1">
-                  <h3 className="font-marcellus text-xl sm:text-2xl text-ivory group-hover:text-gold transition-colors tracking-wide">
+                  <h3 className="font-marcellus text-xl sm:text-2xl text-maroon-deep group-hover:text-gold-dark transition-colors tracking-wide">
                     {palette.name}
                   </h3>
-                  <p className="font-jost text-xs sm:text-[13px] text-ivory/70 group-hover:text-ivory transition-colors line-clamp-1">
+                  <p className="font-jost text-xs sm:text-[13px] text-stone-600 group-hover:text-maroon-deep transition-colors line-clamp-1">
                     {palette.descriptor}
                   </p>
                 </div>
@@ -203,9 +211,9 @@ export function ColorStoneSelector() {
         </div>
 
         {/* Bottom Minimal Guidance */}
-        <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-montserrat text-ivory/60">
+        <div className="mt-8 pt-5 border-t border-gold/30 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-montserrat text-stone-600">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-gold" />
+            <span className="w-2 h-2 rounded-full bg-gold-dark" />
             <span className="tracking-wider uppercase">
               Click any color palette to view all matching slabs in catalog
             </span>
@@ -213,7 +221,7 @@ export function ColorStoneSelector() {
 
           <Link
             href="/products"
-            className="text-ivory hover:text-gold transition-colors tracking-wider uppercase font-semibold underline underline-offset-4 decoration-gold/50"
+            className="text-maroon-deep hover:text-gold-dark transition-colors tracking-wider uppercase font-semibold underline underline-offset-4 decoration-gold/50"
           >
             Browse All Stone Collections →
           </Link>

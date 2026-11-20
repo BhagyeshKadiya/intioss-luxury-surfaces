@@ -20,7 +20,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-maroon-deep text-ivory pt-20 pb-28 sm:pb-14 overflow-hidden border-t border-gold/30">
+    <footer className="relative bg-[#160409] text-ivory pt-20 pb-28 sm:pb-14 overflow-hidden border-t-2 border-gold/40">
       {/* Faint Hexagon Watermark Pattern (Simple, No Animation, No Motion) */}
       <IntiossPattern opacity={0.05} />
 

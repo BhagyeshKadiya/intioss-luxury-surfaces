@@ -15,13 +15,13 @@ export function ApplicationSelector() {
   return (
     <section
       id="space-selector"
-      className="relative w-full bg-[#140409] text-ivory py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-gold/25 select-none"
+      className="relative w-full bg-gradient-to-b from-maroon-deep via-[#421422] to-maroon-deep text-ivory py-16 sm:py-20 lg:py-24 overflow-hidden border-b border-gold/30 select-none"
       aria-label="Find Your Stone by Architectural Space"
     >
       {/* Ambient background glows */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-gold/10 rounded-full blur-[170px]" />
-        <div className="absolute bottom-0 left-10 w-[500px] h-[500px] bg-maroon-deep/50 rounded-full blur-[160px]" />
+      <div className="absolute inset-0 pointer-events-none opacity-50">
+        <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-gold/15 rounded-full blur-[170px]" />
+        <div className="absolute bottom-0 left-10 w-[600px] h-[600px] bg-[#6B2236]/60 rounded-full blur-[160px]" />
         <div className="absolute inset-0 bg-[radial-gradient(#DDB62B_1px,transparent_1px)] [background-size:36px_36px] opacity-10" />
       </div>
 
