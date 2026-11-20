@@ -497,11 +497,9 @@ export function CategoryShowcaseScroller() {
                   {/* COLLAPSED VERTICAL TITLE (Desktop Only, when not expanded) */}
                   {!isExpanded && (
                     <div className="hidden lg:flex absolute inset-0 p-6 flex-col justify-between z-10">
-                      <div className="flex items-center justify-between">
-                        <span className="px-2.5 py-1 rounded-full bg-black/60 border border-gold/40 text-[10px] font-montserrat uppercase tracking-wider text-gold font-semibold backdrop-blur-xs">
-                          {item.stats}
-                        </span>
-                      </div>
+                      <span className="font-marcellus text-sm text-gold/60">
+                        0{idx + 1}
+                      </span>
 
                       <div className="transform -rotate-90 origin-bottom-left translate-x-12 translate-y-2 whitespace-nowrap">
                         <span className="font-marcellus text-2xl tracking-wider text-ivory/95 group-hover:text-gold transition-colors">
@@ -528,15 +526,9 @@ export function CategoryShowcaseScroller() {
                           />
                         </div>
                         <div>
-                          <span className="text-[10px] font-montserrat uppercase tracking-widest text-gold font-semibold block mb-0.5">
-                            {item.tag}
-                          </span>
                           <h3 className="font-marcellus text-xl text-ivory">
                             {item.title}
                           </h3>
-                          <p className="font-jost text-xs text-ivory/70 line-clamp-1">
-                            {item.subtitle}
-                          </p>
                         </div>
                       </div>
                       <div className="w-9 h-9 rounded-full bg-white/10 border border-gold/40 flex items-center justify-center text-gold shrink-0">
@@ -545,85 +537,48 @@ export function CategoryShowcaseScroller() {
                     </div>
                   )}
 
-                  {/* FULL EXPANDED CONTENT (Shown on Desktop when hovered, on Mobile when active) */}
+                  {/* FULL EXPANDED CONTENT: ONLY THE NAME + EXPLORE BUTTON */}
                   {isExpanded && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4, delay: 0.1 }}
+                      transition={{ duration: 0.35, delay: 0.08 }}
                       className="relative z-20 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-between"
                     >
-                      {/* Top Badges */}
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-gold/50 shadow-sm backdrop-blur-md">
-                          <Sparkles className="w-3 h-3 text-gold animate-pulse" />
+                      {/* Top Indicator */}
+                      <div className="flex items-center justify-between">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-gold/40 shadow-sm backdrop-blur-md">
+                          <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                           <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-gold font-semibold">
-                            {item.tag}
+                            {activeTab === "surfaces" ? "Product Collection" : "Atelier Service"}
                           </span>
                         </div>
 
-                        <span className="text-xs font-montserrat tracking-wider text-ivory/80 uppercase px-3 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-xs">
-                          {item.stats}
+                        <span className="font-marcellus text-2xl text-gold/60">
+                          0{idx + 1}
                         </span>
                       </div>
 
-                      {/* Bottom Content Area */}
-                      <div className="space-y-4 max-w-xl">
-                        <div>
-                          <span className="text-xs font-montserrat uppercase tracking-[0.22em] text-gold font-medium block mb-1">
-                            {item.subtitle}
-                          </span>
-                          <h3 className="font-marcellus text-3xl sm:text-4xl lg:text-5xl text-ivory font-normal leading-tight">
-                            {item.title}
-                          </h3>
-                        </div>
+                      {/* Bottom Area: ONLY THE NAME + EXPLORE BUTTON */}
+                      <div className="space-y-5 max-w-xl">
+                        <h3 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal leading-tight tracking-wide">
+                          {item.title}
+                        </h3>
 
-                        <p className="font-jost text-sm sm:text-base text-ivory/80 leading-relaxed max-w-lg">
-                          {item.description}
-                        </p>
-
-                        {/* Signature Highlights / Materials */}
                         <div className="pt-2">
-                          <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold/80 block mb-2 font-semibold">
-                            {activeTab === "surfaces" ? "Signature Varieties:" : "Core Capabilities:"}
-                          </span>
-                          <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                            {item.highlights.map((elem) => (
-                              <span
-                                key={elem}
-                                className="px-2.5 py-1 rounded-md bg-white/10 hover:bg-gold/20 border border-white/15 hover:border-gold/40 text-[11px] font-montserrat text-ivory/90 tracking-wide transition-colors"
-                              >
-                                {elem}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* CTA Action Bar */}
-                        <div className="pt-4 flex flex-wrap items-center gap-3">
                           <Link
                             href={item.href}
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gold hover:bg-gold-light text-maroon-deep font-montserrat text-xs uppercase tracking-[0.16em] font-bold shadow-[0_4px_20px_rgba(221,182,43,0.35)] transition-all duration-300 hover:scale-105 active:scale-95"
+                            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gold hover:bg-gold-light text-maroon-deep font-montserrat text-xs uppercase tracking-[0.16em] font-bold shadow-[0_4px_20px_rgba(221,182,43,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
                           >
                             {activeTab === "surfaces" ? (
                               <Layers className="w-3.5 h-3.5" />
                             ) : (
                               <Wrench className="w-3.5 h-3.5" />
                             )}
-                            <span>{item.ctaText}</span>
-                            <ArrowUpRight className="w-4 h-4" />
+                            <span>Explore {item.title}</span>
+                            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
                           </Link>
-
-                          {item.ctaSecondaryHref && (
-                            <Link
-                              href={item.ctaSecondaryHref}
-                              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 text-ivory border border-white/20 hover:border-gold/60 font-montserrat text-xs uppercase tracking-[0.14em] font-medium transition-all"
-                            >
-                              <Compass className="w-3.5 h-3.5 text-gold" />
-                              <span>{item.ctaSecondaryText}</span>
-                            </Link>
-                          )}
                         </div>
                       </div>
                     </motion.div>
