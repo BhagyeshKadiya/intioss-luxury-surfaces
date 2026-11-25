@@ -50,11 +50,6 @@ export function ApplicationSelector() {
           <h2 className="font-marcellus text-[clamp(1.4rem,3.8vw,3.5rem)] whitespace-nowrap text-ivory font-normal tracking-wide leading-tight text-center">
             Find Your Stone by Space.
           </h2>
-
-          {/* Subtitle */}
-          <p className="font-jost text-base sm:text-lg text-ivory/80 mt-2.5 max-w-xl leading-relaxed text-center">
-            Monolithic surfaces engineered for high-impact architectural environments. Hover to expand each architectural application.
-          </p>
         </div>
 
         {/* ONE-FRAME INTERACTIVE EXPANDING ACCORDION (Fits in single frame, no arrows or scroll needed) */}

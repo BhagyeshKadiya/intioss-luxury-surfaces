@@ -300,9 +300,6 @@ export function LegacySection() {
           <h2 className="font-marcellus text-[clamp(0.95rem,2.7vw,2.65rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight">
             Born from the Legacy of 55 Years of Experience
           </h2>
-          <p className="font-jost text-base sm:text-lg text-stone-600 mt-3 max-w-xl leading-relaxed">
-            From pioneering Italian marble installations in 1982 to international manufacturing and rare stone curation.
-          </p>
         </div>
 
         {/* Vertical Timeline Track */}

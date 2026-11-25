@@ -45,9 +45,6 @@ export function FaqSection() {
           <h2 className="font-marcellus text-[clamp(1.35rem,3.6vw,3.25rem)] whitespace-nowrap text-maroon-deep tracking-wide">
             Frequently Asked Questions
           </h2>
-          <p className="font-jost text-sm sm:text-base text-stone-700 mt-3 max-w-xl mx-auto leading-relaxed">
-            Everything you need to know about our sourcing, materials, architectural services, and comprehensive stone care.
-          </p>
         </div>
 
         {/* Accordion List with Hairline Dividers */}

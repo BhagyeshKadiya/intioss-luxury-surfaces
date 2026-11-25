@@ -139,11 +139,6 @@ export function ColorStoneSelector() {
           <h2 className="font-marcellus text-[clamp(1.35rem,3.8vw,3.5rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight text-center">
             Curate by Earth&apos;s Spectrum.
           </h2>
-
-          {/* Subtitle */}
-          <p className="font-jost text-base sm:text-lg text-stone-600 mt-2.5 max-w-xl leading-relaxed text-center">
-            Select any natural shade to explore matching marbles, quartzites, and semi-precious slabs.
-          </p>
         </div>
 
         {/* ONE-FRAME BALANCED COLOR GRID (Fits in single screen frame, no scroll) */}
