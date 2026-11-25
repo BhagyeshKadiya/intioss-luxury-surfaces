@@ -11,11 +11,7 @@ export interface ColorPaletteItem {
   id: string;
   name: string;
   query: string;
-  descriptor: string;
-  swatchGradient: string;
-  swatchBorder: string;
-  glowColor: string;
-  accentRing: string;
+  solidColor: string;
 }
 
 export const COLOR_PALETTES: ColorPaletteItem[] = [
@@ -23,81 +19,49 @@ export const COLOR_PALETTES: ColorPaletteItem[] = [
     id: "white",
     name: "White",
     query: "White",
-    descriptor: "Crystalline & Calcite",
-    swatchGradient: "from-[#FFFFFF] via-[#F8F9FA] to-[#E2E8F0]",
-    swatchBorder: "border-white/90 ring-white/40",
-    glowColor: "rgba(255, 255, 255, 0.45)",
-    accentRing: "group-hover:border-white group-hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]",
+    solidColor: "#FFFFFF",
   },
   {
     id: "beige",
     name: "Beige",
     query: "Beige",
-    descriptor: "Travertine & Warm Crema",
-    swatchGradient: "from-[#FDFBF7] via-[#EADBCE] to-[#CBB499]",
-    swatchBorder: "border-[#EADBCE] ring-[#D4BA9E]/40",
-    glowColor: "rgba(224, 195, 163, 0.45)",
-    accentRing: "group-hover:border-[#EADBCE] group-hover:shadow-[0_0_30px_rgba(224,195,163,0.4)]",
+    solidColor: "#E5D3B8",
   },
   {
     id: "grey",
     name: "Grey",
     query: "Grey",
-    descriptor: "Silver & Charcoal Mist",
-    swatchGradient: "from-[#9CA3AF] via-[#6B7280] to-[#374151]",
-    swatchBorder: "border-[#9CA3AF] ring-[#9CA3AF]/40",
-    glowColor: "rgba(156, 163, 175, 0.45)",
-    accentRing: "group-hover:border-[#9CA3AF] group-hover:shadow-[0_0_30px_rgba(156,163,175,0.4)]",
+    solidColor: "#7E848E",
   },
   {
     id: "black",
     name: "Black",
     query: "Black",
-    descriptor: "Cosmic Obsidian & Noir",
-    swatchGradient: "from-[#374151] via-[#1F2937] to-[#0A0A0D]",
-    swatchBorder: "border-[#4B5563] ring-[#374151]/50",
-    glowColor: "rgba(55, 65, 81, 0.55)",
-    accentRing: "group-hover:border-[#6B7280] group-hover:shadow-[0_0_30px_rgba(75,85,99,0.5)]",
+    solidColor: "#141418",
   },
   {
     id: "gold",
     name: "Gold",
     query: "Gold",
-    descriptor: "Amber Honey & Vegas Gold",
-    swatchGradient: "from-[#FDE047] via-[#DDB62B] to-[#92400E]",
-    swatchBorder: "border-[#DDB62B] ring-[#DDB62B]/50",
-    glowColor: "rgba(221, 182, 43, 0.55)",
-    accentRing: "group-hover:border-gold group-hover:shadow-[0_0_30px_rgba(221,182,43,0.5)]",
+    solidColor: "#D4AF37",
   },
   {
     id: "blue",
     name: "Blue",
     query: "Blue",
-    descriptor: "Celestial Azure & Lapis",
-    swatchGradient: "from-[#60A5FA] via-[#2563EB] to-[#1E3A8A]",
-    swatchBorder: "border-[#3B82F6] ring-[#2563EB]/40",
-    glowColor: "rgba(37, 99, 235, 0.5)",
-    accentRing: "group-hover:border-[#3B82F6] group-hover:shadow-[0_0_30px_rgba(37,99,235,0.45)]",
+    solidColor: "#1E4FA3",
   },
   {
     id: "green",
     name: "Green",
     query: "Green",
-    descriptor: "Emerald & Serpentine Onyx",
-    swatchGradient: "from-[#34D399] via-[#059669] to-[#064E3B]",
-    swatchBorder: "border-[#10B981] ring-[#059669]/40",
-    glowColor: "rgba(5, 150, 105, 0.5)",
-    accentRing: "group-hover:border-[#10B981] group-hover:shadow-[0_0_30px_rgba(5,150,105,0.45)]",
+    solidColor: "#0B6644",
   },
   {
     id: "pink",
     name: "Pink",
     query: "Pink",
-    descriptor: "Blush Rose & Michael Angelo",
-    swatchGradient: "from-[#FDA4AF] via-[#E11D48] to-[#9F1239]",
-    swatchBorder: "border-[#F43F5E] ring-[#E11D48]/40",
-    glowColor: "rgba(225, 29, 72, 0.5)",
-    accentRing: "group-hover:border-[#F43F5E] group-hover:shadow-[0_0_30px_rgba(225,29,72,0.45)]",
+    solidColor: "#D96B84",
   },
 ];
 
@@ -141,8 +105,8 @@ export function ColorStoneSelector() {
           </h2>
         </div>
 
-        {/* ONE-FRAME BALANCED COLOR GRID (Fits in single screen frame, no scroll) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
+        {/* ONE-FRAME BALANCED RECTANGULAR COLOR GRID */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
           {COLOR_PALETTES.map((palette, idx) => (
             <motion.div
               key={palette.id}
@@ -154,51 +118,26 @@ export function ColorStoneSelector() {
               <Link
                 href={`/products?color=${palette.query}`}
                 aria-label={`Explore all ${palette.name} stones and marbles`}
-                className="group relative flex flex-col items-center justify-between p-5 sm:p-6 lg:p-7 rounded-2xl sm:rounded-3xl bg-white/95 hover:bg-white border border-gold/30 hover:border-gold transition-all duration-300 shadow-[0_4px_20px_rgba(84,27,42,0.06)] hover:shadow-[0_16px_36px_rgba(84,27,42,0.14)] cursor-pointer overflow-hidden text-center h-[240px] sm:h-[260px] lg:h-[280px]"
+                className="group relative flex flex-col rounded-lg border-2 border-gold/45 hover:border-gold bg-white transition-all duration-300 shadow-[0_6px_22px_rgba(84,27,42,0.08)] hover:shadow-[0_18px_38px_rgba(84,27,42,0.18)] hover:-translate-y-1 cursor-pointer overflow-hidden h-[220px] sm:h-[240px] lg:h-[260px]"
               >
-                {/* Radial Glow on Hover */}
+                {/* Upper Rectangular Solid Colour Block */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-3xl"
-                  style={{
-                    background: `radial-gradient(circle at center, ${palette.glowColor} 0%, transparent 70%)`,
-                  }}
-                />
-
-                {/* Top Subtle Action Indicator */}
-                <div className="relative z-10 w-full flex items-center justify-end">
-                  <div className="w-6 h-6 rounded-full bg-maroon-deep/5 border border-gold/30 flex items-center justify-center text-maroon-deep group-hover:text-gold group-hover:border-maroon-deep group-hover:bg-maroon-deep transition-all shadow-xs">
-                    <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </div>
+                  className="relative flex-1 w-full"
+                  style={{ backgroundColor: palette.solidColor }}
+                >
+                  {/* Rectangular Architectural Corner Brackets */}
+                  <div className="absolute top-2.5 left-2.5 w-3 h-3 border-t-2 border-l-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none" />
+                  <div className="absolute top-2.5 right-2.5 w-3 h-3 border-t-2 border-r-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none" />
                 </div>
 
-                {/* BIG COLOR SYMBOL / GEMSTONE DISC */}
-                <div className="relative z-10 my-auto">
-                  {/* Outer Pulsing Glow Ring */}
-                  <div
-                    className="absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500"
-                    style={{ backgroundColor: palette.glowColor }}
-                  />
-
-                  {/* Big Stone Disc */}
-                  <div
-                    className={`relative w-20 h-20 sm:w-22 sm:h-22 lg:w-24 lg:h-24 rounded-full bg-gradient-to-br ${palette.swatchGradient} border-2 border-gold/40 shadow-[0_6px_22px_rgba(84,27,42,0.18)] group-hover:scale-110 group-hover:border-gold transition-all duration-300 flex items-center justify-center`}
-                  >
-                    {/* Interior Concentric Luxury Ring */}
-                    <div className="w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 rounded-full border border-black/15 pointer-events-none" />
-
-                    {/* Prismatic Shimmer Accent */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* Bottom Color Typography & Descriptor */}
-                <div className="relative z-10 w-full space-y-1">
-                  <h3 className="font-marcellus text-xl sm:text-2xl text-maroon-deep group-hover:text-gold-dark transition-colors tracking-wide">
+                {/* Bottom Brand Magenta Band with Only Colour Name */}
+                <div className="relative w-full bg-maroon-deep border-t border-gold/45 px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between">
+                  <h3 className="font-marcellus text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors tracking-wide">
                     {palette.name}
                   </h3>
-                  <p className="font-jost text-xs sm:text-[13px] text-stone-600 group-hover:text-maroon-deep transition-colors line-clamp-1">
-                    {palette.descriptor}
-                  </p>
+                  <div className="w-7 h-7 rounded-md bg-white/10 border border-gold/40 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-maroon-deep transition-all">
+                    <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
                 </div>
               </Link>
             </motion.div>
