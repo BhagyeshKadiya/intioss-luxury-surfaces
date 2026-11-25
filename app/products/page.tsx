@@ -28,8 +28,8 @@ const ORDER_BASIS_CATEGORIES = [
 function ProductsContent() {
   const searchParams = useSearchParams();
 
-  // Initial filter state from URL params
-  const initialCategory = searchParams.get("category") || "Natural Stones";
+  // Initial filter state from URL params (default to All Products when no ?category= is passed)
+  const initialCategory = searchParams.get("category");
   const initialSubCategory = searchParams.get("subCategory") || searchParams.get("type");
   const initialApp = searchParams.get("application");
   const rawColor = searchParams.get("color") || searchParams.get("colorFamily");
@@ -40,7 +40,7 @@ function ProductsContent() {
     : null;
 
   const [filterState, setFilterState] = useState<FilterState>({
-    category: [initialCategory],
+    category: initialCategory ? [initialCategory] : [],
     subCategory: initialSubCategory ? [initialSubCategory] : [],
     colorFamily: initialColor ? [initialColor] : [],
     origin: [],

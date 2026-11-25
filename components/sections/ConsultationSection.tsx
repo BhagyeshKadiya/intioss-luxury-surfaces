@@ -196,8 +196,10 @@ export function ConsultationSection() {
   const productDropdownRef = useRef<HTMLDivElement>(null);
 
   const isKishangarhSelected =
-    formData.storeLocation.toLowerCase().includes("kishangarh") ||
-    formData.city.trim().toLowerCase() === "kishangarh";
+    formData.consultationMode === "Personal Store Visit"
+      ? formData.storeLocation.toLowerCase().includes("kishangarh") ||
+        (!formData.storeLocation && formData.city.trim().toLowerCase() === "kishangarh")
+      : formData.city.trim().toLowerCase() === "kishangarh";
 
   const visibleProductOptions = isKishangarhSelected
     ? SEMI_PRECIOUS_SUB_PRODUCTS
@@ -495,7 +497,7 @@ export function ConsultationSection() {
                                 setFormData((prev) => ({
                                   ...prev,
                                   storeLocation: loc,
-                                  city: prev.city || inferredCity,
+                                  city: inferredCity || prev.city,
                                 }));
                                 if (errors.storeLocation) {
                                   setErrors((prev) => {

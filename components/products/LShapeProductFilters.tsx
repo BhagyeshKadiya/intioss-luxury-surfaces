@@ -260,11 +260,11 @@ export function TopLFilterBar({
       ref={barRef}
       className="bg-white border border-gold/50 rounded-3xl p-4 sm:p-6 shadow-[0_14px_44px_rgba(48,12,22,0.08)] relative z-40 overflow-visible"
     >
-      {/* ROW 1: Color Selection Palette (Left) + Search Filter (Right, Same Row) */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-gold/25">
+      {/* ROW 1: Color Selection Palette (Left) + Search Filter (Right, Same Row & Baseline Aligned) */}
+      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-4 border-b border-gold/25">
         {/* Color Selection Palette */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 h-4">
             <span className="text-[10px] font-montserrat uppercase tracking-[0.22em] text-gold-dark font-bold">
               Color Palette
             </span>
@@ -275,7 +275,7 @@ export function TopLFilterBar({
             )}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 min-h-[38px]">
             {COLOR_PALETTE_OPTIONS.map((swatch) => {
               const selected = filterState.colorFamily.includes(swatch.name);
               return (
@@ -284,14 +284,14 @@ export function TopLFilterBar({
                   type="button"
                   onClick={() => toggleArrayFilter("colorFamily", swatch.name)}
                   title={swatch.label}
-                  className={`group inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1 rounded-full border text-[11px] font-montserrat transition-all cursor-pointer ${
+                  className={`group inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1.5 rounded-full border text-[11px] font-montserrat leading-none transition-all cursor-pointer ${
                     selected
                       ? "bg-maroon-deep text-ivory border-gold shadow-sm font-semibold scale-[1.03]"
                       : "bg-[#FAF7F2] hover:bg-white text-stone-700 border-gold/30 hover:border-gold"
                   }`}
                 >
                   <span
-                    className="w-4 h-4 rounded-full border shrink-0 flex items-center justify-center shadow-2xs"
+                    className="w-3.5 h-3.5 rounded-full border shrink-0 flex items-center justify-center shadow-2xs"
                     style={{
                       background: swatch.bg,
                       borderColor: selected ? "#DDB62B" : swatch.border,
@@ -315,25 +315,25 @@ export function TopLFilterBar({
         </div>
 
         {/* Same Row: Search Input */}
-        <div className="w-full lg:w-80 xl:w-96 shrink-0">
-          <label className="block text-[10px] font-montserrat uppercase tracking-[0.22em] text-stone-500 font-semibold mb-1.5">
+        <div className="w-full lg:w-72 xl:w-84 shrink-0">
+          <label className="flex items-center text-[10px] font-montserrat uppercase tracking-[0.22em] text-stone-500 font-semibold mb-2 h-4">
             Search Catalog
           </label>
-          <div className="relative">
-            <Search className="w-4 h-4 text-gold-dark absolute left-3.5 top-2.5 pointer-events-none" />
+          <div className="relative h-[38px]">
+            <Search className="w-4 h-4 text-gold-dark absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search stone, origin, type, or vein..."
-              className="w-full bg-[#FAF7F2] border border-gold/45 hover:border-gold focus:bg-white pl-10 pr-9 py-2 text-xs font-montserrat text-maroon-deep placeholder:text-stone-400 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/25 transition-all rounded-full shadow-2xs"
+              className="w-full h-full bg-[#FAF7F2] border border-gold/45 hover:border-gold focus:bg-white pl-10 pr-9 text-xs font-montserrat text-maroon-deep placeholder:text-stone-400 focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/25 transition-all rounded-full shadow-2xs"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => onSearchChange("")}
                 aria-label="Clear search"
-                className="absolute right-3 top-2.5 text-stone-400 hover:text-maroon-deep cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-maroon-deep cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -396,6 +396,12 @@ export function TopLFilterBar({
                     </button>
                   </div>
                   <div className="space-y-1 max-h-64 overflow-y-auto pr-1">
+                    <PopoverTickItem
+                      checked={isAllCategories}
+                      onClick={() => onFilterChange({ ...filterState, category: [], subCategory: [] })}
+                      label="All Products"
+                      count={allProducts.length}
+                    />
                     {PRIMARY_PRODUCTS.map((prod) => (
                       <PopoverTickItem
                         key={prod.id}
