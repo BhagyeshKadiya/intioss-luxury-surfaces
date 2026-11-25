@@ -76,10 +76,10 @@ export function ApplicationSelector() {
                   className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer border transition-all duration-500 shrink-0 select-none ${
                     isExpanded
                       ? "flex-[3.6] border-gold shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_35px_rgba(221,182,43,0.3)] ring-1 ring-gold/40"
-                      : "flex-1 border-white/10 hover:border-gold/50 shadow-lg opacity-85 hover:opacity-100"
+                      : "flex-1 border-white/15 hover:border-gold/60 shadow-lg"
                   }`}
                 >
-                  {/* Background Space Image */}
+                  {/* Background Space Image (Pure & Unfaded) */}
                   <div className="absolute inset-0 overflow-hidden">
                     <Image
                       src={space.image}
@@ -91,14 +91,6 @@ export function ApplicationSelector() {
                       }`}
                       priority={idx < 3}
                     />
-
-                    {/* Gradient Overlay for Text Legibility & Luxury Mood */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-[#100306] via-[#100306]/75 to-[#100306]/35 transition-opacity duration-500 ${
-                        isExpanded ? "opacity-90" : "opacity-85 group-hover:opacity-70"
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#18060B]/70 via-transparent to-[#100306] pointer-events-none" />
                   </div>
 
                   {/* Corner Architectural Brackets */}
@@ -108,8 +100,8 @@ export function ApplicationSelector() {
                   {/* Index Badge */}
                   <div className="absolute top-4 right-4 z-20 pointer-events-none">
                     <span
-                      className={`font-marcellus text-2xl transition-colors ${
-                        isExpanded ? "text-gold" : "text-white/30 group-hover:text-gold/50"
+                      className={`font-marcellus text-2xl transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] ${
+                        isExpanded ? "text-gold" : "text-white/75 group-hover:text-gold"
                       }`}
                     >
                       0{idx + 1}
@@ -119,16 +111,16 @@ export function ApplicationSelector() {
                   {/* COLLAPSED VERTICAL SLAT (When not expanded on Desktop) */}
                   {!isExpanded && (
                     <div className="absolute inset-0 p-5 flex flex-col justify-between z-10">
-                      <div className="w-2 h-2 rounded-full bg-gold/50 group-hover:bg-gold transition-colors" />
+                      <div className="w-2 h-2 rounded-full bg-gold/70 group-hover:bg-gold transition-colors" />
 
                       {/* Rotated Space Title */}
                       <div className="transform -rotate-90 origin-bottom-left translate-x-10 translate-y-3 whitespace-nowrap">
-                        <span className="font-marcellus text-xl xl:text-2xl tracking-wider text-ivory/90 group-hover:text-gold transition-colors block">
+                        <span className="font-marcellus text-xl xl:text-2xl tracking-wider text-ivory group-hover:text-gold transition-colors block drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                           {space.title}
                         </span>
                       </div>
 
-                      <div className="w-8 h-8 rounded-full bg-white/5 border border-white/15 flex items-center justify-center text-ivory/60 group-hover:text-gold group-hover:border-gold group-hover:bg-gold/15 transition-all self-end">
+                      <div className="w-8 h-8 rounded-full bg-black/40 border border-white/30 flex items-center justify-center text-ivory group-hover:text-gold group-hover:border-gold group-hover:bg-gold/15 transition-all self-end backdrop-blur-sm">
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -153,10 +145,10 @@ export function ApplicationSelector() {
                         </div>
 
                         {/* Title & Tagline */}
-                        <h3 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide drop-shadow-md">
+                        <h3 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
                           {space.title}
                         </h3>
-                        <p className="font-jost text-sm sm:text-base text-ivory/80 mt-2 max-w-md line-clamp-2 leading-relaxed">
+                        <p className="font-jost text-sm sm:text-base text-ivory mt-2 max-w-md line-clamp-2 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                           {space.tagline}
                         </p>
 
@@ -216,7 +208,7 @@ export function ApplicationSelector() {
                       : "border-white/10 hover:border-gold/40 bg-black/50"
                   } ${isExpanded ? "h-[380px] sm:h-[420px]" : "h-[76px] sm:h-[84px]"}`}
                 >
-                  {/* Background Image */}
+                  {/* Background Image (Pure & Unfaded) */}
                   <div className="absolute inset-0 overflow-hidden">
                     <Image
                       src={space.image}
@@ -227,25 +219,20 @@ export function ApplicationSelector() {
                         isExpanded ? "scale-105" : "scale-100"
                       }`}
                     />
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-[#100306] via-[#100306]/80 to-[#100306]/40 transition-opacity duration-300 ${
-                        isExpanded ? "opacity-90" : "opacity-85"
-                      }`}
-                    />
                   </div>
 
                   {/* Collapsed Mobile Bar */}
                   {!isExpanded && (
                     <div className="absolute inset-0 p-4 sm:p-5 flex items-center justify-between z-10">
                       <div className="flex items-center gap-3.5">
-                        <span className="font-marcellus text-lg text-gold">0{idx + 1}</span>
+                        <span className="font-marcellus text-lg text-gold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">0{idx + 1}</span>
                         <div>
-                          <h3 className="font-marcellus text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors">
+                          <h3 className="font-marcellus text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                             {space.title}
                           </h3>
                         </div>
                       </div>
-                      <div className="w-7 h-7 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-gold">
+                      <div className="w-7 h-7 rounded-full bg-black/40 border border-white/25 flex items-center justify-center text-gold backdrop-blur-sm">
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -261,15 +248,15 @@ export function ApplicationSelector() {
                         className="relative z-10 h-full p-5 sm:p-6 flex flex-col justify-end"
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-montserrat text-[10px] uppercase tracking-widest text-gold font-semibold">
+                          <span className="font-montserrat text-[10px] uppercase tracking-widest text-gold font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                             Space 0{idx + 1}
                           </span>
                           <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
                         </div>
-                        <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory">
+                        <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
                           {space.title}
                         </h3>
-                        <p className="font-jost text-xs sm:text-sm text-ivory/80 mt-1 line-clamp-2">
+                        <p className="font-jost text-xs sm:text-sm text-ivory mt-1 line-clamp-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                           {space.tagline}
                         </p>
 

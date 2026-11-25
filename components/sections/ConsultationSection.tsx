@@ -310,7 +310,6 @@ export function ConsultationSection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/85 via-transparent to-black/20 pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[10px] font-raleway uppercase tracking-[0.15em] text-gold bg-maroon-deep/90 backdrop-blur-md px-3 py-1.5 border border-gold/30 pointer-events-none shadow-sm rounded-lg">
                 <span className="font-semibold">Private Viewing Lounge</span>
                 <span>Mumbai · Silvassa · Kishangarh</span>

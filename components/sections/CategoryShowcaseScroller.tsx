@@ -452,7 +452,7 @@ export function CategoryShowcaseScroller() {
                   className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer border transition-all duration-500 shrink-0 ${
                     isExpanded
                       ? "lg:flex-[3.8] border-gold shadow-[0_16px_48px_rgba(221,182,43,0.22)] ring-1 ring-gold/40"
-                      : "lg:flex-[1] border-white/10 hover:border-gold/50 shadow-lg opacity-85 hover:opacity-100"
+                      : "lg:flex-[1] border-white/15 hover:border-gold/60 shadow-lg"
                   } ${
                     /* On mobile, unexpanded is compact card, expanded shows full details */
                     isExpanded
@@ -460,7 +460,7 @@ export function CategoryShowcaseScroller() {
                       : "h-[120px] sm:h-[130px] lg:h-full"
                   }`}
                 >
-                  {/* Background Image with Zoom & Dark Gradient */}
+                  {/* Background Image (Pure & Unfaded) */}
                   <div className="absolute inset-0 overflow-hidden">
                     <Image
                       src={item.image}
@@ -472,17 +472,6 @@ export function CategoryShowcaseScroller() {
                       }`}
                       priority={idx < 2}
                     />
-
-                    {/* Gradient layers for dramatic contrast & legibility */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-t from-[#100306] via-[#100306]/70 to-[#100306]/30 transition-opacity duration-500 ${
-                        isExpanded ? "opacity-90" : "opacity-80 group-hover:opacity-65"
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#18060B]/80 via-transparent to-[#100306] pointer-events-none" />
-
-                    {/* Category/Discipline Accent Tint */}
-                    <div className={`absolute inset-0 bg-gradient-to-tr ${item.accent} pointer-events-none`} />
                   </div>
 
                   {/* COLLAPSED VERTICAL TITLE (Desktop Only, when not expanded) */}
@@ -491,12 +480,12 @@ export function CategoryShowcaseScroller() {
                       <div />
 
                       <div className="transform -rotate-90 origin-bottom-left translate-x-12 translate-y-2 whitespace-nowrap">
-                        <span className="font-marcellus text-2xl tracking-wider text-ivory/95 group-hover:text-gold transition-colors">
+                        <span className="font-marcellus text-2xl tracking-wider text-ivory group-hover:text-gold transition-colors drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
                           {item.title}
                         </span>
                       </div>
 
-                      <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/20 transition-all self-end">
+                      <div className="w-8 h-8 rounded-full bg-black/40 border border-white/30 flex items-center justify-center text-gold group-hover:border-gold group-hover:bg-gold/20 transition-all self-end backdrop-blur-sm">
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -515,12 +504,12 @@ export function CategoryShowcaseScroller() {
                           />
                         </div>
                         <div>
-                          <h3 className="font-marcellus text-xl text-ivory">
+                          <h3 className="font-marcellus text-xl text-ivory drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
                             {item.title}
                           </h3>
                         </div>
                       </div>
-                      <div className="w-9 h-9 rounded-full bg-white/10 border border-gold/40 flex items-center justify-center text-gold shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-black/40 border border-gold/40 flex items-center justify-center text-gold shrink-0 backdrop-blur-sm">
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </div>
@@ -537,7 +526,7 @@ export function CategoryShowcaseScroller() {
                     >
                       {/* Bottom Area: ONLY THE NAME + EXPLORE BUTTON */}
                       <div className="space-y-5 max-w-xl">
-                        <h3 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal leading-tight tracking-wide">
+                        <h3 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal leading-tight tracking-wide drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                           {item.title}
                         </h3>
 

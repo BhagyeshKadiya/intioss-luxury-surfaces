@@ -278,15 +278,6 @@ export function HeroSection() {
         />
       </AnimatePresence>
 
-      {/* Scrim Overlay: Maroon-deep to #140409 seamless gradient scrim */}
-      <div
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(20, 4, 9, 0.38) 0%, rgba(20, 4, 9, 0.10) 40%, rgba(20, 4, 9, 0.75) 85%, #140409 100%)",
-        }}
-      />
-
       {/* Center Hero Logo with Scroll Morph */}
       <div className="relative z-20 flex flex-col items-center justify-center text-center px-4 max-w-5xl mx-auto">
         <motion.div
