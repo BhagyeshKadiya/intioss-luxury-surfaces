@@ -3,13 +3,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { APPLICATION_SPACES } from "@/data/applications";
-import { ArrowUpRight, ChevronRight, Sparkles } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 
 export function ApplicationSelector() {
+  const router = useRouter();
   const [activeId, setActiveId] = useState<string>(APPLICATION_SPACES[0].id);
 
   return (
@@ -63,7 +65,7 @@ export function ApplicationSelector() {
                 <motion.div
                   key={space.id}
                   onMouseEnter={() => setActiveId(space.id)}
-                  onClick={() => setActiveId(space.id)}
+                  onClick={() => router.push(`/products?application=${encodeURIComponent(space.title)}`)}
                   layout
                   transition={{
                     layout: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
@@ -92,17 +94,6 @@ export function ApplicationSelector() {
                   <div className="absolute top-3 left-3 w-3 h-3 border-t border-l border-gold/40 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none z-20" />
                   <div className="absolute bottom-3 right-3 w-3 h-3 border-b border-r border-gold/40 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none z-20" />
 
-                  {/* Index Badge */}
-                  <div className="absolute top-4 right-4 z-20 pointer-events-none">
-                    <span
-                      className={`font-marcellus text-2xl transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] ${
-                        isExpanded ? "text-gold" : "text-white/75 group-hover:text-gold"
-                      }`}
-                    >
-                      0{idx + 1}
-                    </span>
-                  </div>
-
                   {/* COLLAPSED VERTICAL SLAT (When not expanded on Desktop) */}
                   {!isExpanded && (
                     <div className="absolute inset-0 p-5 flex flex-col justify-between z-10">
@@ -121,7 +112,7 @@ export function ApplicationSelector() {
                     </div>
                   )}
 
-                  {/* EXPANDED VIEW CONTENT (When hovered/active) */}
+                  {/* EXPANDED VIEW CONTENT: ONLY APPLICATION NAME + CURATED TAB */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -131,26 +122,15 @@ export function ApplicationSelector() {
                         transition={{ duration: 0.35, delay: 0.1 }}
                         className="relative z-10 w-full h-full p-6 sm:p-8 flex flex-col justify-end"
                       >
-                        {/* Space Category Pill */}
-                        <div className="mb-3">
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/60 backdrop-blur-md border border-gold/40 rounded-full font-montserrat text-[10px] uppercase tracking-[0.22em] text-gold font-semibold shadow-sm">
-                            <Sparkles className="w-3 h-3 text-gold" />
-                            <span>Architectural Space 0{idx + 1}</span>
-                          </span>
-                        </div>
-
-                        {/* Title & Tagline */}
+                        {/* Application Name */}
                         <h3 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
                           {space.title}
                         </h3>
-                        <p className="font-jost text-sm sm:text-base text-ivory mt-2 max-w-md line-clamp-2 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
-                          {space.tagline}
-                        </p>
 
-                        {/* Recommended Stones Chips */}
+                        {/* Curated Stones Chips */}
                         {space.recommendedStones && space.recommendedStones.length > 0 && (
-                          <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center gap-1.5">
-                            <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold/70 mr-1 font-medium">
+                          <div className="mt-4 pt-3 border-t border-white/15 flex flex-wrap items-center gap-1.5">
+                            <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold mr-1 font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                               Curated:
                             </span>
                             {space.recommendedStones.slice(0, 3).map((st) => (
@@ -158,24 +138,13 @@ export function ApplicationSelector() {
                                 key={st.slug}
                                 href={`/products/${st.slug}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-gold/25 border border-white/15 hover:border-gold/50 text-[11px] font-jost text-ivory/90 hover:text-gold transition-colors"
+                                className="px-3 py-1 rounded-full bg-[#1A050B]/75 hover:bg-gold border border-gold/45 hover:border-gold text-[11px] font-jost text-ivory hover:text-maroon-deep transition-all backdrop-blur-md shadow-sm"
                               >
                                 {st.name}
                               </Link>
                             ))}
                           </div>
                         )}
-
-                        {/* Action CTA Button */}
-                        <div className="mt-5 pt-2">
-                          <Link
-                            href={`/products?application=${encodeURIComponent(space.title)}`}
-                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gold hover:bg-gold-light text-[#140409] font-montserrat text-xs uppercase tracking-[0.18em] font-semibold transition-all duration-300 shadow-[0_4px_16px_rgba(221,182,43,0.35)] hover:scale-105"
-                          >
-                            <span>Explore {space.title} Stones</span>
-                            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-                          </Link>
-                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -186,13 +155,19 @@ export function ApplicationSelector() {
 
           {/* Mobile & Small Tablet Vertical Accordion Layout */}
           <div className="flex lg:hidden flex-col gap-3 w-full">
-            {APPLICATION_SPACES.map((space, idx) => {
+            {APPLICATION_SPACES.map((space) => {
               const isExpanded = activeId === space.id;
 
               return (
                 <motion.div
                   key={space.id}
-                  onClick={() => setActiveId(space.id)}
+                  onClick={() => {
+                    if (!isExpanded) {
+                      setActiveId(space.id);
+                    } else {
+                      router.push(`/products?application=${encodeURIComponent(space.title)}`);
+                    }
+                  }}
                   layout
                   transition={{
                     layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
@@ -219,21 +194,16 @@ export function ApplicationSelector() {
                   {/* Collapsed Mobile Bar */}
                   {!isExpanded && (
                     <div className="absolute inset-0 p-4 sm:p-5 flex items-center justify-between z-10">
-                      <div className="flex items-center gap-3.5">
-                        <span className="font-marcellus text-lg text-gold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">0{idx + 1}</span>
-                        <div>
-                          <h3 className="font-marcellus text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
-                            {space.title}
-                          </h3>
-                        </div>
-                      </div>
+                      <h3 className="font-marcellus text-lg sm:text-xl text-ivory group-hover:text-gold transition-colors drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
+                        {space.title}
+                      </h3>
                       <div className="w-7 h-7 rounded-full bg-black/40 border border-white/25 flex items-center justify-center text-gold backdrop-blur-sm">
                         <ChevronRight className="w-4 h-4" />
                       </div>
                     </div>
                   )}
 
-                  {/* Expanded Mobile View */}
+                  {/* Expanded Mobile View: ONLY Application Name + Curated Tab */}
                   <AnimatePresence>
                     {isExpanded && (
                       <motion.div
@@ -242,31 +212,27 @@ export function ApplicationSelector() {
                         exit={{ opacity: 0, y: 10 }}
                         className="relative z-10 h-full p-5 sm:p-6 flex flex-col justify-end"
                       >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-montserrat text-[10px] uppercase tracking-widest text-gold font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                            Space 0{idx + 1}
-                          </span>
-                          <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-                        </div>
                         <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
                           {space.title}
                         </h3>
-                        <p className="font-jost text-xs sm:text-sm text-ivory mt-1 line-clamp-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
-                          {space.tagline}
-                        </p>
 
-                        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-                          <Link
-                            href={`/products?application=${encodeURIComponent(space.title)}`}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold text-[#140409] font-montserrat text-xs uppercase tracking-wider font-semibold"
-                          >
-                            <span>Explore Stones</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                          </Link>
-                          <span className="text-[11px] font-montserrat text-ivory/60 uppercase tracking-wider">
-                            Tap to browse
-                          </span>
-                        </div>
+                        {space.recommendedStones && space.recommendedStones.length > 0 && (
+                          <div className="mt-3 pt-3 border-t border-white/15 flex flex-wrap items-center gap-1.5">
+                            <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold mr-1 font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                              Curated:
+                            </span>
+                            {space.recommendedStones.slice(0, 3).map((st) => (
+                              <Link
+                                key={st.slug}
+                                href={`/products/${st.slug}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="px-2.5 py-1 rounded-full bg-[#1A050B]/75 hover:bg-gold border border-gold/45 text-[11px] font-jost text-ivory hover:text-maroon-deep transition-all backdrop-blur-md"
+                              >
+                                {st.name}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
                       </motion.div>
                     )}
                   </AnimatePresence>

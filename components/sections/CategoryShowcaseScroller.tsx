@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowUpRight,
@@ -235,6 +236,7 @@ export const SERVICE_DISCIPLINES: ShowcaseItem[] = [
 ];
 
 export function CategoryShowcaseScroller() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<ShowcaseTab>("surfaces");
   const [activeId, setActiveId] = useState<string>("natural-stone");
   const [isMobile, setIsMobile] = useState<boolean>(false);
@@ -445,7 +447,13 @@ export function CategoryShowcaseScroller() {
                   key={item.id}
                   data-item-id={item.id}
                   onMouseEnter={() => !isMobile && setActiveId(item.id)}
-                  onClick={() => setActiveId(item.id)}
+                  onClick={() => {
+                    if (isMobile && !isExpanded) {
+                      setActiveId(item.id);
+                    } else {
+                      router.push(item.href);
+                    }
+                  }}
                   layout
                   transition={{
                     layout: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
