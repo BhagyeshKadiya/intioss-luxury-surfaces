@@ -127,22 +127,26 @@ export function ApplicationSelector() {
                           {space.title}
                         </h3>
 
-                        {/* Curated Stones Chips */}
+                        {/* Enhanced Curated Stones Dock */}
                         {space.recommendedStones && space.recommendedStones.length > 0 && (
-                          <div className="mt-4 pt-3 border-t border-white/15 flex flex-wrap items-center gap-1.5">
-                            <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold mr-1 font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                              Curated:
+                          <div className="mt-3.5 inline-flex flex-wrap items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-[#1A050B]/85 border border-gold/45 backdrop-blur-md shadow-[0_10px_28px_rgba(0,0,0,0.45)] max-w-full">
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
+                              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                              <span>Curated</span>
                             </span>
-                            {space.recommendedStones.slice(0, 3).map((st) => (
-                              <Link
-                                key={st.slug}
-                                href={`/products/${st.slug}`}
-                                onClick={(e) => e.stopPropagation()}
-                                className="px-3 py-1 rounded-full bg-[#1A050B]/75 hover:bg-gold border border-gold/45 hover:border-gold text-[11px] font-jost text-ivory hover:text-maroon-deep transition-all backdrop-blur-md shadow-sm"
-                              >
-                                {st.name}
-                              </Link>
-                            ))}
+                            <span className="hidden sm:block w-px h-4 bg-gold/30 shrink-0" />
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              {space.recommendedStones.slice(0, 3).map((st) => (
+                                <Link
+                                  key={st.slug}
+                                  href={`/products/${st.slug}`}
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="px-3 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/35 hover:border-gold text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all duration-200 hover:scale-105"
+                                >
+                                  {st.name}
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         )}
                       </motion.div>
@@ -217,20 +221,23 @@ export function ApplicationSelector() {
                         </h3>
 
                         {space.recommendedStones && space.recommendedStones.length > 0 && (
-                          <div className="mt-3 pt-3 border-t border-white/15 flex flex-wrap items-center gap-1.5">
-                            <span className="text-[10px] font-montserrat uppercase tracking-wider text-gold mr-1 font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                              Curated:
+                          <div className="mt-3 inline-flex flex-wrap items-center gap-2 px-3 py-2 rounded-2xl bg-[#1A050B]/85 border border-gold/45 backdrop-blur-md shadow-lg max-w-full">
+                            <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
+                              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                              <span>Curated</span>
                             </span>
-                            {space.recommendedStones.slice(0, 3).map((st) => (
-                              <Link
-                                key={st.slug}
-                                href={`/products/${st.slug}`}
-                                onClick={(e) => e.stopPropagation()}
-                                className="px-2.5 py-1 rounded-full bg-[#1A050B]/75 hover:bg-gold border border-gold/45 text-[11px] font-jost text-ivory hover:text-maroon-deep transition-all backdrop-blur-md"
-                              >
-                                {st.name}
-                              </Link>
-                            ))}
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              {space.recommendedStones.slice(0, 3).map((st) => (
+                                <Link
+                                  key={st.slug}
+                                  href={`/products/${st.slug}`}
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/35 text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all"
+                                >
+                                  {st.name}
+                                </Link>
+                              ))}
+                            </div>
                           </div>
                         )}
                       </motion.div>

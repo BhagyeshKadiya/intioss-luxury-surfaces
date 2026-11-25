@@ -553,21 +553,6 @@ export function CategoryShowcaseScroller() {
                             ))}
                           </div>
                         )}
-
-                        <div className="pt-1">
-                          <Link
-                            href={item.href}
-                            className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gold hover:bg-gold-light text-maroon-deep font-montserrat text-xs uppercase tracking-[0.16em] font-bold shadow-[0_4px_20px_rgba(221,182,43,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
-                          >
-                            {activeTab === "surfaces" ? (
-                              <Layers className="w-3.5 h-3.5" />
-                            ) : (
-                              <Wrench className="w-3.5 h-3.5" />
-                            )}
-                            <span>Explore {item.title}</span>
-                            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
-                          </Link>
-                        </div>
                       </div>
                     </motion.div>
                   )}
