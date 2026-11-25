@@ -644,7 +644,7 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* How you are ? & Project Type */}
+                  {/* How you are ? & Approx. Area */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
                     {/* How you are ? (Dropdown) */}
                     <div className="relative">
@@ -682,27 +682,49 @@ export function ConsultationSection() {
                       )}
                     </div>
 
-                    {/* Project Type (3 Toggle Buttons: RESIDENTIAL, COMMERCIAL, HOSPITALITY) */}
-                    <div>
+                    {/* Approx. Area (Dropdown) */}
+                    <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
-                        Project Type
+                        Area (Sq Ft) *
                       </label>
-                      <div className="grid grid-cols-3 gap-2">
-                        {PROJECT_TYPES.map((type) => (
-                          <button
-                            key={type}
-                            type="button"
-                            onClick={() => setFormData({ ...formData, projectType: type })}
-                            className={`py-2.5 px-2 text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider text-center border rounded-lg transition-all active:scale-95 cursor-pointer ${
-                              formData.projectType === type
-                                ? "bg-gold text-maroon-deep border-gold font-bold shadow-sm"
-                                : "border-gold/30 text-ivory/80 hover:border-gold hover:text-gold font-medium bg-white/[0.04]"
-                            }`}
-                          >
-                            {type}
-                          </button>
-                        ))}
+                      <div className="relative">
+                        <select
+                          value={formData.approxArea}
+                          onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
+                          className="w-full bg-[#1A030A] border border-gold/40 hover:border-gold py-2.5 px-3 pr-8 text-xs sm:text-sm font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none rounded-lg"
+                        >
+                          <option value="" className="bg-[#1A030A] text-ivory">Select Approx Area...</option>
+                          {APPROX_AREA_OPTIONS.map((area) => (
+                            <option key={area} value={area} className="bg-[#1A030A] text-ivory">
+                              {area} sq ft
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3 pointer-events-none" />
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Project Type (3 Full-Width Toggle Buttons: RESIDENTIAL, COMMERCIAL, HOSPITALITY) */}
+                  <div>
+                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                      Project Type
+                    </label>
+                    <div className="grid grid-cols-3 gap-3">
+                      {PROJECT_TYPES.map((type) => (
+                        <button
+                          key={type}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, projectType: type })}
+                          className={`py-2.5 px-3 text-xs font-montserrat uppercase tracking-wider text-center border rounded-lg transition-all active:scale-95 cursor-pointer ${
+                            formData.projectType === type
+                              ? "bg-gold text-maroon-deep border-gold font-bold shadow-sm"
+                              : "border-gold/30 text-ivory/80 hover:border-gold hover:text-gold font-medium bg-white/[0.04]"
+                          }`}
+                        >
+                          {type}
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -847,30 +869,6 @@ export function ConsultationSection() {
                     {errors.interestedIn && (
                       <span className="text-[10px] text-red-400 mt-1 block">{errors.interestedIn}</span>
                     )}
-                  </div>
-
-                  {/* Row 3: Approx Area (Dropdown) */}
-                  <div className="grid grid-cols-1 gap-6">
-                    <div className="relative">
-                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1">
-                        Approx. Area (Sq Ft) *
-                      </label>
-                      <div className="relative">
-                        <select
-                          value={formData.approxArea}
-                          onChange={(e) => setFormData({ ...formData, approxArea: e.target.value })}
-                          className="w-full bg-[#1A030A] border-b border-gold/40 py-2.5 px-3 text-sm text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-t-sm"
-                        >
-                          <option value="" className="bg-[#1A030A] text-ivory">Select Approx Area...</option>
-                          {APPROX_AREA_OPTIONS.map((area) => (
-                            <option key={area} value={area} className="bg-[#1A030A] text-ivory">
-                              {area} sq ft
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3.5 pointer-events-none" />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Row 4: Preferred Date & Preferred Time Slots */}
