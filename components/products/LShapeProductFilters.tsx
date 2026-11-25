@@ -56,6 +56,39 @@ export const COLOR_PALETTE_OPTIONS: {
   },
 ];
 
+const EXTRA_SWATCH_MAP: Record<string, { bg: string; border: string }> = {
+  purple: { bg: "#6D28D9", border: "#4C1D95" },
+  violet: { bg: "#7C3AED", border: "#5B21B6" },
+  amethyst: { bg: "#7E22CE", border: "#581C87" },
+  lavender: { bg: "#C084FC", border: "#9333EA" },
+  teal: { bg: "#0F766E", border: "#115E59" },
+  turquoise: { bg: "#0D9488", border: "#115E59" },
+  cyan: { bg: "#0891B2", border: "#155E75" },
+  copper: { bg: "#B45309", border: "#78350F" },
+  bronze: { bg: "#92400E", border: "#713F12" },
+  rust: { bg: "#9A3412", border: "#7C2D12" },
+  terracotta: { bg: "#C2410C", border: "#9A3412" },
+  orange: { bg: "#EA580C", border: "#C2410C" },
+  peach: { bg: "#FDBA74", border: "#FB923C" },
+  cream: { bg: "#FEF3C7", border: "#E5D3B8" },
+  ivory: { bg: "#FAF7F2", border: "#D6CFC2" },
+  yellow: { bg: "#EAB308", border: "#CA8A04" },
+  amber: { bg: "#D97706", border: "#B45309" },
+  silver: { bg: "#CBD5E1", border: "#94A3B8" },
+  charcoal: { bg: "#334155", border: "#1E293B" },
+  emerald: { bg: "#047857", border: "#065F46" },
+  rose: { bg: "#E11D48", border: "#9F1239" },
+  maroon: { bg: "#541B2A", border: "#300C16" },
+};
+
+function resolveDynamicColorSwatch(colorName: string): { bg: string; border: string } {
+  const lower = colorName.trim().toLowerCase();
+  for (const [key, val] of Object.entries(EXTRA_SWATCH_MAP)) {
+    if (lower.includes(key)) return val;
+  }
+  return { bg: lower, border: "#DDB62B" };
+}
+
 const FINISH_OPTIONS = [
   "Polished",
   "Honed",
@@ -255,6 +288,34 @@ export function TopLFilterBar({
     ).length;
   };
 
+  // Automatically discover any new colorFamily added to products that isn't already in COLOR_PALETTE_OPTIONS
+  const dynamicColorOptions = useMemo(() => {
+    const options = [...COLOR_PALETTE_OPTIONS];
+    const knownKeys = new Set<string>();
+    options.forEach((opt) => {
+      knownKeys.add(opt.name.toLowerCase());
+      knownKeys.add(opt.label.toLowerCase());
+    });
+
+    allProducts.forEach((p) => {
+      const raw = (p.colorFamily || "").trim();
+      if (!raw) return;
+      const lower = raw.toLowerCase();
+      if (!knownKeys.has(lower)) {
+        knownKeys.add(lower);
+        const swatch = resolveDynamicColorSwatch(raw);
+        options.push({
+          name: raw,
+          label: raw,
+          bg: swatch.bg,
+          border: swatch.border,
+        });
+      }
+    });
+
+    return options;
+  }, [allProducts]);
+
   return (
     <div
       ref={barRef}
@@ -276,7 +337,7 @@ export function TopLFilterBar({
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 min-h-[38px]">
-            {COLOR_PALETTE_OPTIONS.map((swatch) => {
+            {dynamicColorOptions.map((swatch) => {
               const selected = filterState.colorFamily.includes(swatch.name);
               return (
                 <button
