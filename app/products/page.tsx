@@ -35,6 +35,7 @@ function ProductsContent() {
 
   // Initial filter state from URL params
   const initialCategory = searchParams.get("category") || "Natural Stones";
+  const initialSubCategory = searchParams.get("subCategory") || searchParams.get("type");
   const initialApp = searchParams.get("application");
   const rawColor = searchParams.get("color") || searchParams.get("colorFamily");
   const initialColor = rawColor
@@ -45,7 +46,7 @@ function ProductsContent() {
 
   const [filterState, setFilterState] = useState<FilterState>({
     category: [initialCategory],
-    subCategory: [],
+    subCategory: initialSubCategory ? [initialSubCategory] : [],
     colorFamily: initialColor ? [initialColor] : [],
     origin: [],
     finishes: [],
@@ -59,6 +60,7 @@ function ProductsContent() {
   // Sync filters whenever searchParams update
   useEffect(() => {
     const cat = searchParams.get("category");
+    const sub = searchParams.get("subCategory") || searchParams.get("type");
     const app = searchParams.get("application");
     const rawCol = searchParams.get("color") || searchParams.get("colorFamily");
     const col = rawCol
@@ -67,10 +69,11 @@ function ProductsContent() {
         : rawCol
       : null;
 
-    if (cat || app || col) {
+    if (cat || sub || app || col) {
       setFilterState((prev) => ({
         ...prev,
         ...(cat ? { category: [cat] } : {}),
+        ...(sub ? { subCategory: [sub] } : {}),
         ...(app ? { applications: [app] } : {}),
         ...(col ? { colorFamily: [col] } : {}),
       }));

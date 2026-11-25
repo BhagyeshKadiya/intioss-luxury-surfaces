@@ -16,6 +16,7 @@ import {
   Check,
 } from "lucide-react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
+import { getTypesForCategory } from "@/data/categoryTypes";
 
 export type ShowcaseTab = "surfaces" | "services";
 
@@ -515,7 +516,7 @@ export function CategoryShowcaseScroller() {
                     </div>
                   )}
 
-                  {/* FULL EXPANDED CONTENT: ONLY THE NAME + EXPLORE BUTTON (ZERO NUMBERS, ZERO TAGS) */}
+                  {/* FULL EXPANDED CONTENT: NAME + SUB-PRODUCT LABELS + EXPLORE BUTTON */}
                   {isExpanded && (
                     <motion.div
                       initial={{ opacity: 0 }}
@@ -524,13 +525,28 @@ export function CategoryShowcaseScroller() {
                       transition={{ duration: 0.35, delay: 0.08 }}
                       className="relative z-20 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-end"
                     >
-                      {/* Bottom Area: ONLY THE NAME + EXPLORE BUTTON */}
-                      <div className="space-y-5 max-w-xl">
+                      {/* Bottom Area: Main Product Name, Sub-Product Labels & Explore CTA */}
+                      <div className="space-y-4 max-w-xl">
                         <h3 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal leading-tight tracking-wide drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                           {item.title}
                         </h3>
 
-                        <div className="pt-2">
+                        {activeTab === "surfaces" && (
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                            {getTypesForCategory(item.title).map((subProduct) => (
+                              <Link
+                                key={subProduct}
+                                href={`${item.href}&subCategory=${encodeURIComponent(subProduct)}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="px-3 py-1 rounded-full bg-[#1A050B]/75 hover:bg-gold text-ivory hover:text-maroon-deep border border-gold/45 hover:border-gold backdrop-blur-md font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.12em] font-medium transition-all duration-200 shadow-sm hover:scale-105"
+                              >
+                                {subProduct}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="pt-1">
                           <Link
                             href={item.href}
                             className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-gold hover:bg-gold-light text-maroon-deep font-montserrat text-xs uppercase tracking-[0.16em] font-bold shadow-[0_4px_20px_rgba(221,182,43,0.35)] transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
