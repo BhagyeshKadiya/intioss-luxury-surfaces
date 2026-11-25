@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { IntiossHexagon } from "@/components/brand/IntiossHexagon";
 import { HexagonBackground } from "@/components/brand/HexagonBackground";
+import { CATEGORY_TYPES_MAP } from "@/data/categoryTypes";
 import {
   Check,
   ArrowRight,
@@ -111,14 +112,12 @@ export const ALL_INDIA_CITIES = [
   "Belgaum",
 ];
 
-export const PRODUCT_INTEREST_OPTIONS = [
-  "Natural Stone",
-  "Semi-Precious Stone",
-  "Table Tops",
-  "Stone Veneers",
-  "Mosaics",
-  "Stone Art",
-];
+export const SEMI_PRECIOUS_SUB_PRODUCTS: string[] =
+  CATEGORY_TYPES_MAP["Semi-Precious Stones"] || [];
+
+export const PRODUCT_INTEREST_OPTIONS: string[] = Array.from(
+  new Set(Object.values(CATEGORY_TYPES_MAP).flat())
+).filter((item) => item !== "Semi Precious Stone");
 
 export const SERVICE_INTEREST_OPTIONS = [
   "Luxury Civil Contracting",
@@ -195,6 +194,28 @@ export function ConsultationSection() {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const cityWrapperRef = useRef<HTMLDivElement>(null);
   const productDropdownRef = useRef<HTMLDivElement>(null);
+
+  const isKishangarhSelected =
+    formData.storeLocation.toLowerCase().includes("kishangarh") ||
+    formData.city.trim().toLowerCase() === "kishangarh";
+
+  const visibleProductOptions = isKishangarhSelected
+    ? SEMI_PRECIOUS_SUB_PRODUCTS
+    : PRODUCT_INTEREST_OPTIONS;
+
+  // When Kishangarh is selected, restrict any previously chosen product sub-categories to Semi-Precious only
+  useEffect(() => {
+    if (!isKishangarhSelected) return;
+    setFormData((prev) => {
+      const filtered = prev.interestedIn.filter(
+        (item) =>
+          SEMI_PRECIOUS_SUB_PRODUCTS.includes(item) ||
+          SERVICE_INTEREST_OPTIONS.includes(item)
+      );
+      if (filtered.length === prev.interestedIn.length) return prev;
+      return { ...prev, interestedIn: filtered };
+    });
+  }, [isKishangarhSelected]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -733,9 +754,16 @@ export function ConsultationSection() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Multi-Select Product Category Dropdown */}
                       <div className="relative" ref={productDropdownRef}>
-                        <label className="flex items-center gap-1.5 text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
-                          <Layers className="w-3.5 h-3.5 text-gold" />
-                          <span>Product Category *</span>
+                        <label className="flex items-center justify-between gap-1.5 text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                          <span className="flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-gold" />
+                            <span>Product Category *</span>
+                          </span>
+                          {isKishangarhSelected && (
+                            <span className="text-[9px] text-gold bg-gold/15 px-1.5 py-0.5 rounded border border-gold/40 normal-case tracking-normal">
+                              Semi-Precious Only
+                            </span>
+                          )}
                         </label>
                         <button
                           type="button"
@@ -743,9 +771,11 @@ export function ConsultationSection() {
                           className="w-full bg-[#1A030A] border border-gold/45 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-ivory flex items-center justify-between rounded-lg transition-colors cursor-pointer"
                         >
                           <span className="truncate">
-                            {formData.interestedIn.filter((i) => PRODUCT_INTEREST_OPTIONS.includes(i)).length === 0
-                              ? "Select Product Categories (Multi-Select)..."
-                              : `${formData.interestedIn.filter((i) => PRODUCT_INTEREST_OPTIONS.includes(i)).length} Category Selected`}
+                            {formData.interestedIn.filter((i) => visibleProductOptions.includes(i)).length === 0
+                              ? isKishangarhSelected
+                                ? "Select Semi-Precious Sub-Products..."
+                                : "Select Sub-Products (Multi-Select)..."
+                              : `${formData.interestedIn.filter((i) => visibleProductOptions.includes(i)).length} Selected`}
                           </span>
                           <ChevronDown
                             className={`w-4 h-4 text-gold shrink-0 transition-transform duration-200 ${
@@ -757,13 +787,15 @@ export function ConsultationSection() {
                         <AnimatePresence>
                           {isProductDropdownOpen && (
                             <motion.div
+                              data-lenis-prevent="true"
+                              onWheel={(e) => e.stopPropagation()}
                               initial={{ opacity: 0, y: -4 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0, y: -4 }}
                               transition={{ duration: 0.15 }}
-                              className="absolute left-0 right-0 top-full mt-1.5 bg-[#1F050C] border border-gold/50 shadow-2xl rounded-xl z-50 p-2 space-y-1 backdrop-blur-lg"
+                              className="absolute left-0 right-0 top-full mt-1.5 bg-[#1F050C] border border-gold/50 shadow-2xl rounded-xl z-50 p-2 space-y-1 max-h-64 overflow-y-auto overscroll-contain backdrop-blur-lg"
                             >
-                              {PRODUCT_INTEREST_OPTIONS.map((prod) => {
+                              {visibleProductOptions.map((prod) => {
                                 const checked = formData.interestedIn.includes(prod);
                                 return (
                                   <button
