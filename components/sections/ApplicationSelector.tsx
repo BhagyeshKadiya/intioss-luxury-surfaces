@@ -35,7 +35,7 @@ export function ApplicationSelector() {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Centered Header Block matching Unified Luxury Atelier Standard */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+        <div className="flex flex-col items-center text-center max-w-6xl mx-auto mb-10 sm:mb-14">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-white/5 border border-gold/40 shadow-[0_2px_12px_rgba(221,182,43,0.18)] backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
@@ -46,8 +46,8 @@ export function ApplicationSelector() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           </div>
 
-          {/* Main Heading */}
-          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-ivory font-normal tracking-wide leading-tight text-center">
+          {/* Main Heading - One-Liner */}
+          <h2 className="font-marcellus text-[clamp(1.4rem,3.8vw,3.5rem)] whitespace-nowrap text-ivory font-normal tracking-wide leading-tight text-center">
             Find Your Stone by Space.
           </h2>
 

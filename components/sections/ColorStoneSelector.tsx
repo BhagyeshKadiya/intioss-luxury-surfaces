@@ -124,7 +124,7 @@ export function ColorStoneSelector() {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Centered Header Block */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+        <div className="flex flex-col items-center text-center max-w-6xl mx-auto mb-10 sm:mb-14">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-maroon-deep/5 border border-gold/40 shadow-xs backdrop-blur-md">
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
@@ -135,8 +135,8 @@ export function ColorStoneSelector() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
           </div>
 
-          {/* Main Heading */}
-          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon-deep font-normal tracking-wide leading-tight text-center">
+          {/* Main Heading - One-Liner */}
+          <h2 className="font-marcellus text-[clamp(1.35rem,3.8vw,3.5rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight text-center">
             Curate by Earth&apos;s Spectrum.
           </h2>
 

@@ -284,9 +284,9 @@ export function LegacySection() {
       {/* Top subtle transitional bridge from dark obsidian to ivory atelier */}
       <div className="absolute top-0 inset-x-0 h-16 sm:h-24 bg-gradient-to-b from-[#140409]/8 via-transparent to-transparent pointer-events-none z-10" />
 
-      <div className="max-w-[1024px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Heading */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+        <div className="flex flex-col items-center text-center max-w-6xl mx-auto mb-16 sm:mb-20">
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 mb-3.5 px-4 py-1.5 rounded-full bg-maroon-deep/5 border border-gold/40 shadow-sm backdrop-blur-xs">
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
@@ -297,7 +297,7 @@ export function LegacySection() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
           </div>
 
-          <h2 className="font-marcellus text-3xl sm:text-5xl lg:text-6xl text-maroon-deep font-normal tracking-wide leading-tight">
+          <h2 className="font-marcellus text-[clamp(0.95rem,2.7vw,2.65rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight">
             Born from the Legacy of 55 Years of Experience
           </h2>
           <p className="font-jost text-base sm:text-lg text-stone-600 mt-3 max-w-xl leading-relaxed">

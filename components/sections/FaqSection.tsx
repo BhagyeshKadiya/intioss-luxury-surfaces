@@ -42,7 +42,7 @@ export function FaqSection() {
             <span className="w-1.5 h-1.5 rounded-full bg-maroon animate-pulse" />
           </div>
 
-          <h2 className="font-marcellus text-3xl sm:text-5xl text-maroon-deep tracking-wide">
+          <h2 className="font-marcellus text-[clamp(1.35rem,3.6vw,3.25rem)] whitespace-nowrap text-maroon-deep tracking-wide">
             Frequently Asked Questions
           </h2>
           <p className="font-jost text-sm sm:text-base text-stone-700 mt-3 max-w-xl mx-auto leading-relaxed">
