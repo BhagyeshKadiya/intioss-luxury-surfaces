@@ -733,7 +733,7 @@ export function ConsultationSection() {
                       <span>Reserving Consultation...</span>
                     ) : (
                       <>
-                        <span>Submit Private Consultation Request</span>
+                        <span>Submit Request</span>
                         <ArrowRight className="w-4 h-4 text-maroon-deep stroke-[2.5]" />
                       </>
                     )}
