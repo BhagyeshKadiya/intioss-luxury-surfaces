@@ -260,26 +260,25 @@ export default function ProductDetailPage({
           <ProductHouzezGallery product={product} />
         )}
 
-        {/* Details & Technical Specifications (Clean 2-Column Editorial Layout) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mt-4">
-          {/* Left Column: Title, Suitable For Pills, Description & Book Match CTA */}
-          <div className="lg:col-span-7">
+        {/* Details & Specs Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="lg:col-span-8">
             <span className="font-montserrat text-[11px] uppercase tracking-[0.22em] text-stone-500 block">
               {product.category}
               {product.subCategory ? ` · ${product.subCategory}` : ""} · {countryOfOrigin}
             </span>
 
-            <h1 className="font-marcellus text-4xl sm:text-5xl text-maroon-deep mt-2 font-normal tracking-tight">
+            <h1 className="font-marcellus text-4xl sm:text-5xl text-maroon-deep mt-1.5 font-normal tracking-tight">
               {product.name}
             </h1>
 
-            <p className="font-jost text-sm sm:text-base text-stone-600 mt-1.5">
+            <p className="font-jost text-sm sm:text-base text-stone-600 mt-1">
               {product.colorFamily} · {countryOfOrigin}
             </p>
 
             {/* SUITABLE FOR */}
             {product.applications && product.applications.length > 0 && (
-              <div className="mt-6">
+              <div className="mt-5">
                 <span className="font-montserrat text-[10px] uppercase tracking-[0.22em] text-stone-500 font-semibold block mb-2.5">
                   Suitable For
                 </span>
@@ -296,13 +295,13 @@ export default function ProductDetailPage({
               </div>
             )}
 
-            {/* Short Description */}
-            <p className="font-jost text-sm sm:text-base text-stone-700 leading-relaxed mt-6 max-w-2xl">
+            {/* Description */}
+            <p className="font-jost text-sm sm:text-base text-stone-700 leading-relaxed mt-5">
               {product.description}
             </p>
 
-            {/* Try This in Book Match Studio Button */}
-            <div className="mt-7">
+            {/* Try This in Book Match Studio */}
+            <div className="mt-6 pb-6 border-b border-gold/30">
               <Link
                 href={`/book-match?stone=${product.slug}`}
                 className="inline-flex items-center gap-2.5 bg-white hover:bg-maroon-deep text-maroon-deep hover:text-ivory border border-stone-300 hover:border-maroon-deep px-5 py-2.5 text-xs font-montserrat uppercase tracking-[0.18em] font-semibold transition-all"
@@ -311,77 +310,192 @@ export default function ProductDetailPage({
                 <span>Try This in Book Match Studio</span>
               </Link>
             </div>
-          </div>
 
-          {/* Right Column: Technical Specifications Card + Primary & Secondary Buttons */}
-          <div className="lg:col-span-5">
-            <div className="bg-white p-6 sm:p-8 border border-stone-200 shadow-xs">
-              <h2 className="font-marcellus text-lg sm:text-xl uppercase tracking-[0.12em] text-maroon-deep mb-5">
-                Technical Specifications
+            {/* Rich Curated Description in AEO / GEO Q&A Format (Marble Reference) */}
+            <div className="mt-6 mb-8 bg-white border border-gold/35 p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <span className="font-raleway text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold-dark font-semibold">
+                  Architectural Dossier · Marble & Natural Stone Advisory
+                </span>
+                <span className="text-[10px] font-montserrat uppercase tracking-wider text-stone-500 bg-gold/10 px-2 py-0.5 border border-gold/30">
+                  Mohs 7 · Non-Etching
+                </span>
+              </div>
+
+              <h2 className="font-marcellus text-xl sm:text-2xl text-maroon mb-3 font-normal">
+                Curatorial Profile: Why Architects Specify {product.name} Over Traditional Marble
               </h2>
 
-              <div className="divide-y divide-stone-200 text-xs sm:text-[13px]">
-                <div className="py-3 flex justify-between gap-4">
+              <p className="font-poppins text-xs sm:text-sm text-stone-700 leading-relaxed">
+                {product.description}
+              </p>
+
+              {/* Direct Q&A Callouts for Answer Engines & Marble Researchers */}
+              <div className="mt-6 pt-5 border-t border-gold/25 space-y-4">
+                <div className="bg-ivory/80 border-l-2 border-gold p-3.5 sm:p-4">
+                  <h3 className="font-marcellus text-sm sm:text-base text-maroon flex items-center gap-2">
+                    <span className="text-gold font-semibold font-montserrat text-xs">Q:</span>
+                    <span>Is {product.name} more durable than Italian marble for kitchen countertops and dining tables?</span>
+                  </h3>
+                  <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed">
+                    <strong className="text-maroon">A: Definitive Yes.</strong> While traditional Italian marbles (such as Calacatta or Carrara) rank 3–4 on the Mohs hardness scale and readily react to acidic liquids (lemon, vinegar, wine, and turmeric), {product.name} ranks <strong>7 on the Mohs scale (harder than granite)</strong>. It is 100% acid-proof, scratch-resistant to kitchen knives, and withstands direct heat up to 260°C (500°F) without resin degradation or staining.
+                  </p>
+                </div>
+
+                <div className="bg-ivory/80 border-l-2 border-gold p-3.5 sm:p-4">
+                  <h3 className="font-marcellus text-sm sm:text-base text-maroon flex items-center gap-2">
+                    <span className="text-gold font-semibold font-montserrat text-xs">Q:</span>
+                    <span>Can {product.name} be bookmatched like premium imported marble?</span>
+                  </h3>
+                  <p className="font-poppins text-xs sm:text-sm text-stone-700 mt-1.5 leading-relaxed">
+                    <strong className="text-maroon">A: Yes.</strong> Sourced by INTIOSS in massive monolithic 119&quot; × 77&quot; (302 × 195 cm) slabs at 20mm thickness, consecutive slabs from the same block are precision-quarried for flawless mirror-image bookmatch alignment. This creates continuous fluid veining across full-height living room walls and culinary waterfall islands without disruptive seams.
+                  </p>
+                </div>
+              </div>
+
+              {product.bestSuitedFor && product.bestSuitedFor.length > 0 && (
+                <div className="mt-6 pt-5 border-t border-gold/20">
+                  <span className="text-[10px] font-montserrat uppercase tracking-[0.2em] text-stone-500 font-semibold block mb-3">
+                    Architectural Specifications & Suitable Applications
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {product.bestSuitedFor.map((highlight, idx) => (
+                      <span
+                        key={idx}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ivory text-maroon text-xs font-montserrat border border-gold/40 shadow-xs"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                        <span>{highlight}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Recommended Applications (Suitability checklist with clean architectural tick marks) */}
+            <div className="mt-8">
+              <h3 className="font-marcellus text-sm uppercase tracking-wider text-gold border-b border-gold/20 pb-2">
+                Recommended Applications
+              </h3>
+              <ul className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {SEVEN_SPACES.map((spaceName) => {
+                  const isSuitable =
+                    (product.applications as string[]).includes(spaceName) ||
+                    (spaceName === "Flooring" && product.applications.includes("Flooring")) ||
+                    (spaceName === "Bathroom" && product.applications.includes("Bathroom")) ||
+                    (spaceName === "Table Top" &&
+                      (product.applications.includes("Table Top") ||
+                        product.applications.includes("Countertop"))) ||
+                    (spaceName === "Kitchen Countertop" &&
+                      (product.applications.includes("Kitchen Countertop") ||
+                        product.applications.includes("Countertop"))) ||
+                    (spaceName === "Wall Cladding — Interior" &&
+                      (product.applications.includes("Wall Cladding — Interior") ||
+                        product.applications.includes("Wall Cladding") ||
+                        product.applications.includes("Feature Wall"))) ||
+                    (spaceName === "Wall Cladding — Exterior" &&
+                      (product.applications.includes("Wall Cladding — Exterior") ||
+                        product.applications.includes("Wall Cladding"))) ||
+                    (spaceName === "Exterior Flooring" &&
+                      (product.applications.includes("Exterior Flooring") ||
+                        product.applications.includes("Flooring")));
+
+                  return (
+                    <li
+                      key={spaceName}
+                      className={`flex items-center gap-2.5 text-xs font-montserrat p-2 rounded-xs transition-colors border ${
+                        isSuitable
+                          ? "text-maroon font-medium bg-gold/[0.04] border-gold/20 hover:border-gold/40 hover:bg-gold/10"
+                          : "text-grey/40 border-transparent bg-transparent"
+                      }`}
+                    >
+                      {isSuitable ? (
+                        <div className="w-4 h-4 rounded-none bg-maroon text-gold flex items-center justify-center shrink-0 border border-gold/40 shadow-2xs">
+                          <Check className="w-3 h-3 text-gold" strokeWidth={2.5} />
+                        </div>
+                      ) : (
+                        <div className="w-4 h-4 rounded-none border border-grey/25 bg-white/40 shrink-0" />
+                      )}
+                      <span className={isSuitable ? "text-maroon font-medium" : "text-grey/40"}>
+                        {spaceName}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 flex flex-col">
+            {/* Technical Specification Table (No Inquiry / Booking Buttons) */}
+            <div className="bg-white p-6 border border-stone-200 shadow-xs">
+              <h3 className="font-marcellus text-base uppercase tracking-[0.12em] text-maroon-deep mb-4">
+                Technical Specifications
+              </h3>
+              <div className="divide-y divide-stone-200 text-xs font-jost">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Collection</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {product.category}
                     {product.subCategory ? ` · ${product.subCategory}` : ""}
                   </span>
                 </div>
-                <div className="py-3 flex justify-between gap-4">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Colour</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {product.colorFamily}
                   </span>
                 </div>
-                <div className="py-3 flex justify-between gap-4">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Origin</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {countryOfOrigin}
                   </span>
                 </div>
-                <div className="py-3 flex justify-between gap-4">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Veining &amp; pattern</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {product.veining}
                   </span>
                 </div>
-                <div className="py-3 flex justify-between gap-4">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Surface finish</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {product.finishes.join(", ")}
                   </span>
                 </div>
-                <div className="py-3 flex justify-between gap-4">
+                <div className="py-2.5 flex justify-between gap-4">
                   <span className="text-stone-500 font-jost">Size · thickness</span>
                   <span className="font-montserrat font-medium text-maroon-deep text-right">
                     {product.specs?.dimensions || "290 × 173 cm"} · {product.thicknesses.join(", ")}
                   </span>
                 </div>
               </div>
+            </div>
 
-              {/* Action Buttons */}
-              <div className="mt-6 space-y-3">
-                <a
-                  href={`https://wa.me/919930171094?text=${encodeURIComponent(
-                    `Hello INTIOSS, I would like to enquire about ${product.name} (${product.category}).`
-                  )}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center bg-maroon-deep hover:bg-maroon text-ivory py-3.5 px-5 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold transition-colors"
-                >
-                  Enquire About This Stone
-                </a>
-                <Link
-                  href="/#consultation"
-                  className="w-full flex items-center justify-center bg-white hover:bg-stone-50 text-maroon-deep border border-stone-300 hover:border-maroon-deep py-3.5 px-5 font-montserrat text-xs uppercase tracking-[0.2em] font-semibold transition-colors"
-                >
-                  Book a Private Viewing
-                </Link>
+            {/* Curatorial Care Note */}
+            <div className="mt-6 p-4 bg-white border border-gold/30 shadow-sm">
+              <div className="flex items-center gap-2 text-xs font-montserrat font-medium text-maroon mb-1">
+                <ShieldCheck className="w-4 h-4 text-gold" />
+                <span>Care Protocol</span>
               </div>
+              <p className="text-[11px] font-jost text-grey">
+                {product.specs.recommendedCare}
+              </p>
             </div>
           </div>
         </div>
+
+        {/* ======================================================== */}
+        {/* ARCHITECTURAL USE CASES & REALIZED SPACES SHOWCASE       */}
+        {/* ======================================================== */}
+        <ProductUseCasesShowcase product={product} />
+
+        {/* ======================================================== */}
+        {/* AEO / GEO / SEO ARCHITECTURAL ADVISORY & KNOWLEDGE BASE   */}
+        {/* ======================================================== */}
+        <ProductAeoGeoSection product={product} />
 
         {/* Other Surfaces in Collection (Clean, replaces new arrivals) */}
         {newArrivals.length > 0 && (
