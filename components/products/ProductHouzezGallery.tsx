@@ -40,11 +40,9 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
       if (lower.includes("slab")) {
         return {
           src,
-          title: "Monolithic Quarry Slab",
-          category: "Quarry Slab",
-          badge: product.specs?.dimensions
-            ? product.specs.dimensions.split("·")[0].trim()
-            : "Full Slab 20mm",
+          title: "The slab",
+          category: "The slab",
+          badge: "The slab",
         };
       }
       if (lower.includes("kitchen") || lower.includes("island") || lower.includes("countertop")) {
@@ -207,33 +205,11 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
               sizes="(max-width: 1024px) 50vw, 600px"
               className="object-cover group-hover:scale-108 group-hover:brightness-105 transition-all duration-700 ease-[0.16,1,0.3,1]"
             />
-            {/* Subtle Gradient Scrim */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 opacity-70 group-hover:opacity-85 transition-opacity duration-500" />
-
-            {/* Top-Left Category Tag */}
+            {/* Top-Left Space Label Only */}
             <div className="absolute top-3.5 left-3.5 z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-maroon-deep/90 text-ivory text-[10px] font-montserrat uppercase tracking-[0.2em] border border-gold/40 backdrop-blur-sm shadow-md group-hover:border-gold transition-colors">
-                <Sparkles className="w-2.5 h-2.5 text-gold" />
-                <span>{mainHero.badge}</span>
+              <span className="inline-flex items-center px-2.5 py-1 bg-black/70 text-ivory text-[10px] font-montserrat uppercase tracking-[0.18em] border border-gold/40 backdrop-blur-sm">
+                {mainHero.category}
               </span>
-            </div>
-
-            {/* Center Floating Hover Inspect Pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-black/80 text-ivory text-[11px] font-montserrat uppercase tracking-wider font-medium border border-gold/60 backdrop-blur-md shadow-2xl translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
-                <Eye className="w-3.5 h-3.5 text-gold animate-pulse" />
-                <span>Inspect Full Screen</span>
-              </span>
-            </div>
-
-            {/* Bottom-Left Title Caption */}
-            <div className="absolute bottom-4 left-4 right-4 z-10 group-hover:-translate-y-1 transition-transform duration-300">
-              <h3 className="font-marcellus text-lg lg:text-2xl text-white group-hover:text-gold transition-colors drop-shadow-md">
-                {mainHero.title}
-              </h3>
-              <p className="font-poppins text-xs text-stone-300 mt-0.5">
-                {product.name} · Monolithic 20mm Profile
-              </p>
             </div>
 
             {/* Hover Zoom Icon Pill */}
@@ -245,7 +221,7 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           </div>
         )}
 
-        {/* 2. Top-Middle Tile (Kitchen Island) */}
+        {/* 2. Top-Middle Tile */}
         {tile1 && (
           <div
             onClick={() => openLightbox(1)}
@@ -253,36 +229,20 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           >
             <Image
               src={tile1.src}
-              alt={`${product.name} - ${tile1.title}`}
+              alt={`${product.name} - ${tile1.category}`}
               fill
               sizes="(max-width: 1024px) 25vw, 300px"
               className="object-cover group-hover:scale-110 group-hover:brightness-105 transition-all duration-700 ease-[0.16,1,0.3,1]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent opacity-65 group-hover:opacity-85 transition-opacity duration-500" />
-
             <div className="absolute top-2.5 left-2.5 z-10">
-              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs group-hover:border-gold transition-colors">
+              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs">
                 {tile1.category}
               </span>
-            </div>
-
-            {/* Center Floating Hover Inspect Pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/80 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/60 backdrop-blur-md shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <Eye className="w-3 h-3 text-gold" />
-                <span>View Space</span>
-              </span>
-            </div>
-
-            <div className="absolute bottom-2.5 left-3 right-3 z-10 group-hover:-translate-y-0.5 transition-transform duration-300">
-              <h4 className="font-marcellus text-sm lg:text-base text-white group-hover:text-gold transition-colors truncate">
-                {tile1.title}
-              </h4>
             </div>
           </div>
         )}
 
-        {/* 3. Top-Right Tile (Dining Table) */}
+        {/* 3. Top-Right Tile */}
         {tile2 && (
           <div
             onClick={() => openLightbox(2)}
@@ -290,36 +250,20 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           >
             <Image
               src={tile2.src}
-              alt={`${product.name} - ${tile2.title}`}
+              alt={`${product.name} - ${tile2.category}`}
               fill
               sizes="(max-width: 1024px) 25vw, 300px"
               className="object-cover group-hover:scale-110 group-hover:brightness-105 transition-all duration-700 ease-[0.16,1,0.3,1]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent opacity-65 group-hover:opacity-85 transition-opacity duration-500" />
-
             <div className="absolute top-2.5 left-2.5 z-10">
-              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs group-hover:border-gold transition-colors">
+              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs">
                 {tile2.category}
               </span>
-            </div>
-
-            {/* Center Floating Hover Inspect Pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/80 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/60 backdrop-blur-md shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <Eye className="w-3 h-3 text-gold" />
-                <span>View Space</span>
-              </span>
-            </div>
-
-            <div className="absolute bottom-2.5 left-3 right-3 z-10 group-hover:-translate-y-0.5 transition-transform duration-300">
-              <h4 className="font-marcellus text-sm lg:text-base text-white group-hover:text-gold transition-colors truncate">
-                {tile2.title}
-              </h4>
             </div>
           </div>
         )}
 
-        {/* 4. Bottom-Middle Tile (Master Bathroom) */}
+        {/* 4. Bottom-Middle Tile */}
         {tile3 && (
           <div
             onClick={() => openLightbox(3)}
@@ -327,36 +271,20 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           >
             <Image
               src={tile3.src}
-              alt={`${product.name} - ${tile3.title}`}
+              alt={`${product.name} - ${tile3.category}`}
               fill
               sizes="(max-width: 1024px) 25vw, 300px"
               className="object-cover group-hover:scale-110 group-hover:brightness-105 transition-all duration-700 ease-[0.16,1,0.3,1]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent opacity-65 group-hover:opacity-85 transition-opacity duration-500" />
-
             <div className="absolute top-2.5 left-2.5 z-10">
-              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs group-hover:border-gold transition-colors">
+              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs">
                 {tile3.category}
               </span>
-            </div>
-
-            {/* Center Floating Hover Inspect Pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/80 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/60 backdrop-blur-md shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <Eye className="w-3 h-3 text-gold" />
-                <span>View Space</span>
-              </span>
-            </div>
-
-            <div className="absolute bottom-2.5 left-3 right-3 z-10 group-hover:-translate-y-0.5 transition-transform duration-300">
-              <h4 className="font-marcellus text-sm lg:text-base text-white group-hover:text-gold transition-colors truncate">
-                {tile3.title}
-              </h4>
             </div>
           </div>
         )}
 
-        {/* 5. Bottom-Right Tile (Living Room Feature Wall + View All Photos Button) */}
+        {/* 5. Bottom-Right Tile + View All Photos Button */}
         {tile4 && (
           <div
             onClick={() => openLightbox(4)}
@@ -364,34 +292,18 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           >
             <Image
               src={tile4.src}
-              alt={`${product.name} - ${tile4.title}`}
+              alt={`${product.name} - ${tile4.category}`}
               fill
               sizes="(max-width: 1024px) 25vw, 300px"
               className="object-cover group-hover:scale-110 group-hover:brightness-105 transition-all duration-700 ease-[0.16,1,0.3,1]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-500" />
-
             <div className="absolute top-2.5 left-2.5 z-10">
-              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs group-hover:border-gold transition-colors">
+              <span className="px-2 py-0.5 bg-black/70 text-gold text-[9px] font-montserrat uppercase tracking-wider border border-gold/30 backdrop-blur-xs">
                 {tile4.category}
               </span>
             </div>
 
-            {/* Center Floating Hover Inspect Pill */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-black/80 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/60 backdrop-blur-md shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <Eye className="w-3 h-3 text-gold" />
-                <span>View Space</span>
-              </span>
-            </div>
-
-            <div className="absolute bottom-2.5 left-3 right-3 z-10 group-hover:-translate-y-0.5 transition-transform duration-300">
-              <h4 className="font-marcellus text-sm lg:text-base text-white group-hover:text-gold transition-colors truncate">
-                {tile4.title}
-              </h4>
-            </div>
-
-            {/* Houzez-Style "View All Photos" Button */}
+            {/* "View All" Button */}
             <button
               type="button"
               onClick={(e) => {
@@ -420,29 +332,17 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
           >
             <Image
               src={tiles[mobileSlide].src}
-              alt={`${product.name} - ${tiles[mobileSlide].title}`}
+              alt={`${product.name} - ${tiles[mobileSlide].category}`}
               fill
               priority
               sizes="100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
-
-            {/* Top Badge */}
+            {/* Small Space Label Only */}
             <div className="absolute top-3 left-3 z-10">
-              <span className="px-2.5 py-1 bg-maroon-deep/90 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/40">
-                {tiles[mobileSlide].badge}
+              <span className="px-2.5 py-1 bg-black/70 text-ivory text-[10px] font-montserrat uppercase tracking-wider border border-gold/40">
+                {tiles[mobileSlide].category}
               </span>
-            </div>
-
-            {/* Bottom Caption */}
-            <div className="absolute bottom-3 left-3 right-16 z-10">
-              <h3 className="font-marcellus text-lg text-white">
-                {tiles[mobileSlide].title}
-              </h3>
-              <p className="font-poppins text-xs text-stone-300">
-                {product.name}
-              </p>
             </div>
           </div>
         )}
@@ -499,64 +399,27 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
                   if (e.target === e.currentTarget) closeLightbox();
                 }}
               >
-                {/* Top Toolbar with High-Affordance Back & Close Buttons */}
-                <div className="flex items-center justify-between z-20 border-b border-gold/30 pb-3 gap-2">
-                  {/* Prominent Back to Product Page Button */}
+                {/* Top Toolbar: Product Name (Left), Slab Index (Center), Single Close Button (Right) */}
+                <div className="flex items-center justify-between z-20 border-b border-white/15 pb-3 gap-4 px-2">
+                  <span className="text-[11px] sm:text-xs font-montserrat uppercase tracking-[0.22em] text-gold font-medium truncate">
+                    {product.name}
+                  </span>
+
+                  <div className="text-center shrink-0">
+                    <span className="font-marcellus text-base sm:text-xl text-white">
+                      {tiles[lightboxIndex].category} ({lightboxIndex + 1} of {tiles.length})
+                    </span>
+                  </div>
+
                   <button
                     type="button"
                     onClick={closeLightbox}
-                    className="inline-flex items-center gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 bg-maroon-deep hover:bg-maroon text-ivory border border-gold/70 shadow-2xl text-[11px] sm:text-xs font-montserrat uppercase tracking-wider font-semibold backdrop-blur-md transition-all hover:scale-105 active:scale-95 shrink-0 rounded-xs ring-1 ring-gold/40 hover:ring-gold"
-                    title="Return to Product Details"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-transparent hover:bg-white/10 text-white hover:text-gold border border-white/30 hover:border-gold text-[11px] font-montserrat uppercase tracking-[0.2em] font-medium transition-all shrink-0 cursor-pointer"
+                    title="Close (Esc)"
                   >
-                    <ArrowLeft className="w-4 h-4 text-gold shrink-0" />
-                    <span>Back to Product Page</span>
+                    <X className="w-3.5 h-3.5" />
+                    <span>Close</span>
                   </button>
-
-                  {/* Center Title & Counter */}
-                  <div className="hidden sm:block text-center flex-1 px-4 truncate">
-                    <span className="text-[10px] font-montserrat uppercase tracking-[0.2em] text-gold block">
-                      {tiles[lightboxIndex].category} · {product.name}
-                    </span>
-                    <h3 className="font-marcellus text-base sm:text-lg text-white truncate max-w-md mx-auto">
-                      {tiles[lightboxIndex].title} ({lightboxIndex + 1}/{tiles.length})
-                    </h3>
-                  </div>
-
-                  {/* Right Controls: Zoom & Prominent Close Button */}
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    {/* Zoom Out */}
-                    <button
-                      type="button"
-                      onClick={() => setZoomLevel((z) => Math.max(1, z - 0.25))}
-                      disabled={zoomLevel <= 1}
-                      className="p-1.5 sm:p-2 bg-stone-900 hover:bg-stone-800 disabled:opacity-40 text-white rounded border border-white/20 transition-colors"
-                      title="Zoom Out"
-                    >
-                      <ZoomOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                    </button>
-
-                    {/* Zoom In */}
-                    <button
-                      type="button"
-                      onClick={() => setZoomLevel((z) => Math.min(2.5, z + 0.25))}
-                      disabled={zoomLevel >= 2.5}
-                      className="p-1.5 sm:p-2 bg-stone-900 hover:bg-stone-800 disabled:opacity-40 text-white rounded border border-white/20 transition-colors"
-                      title="Zoom In"
-                    >
-                      <ZoomIn className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold" />
-                    </button>
-
-                    {/* Explicit Close Button with Text & Icon */}
-                    <button
-                      type="button"
-                      onClick={closeLightbox}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 bg-stone-900 hover:bg-stone-800 text-white hover:text-gold rounded border border-gold/40 text-[11px] sm:text-xs font-montserrat uppercase tracking-wider font-semibold transition-all ml-1 shrink-0 active:scale-95"
-                      title="Close (Esc)"
-                    >
-                      <X className="w-4 h-4 text-gold" />
-                      <span>Close</span>
-                    </button>
-                  </div>
                 </div>
 
                 {/* Main Stage Image (Backdrop click closes) */}
@@ -614,17 +477,8 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
                   </button>
                 </div>
 
-                {/* Bottom Thumbnails Strip with Secondary Exit Link */}
-                <div className="z-20 border-t border-gold/25 pt-2.5 sm:pt-3 flex items-center justify-between gap-3 overflow-x-auto pb-1">
-                  <button
-                    type="button"
-                    onClick={closeLightbox}
-                    className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 text-stone-200 hover:text-white border border-white/25 text-[11px] font-montserrat uppercase tracking-wider rounded-xs shrink-0 transition-colors"
-                  >
-                    <ArrowLeft className="w-3 h-3 text-gold" />
-                    <span>Return to Page</span>
-                  </button>
-
+                {/* Bottom Thumbnails Strip (Centered, Clean) */}
+                <div className="z-20 border-t border-white/15 pt-2.5 sm:pt-3 flex items-center justify-center overflow-x-auto pb-1">
                   <div className="flex items-center justify-center gap-2 mx-auto overflow-x-auto py-1">
                     {tiles.map((tile, idx) => {
                       const isActive = idx === lightboxIndex;
@@ -653,10 +507,6 @@ export function ProductHouzezGallery({ product }: ProductHouzezGalleryProps) {
                       );
                     })}
                   </div>
-
-                  <span className="hidden sm:block text-[10px] font-montserrat uppercase text-stone-400 tracking-wider shrink-0">
-                    Esc to Exit
-                  </span>
                 </div>
               </motion.div>
             )}
