@@ -35,11 +35,16 @@ const consultSchema = z.object({
     .email("Please enter a valid email address")
     .max(100, "Email exceeds maximum length"),
   city: z.string().trim().min(2, "City is required").max(80, "City exceeds maximum length"),
-  consultationMode: z.enum(["Online", "Offline"]).optional().default("Offline"),
+  consultationMode: z
+    .enum(["Personal Store Visit", "Request Call Back", "Online", "Offline"])
+    .optional()
+    .default("Personal Store Visit"),
+  storeLocation: z.string().trim().max(150).optional(),
+  userRole: z.string().trim().max(80).optional(),
   projectType: z.enum(["Residential", "Commercial", "Hospitality", "Architect-Designer"]),
   interestedIn: z
     .array(z.string().trim().max(80))
-    .min(1, "Select at least one surface category")
+    .min(1, "Select at least one product category")
     .max(20, "Too many categories selected"),
   approxArea: z.string().trim().max(50).optional(),
   preferredDate: z.string().trim().max(30).optional(),
@@ -103,7 +108,7 @@ export async function POST(request: Request) {
     );
 
     // 6. Pre-calculate prefilled WhatsApp link for direct concierge handoff
-    const waText = `New Private Consultation Request:\n• Name: ${validatedData.fullName}\n• Phone: ${validatedData.phone}\n• Email: ${validatedData.email}\n• City / Location: ${validatedData.city}\n• Preferred Date: ${validatedData.preferredDate || "Flexible"}\n• Preferred Time: ${validatedData.preferredTime || "Flexible"}\n• Project Type: ${validatedData.projectType}\n• Surfaces: ${validatedData.interestedIn.join(", ")}\n• Approx Area: ${validatedData.approxArea ? `${validatedData.approxArea} sq ft` : "Not specified"}${validatedData.message ? `\n• Notes: ${validatedData.message}` : ""}`;
+    const waText = `New Private Consultation Request:\n• Consultation Type: ${validatedData.consultationMode}${validatedData.storeLocation ? `\n• Store Location: ${validatedData.storeLocation}` : ""}\n• Name: ${validatedData.fullName}${validatedData.userRole ? `\n• Role: ${validatedData.userRole}` : ""}\n• Phone: ${validatedData.phone}\n• Email: ${validatedData.email}\n• City / Location: ${validatedData.city}\n• Preferred Date: ${validatedData.preferredDate || "Flexible"}\n• Preferred Time: ${validatedData.preferredTime || "Flexible"}\n• Project Type: ${validatedData.projectType}\n• Product Categories: ${validatedData.interestedIn.join(", ")}\n• Approx Area: ${validatedData.approxArea ? `${validatedData.approxArea} sq ft` : "Not specified"}${validatedData.message ? `\n• Notes: ${validatedData.message}` : ""}`;
 
     return NextResponse.json({
       success: true,

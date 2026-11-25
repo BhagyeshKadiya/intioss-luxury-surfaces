@@ -129,11 +129,27 @@ export const SERVICE_INTEREST_OPTIONS = [
   "Stone Restoration, Polishing & AMC",
 ];
 
+const STORE_LOCATIONS = [
+  "Mumbai (Vile Parle - Stock Yard)",
+  "Mumbai (Malad - Stock Yard)",
+  "Silvassa (Factory - Experience Centre)",
+  "Kishangarh (Only for Semi Precious Stone - Factory Experience Centre)",
+];
+
+const USER_ROLES = [
+  "Architect",
+  "Interior designer",
+  "Home Owner",
+  "Procurement / Purchase Team",
+  "Civil Contractor",
+  "Turnkey Contractor",
+  "Trader",
+];
+
 const PROJECT_TYPES = [
   "Residential",
   "Commercial",
   "Hospitality",
-  "Architect-Designer",
 ];
 
 const APPROX_AREA_OPTIONS = [
@@ -144,9 +160,14 @@ const APPROX_AREA_OPTIONS = [
 ];
 
 const TIME_SLOTS = [
-  "Morning (10:00 AM - 1:00 PM)",
-  "Afternoon (1:00 PM - 4:00 PM)",
-  "Evening (4:00 PM - 7:00 PM)",
+  "10:00 AM - 11:00 AM",
+  "11:00 AM - 12:00 PM",
+  "12:00 PM - 1:00 PM",
+  "1:00 PM - 2:00 PM",
+  "2:00 PM - 3:00 PM",
+  "3:00 PM - 4:00 PM",
+  "4:00 PM - 5:00 PM",
+  "5:00 PM - 6:00 PM",
 ];
 
 export function ConsultationSection() {
@@ -155,7 +176,9 @@ export function ConsultationSection() {
     phone: "",
     email: "",
     city: "",
-    consultationMode: "Offline" as "Offline" | "Online",
+    consultationMode: "Personal Store Visit" as "Personal Store Visit" | "Request Call Back",
+    storeLocation: "",
+    userRole: "",
     projectType: "Residential",
     interestedIn: [] as string[],
     approxArea: "",
@@ -169,13 +192,18 @@ export function ConsultationSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = useState<string | null>(null);
   const [isCitySuggestionsOpen, setIsCitySuggestionsOpen] = useState(false);
+  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const cityWrapperRef = useRef<HTMLDivElement>(null);
+  const productDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close city suggestions dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (cityWrapperRef.current && !cityWrapperRef.current.contains(event.target as Node)) {
         setIsCitySuggestionsOpen(false);
+      }
+      if (productDropdownRef.current && !productDropdownRef.current.contains(event.target as Node)) {
+        setIsProductDropdownOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -225,7 +253,14 @@ export function ConsultationSection() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       errs.email = "Valid email address required";
     }
+    if (formData.consultationMode === "Personal Store Visit" && !formData.storeLocation) {
+      errs.storeLocation = "Please select a store / experience centre location";
+    }
     if (!formData.city) errs.city = "City is required";
+    if (!formData.userRole) errs.userRole = "Please select your role";
+    if (formData.interestedIn.length === 0) {
+      errs.interestedIn = "Select at least one product category";
+    }
     return errs;
   };
 
@@ -377,6 +412,101 @@ export function ConsultationSection() {
                     </h3>
                   </div>
 
+                  {/* Top Consultation Mode Toggle Buttons */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {(["Personal Store Visit", "Request Call Back"] as const).map((mode) => {
+                      const active = formData.consultationMode === mode;
+                      return (
+                        <button
+                          key={mode}
+                          type="button"
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              consultationMode: mode,
+                              ...(mode === "Request Call Back" ? { storeLocation: "" } : {}),
+                            }))
+                          }
+                          className={`py-3 px-4 rounded-xl text-xs sm:text-[13px] font-montserrat uppercase tracking-wider font-bold border transition-all duration-200 cursor-pointer active:scale-98 flex items-center justify-center gap-2 ${
+                            active
+                              ? "bg-gold text-maroon-deep border-gold shadow-[0_4px_18px_rgba(221,182,43,0.35)]"
+                              : "bg-white/[0.04] text-ivory/85 border-gold/35 hover:border-gold hover:text-gold"
+                          }`}
+                        >
+                          {mode === "Personal Store Visit" ? (
+                            <Building2 className="w-4 h-4 shrink-0" />
+                          ) : (
+                            <MessageSquare className="w-4 h-4 shrink-0" />
+                          )}
+                          <span>{mode}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Conditional Store / Experience Centre Location (Only when Personal Store Visit is selected) */}
+                  <AnimatePresence initial={false}>
+                    {formData.consultationMode === "Personal Store Visit" && (
+                      <motion.div
+                        key="store-location-box"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-1">
+                          <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                            Location (Stock Yard / Experience Centre) *
+                          </label>
+                          <div className="relative">
+                            <select
+                              value={formData.storeLocation}
+                              onChange={(e) => {
+                                const loc = e.target.value;
+                                const inferredCity = loc.startsWith("Mumbai")
+                                  ? "Mumbai"
+                                  : loc.startsWith("Silvassa")
+                                  ? "Silvassa"
+                                  : loc.startsWith("Kishangarh")
+                                  ? "Kishangarh"
+                                  : "";
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  storeLocation: loc,
+                                  city: prev.city || inferredCity,
+                                }));
+                                if (errors.storeLocation) {
+                                  setErrors((prev) => {
+                                    const next = { ...prev };
+                                    delete next.storeLocation;
+                                    return next;
+                                  });
+                                }
+                              }}
+                              className="w-full bg-[#1A030A] border border-gold/45 hover:border-gold py-2.5 px-3 pr-9 text-xs sm:text-sm font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none rounded-lg"
+                            >
+                              <option value="" className="bg-[#1A030A] text-ivory">
+                                Select Store / Experience Centre...
+                              </option>
+                              {STORE_LOCATIONS.map((loc) => (
+                                <option key={loc} value={loc} className="bg-[#1A030A] text-ivory">
+                                  {loc}
+                                </option>
+                              ))}
+                            </select>
+                            <ChevronDown className="w-4 h-4 text-gold absolute right-3 top-3 pointer-events-none" />
+                          </div>
+                          {errors.storeLocation && (
+                            <span className="text-[10px] text-red-400 mt-1 block">
+                              {errors.storeLocation}
+                            </span>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   {errors.general && (
                     <div className="p-3 bg-red-950/80 border border-red-500/50 text-red-200 text-xs font-poppins rounded-lg">
                       {errors.general}
@@ -514,76 +644,149 @@ export function ConsultationSection() {
                     </div>
                   </div>
 
-                  {/* Project Type */}
-                  <div>
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-2">
-                      Project Type
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {PROJECT_TYPES.map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, projectType: type })}
-                          className={`py-2 px-3 text-xs font-montserrat text-center border rounded-lg transition-all active:scale-95 ${
-                            formData.projectType === type
-                              ? "bg-gold text-maroon-deep border-gold font-bold shadow-sm"
-                              : "border-gold/30 text-ivory/80 hover:border-gold hover:text-gold font-medium bg-white/[0.04]"
-                          }`}
+                  {/* How you are ? & Project Type */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+                    {/* How you are ? (Dropdown) */}
+                    <div className="relative">
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                        How You Are ? *
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={formData.userRole}
+                          onChange={(e) => {
+                            setFormData({ ...formData, userRole: e.target.value });
+                            if (errors.userRole) {
+                              setErrors((prev) => {
+                                const next = { ...prev };
+                                delete next.userRole;
+                                return next;
+                              });
+                            }
+                          }}
+                          className="w-full bg-[#1A030A] border border-gold/40 hover:border-gold py-2.5 px-3 pr-8 text-xs sm:text-sm font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none rounded-lg"
                         >
-                          {type}
-                        </button>
-                      ))}
+                          <option value="" className="bg-[#1A030A] text-ivory">
+                            Select Your Role...
+                          </option>
+                          {USER_ROLES.map((role) => (
+                            <option key={role} value={role} className="bg-[#1A030A] text-ivory">
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3 pointer-events-none" />
+                      </div>
+                      {errors.userRole && (
+                        <span className="text-[10px] text-red-400 mt-1 block">{errors.userRole}</span>
+                      )}
+                    </div>
+
+                    {/* Project Type (3 Toggle Buttons: RESIDENTIAL, COMMERCIAL, HOSPITALITY) */}
+                    <div>
+                      <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                        Project Type
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        {PROJECT_TYPES.map((type) => (
+                          <button
+                            key={type}
+                            type="button"
+                            onClick={() => setFormData({ ...formData, projectType: type })}
+                            className={`py-2.5 px-2 text-[10px] sm:text-[11px] font-montserrat uppercase tracking-wider text-center border rounded-lg transition-all active:scale-95 cursor-pointer ${
+                              formData.projectType === type
+                                ? "bg-gold text-maroon-deep border-gold font-bold shadow-sm"
+                                : "border-gold/30 text-ivory/80 hover:border-gold hover:text-gold font-medium bg-white/[0.04]"
+                            }`}
+                          >
+                            {type}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  {/* Surfaces & Disciplines of Interest */}
+                  {/* Product Category (Multi-Select Dropdown) & Architectural Service */}
                   <div className="space-y-4">
-                    <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold">
-                      Surfaces & Disciplines of Interest *
-                    </label>
-
-                    {/* Dual Dropdowns Grid: Select Products & Select Services */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Products Dropdown */}
-                      <div className="relative">
-                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold font-semibold mb-1">
-                          <Layers className="w-3 h-3 text-gold" />
-                          <span>Select Product / Surface</span>
+                      {/* Multi-Select Product Category Dropdown */}
+                      <div className="relative" ref={productDropdownRef}>
+                        <label className="flex items-center gap-1.5 text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                          <Layers className="w-3.5 h-3.5 text-gold" />
+                          <span>Product Category *</span>
                         </label>
-                        <div className="relative">
-                          <select
-                            defaultValue=""
-                            onChange={(e) => {
-                              const val = e.target.value;
-                              if (val) {
-                                if (!formData.interestedIn.includes(val)) {
-                                  setFormData((prev) => ({
-                                    ...prev,
-                                    interestedIn: [...prev.interestedIn, val],
-                                  }));
-                                }
-                                e.target.value = "";
-                              }
-                            }}
-                            className="w-full bg-[#1A030A] border border-gold/40 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-ivory focus:outline-none focus:border-gold transition-colors cursor-pointer appearance-none pr-8 rounded-lg shadow-xs"
-                          >
-                            <option value="" className="bg-[#1A030A] text-ivory">Select Product Category...</option>
-                            {PRODUCT_INTEREST_OPTIONS.map((prod) => (
-                              <option key={prod} value={prod} className="bg-[#1A030A] text-ivory">
-                                {formData.interestedIn.includes(prod) ? `✓ ${prod}` : prod}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3.5 pointer-events-none" />
-                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setIsProductDropdownOpen((prev) => !prev)}
+                          className="w-full bg-[#1A030A] border border-gold/45 hover:border-gold py-2.5 px-3 text-xs font-montserrat text-ivory flex items-center justify-between rounded-lg transition-colors cursor-pointer"
+                        >
+                          <span className="truncate">
+                            {formData.interestedIn.filter((i) => PRODUCT_INTEREST_OPTIONS.includes(i)).length === 0
+                              ? "Select Product Categories (Multi-Select)..."
+                              : `${formData.interestedIn.filter((i) => PRODUCT_INTEREST_OPTIONS.includes(i)).length} Category Selected`}
+                          </span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gold shrink-0 transition-transform duration-200 ${
+                              isProductDropdownOpen ? "rotate-180" : ""
+                            }`}
+                          />
+                        </button>
+
+                        <AnimatePresence>
+                          {isProductDropdownOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -4 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -4 }}
+                              transition={{ duration: 0.15 }}
+                              className="absolute left-0 right-0 top-full mt-1.5 bg-[#1F050C] border border-gold/50 shadow-2xl rounded-xl z-50 p-2 space-y-1 backdrop-blur-lg"
+                            >
+                              {PRODUCT_INTEREST_OPTIONS.map((prod) => {
+                                const checked = formData.interestedIn.includes(prod);
+                                return (
+                                  <button
+                                    key={prod}
+                                    type="button"
+                                    onClick={() => {
+                                      toggleInterest(prod);
+                                      if (errors.interestedIn) {
+                                        setErrors((prev) => {
+                                          const next = { ...prev };
+                                          delete next.interestedIn;
+                                          return next;
+                                        });
+                                      }
+                                    }}
+                                    className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-montserrat text-left transition-colors cursor-pointer ${
+                                      checked
+                                        ? "bg-gold/15 text-gold font-semibold"
+                                        : "text-ivory/90 hover:bg-white/[0.06] hover:text-gold"
+                                    }`}
+                                  >
+                                    <span
+                                      className={`w-4 h-4 rounded flex items-center justify-center border shrink-0 transition-colors ${
+                                        checked
+                                          ? "bg-gold border-gold text-maroon-deep"
+                                          : "border-gold/45 bg-transparent"
+                                      }`}
+                                    >
+                                      {checked && <Check className="w-3 h-3 stroke-[3]" />}
+                                    </span>
+                                    <span>{prod}</span>
+                                  </button>
+                                );
+                              })}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
 
-                      {/* Services Dropdown */}
+                      {/* Services Dropdown (Optional) */}
                       <div className="relative">
-                        <label className="flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-wider text-gold font-semibold mb-1">
-                          <Wrench className="w-3 h-3 text-gold" />
-                          <span>Select Architectural Service</span>
+                        <label className="flex items-center gap-1.5 text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
+                          <Wrench className="w-3.5 h-3.5 text-gold" />
+                          <span>Architectural Service</span>
+                          <span className="text-[10px] text-ivory/40 font-normal lowercase">(optional)</span>
                         </label>
                         <div className="relative">
                           <select
@@ -609,7 +812,7 @@ export function ConsultationSection() {
                               </option>
                             ))}
                           </select>
-                          <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3.5 pointer-events-none" />
+                          <ChevronDown className="w-4 h-4 text-gold absolute right-2.5 top-3 pointer-events-none" />
                         </div>
                       </div>
                     </div>
