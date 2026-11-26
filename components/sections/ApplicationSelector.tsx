@@ -122,33 +122,34 @@ export function ApplicationSelector() {
                         transition={{ duration: 0.35, delay: 0.1 }}
                         className="relative z-10 w-full h-full p-6 sm:p-8 flex flex-col justify-end"
                       >
-                        {/* Application Name */}
-                        <h3 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide drop-shadow-[0_4px_14px_rgba(0,0,0,0.95)]">
-                          {space.title}
-                        </h3>
+                        {/* Unified Brand Magenta Box: Application Name + Curated Stones */}
+                        <div className="inline-block max-w-xl bg-maroon/90 border border-gold/50 rounded-2xl p-4 sm:p-5 backdrop-blur-md shadow-[0_14px_36px_rgba(0,0,0,0.45)] space-y-3">
+                          <h3 className="font-marcellus text-2xl sm:text-3xl lg:text-4xl text-ivory tracking-wide">
+                            {space.title}
+                          </h3>
 
-                        {/* Enhanced Curated Stones Dock */}
-                        {space.recommendedStones && space.recommendedStones.length > 0 && (
-                          <div className="mt-3.5 inline-flex flex-wrap items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-[#1A050B]/85 border border-gold/45 backdrop-blur-md shadow-[0_10px_28px_rgba(0,0,0,0.45)] max-w-full">
-                            <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
-                              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-                              <span>Curated</span>
-                            </span>
-                            <span className="hidden sm:block w-px h-4 bg-gold/30 shrink-0" />
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              {space.recommendedStones.slice(0, 3).map((st) => (
-                                <Link
-                                  key={st.slug}
-                                  href={`/products/${st.slug}`}
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="px-3 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/35 hover:border-gold text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all duration-200 hover:scale-105"
-                                >
-                                  {st.name}
-                                </Link>
-                              ))}
+                          {space.recommendedStones && space.recommendedStones.length > 0 && (
+                            <div className="pt-2.5 border-t border-gold/25 flex flex-wrap items-center gap-2">
+                              <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
+                                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                                <span>Curated</span>
+                              </span>
+                              <span className="hidden sm:block w-px h-4 bg-gold/30 shrink-0" />
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                {space.recommendedStones.slice(0, 3).map((st) => (
+                                  <Link
+                                    key={st.slug}
+                                    href={`/products/${st.slug}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="px-3 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/40 hover:border-gold text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all duration-200 hover:scale-105"
+                                  >
+                                    {st.name}
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -216,30 +217,32 @@ export function ApplicationSelector() {
                         exit={{ opacity: 0, y: 10 }}
                         className="relative z-10 h-full p-5 sm:p-6 flex flex-col justify-end"
                       >
-                        <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory drop-shadow-[0_4px_12px_rgba(0,0,0,0.95)]">
-                          {space.title}
-                        </h3>
+                        <div className="bg-maroon/90 border border-gold/50 rounded-2xl p-4 backdrop-blur-md shadow-lg space-y-2.5">
+                          <h3 className="font-marcellus text-2xl sm:text-3xl text-ivory">
+                            {space.title}
+                          </h3>
 
-                        {space.recommendedStones && space.recommendedStones.length > 0 && (
-                          <div className="mt-3 inline-flex flex-wrap items-center gap-2 px-3 py-2 rounded-2xl bg-[#1A050B]/85 border border-gold/45 backdrop-blur-md shadow-lg max-w-full">
-                            <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
-                              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-                              <span>Curated</span>
-                            </span>
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              {space.recommendedStones.slice(0, 3).map((st) => (
-                                <Link
-                                  key={st.slug}
-                                  href={`/products/${st.slug}`}
-                                  onClick={(e) => e.stopPropagation()}
-                                  className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/35 text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all"
-                                >
-                                  {st.name}
-                                </Link>
-                              ))}
+                          {space.recommendedStones && space.recommendedStones.length > 0 && (
+                            <div className="pt-2 border-t border-gold/25 flex flex-wrap items-center gap-2">
+                              <span className="inline-flex items-center gap-1.5 text-[10px] font-montserrat uppercase tracking-[0.18em] text-gold font-bold shrink-0">
+                                <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                                <span>Curated</span>
+                              </span>
+                              <div className="flex flex-wrap items-center gap-1.5">
+                                {space.recommendedStones.slice(0, 3).map((st) => (
+                                  <Link
+                                    key={st.slug}
+                                    href={`/products/${st.slug}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-gold border border-gold/40 text-[11px] font-montserrat font-medium text-ivory hover:text-maroon-deep transition-all"
+                                  >
+                                    {st.name}
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
