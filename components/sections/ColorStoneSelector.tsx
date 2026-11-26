@@ -118,20 +118,17 @@ export function ColorStoneSelector() {
               <Link
                 href={`/products?color=${palette.query}`}
                 aria-label={`Explore all ${palette.name} stones and marbles`}
-                className="group relative flex flex-col rounded-2xl sm:rounded-3xl border-2 border-gold/45 hover:border-gold bg-white transition-all duration-300 shadow-[0_6px_22px_rgba(84,27,42,0.08)] hover:shadow-[0_18px_38px_rgba(84,27,42,0.18)] hover:-translate-y-1 cursor-pointer overflow-hidden h-[220px] sm:h-[240px] lg:h-[260px]"
+                style={{ backgroundColor: palette.solidColor }}
+                className="group relative flex flex-col justify-between p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border-2 border-gold/45 hover:border-gold transition-all duration-300 shadow-[0_6px_22px_rgba(84,27,42,0.08)] hover:shadow-[0_18px_38px_rgba(84,27,42,0.18)] hover:-translate-y-1 cursor-pointer overflow-hidden h-[220px] sm:h-[240px] lg:h-[260px]"
               >
-                {/* Upper Rounded-Edge Solid Colour Block */}
-                <div
-                  className="relative flex-1 w-full"
-                  style={{ backgroundColor: palette.solidColor }}
-                >
-                  {/* Architectural Corner Brackets */}
-                  <div className="absolute top-3.5 left-3.5 w-3 h-3 border-t-2 border-l-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none" />
-                  <div className="absolute top-3.5 right-3.5 w-3 h-3 border-t-2 border-r-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300 pointer-events-none" />
+                {/* Architectural Corner Brackets */}
+                <div className="flex items-center justify-between w-full pointer-events-none">
+                  <div className="w-3 h-3 border-t-2 border-l-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300" />
+                  <div className="w-3 h-3 border-t-2 border-r-2 border-gold/60 group-hover:w-4 group-hover:h-4 group-hover:border-gold transition-all duration-300" />
                 </div>
 
-                {/* Bottom Brand Magenta Band with Label-Styled Colour Name */}
-                <div className="relative w-full bg-[#541B2A] border-t border-gold/45 px-4 sm:px-5 py-3.5 sm:py-4 flex items-center justify-between">
+                {/* Floating Rounded Brand Magenta Box with Surrounding Space */}
+                <div className="relative w-full bg-[#541B2A]/95 border border-gold/60 rounded-xl sm:rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 flex items-center justify-between shadow-[0_10px_28px_rgba(0,0,0,0.28)] backdrop-blur-md">
                   <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-[#2B0A13]/80 group-hover:bg-gold border border-gold/50 group-hover:border-gold font-montserrat text-xs sm:text-[13px] uppercase tracking-[0.16em] font-semibold text-ivory group-hover:text-[#541B2A] transition-all duration-200 shadow-xs">
                     {palette.name}
                   </span>
