@@ -18,8 +18,7 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
-import { CATEGORY_TYPES_MAP } from "@/data/categoryTypes";
-import { FilterState, APPLICATION_OPTIONS } from "./ProductFilters";
+import { FilterState } from "./ProductFilters";
 
 export const PRIMARY_PRODUCTS = [
   { id: "Natural Stones", name: "Natural Stones", shortName: "Natural Stones" },
@@ -29,8 +28,6 @@ export const PRIMARY_PRODUCTS = [
   { id: "Stone Art", name: "Stone Art & Sculptures", shortName: "Stone Art" },
   { id: "Mosaics", name: "Mosaics & Medallions", shortName: "Mosaics" },
 ];
-
-const ALL_PRODUCT_IDS = PRIMARY_PRODUCTS.map((p) => p.id);
 
 export const COLOR_PALETTE_OPTIONS: {
   name: string;
@@ -57,6 +54,37 @@ export const COLOR_PALETTE_OPTIONS: {
     border: "#DDB62B",
   },
 ];
+
+const KNOWN_ORIGIN_COUNTRIES = [
+  "Italy",
+  "Greece",
+  "Brazil",
+  "India",
+  "Spain",
+  "Turkey",
+  "South Africa",
+  "Portugal",
+  "Iran",
+  "Egypt",
+  "China",
+  "Morocco",
+  "Norway",
+  "Madagascar",
+];
+
+function extractOriginLabel(rawOrigin: string): string {
+  const trimmed = rawOrigin.trim();
+  for (const country of KNOWN_ORIGIN_COUNTRIES) {
+    if (trimmed.toLowerCase().includes(country.toLowerCase())) {
+      return country;
+    }
+  }
+  const parts = trimmed.split(",");
+  if (parts.length > 1) {
+    return parts[parts.length - 1].trim();
+  }
+  return trimmed;
+}
 
 const EXTRA_SWATCH_MAP: Record<string, { bg: string; border: string }> = {
   purple: { bg: "#6D28D9", border: "#4C1D95" },
@@ -85,42 +113,15 @@ const EXTRA_SWATCH_MAP: Record<string, { bg: string; border: string }> = {
 
 function resolveDynamicColorSwatch(colorName: string): { bg: string; border: string } {
   const lower = colorName.trim().toLowerCase();
+  const known = COLOR_PALETTE_OPTIONS.find(
+    (c) => c.name.toLowerCase() === lower || c.label.toLowerCase() === lower
+  );
+  if (known) return { bg: known.bg, border: known.border };
   for (const [key, val] of Object.entries(EXTRA_SWATCH_MAP)) {
     if (lower.includes(key)) return val;
   }
   return { bg: lower, border: "#DDB62B" };
 }
-
-const FINISH_OPTIONS = [
-  "Polished",
-  "Honed",
-  "Leathered",
-  "Translucent Backlit",
-  "Hand-Carved",
-  "Waterjet Precision",
-  "Brushed",
-  "Antique",
-];
-
-const ORIGIN_COUNTRIES = [
-  "Italy",
-  "Greece",
-  "Brazil",
-  "India",
-  "Spain",
-  "Turkey",
-  "South Africa",
-];
-
-const PATTERN_OPTIONS = [
-  "Bookmatch-ready",
-  "Dramatic",
-  "Intricate Inlay",
-  "Artisanal Mosaic",
-  "Hand-Sculpted",
-  "Veined",
-  "Uniform",
-];
 
 interface TopLFilterBarProps {
   filterState: FilterState;
@@ -212,14 +213,41 @@ export function TopLFilterBar({
     onFilterChange({ ...filterState, [key]: updated });
   };
 
+  // Dynamically derive ONLY available Product Categories from allProducts
+  const availableCategories = useMemo(() => {
+    const seen = new Map<string, { id: string; name: string; count: number }>();
+    allProducts.forEach((p) => {
+      const cat = (p.category || "").trim();
+      if (!cat) return;
+      const existing = seen.get(cat);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        const preset = PRIMARY_PRODUCTS.find((pr) => pr.id === cat);
+        seen.set(cat, {
+          id: cat,
+          name: preset ? preset.name : cat,
+          count: 1,
+        });
+      }
+    });
+    return Array.from(seen.values());
+  }, [allProducts]);
+
   const handleCategoryToggle = (catId: string) => {
     const exists = filterState.category.includes(catId);
     if (exists) {
-      const childTypes = CATEGORY_TYPES_MAP[catId] || [];
+      const remainingCats = filterState.category.filter((c) => c !== catId);
+      const validSubs = new Set(
+        allProducts
+          .filter((p) => remainingCats.length === 0 || remainingCats.includes(p.category))
+          .map((p) => p.subCategory)
+          .filter(Boolean)
+      );
       onFilterChange({
         ...filterState,
-        category: filterState.category.filter((c) => c !== catId),
-        subCategory: filterState.subCategory.filter((s) => !childTypes.includes(s)),
+        category: remainingCats,
+        subCategory: filterState.subCategory.filter((s) => validSubs.has(s)),
       });
     } else {
       onFilterChange({
@@ -230,62 +258,57 @@ export function TopLFilterBar({
   };
 
   const isAllCategories =
-    filterState.category.length === 0 || filterState.category.length === ALL_PRODUCT_IDS.length;
+    filterState.category.length === 0 ||
+    (availableCategories.length > 0 &&
+      filterState.category.length === availableCategories.length);
 
-  const activeCategoriesForSubs = useMemo(() => {
-    return filterState.category.length > 0 ? filterState.category : Object.keys(CATEGORY_TYPES_MAP);
-  }, [filterState.category]);
-
-  // Unique sub-categories for currently selected product categories
+  // Dynamically derive ONLY available Sub-Categories for the selected categories (or allProducts)
   const visibleSubCategories = useMemo(() => {
-    const seen = new Set<string>();
-    const list: string[] = [];
-    activeCategoriesForSubs.forEach((cat) => {
-      (CATEGORY_TYPES_MAP[cat] || []).forEach((s) => {
-        if (!seen.has(s)) {
-          seen.add(s);
-          list.push(s);
-        }
-      });
+    const counts = new Map<string, number>();
+    allProducts.forEach((p) => {
+      if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
+        return;
+      }
+      const sub = (p.subCategory || "").trim();
+      if (!sub) return;
+      counts.set(sub, (counts.get(sub) || 0) + 1);
     });
-    return list;
-  }, [activeCategoriesForSubs]);
+    return Array.from(counts.entries()).map(([name, count]) => ({ name, count }));
+  }, [allProducts, filterState.category]);
 
-  const getProductCountForSub = (sub: string) => {
-    const s = sub.toLowerCase().replace(/[\s-]/g, "");
-    return allProducts.filter((p) => {
-      const pSub = (p.subCategory || "").toLowerCase().replace(/[\s-]/g, "");
-      const pName = p.name.toLowerCase().replace(/[\s-]/g, "");
-      return pSub.includes(s) || s.includes(pSub) || pName.includes(s);
-    }).length;
-  };
-
-  // Automatically discover any new colorFamily added to products
+  // Dynamically derive ONLY available Colors from allProducts (with automatic swatch resolution)
   const dynamicColorOptions = useMemo(() => {
-    const options = [...COLOR_PALETTE_OPTIONS];
-    const knownKeys = new Set<string>();
-    options.forEach((opt) => {
-      knownKeys.add(opt.name.toLowerCase());
-      knownKeys.add(opt.label.toLowerCase());
-    });
+    const seen = new Map<
+      string,
+      { name: string; label: string; bg: string; border: string; count: number }
+    >();
 
     allProducts.forEach((p) => {
       const raw = (p.colorFamily || "").trim();
       if (!raw) return;
       const lower = raw.toLowerCase();
-      if (!knownKeys.has(lower)) {
-        knownKeys.add(lower);
-        const swatch = resolveDynamicColorSwatch(raw);
-        options.push({
-          name: raw,
-          label: raw,
+      const preset = COLOR_PALETTE_OPTIONS.find(
+        (c) => c.name.toLowerCase() === lower || c.label.toLowerCase() === lower
+      );
+      const key = preset ? preset.name : raw;
+      const existing = seen.get(key);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        const swatch = preset
+          ? { bg: preset.bg, border: preset.border }
+          : resolveDynamicColorSwatch(raw);
+        seen.set(key, {
+          name: key,
+          label: preset ? preset.label : raw,
           bg: swatch.bg,
           border: swatch.border,
+          count: 1,
         });
       }
     });
 
-    return options;
+    return Array.from(seen.values());
   }, [allProducts]);
 
   return (
@@ -415,7 +438,7 @@ export function TopLFilterBar({
             <span>All Products</span>
           </button>
 
-          {PRIMARY_PRODUCTS.map((prod) => {
+          {availableCategories.map((prod) => {
             const selected = filterState.category.includes(prod.id);
             return (
               <button
@@ -436,6 +459,13 @@ export function TopLFilterBar({
                   {selected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                 </span>
                 <span>{prod.name}</span>
+                <span
+                  className={`text-[10px] font-mono px-1.5 rounded-full ${
+                    selected ? "bg-gold/25 text-gold" : "bg-stone-200/70 text-stone-600"
+                  }`}
+                >
+                  {prod.count}
+                </span>
               </button>
             );
           })}
@@ -468,9 +498,8 @@ export function TopLFilterBar({
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5">
-          {visibleSubCategories.map((sub) => {
+          {visibleSubCategories.map(({ name: sub, count }) => {
             const selected = filterState.subCategory.includes(sub);
-            const count = getProductCountForSub(sub);
             return (
               <button
                 key={sub}
@@ -492,15 +521,13 @@ export function TopLFilterBar({
                   {selected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                 </span>
                 <span>{sub}</span>
-                {count > 0 && (
-                  <span
-                    className={`text-[10px] font-mono px-1.5 rounded-full ${
-                      selected ? "bg-maroon-deep/15 text-maroon-deep" : "bg-stone-100 text-stone-500"
-                    }`}
-                  >
-                    {count}
-                  </span>
-                )}
+                <span
+                  className={`text-[10px] font-mono px-1.5 rounded-full ${
+                    selected ? "bg-maroon-deep/15 text-maroon-deep" : "bg-stone-100 text-stone-500"
+                  }`}
+                >
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -688,6 +715,48 @@ export function SideLFilterRail({
     filterState.origin.length +
     filterState.veining.length;
 
+  // Dynamically derive ONLY available Applications, Finishes, Origins & Patterns from allProducts
+  const availableApplications = useMemo(() => {
+    const counts = new Map<string, number>();
+    allProducts.forEach((p) => {
+      (p.applications || []).forEach((app) => {
+        const clean = app.trim();
+        if (clean) counts.set(clean, (counts.get(clean) || 0) + 1);
+      });
+    });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  }, [allProducts]);
+
+  const availableFinishes = useMemo(() => {
+    const counts = new Map<string, number>();
+    allProducts.forEach((p) => {
+      (p.finishes || []).forEach((fin) => {
+        const clean = String(fin).trim();
+        if (clean) counts.set(clean, (counts.get(clean) || 0) + 1);
+      });
+    });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  }, [allProducts]);
+
+  const availableOrigins = useMemo(() => {
+    const counts = new Map<string, number>();
+    allProducts.forEach((p) => {
+      if (!p.origin) return;
+      const label = extractOriginLabel(p.origin);
+      if (label) counts.set(label, (counts.get(label) || 0) + 1);
+    });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  }, [allProducts]);
+
+  const availablePatterns = useMemo(() => {
+    const counts = new Map<string, number>();
+    allProducts.forEach((p) => {
+      const pat = (p.veining || "").trim();
+      if (pat) counts.set(pat, (counts.get(pat) || 0) + 1);
+    });
+    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
+  }, [allProducts]);
+
   const content = (
     <div className="space-y-3.5">
       {/* 1. Application Multi-Selector (Top of Side Filter) */}
@@ -710,24 +779,15 @@ export function SideLFilterRail({
           )}
         </div>
         <div className="space-y-0.5">
-          {APPLICATION_OPTIONS.map((app) => {
-            const count = allProducts.filter((p) =>
-              p.applications.some(
-                (a) =>
-                  a.toLowerCase().includes(app.toLowerCase()) ||
-                  app.toLowerCase().includes(a.toLowerCase())
-              )
-            ).length;
-            return (
-              <SideTickItem
-                key={app}
-                checked={filterState.applications.includes(app)}
-                onClick={() => toggleSideFilter("applications", app)}
-                label={app}
-                count={count}
-              />
-            );
-          })}
+          {availableApplications.map(({ label: app, count }) => (
+            <SideTickItem
+              key={app}
+              checked={filterState.applications.includes(app)}
+              onClick={() => toggleSideFilter("applications", app)}
+              label={app}
+              count={count}
+            />
+          ))}
         </div>
       </div>
 
@@ -751,18 +811,15 @@ export function SideLFilterRail({
           )}
         </div>
         <div className="space-y-0.5">
-          {FINISH_OPTIONS.map((fin) => {
-            const count = allProducts.filter((p) => p.finishes.some((f) => f === fin)).length;
-            return (
-              <SideTickItem
-                key={fin}
-                checked={filterState.finishes.includes(fin)}
-                onClick={() => toggleSideFilter("finishes", fin)}
-                label={fin}
-                count={count}
-              />
-            );
-          })}
+          {availableFinishes.map(({ label: fin, count }) => (
+            <SideTickItem
+              key={fin}
+              checked={filterState.finishes.includes(fin)}
+              onClick={() => toggleSideFilter("finishes", fin)}
+              label={fin}
+              count={count}
+            />
+          ))}
         </div>
       </div>
 
@@ -786,20 +843,15 @@ export function SideLFilterRail({
           )}
         </div>
         <div className="space-y-0.5">
-          {ORIGIN_COUNTRIES.map((country) => {
-            const count = allProducts.filter((p) =>
-              p.origin.toLowerCase().includes(country.toLowerCase())
-            ).length;
-            return (
-              <SideTickItem
-                key={country}
-                checked={filterState.origin.includes(country)}
-                onClick={() => toggleSideFilter("origin", country)}
-                label={country}
-                count={count}
-              />
-            );
-          })}
+          {availableOrigins.map(({ label: country, count }) => (
+            <SideTickItem
+              key={country}
+              checked={filterState.origin.includes(country)}
+              onClick={() => toggleSideFilter("origin", country)}
+              label={country}
+              count={count}
+            />
+          ))}
         </div>
       </div>
 
@@ -823,18 +875,15 @@ export function SideLFilterRail({
           )}
         </div>
         <div className="space-y-0.5">
-          {PATTERN_OPTIONS.map((pat) => {
-            const count = allProducts.filter((p) => p.veining === pat).length;
-            return (
-              <SideTickItem
-                key={pat}
-                checked={filterState.veining.includes(pat)}
-                onClick={() => toggleSideFilter("veining", pat)}
-                label={pat}
-                count={count}
-              />
-            );
-          })}
+          {availablePatterns.map(({ label: pat, count }) => (
+            <SideTickItem
+              key={pat}
+              checked={filterState.veining.includes(pat)}
+              onClick={() => toggleSideFilter("veining", pat)}
+              label={pat}
+              count={count}
+            />
+          ))}
         </div>
       </div>
     </div>
