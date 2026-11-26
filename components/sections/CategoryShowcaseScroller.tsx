@@ -534,19 +534,19 @@ export function CategoryShowcaseScroller() {
                       className="relative z-20 h-full p-6 sm:p-8 lg:p-10 flex flex-col justify-end"
                     >
                       {/* Bottom Area: Unified Brand Magenta Box with Title & Sub-Product Labels */}
-                      <div className="inline-block max-w-xl bg-maroon/90 border border-gold/50 rounded-2xl p-4 sm:p-6 backdrop-blur-md shadow-[0_14px_36px_rgba(0,0,0,0.45)] space-y-3.5">
+                      <div className="inline-block max-w-xl bg-[#541B2A]/95 border border-gold/60 rounded-2xl p-4 sm:p-6 backdrop-blur-md shadow-[0_14px_36px_rgba(0,0,0,0.45)] space-y-3.5">
                         <h3 className="font-marcellus text-2xl sm:text-4xl lg:text-5xl text-ivory font-normal leading-tight tracking-wide">
                           {item.title}
                         </h3>
 
                         {activeTab === "surfaces" && (
-                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2 border-t border-gold/25">
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 pt-2.5 border-t border-gold/30">
                             {getTypesForCategory(item.title).map((subProduct) => (
                               <Link
                                 key={subProduct}
                                 href={`${item.href}&subCategory=${encodeURIComponent(subProduct)}`}
                                 onClick={(e) => e.stopPropagation()}
-                                className="px-3 py-1 rounded-full bg-white/10 hover:bg-gold text-ivory hover:text-maroon-deep border border-gold/45 hover:border-gold font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.12em] font-medium transition-all duration-200 shadow-xs hover:scale-105"
+                                className="px-3 py-1 rounded-full bg-[#2B0A13]/80 hover:bg-gold text-ivory hover:text-maroon-deep border border-gold/50 hover:border-gold font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.12em] font-medium transition-all duration-200 shadow-xs hover:scale-105"
                               >
                                 {subProduct}
                               </Link>
