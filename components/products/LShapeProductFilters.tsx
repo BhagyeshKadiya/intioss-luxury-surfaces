@@ -18,7 +18,8 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import { StoneProduct } from "@/lib/types";
-import { FilterState } from "./ProductFilters";
+import { CATEGORY_TYPES_MAP } from "@/data/categoryTypes";
+import { FilterState, APPLICATION_OPTIONS } from "./ProductFilters";
 
 export const PRIMARY_PRODUCTS = [
   { id: "Natural Stones", name: "Natural Stones", shortName: "Natural Stones" },
@@ -29,6 +30,8 @@ export const PRIMARY_PRODUCTS = [
   { id: "Mosaics", name: "Mosaics & Medallions", shortName: "Mosaics" },
 ];
 
+const ALL_PRODUCT_IDS = PRIMARY_PRODUCTS.map((p) => p.id);
+
 export const COLOR_PALETTE_OPTIONS: {
   name: string;
   label: string;
@@ -36,12 +39,15 @@ export const COLOR_PALETTE_OPTIONS: {
   border: string;
 }[] = [
   { name: "White", label: "White", bg: "#FFFFFF", border: "#D6D3D1" },
+  { name: "Ivory", label: "Ivory", bg: "#FAF3E0", border: "#DDD2B8" },
   { name: "Beige", label: "Beige", bg: "#E5D3B8", border: "#CBB597" },
   { name: "Grey", label: "Grey", bg: "#8A8F98", border: "#6B7280" },
+  { name: "Charcoal", label: "Charcoal", bg: "#374151", border: "#1F2937" },
   { name: "Black", label: "Black", bg: "#18181B", border: "#09090B" },
   { name: "Gold-Yellow", label: "Gold", bg: "#D4AF37", border: "#A68620" },
   { name: "Brown", label: "Brown", bg: "#634130", border: "#442B1E" },
   { name: "Green", label: "Green", bg: "#1E563B", border: "#133D29" },
+  { name: "Teal", label: "Teal", bg: "#0F766E", border: "#115E59" },
   { name: "Blue", label: "Blue", bg: "#1E4E8C", border: "#133563" },
   { name: "Pink", label: "Pink", bg: "#D98A92", border: "#B56A72" },
   { name: "Red", label: "Red", bg: "#A3222A", border: "#78151C" },
@@ -213,41 +219,14 @@ export function TopLFilterBar({
     onFilterChange({ ...filterState, [key]: updated });
   };
 
-  // Dynamically derive ONLY available Product Categories from allProducts
-  const availableCategories = useMemo(() => {
-    const seen = new Map<string, { id: string; name: string; count: number }>();
-    allProducts.forEach((p) => {
-      const cat = (p.category || "").trim();
-      if (!cat) return;
-      const existing = seen.get(cat);
-      if (existing) {
-        existing.count += 1;
-      } else {
-        const preset = PRIMARY_PRODUCTS.find((pr) => pr.id === cat);
-        seen.set(cat, {
-          id: cat,
-          name: preset ? preset.name : cat,
-          count: 1,
-        });
-      }
-    });
-    return Array.from(seen.values());
-  }, [allProducts]);
-
   const handleCategoryToggle = (catId: string) => {
     const exists = filterState.category.includes(catId);
     if (exists) {
-      const remainingCats = filterState.category.filter((c) => c !== catId);
-      const validSubs = new Set(
-        allProducts
-          .filter((p) => remainingCats.length === 0 || remainingCats.includes(p.category))
-          .map((p) => p.subCategory)
-          .filter(Boolean)
-      );
+      const childTypes = CATEGORY_TYPES_MAP[catId] || [];
       onFilterChange({
         ...filterState,
-        category: remainingCats,
-        subCategory: filterState.subCategory.filter((s) => validSubs.has(s)),
+        category: filterState.category.filter((c) => c !== catId),
+        subCategory: filterState.subCategory.filter((s) => !childTypes.includes(s)),
       });
     } else {
       onFilterChange({
@@ -258,57 +237,59 @@ export function TopLFilterBar({
   };
 
   const isAllCategories =
-    filterState.category.length === 0 ||
-    (availableCategories.length > 0 &&
-      filterState.category.length === availableCategories.length);
+    filterState.category.length === 0 || filterState.category.length === ALL_PRODUCT_IDS.length;
 
-  // Dynamically derive ONLY available Sub-Categories for the selected categories (or allProducts)
+  const activeCategoriesForSubs = useMemo(() => {
+    return filterState.category.length > 0 ? filterState.category : Object.keys(CATEGORY_TYPES_MAP);
+  }, [filterState.category]);
+
+  // Sub-categories from CATEGORY_TYPES_MAP for selected categories
   const visibleSubCategories = useMemo(() => {
-    const counts = new Map<string, number>();
-    allProducts.forEach((p) => {
-      if (filterState.category.length > 0 && !filterState.category.includes(p.category)) {
-        return;
-      }
-      const sub = (p.subCategory || "").trim();
-      if (!sub) return;
-      counts.set(sub, (counts.get(sub) || 0) + 1);
+    const seen = new Set<string>();
+    const list: { name: string; count: number }[] = [];
+    activeCategoriesForSubs.forEach((cat) => {
+      (CATEGORY_TYPES_MAP[cat] || []).forEach((sub) => {
+        if (!seen.has(sub)) {
+          seen.add(sub);
+          const s = sub.toLowerCase().replace(/[\s-]/g, "");
+          const count = allProducts.filter((p) => {
+            const pSub = (p.subCategory || "").toLowerCase().replace(/[\s-]/g, "");
+            const pName = p.name.toLowerCase().replace(/[\s-]/g, "");
+            return pSub.includes(s) || s.includes(pSub) || pName.includes(s);
+          }).length;
+          list.push({ name: sub, count });
+        }
+      });
     });
-    return Array.from(counts.entries()).map(([name, count]) => ({ name, count }));
-  }, [allProducts, filterState.category]);
+    return list;
+  }, [activeCategoriesForSubs, allProducts]);
 
-  // Dynamically derive ONLY available Colors from allProducts (with automatic swatch resolution)
+  // All marble & stone colors + automatically discover any new colorFamily added to products
   const dynamicColorOptions = useMemo(() => {
-    const seen = new Map<
-      string,
-      { name: string; label: string; bg: string; border: string; count: number }
-    >();
+    const options = [...COLOR_PALETTE_OPTIONS];
+    const knownKeys = new Set<string>();
+    options.forEach((opt) => {
+      knownKeys.add(opt.name.toLowerCase());
+      knownKeys.add(opt.label.toLowerCase());
+    });
 
     allProducts.forEach((p) => {
       const raw = (p.colorFamily || "").trim();
       if (!raw) return;
       const lower = raw.toLowerCase();
-      const preset = COLOR_PALETTE_OPTIONS.find(
-        (c) => c.name.toLowerCase() === lower || c.label.toLowerCase() === lower
-      );
-      const key = preset ? preset.name : raw;
-      const existing = seen.get(key);
-      if (existing) {
-        existing.count += 1;
-      } else {
-        const swatch = preset
-          ? { bg: preset.bg, border: preset.border }
-          : resolveDynamicColorSwatch(raw);
-        seen.set(key, {
-          name: key,
-          label: preset ? preset.label : raw,
+      if (!knownKeys.has(lower)) {
+        knownKeys.add(lower);
+        const swatch = resolveDynamicColorSwatch(raw);
+        options.push({
+          name: raw,
+          label: raw,
           bg: swatch.bg,
           border: swatch.border,
-          count: 1,
         });
       }
     });
 
-    return Array.from(seen.values());
+    return options;
   }, [allProducts]);
 
   return (
@@ -438,7 +419,7 @@ export function TopLFilterBar({
             <span>All Products</span>
           </button>
 
-          {availableCategories.map((prod) => {
+          {PRIMARY_PRODUCTS.map((prod) => {
             const selected = filterState.category.includes(prod.id);
             return (
               <button
@@ -459,13 +440,6 @@ export function TopLFilterBar({
                   {selected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                 </span>
                 <span>{prod.name}</span>
-                <span
-                  className={`text-[10px] font-mono px-1.5 rounded-full ${
-                    selected ? "bg-gold/25 text-gold" : "bg-stone-200/70 text-stone-600"
-                  }`}
-                >
-                  {prod.count}
-                </span>
               </button>
             );
           })}
@@ -715,18 +689,7 @@ export function SideLFilterRail({
     filterState.origin.length +
     filterState.veining.length;
 
-  // Dynamically derive ONLY available Applications, Finishes, Origins & Patterns from allProducts
-  const availableApplications = useMemo(() => {
-    const counts = new Map<string, number>();
-    allProducts.forEach((p) => {
-      (p.applications || []).forEach((app) => {
-        const clean = app.trim();
-        if (clean) counts.set(clean, (counts.get(clean) || 0) + 1);
-      });
-    });
-    return Array.from(counts.entries()).map(([label, count]) => ({ label, count }));
-  }, [allProducts]);
-
+  // Static Applications (all architectural spaces) + Dynamic Finishes, Origins & Patterns from allProducts
   const availableFinishes = useMemo(() => {
     const counts = new Map<string, number>();
     allProducts.forEach((p) => {
@@ -779,15 +742,24 @@ export function SideLFilterRail({
           )}
         </div>
         <div className="space-y-0.5">
-          {availableApplications.map(({ label: app, count }) => (
-            <SideTickItem
-              key={app}
-              checked={filterState.applications.includes(app)}
-              onClick={() => toggleSideFilter("applications", app)}
-              label={app}
-              count={count}
-            />
-          ))}
+          {APPLICATION_OPTIONS.map((app) => {
+            const count = allProducts.filter((p) =>
+              p.applications.some(
+                (a) =>
+                  a.toLowerCase().includes(app.toLowerCase()) ||
+                  app.toLowerCase().includes(a.toLowerCase())
+              )
+            ).length;
+            return (
+              <SideTickItem
+                key={app}
+                checked={filterState.applications.includes(app)}
+                onClick={() => toggleSideFilter("applications", app)}
+                label={app}
+                count={count}
+              />
+            );
+          })}
         </div>
       </div>
 
