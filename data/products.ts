@@ -1110,5 +1110,89 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     pairsWithSlugs: ["light-grey-quartzite", "paunazo-quartzite", "white-crystal-quartzite-lot-jnc-01"],
   },
+  {
+    id: "p-tiffany-green",
+    slug: "tiffany-green",
+    name: "Tiffany Green",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "Multi",
+    origin: "Brazil",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/tiffany-green/tiffany-green-slab.png",
+    veinCloseUpImage: "/images/stones/tiffany-green/tiffany-green-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/tiffany-green/tiffany-green-slab.png",
+      "/images/stones/tiffany-green/tiffany-green-kitchen-countertop.png",
+      "/images/stones/tiffany-green/tiffany-green-bathroom.png",
+      "/images/stones/tiffany-green/tiffany-green-table-top.png",
+      "/images/stones/tiffany-green/tiffany-green-cladding-interior.png",
+    ],
+    description:
+      "Tiffany Green Quartzite is a rare Brazilian metamorphic natural stone distinguished by luminous turquoise-jade and seafoam-green mineral islands framed by rich burnt-sienna, copper-rust, and warm ochre iron-oxide veining. Supplied in expansive 114\" x 80\" (290 x 203 cm) 20mm bookmatch-ready slabs, it pairs the jewel-toned artistry of semi-precious amazonite with true quartzite performance—Mohs 7 hardness, acid resistance, and <0.2% water absorption—making it an unforgettable architectural surface for butler's pantries, kitchen countertops, spa bathroom plinths, bookmatched elevator lobbies, and bespoke brass-framed console or dining table tops.",
+    bestSuitedFor: [
+      "Jewel-Toned Kitchen Countertops, Butler's Pantries & Cocktail Bars",
+      "Bookmatched Lift Lobbies, Hotel Corridors & Feature Interior Wall Cladding",
+      "Luxury Spa Bathroom Plinths, Tub Surrounds & Statement Floors",
+      "Bespoke Brass-Framed Console Tables, Coffee Tables & Dining Tops",
+    ],
+    specs: {
+      countryOfOrigin: "Brazil",
+      density: "~2,660 kg/m³ (Mohs 7.0 · <0.2% Water Absorption)",
+      dimensions: "114\" x 80\" (290 x 203 cm) · 20mm Thickness",
+      quarryLocation: "Exotic Brazilian Quartzite Quarry · Bookmatch Lot HX-23155",
+      recommendedCare:
+        "Dense natural quartzite (Mohs 7) resistant to everyday kitchen acids, coffee, and heat up to 260°C. Clean with warm water and a pH-neutral stone cleaner; apply a penetrating fluoropolymer sealer periodically.",
+    },
+    faqs: [
+      {
+        question: "What makes Tiffany Green Quartzite different from green marble?",
+        shortAnswer: "Tiffany Green is a Mohs 7 metamorphic quartzite—acid-resistant and scratch-resistant, unlike softer calcitic green marble.",
+        answer:
+          "While classic green marbles (such as Verde Guatemala or serpentine) are softer calcitic or serpentine stones (Mohs 3–4) that can etch or scratch in busy kitchens, Tiffany Green is a true Brazilian quartzite scoring 7 on the Mohs scale. It resists lemon, vinegar, espresso, and cookware heat up to 260°C while showcasing vivid turquoise-green and copper-rust veining.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness of Tiffany Green (Lot HX-23155)?",
+        shortAnswer: "Extra-tall jumbo slabs measure 114\" x 80\" (290 x 203 cm) at a calibrated 20mm thickness.",
+        answer:
+          "Lot HX-23155 Tiffany Green slabs measure 114 inches in length by 80 inches in height (290 cm × 203 cm) at a calibrated 20mm thickness, providing exceptional vertical height for full-height lobby walls and generous depth for oversized kitchen islands.",
+      },
+      {
+        question: "Can Tiffany Green Quartzite be used in wet spa bathrooms and tub plinths?",
+        shortAnswer: "Yes. With <0.2% water absorption (ASTM C97), it excels on bathroom plinths, floors, and vanity walls.",
+        answer:
+          "With ASTM C97 water absorption below 0.2%, Tiffany Green Quartzite handles continuous bathroom humidity, freestanding tub plinths, and wet zones without staining or warping. Honed or leathered finishes are available for wet floor grip.",
+      },
+      {
+        question: "Are Tiffany Green slabs bookmatch-ready for elevator lobbies and feature walls?",
+        shortAnswer: "Yes. Sequential slabs from Lot HX-23155 are precision-cut for symmetrical bookmatched wall cladding.",
+        answer:
+          "Sequential slabs from Lot HX-23155 are cut and polished in order so the turquoise mineral pockets and copper-oxide veins mirror seamlessly across luxury lift lobbies, double-height reception walls, and residential feature walls.",
+      },
+      {
+        question: "What hardware and cabinetry pair best with Tiffany Green Quartzite?",
+        shortAnswer: "Aged brass, brushed bronze, copper sinks, walnut cabinetry, and warm ivory tones.",
+        answer:
+          "Tiffany Green's warm rust-copper veining pairs naturally with unlacquered brass, brushed bronze, copper undermount sinks, dark walnut joinery, and warm cream or limestone floors.",
+      },
+      {
+        question: "Where can architects and homeowners inspect Tiffany Green slabs in India?",
+        shortAnswer: "Inspect full 114\" x 80\" slabs at INTIOSS stockyards in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat.",
+        answer:
+          "Full-size 114\" x 80\" Tiffany Green Quartzite slabs (Lot HX-23155) are available for inspection across INTIOSS experience centers in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat with pan-India 48-hour dispatch.",
+      },
+    ],
+    pairsWithSlugs: ["patagonia", "light-grey-quartzite", "paunazo-quartzite"],
+  },
 ];
 
