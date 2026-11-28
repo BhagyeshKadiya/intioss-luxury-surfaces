@@ -1194,5 +1194,89 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     pairsWithSlugs: ["patagonia", "light-grey-quartzite", "paunazo-quartzite"],
   },
+  {
+    id: "p-panda-white",
+    slug: "panda-white",
+    name: "Panda White",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "White",
+    origin: "Exotic Quarry",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/panda-white/panda-white-slab.png",
+    veinCloseUpImage: "/images/stones/panda-white/panda-white-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/panda-white/panda-white-slab.png",
+      "/images/stones/panda-white/panda-white-kitchen-countertop.png",
+      "/images/stones/panda-white/panda-white-bathroom.png",
+      "/images/stones/panda-white/panda-white-table-top.png",
+      "/images/stones/panda-white/panda-white-cladding-interior.png",
+    ],
+    description:
+      "Panda White Quartzite is a striking monochrome natural stone defined by sweeping black and white mineral ribbons—broad obsidian-ink bands cutting diagonally across luminous snow-white crystalline fields with subtle sage-charcoal feathering. Supplied in 115\" x 73\" (292 x 185 cm) 20mm bookmatch-ready slabs, it brings high-contrast gallery drama to contemporary interiors while delivering genuine quartzite durability (Mohs 7 hardness, acid resistance, and <0.2% water absorption) for statement kitchen islands, sculptural powder room basins, bookmatched bedroom headboard walls, and executive study desks or dining table tops.",
+    bestSuitedFor: [
+      "High-Contrast Kitchen Islands & Architectural Perimeter Countertops",
+      "Bookmatched Master Bedroom Headboard Walls & Living Feature Cladding",
+      "Sculptural Powder Room Pedestal Basins & Luxury Spa Bathrooms",
+      "Executive Study Desks, Dining Tables & Bespoke Furniture Surfaces",
+    ],
+    specs: {
+      countryOfOrigin: "Exotic Quarry",
+      density: "~2,650 kg/m³ (Mohs 7.0 · <0.2% Water Absorption)",
+      dimensions: "115\" x 73\" (292 x 185 cm) · 20mm Thickness",
+      quarryLocation: "Exotic Quartzite Quarry · Bookmatch Lot HX-2455",
+      recommendedCare:
+        "Genuine metamorphic quartzite (Mohs 7) resistant to everyday kitchen acids, coffee, and heat up to 260°C. Wipe daily with warm water and a pH-neutral stone cleaner; apply a penetrating fluoropolymer sealer periodically.",
+    },
+    faqs: [
+      {
+        question: "How does Panda White Quartzite compare to traditional Panda White marble?",
+        shortAnswer: "Panda White Quartzite delivers the same bold black-and-white contrast with Mohs 7 hardness and zero acid etching.",
+        answer:
+          "Traditional Panda White marble is calcitic (Mohs 3) and vulnerable to etching from lemon, vinegar, and kitchen spills. Panda White Quartzite scores Mohs 7 on the hardness scale, resisting acid etching, knife marks, and heat up to 260°C—making it far superior for active kitchens and high-traffic commercial spaces.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness for Panda White (Lot HX-2455)?",
+        shortAnswer: "Monolithic slabs measure 115\" x 73\" (292 x 185 cm) at a calibrated 20mm thickness.",
+        answer:
+          "Lot HX-2455 Panda White slabs measure 115 inches in length by 73 inches in height (292 cm × 185 cm) at a calibrated 20mm thickness, providing generous span coverage for large kitchen islands, executive desks, and full-height feature walls.",
+      },
+      {
+        question: "Can Panda White Quartzite be bookmatched for bedroom and living room walls?",
+        shortAnswer: "Yes. Sequential slabs from Lot HX-2455 are bookmatch-ready for mirror-symmetrical feature walls.",
+        answer:
+          "Sequential slabs of Panda White are precision-cut and polished in sequence so the bold diagonal black-and-white bands mirror cleanly across master bedroom headboard walls, double-height foyers, and fireplace surrounds.",
+      },
+      {
+        question: "Is Panda White Quartzite suitable for powder room basins and wet bathrooms?",
+        shortAnswer: "Yes. With <0.2% water absorption (ASTM C97), it is ideal for monolithic basins, vanities, and wet walls.",
+        answer:
+          "With ASTM C97 water absorption below 0.2%, Panda White Quartzite resists moisture, soap residue, and cosmetic oils—making it ideal for bespoke carved pedestal sinks, vanity countertops, and full-height bathroom walls.",
+      },
+      {
+        question: "Which interior palettes complement Panda White Quartzite?",
+        shortAnswer: "Matte black joinery, warm walnut wood, brushed brass fixtures, and neutral stone flooring.",
+        answer:
+          "Panda White's crisp black-and-white contrast pairs effortlessly with matte charcoal cabinetry, warm walnut panelling, unlacquered brass hardware, and minimalist taupe or travertine floors.",
+      },
+      {
+        question: "Where can architects and homeowners inspect Panda White slabs in India?",
+        shortAnswer: "Inspect full 115\" x 73\" slabs at INTIOSS stockyards in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat.",
+        answer:
+          "Full-size 115\" x 73\" Panda White Quartzite slabs (Lot HX-2455) are available for private inspection across INTIOSS experience centers in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat with pan-India 48-hour dispatch.",
+      },
+    ],
+    pairsWithSlugs: ["light-grey-quartzite", "patagonia", "white-crystal-quartzite-lot-jnc-01"],
+  },
 ];
 
