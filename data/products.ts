@@ -1278,5 +1278,89 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     pairsWithSlugs: ["light-grey-quartzite", "patagonia", "white-crystal-quartzite-lot-jnc-01"],
   },
+  {
+    id: "p-golden-sky",
+    slug: "golden-sky",
+    name: "Golden Sky",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "Gold-Yellow",
+    origin: "Exotic Quarry",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Veined",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/golden-sky/golden-sky-slab.png",
+    veinCloseUpImage: "/images/stones/golden-sky/golden-sky-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/golden-sky/golden-sky-slab.png",
+      "/images/stones/golden-sky/golden-sky-kitchen-countertop.png",
+      "/images/stones/golden-sky/golden-sky-bathroom.png",
+      "/images/stones/golden-sky/golden-sky-table-top.png",
+      "/images/stones/golden-sky/golden-sky-cladding-interior.png",
+    ],
+    description:
+      "Golden Sky Quartzite is a luminous golden-amber metamorphic natural stone featuring sweeping honey, ochre, and warm champagne-sandstone bands traced by fine burnt-sienna mineral veins. Milled in jumbo 127\" x 79\" (323 x 201 cm) 20mm slabs, it radiates sun-warmed architectural elegance while delivering true quartzite strength—Mohs 7 hardness, acid resistance, and <0.2% water absorption—engineered for warm oak kitchen islands, vaulted spa steam bathrooms, double-height staircase feature walls, and sculptural round foyer or dining table tops.",
+    bestSuitedFor: [
+      "Warm Oak Kitchen Islands & Sunlit Culinary Countertops",
+      "Double-Height Staircase Feature Walls & Illuminated Niche Cladding",
+      "Vaulted Luxury Spa Steam Bathrooms, Wet Zones & Hammam Benches",
+      "Round Foyer Centerpiece Tables, Dining Tops & Bespoke Furniture",
+    ],
+    specs: {
+      countryOfOrigin: "Exotic Quarry",
+      density: "~2,640 kg/m³ (Mohs 7.0 · <0.2% Water Absorption)",
+      dimensions: "127\" x 79\" (323 x 201 cm) · 20mm Thickness",
+      quarryLocation: "Exotic Quartzite Quarry · Lot QM-180",
+      recommendedCare:
+        "True metamorphic quartzite (Mohs 7) resistant to everyday kitchen acids, turmeric/coffee stains when sealed, and heat up to 260°C. Wipe daily with warm water and pH-neutral stone cleaner; apply a penetrating fluoropolymer sealer periodically.",
+    },
+    faqs: [
+      {
+        question: "What makes Golden Sky Quartzite superior to yellow or golden marble for kitchens?",
+        shortAnswer: "Golden Sky is a Mohs 7 quartzite that resists acid etching, scratches, and 260°C heat—unlike softer golden marbles.",
+        answer:
+          "Warm golden marbles (such as Siena or Giallo Reale) are calcitic (Mohs 3) and quickly etch or lose polish around lemon, vinegar, and spices. Golden Sky is a true metamorphic quartzite scoring 7 on the Mohs scale, resisting kitchen acids, knife marks, and cookware heat up to 260°C.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness of Golden Sky (Lot QM-180)?",
+        shortAnswer: "Jumbo slabs measure 127\" x 79\" (323 x 201 cm) at a calibrated 20mm thickness.",
+        answer:
+          "Lot QM-180 Golden Sky slabs measure 127 inches in length by 79 inches in height (323 cm × 201 cm) at a calibrated 20mm architectural thickness—providing expansive continuous runs for oversized kitchen islands and tall feature walls.",
+      },
+      {
+        question: "Is Golden Sky Quartzite suitable for steam showers, hammams, and wet bathrooms?",
+        shortAnswer: "Yes. With <0.2% water absorption (ASTM C97), it excels in steam rooms, vaulted showers, and spa benches.",
+        answer:
+          "With ASTM C97 water absorption below 0.2%, Golden Sky Quartzite performs reliably in high-humidity steam showers, vaulted hammam ceilings, heated benches, and bathroom floors without warping or moisture staining.",
+      },
+      {
+        question: "How does Golden Sky look on double-height interior wall cladding?",
+        shortAnswer: "Its sweeping linear honey-gold veins create continuous horizontal movement across double-height walls.",
+        answer:
+          "Golden Sky's directional amber and champagne veining flows naturally across large-format slabs, making it ideal for double-height staircase feature walls, illuminated art niches, and hotel lobby panelling.",
+      },
+      {
+        question: "What woods and metals pair best with Golden Sky Quartzite?",
+        shortAnswer: "White oak, warm walnut, fluted timber pedestals, brushed brass, and antique bronze.",
+        answer:
+          "Golden Sky harmonizes effortlessly with natural white oak cabinetry, walnut joinery, travertine or limestone flooring, and brushed brass or antique bronze architectural hardware.",
+      },
+      {
+        question: "Where can architects and homeowners inspect Golden Sky slabs in India?",
+        shortAnswer: "Inspect full 127\" x 79\" slabs at INTIOSS stockyards in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat.",
+        answer:
+          "Full-size 127\" x 79\" Golden Sky Quartzite slabs (Lot QM-180) are available for inspection across INTIOSS experience centers in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat with pan-India 48-hour dispatch.",
+      },
+    ],
+    pairsWithSlugs: ["patagonia", "light-grey-quartzite", "paunazo-quartzite"],
+  },
 ];
 
