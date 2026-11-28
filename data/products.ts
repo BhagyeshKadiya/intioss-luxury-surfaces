@@ -1026,5 +1026,89 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     pairsWithSlugs: ["paunazo-quartzite", "white-crystal-quartzite-lot-jnc-01", "statuario-marble"],
   },
+  {
+    id: "p-patagonia",
+    slug: "patagonia",
+    name: "Patagonia",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "Multi",
+    origin: "Brazil",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/patagonia/patagonia-slab.png",
+    veinCloseUpImage: "/images/stones/patagonia/patagonia-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/patagonia/patagonia-slab.png",
+      "/images/stones/patagonia/patagonia-kitchen-countertop.png",
+      "/images/stones/patagonia/patagonia-bathroom.png",
+      "/images/stones/patagonia/patagonia-table-top.png",
+      "/images/stones/patagonia/patagonia-cladding-interior.png",
+    ],
+    description:
+      "Patagonia Quartzite is an extraordinary Brazilian metamorphic natural stone celebrated for its dramatic brecciated mineral mosaic—uniting creamy translucent quartz fields, warm taupe-ivory feldspar, charcoal tourmaline fractures, and silver-grey crystalline clusters. Supplied in expansive 136\" x 63\" (345 x 160 cm) 20mm bookmatch-ready slabs, Patagonia combines gallery-grade sculptural drama (including select translucent backlighting zones) with Mohs 7 hardness, acid resistance, and <0.2% water absorption for statement kitchen countertops, bookmatched bathroom walls, fireplace feature cladding, and executive boardroom or dining table tops.",
+    bestSuitedFor: [
+      "Statement Kitchen Countertops & Sculptural Waterfall Islands",
+      "Bookmatched Fireplace Walls & Double-Height Interior Feature Cladding",
+      "Luxury Spa Bathroom Vanity Walls & Backlit Architectural Zones",
+      "Executive Boardroom Tables, Dining Tops & Bespoke Furniture Pieces",
+    ],
+    specs: {
+      countryOfOrigin: "Brazil",
+      density: "~2,650 kg/m³ (Mohs 7.0 · <0.2% Water Absorption)",
+      dimensions: "136\" x 63\" (345 x 160 cm) · 20mm Thickness",
+      quarryLocation: "Minas Gerais / Bahia, Brazil · Bookmatch Lot A-11284",
+      recommendedCare:
+        "Genuine Brazilian natural quartzite (Mohs 7) impervious to lemon, coffee, wine, and hot cookware up to 260°C. Clean daily with warm water and a pH-neutral stone cleaner; apply a penetrating fluoropolymer sealer periodically.",
+    },
+    faqs: [
+      {
+        question: "What makes Patagonia Quartzite unique compared to standard marble or granite?",
+        shortAnswer: "Patagonia pairs dramatic translucent quartz crystals and multi-tone brecciated veining with Mohs 7 hardness and acid resistance.",
+        answer:
+          "Patagonia is a rare Brazilian igneous-metamorphic quartzite (Mohs 7) composed of large translucent quartz crystals, warm ivory feldspar, and bold charcoal-taupe mineral veins. Unlike calcitic marble, it will never etch from acids like lemon or vinegar, and it offers far greater visual depth and backlighting potential than conventional granite.",
+      },
+      {
+        question: "What are the exact slab dimensions and thickness of Patagonia at INTIOSS?",
+        shortAnswer: "Jumbo slabs measure 136\" x 63\" (345 x 160 cm) at a calibrated 20mm thickness.",
+        answer:
+          "Lot A-11284 Patagonia slabs measure 136 inches in length by 63 inches in height (345 cm × 160 cm) at a calibrated 20mm architectural thickness—ideal for long continuous kitchen runs, conference tables, and seamless full-height wall panels.",
+      },
+      {
+        question: "Can Patagonia Quartzite be backlit for interior wall cladding and bars?",
+        shortAnswer: "Yes. Patagonia's pure crystalline quartz pockets transmit warm LED light for dramatic backlit feature walls.",
+        answer:
+          "Select crystalline quartz zones within Patagonia Quartzite are naturally translucent. When paired with diffuser-backed LED panels behind fireplace surrounds, reception desks, or bathroom vanity walls, those quartz pockets glow warmly while the surrounding dark veins remain in crisp silhouette.",
+      },
+      {
+        question: "Is Patagonia Quartzite durable enough for heavy-use Indian kitchens and bathrooms?",
+        shortAnswer: "Yes. Mohs 7 hardness, 260°C heat tolerance, and <0.2% water absorption make it ideal for kitchens and wet bathrooms.",
+        answer:
+          "With Mohs 7 scratch resistance, <0.2% ASTM C97 water absorption, and thermal stability up to 260°C, Patagonia handles hot cookware, spices, oils, and high-humidity steam bathrooms effortlessly.",
+      },
+      {
+        question: "Can Patagonia slabs be bookmatched for fireplace walls and executive tables?",
+        shortAnswer: "Yes. Sequential slabs from Lot A-11284 are bookmatch-ready for mirror-symmetrical installations.",
+        answer:
+          "Sequential slabs of Patagonia are precision-sawn and polished in sequence so the dramatic diagonal veins align symmetrically across dual-slab bathroom vanity walls, fireplace surrounds, and oversized boardroom tables.",
+      },
+      {
+        question: "Where can architects and homeowners inspect Patagonia slabs in India?",
+        shortAnswer: "View full 136\" x 63\" Patagonia slabs at INTIOSS stockyards in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat.",
+        answer:
+          "Full-size 136\" x 63\" Patagonia Quartzite slabs (Lot A-11284) are available for private inspection across INTIOSS experience centers in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat with pan-India 48-hour dispatch.",
+      },
+    ],
+    pairsWithSlugs: ["light-grey-quartzite", "paunazo-quartzite", "white-crystal-quartzite-lot-jnc-01"],
+  },
 ];
 
