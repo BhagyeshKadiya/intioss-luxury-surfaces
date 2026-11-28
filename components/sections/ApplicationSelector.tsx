@@ -43,7 +43,7 @@ export function ApplicationSelector() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
             <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-gold font-semibold">
-              Select by Space • Architectural Applications
+              Select by Interior &amp; Architectural Use
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
           </div>
