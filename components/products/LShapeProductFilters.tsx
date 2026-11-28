@@ -292,6 +292,42 @@ export function TopLFilterBar({
     return options;
   }, [allProducts]);
 
+  const colorCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    dynamicColorOptions.forEach((opt) => {
+      const query = opt.name.toLowerCase();
+      const count = allProducts.filter((p) => {
+        const prodColor = (p.colorFamily || "").toLowerCase();
+        if (prodColor === query || prodColor.includes(query) || query.includes(prodColor)) {
+          return true;
+        }
+        if (
+          (query.includes("black") || query.includes("white")) &&
+          p.description?.toLowerCase().includes("black and white")
+        ) {
+          return true;
+        }
+        if (p.description?.toLowerCase().includes(query) || p.name.toLowerCase().includes(query)) {
+          return true;
+        }
+        return false;
+      }).length;
+      map.set(opt.name, count);
+    });
+    return map;
+  }, [dynamicColorOptions, allProducts]);
+
+  const categoryCounts = useMemo(() => {
+    const map = new Map<string, number>();
+    PRIMARY_PRODUCTS.forEach((prod) => {
+      const count = allProducts.filter(
+        (p) => p.category === prod.id || (p.subCategory && p.subCategory === prod.id)
+      ).length;
+      map.set(prod.id, count);
+    });
+    return map;
+  }, [allProducts]);
+
   return (
     <div className="bg-white border border-gold/50 rounded-3xl p-4 sm:p-6 shadow-[0_14px_44px_rgba(48,12,22,0.08)] relative z-40">
       {/* ROW 1: Color Selection Palette (Left) + Search Filter (Right, Same Row & Aligned) */}
@@ -321,17 +357,27 @@ export function TopLFilterBar({
               }`}
             >
               <span>All Colors</span>
+              <span
+                className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                  filterState.colorFamily.length === 0
+                    ? "bg-gold/20 text-gold font-bold"
+                    : "bg-stone-200/70 text-stone-500"
+                }`}
+              >
+                {allProducts.length}
+              </span>
             </button>
 
             {dynamicColorOptions.map((swatch) => {
               const selected = filterState.colorFamily.includes(swatch.name);
+              const count = colorCounts.get(swatch.name) ?? 0;
               return (
                 <button
                   key={swatch.name}
                   type="button"
                   onClick={() => toggleArrayFilter("colorFamily", swatch.name)}
                   title={swatch.label}
-                  className={`group inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-1.5 rounded-full border text-[11px] font-montserrat leading-none transition-all cursor-pointer ${
+                  className={`group inline-flex items-center gap-1.5 pl-1.5 pr-2 py-1.5 rounded-full border text-[11px] font-montserrat leading-none transition-all cursor-pointer ${
                     selected
                       ? "bg-maroon-deep text-ivory border-gold shadow-sm font-semibold scale-[1.03]"
                       : "bg-[#FAF7F2] hover:bg-white text-stone-700 border-gold/30 hover:border-gold"
@@ -355,6 +401,15 @@ export function TopLFilterBar({
                     )}
                   </span>
                   <span>{swatch.label}</span>
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                      selected
+                        ? "bg-gold/20 text-gold font-bold"
+                        : "bg-stone-200/70 text-stone-500"
+                    }`}
+                  >
+                    {count}
+                  </span>
                 </button>
               );
             })}
@@ -417,10 +472,20 @@ export function TopLFilterBar({
               {isAllCategories && <Check className="w-2.5 h-2.5 stroke-[3]" />}
             </span>
             <span>All Products</span>
+            <span
+              className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                isAllCategories
+                  ? "bg-gold/20 text-gold font-bold"
+                  : "bg-stone-200/70 text-stone-500"
+              }`}
+            >
+              {allProducts.length}
+            </span>
           </button>
 
           {PRIMARY_PRODUCTS.map((prod) => {
             const selected = filterState.category.includes(prod.id);
+            const count = categoryCounts.get(prod.id) ?? 0;
             return (
               <button
                 key={prod.id}
@@ -440,6 +505,15 @@ export function TopLFilterBar({
                   {selected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                 </span>
                 <span>{prod.name}</span>
+                <span
+                  className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
+                    selected
+                      ? "bg-gold/20 text-gold font-bold"
+                      : "bg-stone-200/70 text-stone-500"
+                  }`}
+                >
+                  {count}
+                </span>
               </button>
             );
           })}
