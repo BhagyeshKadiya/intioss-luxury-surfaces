@@ -143,6 +143,7 @@ const USER_ROLES = [
   "Civil Contractor",
   "Turnkey Contractor",
   "Trader",
+  "Others",
 ];
 
 const PROJECT_TYPES = [
@@ -487,17 +488,9 @@ export function ConsultationSection() {
                               value={formData.storeLocation}
                               onChange={(e) => {
                                 const loc = e.target.value;
-                                const inferredCity = loc.startsWith("Mumbai")
-                                  ? "Mumbai"
-                                  : loc.startsWith("Silvassa")
-                                  ? "Silvassa"
-                                  : loc.startsWith("Kishangarh")
-                                  ? "Kishangarh"
-                                  : "";
                                 setFormData((prev) => ({
                                   ...prev,
                                   storeLocation: loc,
-                                  city: inferredCity || prev.city,
                                 }));
                                 if (errors.storeLocation) {
                                   setErrors((prev) => {
@@ -669,10 +662,10 @@ export function ConsultationSection() {
 
                   {/* How you are ? & Approx. Area */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
-                    {/* How you are ? (Dropdown) */}
+                    {/* Who You Are ? (Dropdown) */}
                     <div className="relative">
                       <label className="block text-[11px] font-montserrat uppercase tracking-wider text-gold/90 font-semibold mb-1.5">
-                        How You Are ? *
+                        Who You Are ? *
                       </label>
                       <div className="relative">
                         <select
@@ -917,7 +910,7 @@ export function ConsultationSection() {
                         min={new Date().toISOString().split("T")[0]}
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full bg-white/[0.05] border-b border-gold/40 py-2.5 px-3 text-sm text-ivory placeholder:text-ivory/30 focus:outline-none focus:border-gold focus:bg-white/[0.08] transition-colors cursor-pointer rounded-t-sm"
+                        className="w-full bg-white/[0.05] border-b border-gold/40 py-2.5 px-3 text-sm text-ivory placeholder:text-ivory/30 focus:outline-none focus:border-gold focus:bg-white/[0.08] transition-colors cursor-pointer rounded-t-sm [color-scheme:dark]"
                       />
                     </div>
 
