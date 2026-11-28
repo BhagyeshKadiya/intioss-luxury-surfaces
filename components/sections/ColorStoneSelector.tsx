@@ -94,14 +94,14 @@ export function ColorStoneSelector() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
             <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
             <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-maroon-deep font-semibold">
-              Select Color Wise • Chromatic Stone Palette
+              Select by Interior &amp; Architectural Usage
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
           </div>
 
           {/* Main Heading - One-Liner */}
           <h2 className="font-marcellus text-[clamp(1.35rem,3.8vw,3.5rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight text-center">
-            Curate by Earth&apos;s Spectrum.
+            Select Your Stone by Color
           </h2>
         </div>
 

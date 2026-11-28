@@ -18,7 +18,7 @@ const MILESTONES: MilestoneItem[] = [
   {
     year: "1970",
     title: "Gandhi Civil Decor",
-    desc: "Establishment of Civil Interior Business",
+    desc: "Establishment of Civil Interior Contracting",
     tag: "Foundation",
     logo: "/images/legacy/gandhi-civil-decor-logo.png",
     logoAspect: "wide",
@@ -292,13 +292,13 @@ export function LegacySection() {
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
             <IntiossHexagon size={15} useVector={true} enablePrismaticGlint={true} />
             <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-maroon-deep font-semibold">
-              Our Legacy • 55+ Years of Mastery
+              Our Heritage
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-gold-dark animate-pulse" />
           </div>
 
           <h2 className="font-marcellus text-[clamp(0.95rem,2.7vw,2.65rem)] whitespace-nowrap text-maroon-deep font-normal tracking-wide leading-tight">
-            Born from the Legacy of 55 Years of Experience
+            Born from the Legacy of Half a Century
           </h2>
         </div>
 

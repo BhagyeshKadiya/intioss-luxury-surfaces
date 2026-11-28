@@ -17,44 +17,14 @@ interface HeroMediaItem {
 const HERO_MEDIA: HeroMediaItem[] = [
   {
     type: "image",
-    src: "/hero/Intioss_Golden-Statuario_Bathroom-Wall-Cladding_04.webp",
-    alt: "Intioss Golden Statuario Bathroom Cladding",
-    duration: 5500,
-  },
-  {
-    type: "image",
     src: "/hero/Intioss_Golden-Statuario_Living-Room-Flooring_03.webp",
     alt: "Intioss Golden Statuario Living Room Flooring",
     duration: 5500,
   },
   {
     type: "image",
-    src: "/hero/Intioss_Ice-Berg_Kitchen-Countertop-Backsplash_05.webp",
-    alt: "Intioss Ice Berg Kitchen Countertop",
-    duration: 5500,
-  },
-  {
-    type: "image",
     src: "/hero/Intioss_Michael-Angelo_Bathroom-Wall-Cladding_04.webp",
     alt: "Intioss Michael Angelo Wall Cladding",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Petrified-Wood-Mosaic_Dining-Table-Top_04.webp",
-    alt: "Intioss Petrified Wood Mosaic Dining Table",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/Intioss_Tiger-Eye_Entrance-Feature-Wall_04.webp",
-    alt: "Intioss Tiger Eye Feature Wall",
-    duration: 5500,
-  },
-  {
-    type: "image",
-    src: "/hero/intioss_use_case.webp",
-    alt: "Intioss Architectural Use Case",
     duration: 5500,
   },
   {

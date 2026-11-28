@@ -54,26 +54,26 @@ export function Footer() {
             </Link>
 
             <p className="font-jost text-xs sm:text-sm text-ivory/90 leading-relaxed max-w-sm mt-2">
-              Curators of rare Italian marble, semi-precious gemstones, and bespoke architectural stone surfaces.
+              Curators of rare imported marble, semi-precious gemstones, and bespoke architectural stone surfaces.
             </p>
 
             {/* Group Companies Section (Text-only until unmodified logo artwork is supplied) */}
             <div className="w-full pt-3 border-t border-gold/20">
               <span className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-gold font-semibold block mb-3">
-                INTIOSS Group
+                INTIOSS Group of Companies
               </span>
               <div className="space-y-2 text-xs font-jost text-ivory/90">
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Quality Marble</strong>
-                  <span className="text-ivory/80 text-[11px] text-right">Stockyard and marbles</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Premium Imported Marbles</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Marmo Granite International</strong>
-                  <span className="text-ivory/80 text-[11px] text-right">Production</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Imported Marble Processing</span>
                 </div>
                 <div className="flex items-start justify-between gap-2">
                   <strong className="text-ivory font-medium">Gandhi Civil Décor</strong>
-                  <span className="text-ivory/80 text-[11px] text-right">Installation</span>
+                  <span className="text-ivory/80 text-[11px] text-right">Civil Interior Contracting</span>
                 </div>
               </div>
             </div>
@@ -136,7 +136,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/services#marble-block-processing" className="hover:text-gold transition-colors">
-                  Marble Block Processing
+                  Marble Processing
                 </Link>
               </li>
               <li>

@@ -38,7 +38,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "paunazo-quartzite",
     title: "Paunazo Quartzite",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "Exotic Multicolor Quartzite · Mohs 7 Scratch & Acid Immunity",
     image: "/images/stones/paunazo/paunazo-slab.png",
@@ -51,7 +51,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "golden-statuario",
     title: "Golden Statuario Marble",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "Warm Amber-Honey Gold Veins on Pure White Calcite Matrix",
     image: "/images/stones/golden-statuario/golden-statuario-slab.png",
@@ -64,7 +64,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "thassos-white",
     title: "Thassos White Marble",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "The Purest Snow-White Crystalline Marble on Earth",
     image: "/images/stones/thassos/thassos-slab.png",
@@ -77,7 +77,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "statuario-classic",
     title: "Statuario Classic Marble",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "Bold Graphite-Black & Charcoal Veining on Brilliant White Calcite",
     image: "/images/stones/statuario/statuario-slab.png",
@@ -90,7 +90,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "statuario-rb599a",
     title: "Statuario Marble (Lot RB599A)",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "Monumental Monolithic Dimensions with High-Contrast Raven Veins",
     image: "/images/stones/statuario-rb599a/statuario-rb599a-slab.png",
@@ -103,7 +103,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "statuario-rb4384",
     title: "Statuario Marble (Lot RB-4384)",
-    category: "Natural Stone",
+    category: "Natural Stones",
     categoryFilter: "natural-stone",
     subtitle: "High-Contrast Charcoal Ribbons across Crystalline Carrara Base",
     image: "/images/stones/statuario-rb4384/statuario-rb4384-slab.png",
@@ -116,7 +116,7 @@ const TOP_10_PRODUCTS: ProductItem[] = [
   {
     id: "semi-precious-amethyst",
     title: "Semi-Precious Gemstones",
-    category: "Semi-Precious Stone",
+    category: "Semi-Precious Stones",
     categoryFilter: "semi-precious",
     subtitle: "Handcrafted Purple Amethyst, Blue Agate & Malachite Inlays",
     image: "/images/products/amethyst_slab_1791259421373.jpg",
@@ -319,7 +319,7 @@ export function ServicesProductsCarousel() {
       { value: "all" as ProductFilterCategory, label: "All Stones", count: TOP_10_PRODUCTS.length },
       {
         value: "natural-stone" as ProductFilterCategory,
-        label: "Natural Stone",
+        label: "Natural Stones",
         count: TOP_10_PRODUCTS.filter((p) => p.categoryFilter === "natural-stone").length,
       },
       {

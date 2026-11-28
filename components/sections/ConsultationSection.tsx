@@ -121,7 +121,7 @@ export const PRODUCT_INTEREST_OPTIONS: string[] = Array.from(
 
 export const SERVICE_INTEREST_OPTIONS = [
   "Luxury Civil Contracting",
-  "Marble Block Processing & Slabbing",
+  "Marble Processing & Slabbing",
   "Stone Facades & Exterior Cladding",
   "CNC & Waterjet Precision Inlay",
   "International Stone Sourcing",
@@ -132,7 +132,7 @@ const STORE_LOCATIONS = [
   "Mumbai (Vile Parle - Stock Yard)",
   "Mumbai (Malad - Stock Yard)",
   "Silvassa (Factory - Experience Centre)",
-  "Kishangarh (Only for Semi Precious Stone - Factory Experience Centre)",
+  "Kishangarh (Only for Semi-Precious Stones - Factory Experience Centre)",
 ];
 
 const USER_ROLES = [

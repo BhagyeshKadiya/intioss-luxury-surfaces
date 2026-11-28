@@ -535,7 +535,7 @@ export function TopLFilterBar({
             aria-label="Sort stones"
             className="bg-[#FAF7F2] border border-gold/40 text-xs font-montserrat text-maroon py-1.5 px-3 rounded-full focus:outline-none focus:border-gold cursor-pointer"
           >
-            <option value="featured">Featured Curation</option>
+            <option value="featured">Sort By</option>
             <option value="name-asc">Name (A – Z)</option>
             <option value="name-desc">Name (Z – A)</option>
           </select>

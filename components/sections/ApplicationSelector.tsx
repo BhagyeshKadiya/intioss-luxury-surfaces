@@ -50,7 +50,7 @@ export function ApplicationSelector() {
 
           {/* Main Heading - One-Liner */}
           <h2 className="font-marcellus text-[clamp(1.4rem,3.8vw,3.5rem)] whitespace-nowrap text-ivory font-normal tracking-wide leading-tight text-center">
-            Find Your Stone by Space.
+            Find Your Stone by Application
           </h2>
         </div>
 

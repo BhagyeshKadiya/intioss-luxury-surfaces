@@ -33,12 +33,12 @@ export const CATEGORY_TYPES_MAP: Record<string, string[]> = {
     "Murals",
     "Statues",
     "Artefacts",
+    "Floor Medallions",
   ],
   "Mosaics": [
     "Marble",
     "Semi-precious gemstone",
     "Hand-cut glass",
-    "Floor Medallions",
   ],
 };
 

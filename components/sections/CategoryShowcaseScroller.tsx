@@ -40,7 +40,7 @@ export interface ShowcaseItem {
 export const SURFACE_CATEGORIES: ShowcaseItem[] = [
   {
     id: "natural-stone",
-    title: "Natural Stone",
+    title: "Natural Stones",
     subtitle: "Italian Marbles, Quartzites & Onyx",
     description:
       "Hand-selected slabs from Carrara, Greece & Brazil, crafted for timeless architectural expressions.",
@@ -56,7 +56,7 @@ export const SURFACE_CATEGORIES: ShowcaseItem[] = [
   },
   {
     id: "semi-precious",
-    title: "Semi Precious Stone",
+    title: "Semi-Precious Stones",
     subtitle: "Translucent Gems & Rare Minerals",
     description:
       "Jewels of the earth crafted into backlit monolithic statement surfaces that radiate luminescence.",
@@ -155,7 +155,7 @@ export const SERVICE_DISCIPLINES: ShowcaseItem[] = [
   },
   {
     id: "marble-block-processing",
-    title: "Marble Block Processing",
+    title: "Marble Processing",
     subtitle: "Silvassa Factory & Diamond Gangsaw",
     description:
       "Monolithic block squaring, multi-blade gangsaw slicing, and automated vacuum-epoxy netting lines at our 50,000 sq.ft Silvassa Works.",
@@ -573,7 +573,7 @@ export function CategoryShowcaseScroller() {
 
           <div className="flex items-center gap-4">
             <span className="tracking-wider uppercase text-gold font-semibold">
-              6 {activeTab === "surfaces" ? "Signature Products" : "Specialized Services"}
+              6 {activeTab === "surfaces" ? "Signature Categories" : "Specialized Services"}
             </span>
             <span className="text-white/20">|</span>
             <Link

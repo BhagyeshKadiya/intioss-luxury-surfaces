@@ -57,7 +57,7 @@ export const SERVICES: ExtendedServiceItem[] = [
   {
     id: "s2",
     slug: "marble-block-processing",
-    title: "Marble Block Processing",
+    title: "Marble Processing",
     shortDesc:
       "Block gang-sawing, resin reinforcing, and surface calibration at our dedicated facilities.",
     fullDesc:
