@@ -942,5 +942,89 @@ export const PRODUCTS: StoneProduct[] = [
     ],
     pairsWithSlugs: ["paunazo-quartzite", "thassos-white-marble", "statuario-marble"],
   },
+  {
+    id: "p-light-grey-quartzite",
+    slug: "light-grey-quartzite",
+    name: "Light Grey Quartzite",
+    category: "Natural Stones",
+    subCategory: "Quartzite",
+    colorFamily: "Grey",
+    origin: "Exotic Quarry",
+    finishes: ["Polished", "Honed", "Leathered"],
+    applications: [
+      "Bathroom",
+      "Wall Cladding — Interior",
+      "Table Top",
+      "Kitchen Countertop",
+    ],
+    thicknesses: ["20mm"],
+    veining: "Bookmatch-ready",
+    priceTier: "tier_3",
+    availability: "Available on request",
+    primaryImage: "/images/stones/light-grey-quartzite/light-grey-quartzite-slab.png",
+    veinCloseUpImage: "/images/stones/light-grey-quartzite/light-grey-quartzite-cladding-interior.png",
+    galleryImages: [
+      "/images/stones/light-grey-quartzite/light-grey-quartzite-slab.png",
+      "/images/stones/light-grey-quartzite/light-grey-quartzite-kitchen-countertop.png",
+      "/images/stones/light-grey-quartzite/light-grey-quartzite-bathroom.png",
+      "/images/stones/light-grey-quartzite/light-grey-quartzite-table-top.png",
+      "/images/stones/light-grey-quartzite/light-grey-quartzite-cladding-interior.png",
+    ],
+    description:
+      "Light Grey Quartzite is a dense, metamorphic natural stone featuring cool dove-grey and silver-ash mineral bands interwoven with crisp ivory and charcoal quartz veins. Milled in jumbo 130\" x 79\" (330 x 201 cm) 20mm bookmatch-ready slabs, it pairs the architectural serenity of fine Italian grey marble with the Mohs 7 hardness, acid resistance, and ultra-low porosity of true natural quartzite—engineered for high-traffic kitchen countertops, waterfall islands, bookmatched interior wall cladding, spa bathrooms, and bespoke furniture table tops.",
+    bestSuitedFor: [
+      "Waterfall Kitchen Islands & High-Traffic Culinary Countertops",
+      "Bookmatched Interior Feature Walls & Double-Height Lobbies",
+      "Luxury Spa Bathroom Wet-Zones, Vanities & Walk-In Showers",
+      "Bespoke Architectural Dining & Oval Coffee Table Tops",
+    ],
+    specs: {
+      countryOfOrigin: "Brazil / Exotic Quarry",
+      density: "~2,650 kg/m³ (Mohs 7.0 · <0.2% Water Absorption)",
+      dimensions: "130\" x 79\" (330 x 201 cm) · 20mm Thickness",
+      quarryLocation: "Exotic Quartzite Quarry · Calibrated 20mm Bookmatch Lot",
+      recommendedCare:
+        "True metamorphic quartzite (Mohs 7) resistant to lemon, vinegar, coffee, and heat up to 260°C. Wipe daily with warm water and pH-neutral stone cleaner; apply a penetrating fluoropolymer sealer periodically.",
+    },
+    faqs: [
+      {
+        question: "What makes Light Grey Quartzite better than grey marble for kitchen countertops?",
+        shortAnswer: "Light Grey Quartzite rates Mohs 7 hardness, resisting acid etching, knife scratches, and heat up to 260°C.",
+        answer:
+          "Unlike calcitic grey marble (Mohs 3–4), Light Grey Quartzite is a true metamorphic quartzite rating 7 on the Mohs hardness scale. It resists etching from lemon juice, vinegar, coffee, and cooking oils, withstands hot cookware up to 260°C, and resists everyday knife scratches—making it ideal for Indian and international kitchens.",
+      },
+      {
+        question: "What are the slab dimensions and thickness available for Light Grey Quartzite?",
+        shortAnswer: "Jumbo slabs measure 130\" x 79\" (330 x 201 cm) at a calibrated 20mm thickness.",
+        answer:
+          "INTIOSS supplies Light Grey Quartzite in full jumbo slabs measuring 130\" x 79\" (330 x 201 cm) at a calibrated 20mm thickness, offering generous span coverage with minimal seam lines for large waterfall kitchen islands and full-height interior wall cladding.",
+      },
+      {
+        question: "Can Light Grey Quartzite slabs be bookmatched for interior wall cladding and bathrooms?",
+        shortAnswer: "Yes. Sequential slabs are precision-cut for mirror-image bookmatching across walls and showers.",
+        answer:
+          "Sequential slabs of Light Grey Quartzite are precision-cut and sequenced for mirror-image bookmatching across double-height reception walls, living room feature walls, and luxury walk-in shower enclosures.",
+      },
+      {
+        question: "Is Light Grey Quartzite suitable for wet bathroom floors and steam showers?",
+        shortAnswer: "Yes. With <0.2% water absorption (ASTM C97), it excels in wet bathrooms and steam showers.",
+        answer:
+          "With ASTM C97 water absorption below 0.2%, Light Grey Quartzite performs exceptionally in humid bathrooms, vanities, and shower walls. For wet bathroom flooring, we recommend a honed or leathered finish for enhanced slip resistance.",
+      },
+      {
+        question: "How does Light Grey Quartzite perform for bespoke dining and coffee table tops?",
+        shortAnswer: "Its 20mm structural density and cool silver-grey veining resist ring marks, heat, and daily wear.",
+        answer:
+          "Its 20mm structural density and cool silver-grey veining make Light Grey Quartzite a sought-after surface for oval, round, and rectangular dining and coffee table tops, resisting ring marks, heat, and daily wear.",
+      },
+      {
+        question: "Where can architects and homeowners inspect Light Grey Quartzite slabs in India?",
+        shortAnswer: "Inspect full 130\" x 79\" slabs at INTIOSS experience stockyards across India with 48-hour dispatch.",
+        answer:
+          "Full-size 130\" x 79\" Light Grey Quartzite slabs can be inspected at INTIOSS experience stockyards in Kishangarh, Mumbai, Delhi NCR, Bengaluru, Hyderabad, Ahmedabad, and Surat, with pan-India 48-hour dispatch.",
+      },
+    ],
+    pairsWithSlugs: ["paunazo-quartzite", "white-crystal-quartzite-lot-jnc-01", "statuario-marble"],
+  },
 ];
 
